@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>DonationBox</title>
+
+    <!-- Fonts -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    </style>
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+    <style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-2">
+        <div>
+            <h2 class="mt-0 text-center text-2xl font-bold text-gray-900">
+                Create your donation box for
+                <br>Estonian banks with no fees
+            </h2>
+            <p class="mt-2 mb-4 text-center text-sm text-gray-600">
+                It only takes 3 minutes to start receiving donations
+            </p>
+        </div>
+        <div x-data="app()" x-cloak>
+            <!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->
+            <div x-show.transition="step != 'complete'">
+                <!-- Top Navigation -->
+                <div class="py-4">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                        <div class="flex-1">
+                            <div class="uppercase tracking-normal text-xs font-normal text-gray-400 mb-1 leading-tight"
+                                 x-text="`Step: ${step} of 3`"></div>
+                            {{--                            <div x-show="step === 1">--}}
+                            {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Campaign name</div>--}}
+                            {{--                            </div>--}}
+
+                            {{--                            <div x-show="step === 2">--}}
+                            {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Payee's name--}}
+                            {{--                                </div>--}}
+                            {{--                            </div>--}}
+
+                            {{--                            <div x-show="step === 3">--}}
+                            {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Bank details</div>--}}
+                            {{--                            </div>--}}
+                        </div>
+
+                        <div class="flex items-center md:w-64">
+                            <div class="w-full bg-white rounded-full mr-2">
+                                <div class="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white"
+                                     :style="'width: '+ parseInt(step / 3 * 100) +'%'"></div>
+                            </div>
+                            <div class="text-xs w-10 text-gray-600" x-text="parseInt(step / 3 * 100) +'%'"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Top Navigation -->
+            </div>
+
+            <div class="bg-white rounded-lg p-5 shadow justify-between">
+                <div class="">
+                    <div x-show.transition="step === 'complete'">
+                        <div class="">
+                            <div>
+                                <button
+                                    @click="step = 1"
+                                    class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border"
+                                >Back to home
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div x-show.transition="step != 'complete'">
+
+                        <!-- Step Content -->
+                        <div class="py-1">
+                            <!-- Step 1 -->
+                            <div x-show="step === 1"
+                                 x-transition:enter.duration.500ms>
+                                <div class="mb-5">
+                                    <form class="space-y-4" action="{{ route('donation') }}" method="get"
+                                          id="generator">@csrf</form>
+                                    <div class="rounded-md -space-y-px">
+                                        <div class="grid gap-6">
+                                            <div class="col-span-12">
+                                                <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-1">Name your virtual donation box</label>
+                                                <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">
+                                                    This text will be used as the title of your donation box page.
+                                                </div>
+                                                <input
+                                                    form="generator"
+                                                    type="text"
+                                                    name="campaign_title"
+                                                    id="campaign_title_field"
+                                                    value="{{ request('campaign_title') }}"
+                                                    class="appearance-none rounded-none relative block
+                                                               w-full px-3 py-2 border border-gray-300
+                                                               placeholder-gray-500 text-gray-900 rounded-md
+                                                               focus:outline-none focus:ring-indigo-500
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg "
+                                                    {{--                                                            placeholder=""--}}
+                                                    required>
+                                            </div>
+
+                                            <div class="col-span-12">
+
+                                                <label for="detail" class="font-bold text-gray-700
+                                                        block mb-1">
+                                                    Bank transfer detail
+                                                </label>
+                                                <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">
+                                                    This value will be used as a requisite for the money transfer.
+                                                    <br>
+                                                    <a href="/" class="no-underline hover:underline
+                                                    text-blue-800">
+                                                        Learn more about why it's important to keep it serious and
+                                                        straightforward.
+                                                    </a>
+                                                </div>
+                                                <input
+                                                    form="generator"
+                                                    type="text"
+                                                    name="detail"
+                                                    value="Ülekanne"
+                                                    {{--                                                            value="{{ request('detail') }}"--}}
+                                                    class="appearance-none rounded-none relative block
+                                                               w-full px-3 py-2 border border-gray-300
+                                                               placeholder-gray-500 text-gray-900 rounded-md
+                                                               focus:outline-none focus:ring-indigo-500
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg "
+                                                    placeholder="eg. Ülekanne"
+                                                    required/>
+
+{{--                                                <input type="checkbox" name="duplicateName" id="duplicateName"--}}
+{{--                                                       value="Yes" placeholder="test"/>--}}
+{{--                                                <label for="duplicateName" class="tracking-normal text-xs--}}
+{{--                                                text-gray-500 mb-3 leading-tight">Use the same as the name for the--}}
+{{--                                                    donation box?</label>--}}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Step 2 -->
+                        <div x-show="step === 2"
+                             x-transition:enter.duration.500ms>
+                            <div class="mb-5">
+                                @csrf
+                                <div class="rounded-md -space-y-px">
+                                    <div class="grid gap-6">
+                                        <div class="col-span-12">
+                                            <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-2">Payee's name</label>
+                                            <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">
+                                                Insert the name of the individual or company you would like
+                                                to donate to. Please make sure that the name is spelled correctly and in
+                                                Latin letters.
+                                            </div>
+                                            <input
+                                                form="generator"
+                                                type="text"
+                                                name="payee"
+                                                value="{{ request('payee') }}"
+                                                class="appearance-none rounded-none relative block
+                                                               w-full px-3 py-2 border border-gray-300
+                                                               placeholder-gray-500 text-gray-900 rounded-md
+                                                               focus:outline-none focus:ring-indigo-500
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg "
+                                                placeholder="eg. Vassili Pupkin"
+                                                required/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div x-show="step === 3"
+                             x-transition:enter.duration.500ms>
+                            <div class="mb-5">
+                                @csrf
+                                <div class="rounded-md -space-y-px">
+                                    <div class="grid gap-6">
+                                        <div class="col-span-12">
+                                            <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-2">Payee's bank account (IBAN) number</label>
+                                            <input
+                                                form="generator"
+                                                type="text"
+                                                name="iban"
+                                                value="{{ request('iban') }}"
+                                                class="appearance-none rounded-none relative block
+                                                               w-full px-3 py-2 border border-gray-300
+                                                               placeholder-gray-500 text-gray-900 rounded-md
+                                                               focus:outline-none focus:ring-indigo-500
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg "
+                                                placeholder="eg. EE471000001020145685"
+                                                required/>
+                                        </div>
+                                        <div class="col-span-12">
+                                            <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-2">Payee's PayPal.me link</label>
+                                            <div class="flex flex-wrap items-stretch w-full mb-4 relative">
+                                                <div class="flex -mr-px">
+                                                    <span
+                                                        class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">paypal.me/</span>
+                                                </div>
+                                                <input
+                                                    form="generator"
+                                                    type="text"
+                                                    name="pp"
+                                                    value="{{ request('pp') }}"
+                                                    class="flex-shrink flex-grow flex-auto flex-auto
+                                                        leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative "
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- / Step Content -->
+                </div>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <div class="fixed bottom-0 left-0 right-0 py-5 bg-white shadow-md" x-show="step != 'complete'">
+                <div class="max-w-3xl mx-auto px-4">
+                    <div class="flex justify-between">
+                        <div class="w-1/2 text-right">
+                            <button
+                                x-show="step > 1"
+                                @click="step--"
+                                class="w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
+                                    text-gray-600 bg-white hover:bg-gray-100 font-medium border"
+                            >Previous
+                            </button>
+                        </div>
+
+                        <div class="w-1/2 ">
+                            <button
+                                x-show="step < 3"
+                                @click="step++"
+                                class="w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
+                                    border border-transparent font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Next
+                            </button>
+
+                            <button
+                                type="submit"
+                                form="generator"
+                                value="submit"
+                                x-show="step === 3"
+                                class="w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
+                                    border border-transparent font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Complete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+</div>
+
+</div>
+
+<script>
+    function app() {
+        return {
+            step: 1,
+            passwordStrengthText: '',
+            togglePassword: false,
+
+            password: '',
+            gender: 'Male',
+
+            checkPasswordStrength() {
+                var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+                var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+
+                let value = this.password;
+
+                if (strongRegex.test(value)) {
+                    this.passwordStrengthText = "Strong password";
+                } else if (mediumRegex.test(value)) {
+                    this.passwordStrengthText = "Could be stronger";
+                } else {
+                    this.passwordStrengthText = "Too weak";
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
