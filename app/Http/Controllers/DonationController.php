@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -25,11 +26,21 @@ class DonationController extends Controller
             $amount = null;
             $swed_single = sprintf("https://www.swedbank.ee/private/d2d/payments2/domestic/new?domestic.beneficiaryAccountNumber=%s&domestic.beneficiaryName=%s&domestic.details=%s&domestic.amount=", urldecode($iban), urldecode($payee), urldecode($detail));
 
-            echo $link;
-            echo '<br>';
-            echo urldecode($link);
+//            echo $link;
+//            echo '<br>';
+//            echo urldecode($link);
 
             $qrcode = QrCode::size(200)->generate($link);
+
+            // passing values to the session
+            session(array(
+                    'campaign_title' => $campaign_title,
+                    'detail' => $detail,
+                    'payee' => $payee,
+                    'iban' => $iban,
+                    'pp' => $pp
+                )
+            );
 
             $compactData=array(
                 'qrcode',
@@ -55,26 +66,5 @@ class DonationController extends Controller
 
             return view("donation", compact($compactData)   );
         }
-    }
-
-    public function getBankLink(Request $request) {
-        switch ($request->input('donationsum')) {
-            case 'swedbank':
-                $amount = urlencode($request->input('donationsum'));
-
-                $url = "https://www.swedbank.ee/private/d2d/payments2/domestic/new?domestic
-                #.beneficiaryAccountNumber=%s&domestic.beneficiaryName=%s&domestic.details=%s&domestic.amount=";
-                break;
-        }
-
-        $compactData=array(
-            'url'
-        );
-
-        $data = array(
-            'url' => $url
-        );
-
-        return view("banklink", compact($compactData));
     }
 }

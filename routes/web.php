@@ -27,6 +27,8 @@ Route::get('/donation', 'App\Http\Controllers\DonationController@donationLink')-
 
 Route::post('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation.show');
 
-Route::post('/donation', 'App\Http\Controllers\DonationController@getBankLink')->name('getBankLink');
+Route::get('/redirect', 'App\Http\Controllers\RedirectController@getBankLink')->name('redirect');
+
+Route::post('/redirect', 'App\Http\Controllers\RedirectController@getBankLink')->name('redirect.show');
 
 Route::view('/welcome', 'welcome');

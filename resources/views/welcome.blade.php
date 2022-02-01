@@ -44,7 +44,7 @@
                                 <div class="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white"
                                      :style="'width: '+ parseInt(step / 3 * 100) +'%'"></div>
                             </div>
-                            <div class="text-xs w-10 text-gray-600" x-text="parseInt(step / 3 * 100) +'%'"></div>
+                            <div class="text-xs w-10 text-gray-600 transition duration-150 ease-in-out" x-text="parseInt(step / 3 * 100) +'%'"></div>
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                                                                w-full px-3 py-2 border border-gray-300
                                                                placeholder-gray-500 text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
-                                                               focus:border-indigo-500 focus:z-10 lg:text-lg "
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                     {{--                                                            placeholder=""--}}
                                                     required>
                                             </div>
@@ -125,7 +125,7 @@
                                                                w-full px-3 py-2 border border-gray-300
                                                                placeholder-gray-500 text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
-                                                               focus:border-indigo-500 focus:z-10 lg:text-lg "
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                     placeholder="eg. Ülekanne"
                                                     required/>
 
@@ -166,7 +166,7 @@
                                                                w-full px-3 py-2 border border-gray-300
                                                                placeholder-gray-500 text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
-                                                               focus:border-indigo-500 focus:z-10 lg:text-lg "
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                 placeholder="eg. Vassili Pupkin"
                                                 required/>
                                         </div>
@@ -193,7 +193,7 @@
                                                                w-full px-3 py-2 border border-gray-300
                                                                placeholder-gray-500 text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
-                                                               focus:border-indigo-500 focus:z-10 lg:text-lg "
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                 placeholder="eg. EE471000001020145685"
                                                 required/>
                                         </div>
@@ -211,7 +211,7 @@
                                                     name="pp"
                                                     value="{{ request('pp') }}"
                                                     class="flex-shrink flex-grow flex-auto flex-auto
-                                                        leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative "
+                                                        leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
                                                 />
                                             </div>
                                         </div>
@@ -233,7 +233,7 @@
                                 x-show="step > 1"
                                 @click="step--"
                                 class="w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
-                                    text-gray-600 bg-white hover:bg-gray-100 font-medium border"
+                                    text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out"
                             >Previous
                             </button>
                         </div>
@@ -243,7 +243,8 @@
                                 x-show="step < 3"
                                 @click="step++"
                                 class="w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
-                                    border border-transparent font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    border border-transparent font-medium rounded-md text-white bg-indigo-600
+                                    hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                                 Next
                             </button>
 
@@ -253,7 +254,8 @@
                                 value="submit"
                                 x-show="step === 3"
                                 class="w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
-                                    border border-transparent font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    border border-transparent font-medium rounded-md text-white bg-indigo-600
+                                    hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                                 Complete
                             </button>
                         </div>
