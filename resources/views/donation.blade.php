@@ -112,7 +112,7 @@
                                                         class="w-full pl-7 pr-7 px-3 py-2 border border-gray-300
                                                         placeholder-gray-500 text-gray-900 rounded-md
                                                         focus:outline-none focus:ring-indigo-500
-                                                        focus:border-indigo-500 focus:z-10 2xl:text-4xl text-center"
+                                                        focus:border-indigo-500 focus:z-10 text-4xl text-center"
                                                         placeholder="0.00"
                                                         x-model="preamount">
                                                 </div>
