@@ -213,6 +213,19 @@
                                                      hover:bg-blue-900">Paypal
                                                             </button>
                                                         @endif
+                                                        @if($db)
+                                                            <button
+                                                                form="sumforbank"
+                                                                type="submit"
+                                                                name="action"
+                                                                value="donorbox"
+                                                                class="transition duration-150 ease-in-out bg-white
+                                                                px-5
+                                                py-3 text-sm shadow-sm font-medium
+                                                     tracking-wider border text-red-400 rounded-full hover:shadow-lg
+                                                     hover:bg-gray-50">Credit cards (Donorbox)
+                                                            </button>
+                                                        @endif
                                                     </div>
                                                     <div x-show="toggle" class="p-1 mt-2 text-center space-x-1 space-y-2">
                                                         <button

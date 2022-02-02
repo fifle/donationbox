@@ -14,6 +14,7 @@ class RedirectController extends Controller
         $payee = session('payee');
         $iban = session('iban');
         $pp = session('pp');
+        $db = session('db');
 
         $amount = urlencode($request->input('donationsum'));
 
@@ -44,6 +45,12 @@ class RedirectController extends Controller
             case 'paypal':
                 $bankname = "Paypal";
                 $url = sprintf("https://paypal.me/%s/%sEUR", $pp, $amount);
+                return Redirect::to($url);
+
+                // need to separate first name and last name for donorbox
+            case 'donorbox':
+                $bankname = "Donorbox";
+                $url = sprintf("https://donorbox.org/embed/%s?first_name=%s&last_name=%s&email=&phone=&amount=%s&address=&zip_code=&default_interval=&currency=eur", $db, $payee, $payee, $amount);
                 return Redirect::to($url);
         }
 

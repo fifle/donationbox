@@ -200,7 +200,7 @@
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-2">Payee's PayPal.me link</label>
-                                            <div class="flex flex-wrap items-stretch w-full mb-4 relative">
+                                            <div class="flex flex-wrap items-stretch w-full mb-2 relative">
                                                 <div class="flex -mr-px">
                                                     <span
                                                         class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">paypal.me/</span>
@@ -214,6 +214,22 @@
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
                                                 />
                                             </div>
+                                        </div>
+                                        <div class="col-span-12">
+                                            <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-2">Payee's Donorbox username (for credit cards)</label>
+                                                <input
+                                                    form="generator"
+                                                    type="text"
+                                                    name="db"
+                                                    value="{{ request('db') }}"
+                                                    class="appearance-none rounded-none relative block
+                                                               w-full px-3 py-2 border border-gray-300
+                                                               placeholder-gray-500 text-gray-900 rounded-md
+                                                               focus:outline-none focus:ring-indigo-500
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
+                                                    placeholder="Insert your username here"
+                                                    />
                                         </div>
                                     </div>
                                 </div>

@@ -8,8 +8,9 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DonationController extends Controller
 {
-    public function donationLink(Request $request) {
-        if(!$request->has('campaign_title')) {
+    public function donationLink(Request $request)
+    {
+        if (!$request->has('campaign_title')) {
             return redirect()->route('welcome');
         } else {
             $campaign_title = urlencode($request->input('campaign_title'));
@@ -17,10 +18,12 @@ class DonationController extends Controller
             $payee = urlencode($request->input('payee'));
             $iban = urlencode($request->input('iban'));
             $pp = urlencode($request->input('pp'));
+            $db = urlencode($request->input('db'));
 
             // links
-            $link = url('/donation?campaign_title=' . $campaign_title . '&detail=' . $detail . '&payee=' .
-                $payee . '&iban=' . $iban . '&pp=' . $pp . '');
+            $link = url('/donation?campaign_title=' . $campaign_title . '&detail=' . $detail . '&payee=' . $payee . '&iban=' . $iban . '&pp=' . $pp . '');
+
+            $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s'), $campaign_title, $detail, $payee, $iban, $pp, $db);
 
             // swedbank
             $amount = null;
@@ -38,19 +41,20 @@ class DonationController extends Controller
                     'detail' => $detail,
                     'payee' => $payee,
                     'iban' => $iban,
-                    'pp' => $pp
+                    'pp' => $pp,
+                    'db' => $db
                 )
             );
 
-            $compactData=array(
+            $compactData = array(
                 'qrcode',
                 'campaign_title',
-                'detail' ,
+                'detail',
                 'payee',
                 'iban',
                 'pp',
+                'db',
                 'amount',
-                'swed_single'
             );
 
             $data = array(
@@ -60,11 +64,11 @@ class DonationController extends Controller
                 'payee' => $payee,
                 'iban' => $iban,
                 'pp' => $pp,
+                'db' => $db,
                 'amount' => $amount,
-                'swed_single' => $swed_single
             );
 
-            return view("donation", compact($compactData)   );
+            return view("donation", compact($compactData));
         }
     }
 }
