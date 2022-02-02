@@ -50,7 +50,7 @@ class RedirectController extends Controller
                 // need to separate first name and last name for donorbox
             case 'donorbox':
                 $bankname = "Donorbox";
-                $url = sprintf("https://donorbox.org/embed/%s?first_name=&last_name=&email=&phone=&amount=%s&address=&zip_code=&default_interval=&currency=eur", $db, $amount);
+                $url = sprintf("https://donorbox.org/embed/%s?&amount=%s&default_interval=&currency=eur", $db, $amount);
                 return Redirect::to($url);
         }
 
