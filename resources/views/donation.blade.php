@@ -12,7 +12,10 @@
                 {!! urldecode($campaign_title) !!}
             </h2>
             <p class="mt-2 mb-0 text-center text-sm text-gray-600">
-                {!! urldecode($payee) !!} / {!! urldecode($iban) !!} / {!! urldecode($detail) !!}
+                {!! urldecode($payee) !!}<br>
+                {!! urldecode($iban) !!}<br>
+                {!! urldecode($detail) !!}<br>
+                Paypal: {!! urldecode($pp) !!}
                 {{--                <a href="" class="no-underline hover:underline text-xs text-blue-800">payee's background ></a>--}}
             </p>
 
@@ -44,12 +47,11 @@
                                 <div class="rounded-md -space-y-px">
                                     <div class="grid gap-6">
                                         <div class="col-span-12">
-                                            <div>
-                                                <div x-data="{toggle: false}">
-                                                    <div class="flex items-center justify-center mt-8">
-                                                        <div class="mr-3 text-xs">One-time payment</div>
-                                                        <div
-                                                            class="
+                                            <div x-data="{toggle: false}">
+                                                <div class="flex items-center justify-center mt-8">
+                                                    <div class="mr-3 text-xs">One-time payment</div>
+                                                    <div
+                                                        class="
             relative
             w-12
             h-6
@@ -58,11 +60,11 @@
             ease-linear
             rounded-full
           "
-                                                            :class="[toggle ? 'bg-indigo-800' : 'bg-gray-300']"
-                                                        >
-                                                            <label
-                                                                for="toggle"
-                                                                class="
+                                                        :class="[toggle ? 'bg-indigo-800' : 'bg-gray-300']"
+                                                    >
+                                                        <label
+                                                            for="toggle"
+                                                            class="
               absolute
               left-0
               w-6
@@ -75,24 +77,21 @@
               rounded-full
               cursor-pointer
             "
-                                                                :class="[toggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"
-                                                            >
-                                                            </label>
+                                                            :class="[toggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"
+                                                        >
+                                                        </label>
 
-                                                            <input
-                                                                type="checkbox"
-                                                                id="toggle"
-                                                                name="toggle"
-                                                                x-model="toggle"
-                                                                class="w-full h-full appearance-none focus:outline-none"
-                                                            />
-                                                        </div>
-                                                        <div class="ml-3 text-xs">Recurring payment</div>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="toggle"
+                                                            name="toggle"
+                                                            x-model="toggle"
+                                                            class="w-full h-full appearance-none focus:outline-none"
+                                                        />
                                                     </div>
+                                                    <div class="ml-3 text-xs">Recurring payment</div>
                                                 </div>
-
                                                 <div x-data="{ preamount: '' }">
-
                                                     <div class="w-48 max-w-xs mr-auto ml-auto mt-8">
                                                         <div class="relative">
                                                             <div
@@ -140,89 +139,124 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="p-1 mt-2 text-center space-x-1 space-y-2">
-                                                {{--                                                <a--}}
-                                                {{--                                                    x-data="{ url: '{!! $swed_single !!}' }"--}}
-                                                {{--                                                    href="{!! $swed_single !!}"--}}
-                                                {{--                                                    target="_blank">--}}
-                                                {{--                                                    <button--}}
-                                                {{--                                                        class="bg-yellow-500 px-5 py-3 text-sm shadow-sm--}}
-                                                {{--                                                        font-medium tracking-wider border text-yellow-100 rounded-full--}}
-                                                {{--                                                        hover:shadow-lg hover:bg-yellow-600">Swedbank--}}
-                                                {{--                                                    </button>--}}
-                                                {{--                                                </a>--}}
-                                                <button
-                                                    form="sumforbank"
-                                                    type="submit"
-                                                    name="action"
-                                                    value="swed"
-                                                    class="transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
+                                                <div class="">
+                                                    <div x-show="!toggle" class="p-1 mt-2 text-center space-x-1 space-y-2">
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="swed"
+                                                            class="transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
                                                     text-sm shadow-sm font-medium
                                                         tracking-wider border text-yellow-100 rounded-full
                                                         hover:shadow-lg hover:bg-yellow-600">Swedbank
-                                                </button>
-                                                <button
-                                                    form="sumforbank"
-                                                    type="submit"
-                                                    name="action"
-                                                    value="seb"
-                                                    class="transition duration-150 ease-in-out bg-green-500 px-5 py-3
+                                                        </button>
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="seb"
+                                                            class="transition duration-150 ease-in-out bg-green-500 px-5 py-3
                                                      text-sm shadow-sm
                                                     font-medium tracking-wider border text-green-100 rounded-full
                                                     hover:shadow-lg hover:bg-green-600">SEB
-                                                </button>
-                                                <button
-                                                    form="sumforbank"
-                                                    type="submit"
-                                                    name="action"
-                                                    value="lhv"
-                                                    class="transition duration-150 ease-in-out bg-gray-700 px-5 py-3
+                                                        </button>
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="lhv"
+                                                            class="transition duration-150 ease-in-out bg-gray-700 px-5 py-3
                                                     text-sm shadow-sm
                                                     font-medium tracking-wider border text-gray-100 rounded-full
                                                     hover:shadow-lg hover:bg-gray-800">LHV
-                                                </button>
-                                                <button
-                                                    form="sumforbank"
-                                                    type="submit"
-                                                    name="action"
-                                                    value="coop"
-                                                    class="transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
+                                                        </button>
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="coop"
+                                                            class="transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
                                                     text-sm shadow-sm
                                                     font-medium tracking-wider border text-blue-100 rounded-full
                                                     hover:shadow-lg hover:bg-blue-700">Coop
-                                                </button>
-                                                <button
-                                                    form="sumforbank"
-                                                    type="submit"
-                                                    name="action"
-                                                    value="luminor"
-                                                    class="transition duration-150 ease-in-out bg-pink-900 px-5
+                                                        </button>
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="luminor"
+                                                            class="transition duration-150 ease-in-out bg-pink-900 px-5
                                                 py-3 text-sm shadow-sm
                                                     font-medium tracking-wider border text-pink-100 rounded-full
                                                     hover:shadow-lg hover:bg-pink-800">Luminor
-                                                </button>
-                                                <button
-                                                    form="sumforbank"
-                                                    type="submit"
-                                                    name="action"
-                                                    value="citadele"
-                                                    class="transition duration-150 ease-in-out bg-red-600 px-5
+                                                        </button>
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="citadele"
+                                                            class="transition duration-150 ease-in-out bg-red-600 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-red-100 rounded-full hover:shadow-lg
                                                      hover:bg-red-700">Citadele
-                                                </button>
-                                                <button
-                                                    form="sumforbank"
-                                                    type="submit"
-                                                    name="action"
-                                                    value="paypal"
-                                                    class="transition duration-150 ease-in-out bg-blue-800 px-5
+                                                        </button>
+                                                        @if($pp)
+                                                            <button
+                                                                form="sumforbank"
+                                                                type="submit"
+                                                                name="action"
+                                                                value="paypal"
+                                                                class="transition duration-150 ease-in-out bg-blue-800 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-blue-100 rounded-full hover:shadow-lg
                                                      hover:bg-blue-900">Paypal
-                                                </button>
+                                                            </button>
+                                                        @endif
+                                                    </div>
+                                                    <div x-show="toggle" class="p-1 mt-2 text-center space-x-1 space-y-2">
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="swed-standing"
+                                                            class="transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
+                                                    text-sm shadow-sm font-medium
+                                                        tracking-wider border text-yellow-100 rounded-full
+                                                        hover:shadow-lg hover:bg-yellow-600">Swedbank
+                                                        </button>
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="seb"
+                                                            class="transition duration-150 ease-in-out bg-green-500 px-5 py-3
+                                                     text-sm shadow-sm
+                                                    font-medium tracking-wider border text-green-100 rounded-full
+                                                    hover:shadow-lg hover:bg-green-600">SEB
+                                                        </button>
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="lhv"
+                                                            class="transition duration-150 ease-in-out bg-gray-700 px-5 py-3
+                                                    text-sm shadow-sm
+                                                    font-medium tracking-wider border text-gray-100 rounded-full
+                                                    hover:shadow-lg hover:bg-gray-800">LHV
+                                                        </button>
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="coop"
+                                                            class="transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
+                                                    text-sm shadow-sm
+                                                    font-medium tracking-wider border text-blue-100 rounded-full
+                                                    hover:shadow-lg hover:bg-blue-700">Coop
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 

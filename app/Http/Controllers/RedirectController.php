@@ -41,6 +41,10 @@ class RedirectController extends Controller
                 $url = sprintf("https://i-pank.krediidipank.ee/newpmt?SaajaNimi=%s&SaajaKonto=%s&MaksePohjus=%s&MakseSumma=%s", $payee, $iban, $detail, $amount);
                 return Redirect::to($url);
 
+            case 'paypal':
+                $bankname = "Paypal";
+                $url = sprintf("https://paypal.me/%s/%sEUR", $pp, $amount);
+                return Redirect::to($url);
         }
 
 
