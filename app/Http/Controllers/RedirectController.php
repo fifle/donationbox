@@ -47,7 +47,6 @@ class RedirectController extends Controller
                 $url = sprintf("https://paypal.me/%s/%sEUR", $pp, $amount);
                 return Redirect::to($url);
 
-                // need to separate first name and last name for donorbox
             case 'donorbox':
                 $bankname = "Donorbox";
                 $url = sprintf("https://donorbox.org/embed/%s?&amount=%s&default_interval=&currency=eur", $db, $amount);

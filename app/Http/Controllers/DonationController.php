@@ -33,7 +33,9 @@ class DonationController extends Controller
 //            echo '<br>';
 //            echo urldecode($link);
 
-            $qrcode = QrCode::size(200)->generate($link);
+            $qrcode = QrCode::size(250)
+                ->color(150, 90, 10)
+                ->generate($link);
 
             // passing values to the session
             session(array(

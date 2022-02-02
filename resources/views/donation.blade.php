@@ -33,10 +33,6 @@
             </div>
 
             <div class="bg-white rounded-lg p-5 pt-0 shadow justify-between">
-                <div class="">
-
-                </div>
-
                 <div x-show.transition="step != 'complete'">
 
                     <!-- Step Content -->
@@ -274,7 +270,6 @@
                                         </div>
 
                                     </div>
-                                    {{--                                    <div>{!! $qrcode !!}</div>--}}
                                 </div>
                             </div>
                         </div>
@@ -283,8 +278,27 @@
 
 
             </div>
+            <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
+                <div class="content-center">
+                    <p class="mt-2 mb-2 text-center text-sm text-gray-600">
+                        Scan QR-code and easily share donation box!
+                    </p>
+                    {!! $qrcode !!}
+                    <a href="" class="no-underline hover:underline text-mg text-blue-800">Download QR as PDF ></a>
+                    <a href="" class="no-underline hover:underline text-mg text-blue-800">Download QR as an PNG image ></a>
+                    <a href="" class="no-underline hover:underline text-mg text-blue-800">Share the image ></a>
+                </div>
+            </div>
 
-        </div>
+            <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
+                <div class="content-center">
+                    <p class="mt-2 mb-2 text-center text-lg text-gray-600">
+                        Share the link!
+                    </p>
+                </div>
+            </div>
+
+            </div>
     </div>
 
 </div>
