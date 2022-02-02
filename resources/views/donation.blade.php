@@ -193,23 +193,41 @@
                                                     font-medium tracking-wider border text-blue-100 rounded-full
                                                     hover:shadow-lg hover:bg-blue-700">Coop
                                                 </button>
-
-                                                <button class="transition duration-150 ease-in-out bg-pink-900 px-5
+                                                <button
+                                                    form="sumforbank"
+                                                    type="submit"
+                                                    name="action"
+                                                    value="luminor"
+                                                    class="transition duration-150 ease-in-out bg-pink-900 px-5
                                                 py-3 text-sm shadow-sm
                                                     font-medium tracking-wider border text-pink-100 rounded-full
                                                     hover:shadow-lg hover:bg-pink-800">Luminor
                                                 </button>
-
-                                                <button class="transition duration-150 ease-in-out bg-red-600 px-5
+                                                <button
+                                                    form="sumforbank"
+                                                    type="submit"
+                                                    name="action"
+                                                    value="citadele"
+                                                    class="transition duration-150 ease-in-out bg-red-600 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-red-100 rounded-full hover:shadow-lg
                                                      hover:bg-red-700">Citadele
+                                                </button>
+                                                <button
+                                                    form="sumforbank"
+                                                    type="submit"
+                                                    name="action"
+                                                    value="paypal"
+                                                    class="transition duration-150 ease-in-out bg-blue-800 px-5
+                                                py-3 text-sm shadow-sm font-medium
+                                                     tracking-wider border text-blue-100 rounded-full hover:shadow-lg
+                                                     hover:bg-blue-900">Paypal
                                                 </button>
                                             </div>
                                         </div>
 
                                     </div>
-{{--                                    <div>{!! $qrcode !!}</div>--}}
+                                    {{--                                    <div>{!! $qrcode !!}</div>--}}
                                 </div>
                             </div>
                         </div>

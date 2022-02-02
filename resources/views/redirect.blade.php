@@ -48,7 +48,6 @@
                                                 finalize
                                                 your
                                                 payment.<   /p>
-                                            <p class="display: none;">{!! $redirect !!}</p>
                                         </div>
                                     </div>
                                 </div>

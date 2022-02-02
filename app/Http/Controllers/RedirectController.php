@@ -24,7 +24,7 @@ class RedirectController extends Controller
                 $url = sprintf("https://www.swedbank.ee/private/d2d/payments2/domestic/new?payment.beneficiaryAccountNumber=%s&payment.beneficiaryName=%s&payment.details=%s&payment.amount=%s", $iban, $payee, $detail, $amount);
                 return Redirect::to($url);
 
-                // not working
+                // not working, needs UID value to be processed
             case 'seb':
                 $bankname = "SEB";
                 $url = sprintf("https://e.seb.ee/ip/ipank?act=SMARTPAYM&lang=EST&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&value11=12345&field5=amount&value5=%s&paymtype=REMSEBEE&field6=currency&value6=EUR", $payee, $iban, $detail, $amount);
@@ -45,7 +45,6 @@ class RedirectController extends Controller
 
 
         $compactData=array(
-            'redirect',
             'bankname',
             'url',
             'campaign_title',
@@ -57,7 +56,6 @@ class RedirectController extends Controller
         );
 
         $data = array(
-            'redirect' => $redirect,
             'bankname' => $bankname,
             'url' => $url,
             'campaign_title' => $campaign_title,
