@@ -18,9 +18,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', function () {
-    $links = \App\Models\Link::all();
-
-    return view('welcome', ['links' => $links]);
+    return view('welcome');
 });
 
 Route::get('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation');
