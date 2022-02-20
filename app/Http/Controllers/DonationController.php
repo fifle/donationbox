@@ -19,15 +19,16 @@ class DonationController extends Controller
             $iban = urlencode($request->input('iban'));
             $pp = urlencode($request->input('pp'));
             $db = urlencode($request->input('db'));
+            $sebuid = urlencode($request->input('sebuid'));
 
             // links
-            $link = url('/donation?campaign_title=' . $campaign_title . '&detail=' . $detail . '&payee=' . $payee . '&iban=' . $iban . '&pp=' . $pp . '');
+//            $link = url('/donation?campaign_title=' . $campaign_title . '&detail=' . $detail . '&payee=' . $payee . '&iban=' . $iban . '&pp=' . $pp . '');
 
-            $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s'), $campaign_title, $detail, $payee, $iban, $pp, $db);
+            $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s'),
+                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid);
 
             // swedbank
             $amount = null;
-            $swed_single = sprintf("https://www.swedbank.ee/private/d2d/payments2/domestic/new?domestic.beneficiaryAccountNumber=%s&domestic.beneficiaryName=%s&domestic.details=%s&domestic.amount=", urldecode($iban), urldecode($payee), urldecode($detail));
 
 //            echo $link;
 //            echo '<br>';
@@ -44,7 +45,8 @@ class DonationController extends Controller
                     'payee' => $payee,
                     'iban' => $iban,
                     'pp' => $pp,
-                    'db' => $db
+                    'db' => $db,
+                    'sebuid' => $sebuid,
                 )
             );
 
@@ -56,6 +58,7 @@ class DonationController extends Controller
                 'iban',
                 'pp',
                 'db',
+                'sebuid',
                 'amount',
             );
 
@@ -67,6 +70,7 @@ class DonationController extends Controller
                 'iban' => $iban,
                 'pp' => $pp,
                 'db' => $db,
+                'sebuid' => $sebuid,
                 'amount' => $amount,
             );
 
