@@ -23,9 +23,9 @@ class DonationController extends Controller
             $sebuid = urlencode($request->input('sebuid'));
 
             // links
-//            $link = url('/donation?campaign_title=' . $campaign_title . '&detail=' . $detail . '&payee=' . $payee . '&iban=' . $iban . '&pp=' . $pp . '');
-
             $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s'),
+                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid);
+            $embedlink = sprintf(url('/embed?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s'),
                 $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid);
 
             // swedbank
@@ -65,6 +65,7 @@ class DonationController extends Controller
                 'db',
                 'sebuid',
                 'amount',
+                'embedlink',
             );
 
             $data = array(
@@ -77,9 +78,86 @@ class DonationController extends Controller
                 'db' => $db,
                 'sebuid' => $sebuid,
                 'amount' => $amount,
+                'embedlink' => $embedlink
             );
 
             return view("donation", compact($compactData));
+        }
+    }
+
+    public function donationEmbed(Request $request)
+    {
+        if (!$request->has('campaign_title')) {
+            return redirect()->route('welcome');
+        } else {
+            $campaign_title = urlencode($request->input('campaign_title'));
+            $detail = urlencode($request->input('detail'));
+            $payee = urlencode($request->input('payee'));
+            $iban = urlencode($request->input('iban'));
+            $pp = urlencode($request->input('pp'));
+            $db = urlencode($request->input('db'));
+            $sebuid = urlencode($request->input('sebuid'));
+
+            // links
+            $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s'),
+                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid);
+            $embedlink = sprintf(url('/embed?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s'),
+                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid);
+
+            // swedbank
+            $amount = null;
+
+//            $qrcode = QrCode::
+//                merge('https://i.imgur.com/JEjl8SV.png', .3, true)
+//                ->size(1920)
+//                ->generate($link);
+
+            $qrcode = QrCode::format('png')
+                ->merge('img/db-logo-qr.png', .3, true)
+                ->size(1920)
+                ->generate($link);
+
+//            $qrcode = QrCode::size(200)->generate($link);
+
+            // passing values to the session
+            session(array(
+                    'campaign_title' => $campaign_title,
+                    'detail' => $detail,
+                    'payee' => $payee,
+                    'iban' => $iban,
+                    'pp' => $pp,
+                    'db' => $db,
+                    'sebuid' => $sebuid,
+                )
+            );
+
+            $compactData = array(
+                'qrcode',
+                'campaign_title',
+                'detail',
+                'payee',
+                'iban',
+                'pp',
+                'db',
+                'sebuid',
+                'amount',
+                'embedlink',
+            );
+
+            $data = array(
+                'qrcode' => $qrcode,
+                'campaign_title' => $campaign_title,
+                'detail' => $detail,
+                'payee' => $payee,
+                'iban' => $iban,
+                'pp' => $pp,
+                'db' => $db,
+                'sebuid' => $sebuid,
+                'amount' => $amount,
+                'embedlink' => $embedlink
+            );
+
+            return view("embed", compact($compactData));
         }
     }
 }

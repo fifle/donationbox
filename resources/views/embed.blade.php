@@ -8,11 +8,6 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-2">
         <div>
-            <div class="mt-4 mb-8 w-1/2 mx-auto">
-                <a href="/" target="_blank">
-                    <img class="mx-auto" src="/img/db-logo-fl.png">
-                </a>
-            </div>
             <h2 class="mt-0 text-center text-2xl font-bold text-gray-900">
                 {!! urldecode($campaign_title) !!}
             </h2>
@@ -30,7 +25,7 @@
                 {!! urldecode($iban) !!}<br>
                 {!! urldecode($detail) !!}<br>
                 @if($pp)
-                Paypal username: {!! urldecode($pp) !!}
+                    Paypal username: {!! urldecode($pp) !!}
                 @endif
             </div>
 
@@ -162,16 +157,16 @@
                                                         hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                         </button>
                                                         @if($sebuid)
-                                                        <button
-                                                            form="sumforbank"
-                                                            type="submit"
-                                                            name="action"
-                                                            value="seb"
-                                                            class="transition duration-150 ease-in-out bg-green-500 px-5 py-3
+                                                            <button
+                                                                form="sumforbank"
+                                                                type="submit"
+                                                                name="action"
+                                                                value="seb"
+                                                                class="transition duration-150 ease-in-out bg-green-500 px-5 py-3
                                                      text-sm shadow-sm
                                                     font-medium tracking-wider border text-green-100 rounded-full
                                                     hover:shadow-lg hover:bg-green-600">SEB
-                                                        </button>
+                                                            </button>
                                                         @endif
                                                         <button
                                                             form="sumforbank"
@@ -193,26 +188,26 @@
                                                     font-medium tracking-wider border text-blue-100 rounded-full
                                                     hover:shadow-lg hover:bg-blue-700">Coop
                                                         </button>
-{{--                                                        <button--}}
-{{--                                                            form="sumforbank"--}}
-{{--                                                            type="submit"--}}
-{{--                                                            name="action"--}}
-{{--                                                            value="luminor"--}}
-{{--                                                            class="transition duration-150 ease-in-out bg-pink-900 px-5--}}
-{{--                                                py-3 text-sm shadow-sm--}}
-{{--                                                    font-medium tracking-wider border text-pink-100 rounded-full--}}
-{{--                                                    hover:shadow-lg hover:bg-pink-800">Luminor--}}
-{{--                                                        </button>--}}
-{{--                                                        <button--}}
-{{--                                                            form="sumforbank"--}}
-{{--                                                            type="submit"--}}
-{{--                                                            name="action"--}}
-{{--                                                            value="citadele"--}}
-{{--                                                            class="transition duration-150 ease-in-out bg-red-600 px-5--}}
-{{--                                                py-3 text-sm shadow-sm font-medium--}}
-{{--                                                     tracking-wider border text-red-100 rounded-full hover:shadow-lg--}}
-{{--                                                     hover:bg-red-700">Citadele--}}
-{{--                                                        </button>--}}
+                                                        {{--                                                        <button--}}
+                                                        {{--                                                            form="sumforbank"--}}
+                                                        {{--                                                            type="submit"--}}
+                                                        {{--                                                            name="action"--}}
+                                                        {{--                                                            value="luminor"--}}
+                                                        {{--                                                            class="transition duration-150 ease-in-out bg-pink-900 px-5--}}
+                                                        {{--                                                py-3 text-sm shadow-sm--}}
+                                                        {{--                                                    font-medium tracking-wider border text-pink-100 rounded-full--}}
+                                                        {{--                                                    hover:shadow-lg hover:bg-pink-800">Luminor--}}
+                                                        {{--                                                        </button>--}}
+                                                        {{--                                                        <button--}}
+                                                        {{--                                                            form="sumforbank"--}}
+                                                        {{--                                                            type="submit"--}}
+                                                        {{--                                                            name="action"--}}
+                                                        {{--                                                            value="citadele"--}}
+                                                        {{--                                                            class="transition duration-150 ease-in-out bg-red-600 px-5--}}
+                                                        {{--                                                py-3 text-sm shadow-sm font-medium--}}
+                                                        {{--                                                     tracking-wider border text-red-100 rounded-full hover:shadow-lg--}}
+                                                        {{--                                                     hover:bg-red-700">Citadele--}}
+                                                        {{--                                                        </button>--}}
                                                         @if($pp)
                                                             <button
                                                                 form="sumforbank"
@@ -237,8 +232,8 @@
                                                      tracking-wider border text-red-400 rounded-full hover:shadow-lg
                                                      hover:bg-gray-50 inline-flex items-center">
                                                                 <svg class="w-6 h-6 mr-2" fill="none"
-                                                                            stroke="currentColor" viewBox="0 0 24 24"
-                                                                            xmlns="http://www.w3.org/2000/svg"><path
+                                                                     stroke="currentColor" viewBox="0 0 24 24"
+                                                                     xmlns="http://www.w3.org/2000/svg"><path
                                                                         stroke-linecap="round"
                                                                         stroke-linejoin="round" stroke-width="2"
                                                                         d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0
@@ -260,16 +255,16 @@
                                                         hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                         </button>
                                                         @if($sebuid)
-                                                        <button
-                                                            form="sumforbank"
-                                                            type="submit"
-                                                            name="action"
-                                                            value="seb"
-                                                            class="transition duration-150 ease-in-out bg-green-500 px-5 py-3
+                                                            <button
+                                                                form="sumforbank"
+                                                                type="submit"
+                                                                name="action"
+                                                                value="seb"
+                                                                class="transition duration-150 ease-in-out bg-green-500 px-5 py-3
                                                      text-sm shadow-sm
                                                     font-medium tracking-wider border text-green-100 rounded-full
                                                     hover:shadow-lg hover:bg-green-600">SEB
-                                                        </button>
+                                                            </button>
                                                         @endif
                                                         <button
                                                             form="sumforbank"
@@ -302,71 +297,13 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
-            <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
-                <div class="content-center">
-                    <p class="mt-2 mb-2 text-center text-1xl font-bold text-gray-600">
-                        Scan QR-code and easily share donation box!
-                    </p>
-                    <img src="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="p-3.5">
-
-                    <div class="p-1 mt-2 text-center">
-                    <a href="#" class="no-underline text-mg text-blue-800">
-                        <div class="transition duration-150 ease-in-out bg-white
-                                                     px-5 py-3 text-sm shadow-sm font-medium
-                                                     tracking-wider border text-gray-600 rounded-full hover:shadow-lg
-                                                     hover:bg-gray-50 inline-flex items-center">
-                            Download QR as PDF >
-                        </div>
-                    </a>
-                    <a href="#" class="no-underline text-mg text-blue-800">
-                        <div class="mt-2 transition duration-150 ease-in-out bg-white
-                                                     px-5 py-3 text-sm shadow-sm font-medium
-                                                     tracking-wider border text-gray-600 rounded-full hover:shadow-lg
-                                                     hover:bg-gray-50 inline-flex items-center">
-                            Download QR as an PNG image >
-                        </div>
-                    </a>
-                </div>
-                </div>
+            <div class="mt-8 w-1/4 mx-auto">
+                <a href="/" target="_blank">
+                    <img class="mx-auto" src="/img/db-logo-fl.png">
+                </a>
             </div>
-
-            <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
-                <div class="content-center">
-                    <p class="mt-2 mb-2 text-center text-1xl font-bold text-gray-600">
-                        Share this donation box with your friends!
-                    </p>
-                    <div class="mt-2 items-center mr-auto ml-auto">
-                        {!! Share::page(url()->full(), urldecode($campaign_title))->facebook()->twitter()->whatsapp() !!}
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
-                <p class="mt-2 mb-2 text-center text-1xl font-bold text-gray-600">
-                    Embed your donation box to your webpage
-                </p>
-
-                <!-- Target -->
-
-                <input id="foo"
-                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                       value="{{ sprintf("<iframe src='%s' width='500' height='274' style='border:none;overflow:hidden' scrolling='no' frameborder='0' allowfullscreen='true' allow='autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share'></iframe>", $embedlink) }}">
-
-                <!-- Trigger -->
-                <button href="#_" class="btn px-5 py-2.5 font-medium bg-blue-50 hover:bg-blue-100 hover:text-blue-600
-                text-blue-500 rounded-lg text-sm" data-clipboard-target="#foo">
-                    Copy to clipboard
-                </button>
-
-                <script type="text/javascript">
-                    var Clipboard = new ClipboardJS('.btn');
-                </script>
-            </div>
-
-            </div>
+        </div>
     </div>
 
 </div>
