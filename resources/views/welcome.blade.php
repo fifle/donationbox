@@ -7,16 +7,16 @@
 
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-2">
-        <div class="items-center justify-center">
-            <h2 class="mt-0 text-center text-xl font-bold text-gray-900">
-                Open your own donation box for
-                Estonian banks with no hidden fees
-            </h2>
-            <div class="mt-8 mb-8 w-1/2 mx-auto">
+        <div class="items-center justify-center mt-8 mb-8">
+            <div class="w-1/2 mx-auto mb-4">
                 <a href="/" target="_blank">
                     <img class="mx-auto" src="/img/db-logo-fl.png">
                 </a>
             </div>
+            <h2 class="text-center text-xl font-bold text-gray-900">
+                Open your own donation box for
+                Estonian banks with no hidden fees
+            </h2>
         </div>
         <div x-data="app()" x-cloak>
             <!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->
