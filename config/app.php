@@ -233,6 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'Share' => Jorenvh\Share\ShareFacade::class,
+        'Bitly' => Shivella\Bitly\Facade\Bitly::class,
 
     ],
 

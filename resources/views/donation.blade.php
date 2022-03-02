@@ -19,7 +19,7 @@
             <div class="mt-2 mb-4 text-center text-sm text-gray-600">
                 {!! urldecode($payee) !!}
                 <a href="{{ sprintf("https://www.teatmik.ee/en/search/%s", $payee) }}" class="no-underline
-                 hover:underline text-xs text-blue-800">
+                 hover:underline text-xs text-blue-800" target="_blank">
                     <div class="inline-flex items-center">
                         (Teatmik.ee
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3

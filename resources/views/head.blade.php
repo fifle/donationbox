@@ -42,7 +42,6 @@
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}" defer></script>
 <script src="//unpkg.com/alpinejs" defer></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
 <script src="{{ asset('js/share.js') }}"></script>
 <script src="https://kit.fontawesome.com/6940ba20ce.js" crossorigin="anonymous"></script>
 
