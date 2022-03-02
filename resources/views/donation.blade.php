@@ -338,8 +338,15 @@
                     <p class="mt-2 mb-2 text-center text-1xl font-bold text-gray-600">
                         Share this donation box with your friends!
                     </p>
-                    <div class="mt-2 items-center mr-auto ml-auto">
+                    <div class="mt-2 inline-flex items-center">
                         {!! Share::page(url()->full(), urldecode($campaign_title))->facebook()->twitter()->whatsapp() !!}
+                        <!-- Trigger -->
+                            <button href="#_" class="btn px-5 py-2.5 ml-2 font-medium bg-blue-50 hover:bg-blue-100
+                            hover:text-blue-600
+                text-blue-500 rounded-lg text-sm inline-flex items-center" data-clipboard-text="{{ $link }}" data-tooltip-target="tooltip-click" data-tooltip-trigger="click">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg> Copy link to clipboard
+                            </button>
                     </div>
                 </div>
             </div>
@@ -350,7 +357,6 @@
                 </p>
 
                 <!-- Target -->
-
                 <input id="foo"
                        class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                        value="{{ sprintf("<iframe src='%s' width='500' height='700' style='border:none;overflow:hidden'
@@ -365,6 +371,24 @@
                 <script type="text/javascript">
                     var Clipboard = new ClipboardJS('.btn');
                 </script>
+            </div>
+
+            <div class="mt-16 mb-4 text-center text-xs text-gray-600">
+                Made with ❤ by <a href="//fleisher.ee" class="no-underline
+                 hover:underline text-xs text-blue-800" target="_blank">
+                    <div class="inline-flex items-center">Pavel<svg class="w-3 h-3 ml-1" fill="none"
+                                                                    stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
+                .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0
+                 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </div>
+                </a>
+                and inspired by Sheila
+                <br>
+                <a href="//fleisher.ee" class="no-underline
+                 hover:underline text-xs text-blue-800 mt-4" target="_blank">
+                    <div class="inline-flex items-center">
+                        Buy us a hot chocolate <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0
+                        24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 15.536c-1.171 1.952-3.07 1.952-4.242 0-1.172-1.953-1.172-5.119 0-7.072 1.171-1.952 3.07-1.952 4.242 0M8 10.5h4m-4 3h4m9-1.5a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
 
             </div>

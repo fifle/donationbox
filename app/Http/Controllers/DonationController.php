@@ -11,6 +11,12 @@ class DonationController extends Controller
 {
     public function donationLink(Request $request)
     {
+        $request->validate([
+            'campaign_title' => 'required|string|max:250',
+            'detail' => 'required|string|max:250',
+            'payee' => 'required|string|max:250',
+        ]);
+
         if (!$request->has('campaign_title')) {
             return redirect()->route('welcome');
         } else {
@@ -66,6 +72,7 @@ class DonationController extends Controller
                 'sebuid',
                 'amount',
                 'embedlink',
+                'link',
             );
 
             $data = array(
@@ -78,7 +85,8 @@ class DonationController extends Controller
                 'db' => $db,
                 'sebuid' => $sebuid,
                 'amount' => $amount,
-                'embedlink' => $embedlink
+                'embedlink' => $embedlink,
+                'link' => $link,
             );
 
             return view("donation", compact($compactData));

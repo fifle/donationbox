@@ -176,7 +176,32 @@
                                         </div>
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">Payee's PayPal.me link</label>
+                                                        block mb-2">SEB UID code</label>
+                                            <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">
+                                                If you want to connect SEB bank as part of the payment methods, you
+                                                need to get your own UID code from SEB.
+                                                <a href="#" class="no-underline hover:underline
+                                                    text-blue-800">Read more about how to
+                                                    obtain a special identifier for private individuals and companies
+                                                >   </a>
+                                            </div>
+                                            <input
+                                                form="generator"
+                                                type="text"
+                                                name="sebuid"
+                                                value="{{ request('sebuid') }}"
+                                                class="appearance-none rounded-none relative block
+                                                               w-full px-3 py-2 border border-gray-300
+                                                               placeholder-gray-500 text-gray-900 rounded-md
+                                                               focus:outline-none focus:ring-indigo-500
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
+                                                placeholder="Insert your UID here"
+                                            />
+                                        </div>
+                                        <div class="col-span-12">
+                                            <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-2">PayPal.me username</label>
                                             <div class="flex flex-wrap items-stretch w-full mb-2 relative">
                                                 <div class="flex -mr-px">
                                                     <span
@@ -189,12 +214,13 @@
                                                     value="{{ request('pp') }}"
                                                     class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
+                                                    placeholder="Insert your Paypal username here"
                                                 />
                                             </div>
                                         </div>
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">Payee's Donorbox username (for credit cards)</label>
+                                                        block mb-2">Donorbox username (for credit cards)</label>
                                                 <input
                                                     form="generator"
                                                     type="text"
@@ -205,7 +231,7 @@
                                                                placeholder-gray-500 text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                    placeholder="Insert your username here"
+                                                    placeholder="Insert your Donorbox username here"
                                                     />
                                         </div>
                                     </div>
