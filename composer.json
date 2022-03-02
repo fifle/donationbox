@@ -12,7 +12,8 @@
         "jorenvanhocht/laravel-share": "^4.2",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "simplesoftwareio/simple-qrcode": "~4"
+        "simplesoftwareio/simple-qrcode": "~4",
+        "ext-imagick": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
