@@ -50,7 +50,7 @@ class RedirectController extends Controller
 
             case 'donorbox':
                 $bankname = "Donorbox";
-                $url = sprintf("https://donorbox.org/embed/%s?&amount=%s&default_interval=&currency=eur", $db, $amount);
+                $url = sprintf("https://donorbox.org/%s?&amount=%s&default_interval=&currency=eur", $db, $amount);
                 return Redirect::to($url);
         }
 
@@ -63,6 +63,7 @@ class RedirectController extends Controller
             'payee',
             'iban',
             'pp',
+            'sebuid',
             'amount'
         );
 
@@ -74,6 +75,7 @@ class RedirectController extends Controller
             'payee' => $payee,
             'iban' => $iban,
             'pp' => $pp,
+            'sebuid' => $sebuid,
             'amount' => $amount
         );
 

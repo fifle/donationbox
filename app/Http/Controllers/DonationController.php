@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Jorenvh\Share\Share;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DonationController extends Controller
@@ -34,8 +35,9 @@ class DonationController extends Controller
 //            echo '<br>';
 //            echo urldecode($link);
 
-            $qrcode = QrCode::size(250)
-                ->color(150, 90, 10)
+            $qrcode = QrCode::format('png')
+                ->merge('https://i.imgur.com/JEjl8SV.png', .3, true)
+                ->size(1920)
                 ->generate($link);
 
             // passing values to the session

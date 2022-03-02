@@ -8,46 +8,23 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-2">
         <div>
-            <h2 class="mt-0 text-center text-2xl font-bold text-gray-900">
+            <div class="mb-8 w-1/2 mx-auto">
+                <a href="/" target="_blank">
+                    <img class="mx-auto" src="/img/db-logo-fl.png">
+                </a>
+            </div>
+            <h2 class="mt-0 text-center text-xl font-bold text-gray-900">
                 Create your donation box for
                 <br>Estonian banks with no fees
             </h2>
             <p class="mt-2 mb-4 text-center text-sm text-gray-600">
-                It only takes 3 minutes to start receiving donations
+                It only takes a few minutes to start receiving donations
             </p>
         </div>
         <div x-data="app()" x-cloak>
             <!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->
             <div x-show.transition="step != 'complete'">
                 <!-- Top Navigation -->
-                <div class="py-4">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                        <div class="flex-1">
-                            <div class="uppercase tracking-normal text-xs font-normal text-gray-400 mb-1 leading-tight"
-                                 x-text="`Step: ${step} of 3`"></div>
-                            {{--                            <div x-show="step === 1">--}}
-                            {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Campaign name</div>--}}
-                            {{--                            </div>--}}
-
-                            {{--                            <div x-show="step === 2">--}}
-                            {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Payee's name--}}
-                            {{--                                </div>--}}
-                            {{--                            </div>--}}
-
-                            {{--                            <div x-show="step === 3">--}}
-                            {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Bank details</div>--}}
-                            {{--                            </div>--}}
-                        </div>
-
-                        <div class="flex items-center md:w-64">
-                            <div class="w-full bg-white rounded-full mr-2">
-                                <div class="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white"
-                                     :style="'width: '+ parseInt(step / 3 * 100) +'%'"></div>
-                            </div>
-                            <div class="text-xs w-10 text-gray-600 transition duration-150 ease-in-out" x-text="parseInt(step / 3 * 100) +'%'"></div>
-                        </div>
-                    </div>
-                </div>
                 <!-- /Top Navigation -->
             </div>
 
@@ -278,6 +255,35 @@
                     </div>
                 </div>
             </div>
+            <div class="py-4">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div class="flex-1">
+                        <div class="uppercase tracking-normal text-xs font-normal text-gray-400 mb-1 leading-tight"
+                             x-text="`Step: ${step} of 3`"></div>
+                        {{--                            <div x-show="step === 1">--}}
+                        {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Campaign name</div>--}}
+                        {{--                            </div>--}}
+
+                        {{--                            <div x-show="step === 2">--}}
+                        {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Payee's name--}}
+                        {{--                                </div>--}}
+                        {{--                            </div>--}}
+
+                        {{--                            <div x-show="step === 3">--}}
+                        {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Bank details</div>--}}
+                        {{--                            </div>--}}
+                    </div>
+
+                    <div class="flex items-center md:w-64">
+                        <div class="w-full bg-white rounded-full mr-2">
+                            <div class="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white"
+                                 :style="'width: '+ parseInt(step / 3 * 100) +'%'"></div>
+                        </div>
+                        <div class="text-xs w-10 text-gray-600 transition duration-150 ease-in-out" x-text="parseInt(step / 3 * 100) +'%'"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
 

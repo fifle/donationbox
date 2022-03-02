@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
 
 
     ],
@@ -231,6 +232,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
+
     ],
 
 ];
