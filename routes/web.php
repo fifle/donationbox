@@ -26,9 +26,9 @@ Route::get('/donation', 'App\Http\Controllers\DonationController@donationLink')-
 
 Route::post('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation.show');
 
-Route::get('/embed', 'App\Http\Controllers\DonationController@donationEmbed')->name('donation');
+Route::get('/embed', 'App\Http\Controllers\DonationController@donationEmbed')->name('donationembed');
 
-Route::post('/embed', 'App\Http\Controllers\DonationController@donationEmbed')->name('donation.show');
+Route::post('/embed', 'App\Http\Controllers\DonationController@donationEmbed')->name('donationembed.show');
 
 Route::get('/redirect', 'App\Http\Controllers\RedirectController@getBankLink')->name('redirect');
 
