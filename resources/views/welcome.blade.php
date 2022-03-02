@@ -7,16 +7,17 @@
 
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-2">
-        <div class="items-center justify-center mt-8 mb-8">
+        <div class="items-center justify-center mt-8 mb-6">
             <div class="w-1/2 mx-auto mb-4">
                 <a href="/" target="_blank">
                     <img class="mx-auto" src="/img/db-logo-fl.png">
                 </a>
             </div>
-            <h2 class="text-center text-xl font-bold text-gray-900">
+            <h2 class="text-center text-xl text-gray-700">
                 Open your own donation box for
                 Estonian banks with no hidden fees
             </h2>
+            <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, LHV, Coop, Donorbox, Paypal)</p>
         </div>
         <div x-data="app()" x-cloak>
             <!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->
@@ -46,6 +47,13 @@
                             <!-- Step 1 -->
                             <div x-show="step === 1"
                                  x-transition:enter.duration.500ms>
+
+                                <div class="mb-4 flex items-center">
+                                    <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">1</div>
+                                    <div class="ml-2 text-gray-500">Your campaign page details</div>
+                                </div>
+
                                 <div class="mb-5">
                                     <form class="space-y-4" action="{{ route('donation') }}" method="get"
                                           id="generator">@csrf</form>
@@ -118,6 +126,11 @@
                         <!-- Step 2 -->
                         <div x-show="step === 2"
                              x-transition:enter.duration.500ms>
+                            <div class="mb-4 flex items-center">
+                                <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">2</div>
+                                <div class="ml-2 text-gray-500">Your personal data</div>
+                            </div>
                             <div class="mb-5">
                                 @csrf
                                 <div class="rounded-md -space-y-px">
@@ -151,6 +164,11 @@
                         <!-- Step 3 -->
                         <div x-show="step === 3"
                              x-transition:enter.duration.500ms>
+                            <div class="mb-4 flex items-center">
+                                <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">3</div>
+                                <div class="ml-2 text-gray-500">Your bank details</div>
+                            </div>
                             <div class="mb-5">
                                 @csrf
                                 <div class="rounded-md -space-y-px">
@@ -196,9 +214,32 @@
                                                 placeholder="Insert your UID here"
                                             />
                                         </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Step 4 -->
+                        <div x-show="step === 4"
+                             x-transition:enter.duration.500ms>
+                            <div class="mb-4 flex items-center">
+                                <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">4</div>
+                                <div class="ml-2 text-gray-500">Paypal & Donorbox</div>
+                            </div>
+                            <div class="mb-5">
+                                @csrf
+                                <div class="rounded-md -space-y-px">
+                                    <div class="grid gap-6">
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-2">PayPal.me username</label>
+                                            <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">
+                                                If you have a Paypal account, you can create your own Paypal.me page to accept donations from other users.
+                                                <a href="https://www.paypal.com/paypalme/" class="no-underline hover:underline
+                                                    text-blue-800">You can create it here ></a>
+                                            </div>
                                             <div class="flex flex-wrap items-stretch w-full mb-2 relative">
                                                 <div class="flex -mr-px">
                                                     <span
@@ -218,18 +259,25 @@
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-2">Donorbox username (for credit cards)</label>
-                                                <input
-                                                    form="generator"
-                                                    type="text"
-                                                    name="db"
-                                                    value="{{ request('db') }}"
-                                                    class="appearance-none rounded-none relative block
+                                            <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">
+                                                To start accepting payments for bank cards, you can use the Donorbox
+                                                service.
+                                                <a href="https://donorbox.org/pricing" class="no-underline hover:underline
+                                                    text-blue-800">Registration and more information here ></a>
+                                            </div>
+                                            <input
+                                                form="generator"
+                                                type="text"
+                                                name="db"
+                                                value="{{ request('db') }}"
+                                                class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
                                                                placeholder-gray-500 text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                    placeholder="Insert your Donorbox username here"
-                                                    />
+                                                placeholder="Insert your Donorbox username here"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -241,10 +289,19 @@
             </div>
 
             <!-- Bottom Navigation -->
-            <div class="fixed bottom-0 left-0 right-0 py-5 bg-white shadow-md" x-show="step != 'complete'">
+            <div class="fixed bottom-0 left-0 right-0 py-5 bg-white bg-opacity-80 shadow-md z-10" x-show="step !=
+            'complete'">
                 <div class="max-w-3xl mx-auto px-4">
                     <div class="flex justify-between">
                         <div class="w-1/2 text-right">
+                            <button
+                                x-show="step == 1"
+                                class="w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
+                                    text-gray-600 bg-white hover:bg-gray-100 font-medium border transition
+                                    duration-150 ease-in-out cursor-not-allowed opacity-50"
+                                disabled
+                            >Previous
+                            </button>
                             <button
                                 x-show="step > 1"
                                 @click="step--"
@@ -256,11 +313,12 @@
 
                         <div class="w-1/2 ">
                             <button
-                                x-show="step < 3"
+                                x-show="step < 4"
                                 @click="step++"
                                 class="w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
-                                    border border-transparent font-medium rounded-md text-white bg-indigo-600
-                                    hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                                    border border-transparent font-medium rounded-md text-white bg-pink-500
+                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                    focus:ring-pink-700 transition duration-150 ease-in-out">
                                 Next
                             </button>
 
@@ -268,10 +326,11 @@
                                 type="submit"
                                 form="generator"
                                 value="submit"
-                                x-show="step === 3"
+                                x-show="step === 4"
                                 class="w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
-                                    border border-transparent font-medium rounded-md text-white bg-indigo-600
-                                    hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                                    border border-transparent font-medium rounded-md text-white bg-pink-500
+                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                    focus:ring-pink-700 transition duration-150 ease-in-out">
                                 Complete
                             </button>
                         </div>
@@ -282,7 +341,7 @@
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                     <div class="flex-1">
                         <div class="uppercase tracking-normal text-xs font-normal text-gray-400 mb-4 leading-tight"
-                             x-text="`Step: ${step} of 3`"></div>
+                             x-text="`Step: ${step} of 4`"></div>
                         {{--                            <div x-show="step === 1">--}}
                         {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Campaign name</div>--}}
                         {{--                            </div>--}}
@@ -300,9 +359,10 @@
                     <div class="flex items-center md:w-64">
                         <div class="w-full bg-white rounded-full mr-2">
                             <div class="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white"
-                                 :style="'width: '+ parseInt(step / 3 * 100) +'%'"></div>
+                                 :style="'width: '+ parseInt(step / 4 * 100) +'%'"></div>
                         </div>
-                        <div class="text-xs w-10 text-gray-600 transition duration-150 ease-in-out" x-text="parseInt(step / 3 * 100) +'%'"></div>
+                        <div class="text-xs w-10 text-gray-600 transition duration-150 ease-in-out" x-text="parseInt
+                        (step / 4 * 100) +'%'"></div>
                     </div>
                 </div>
             </div>

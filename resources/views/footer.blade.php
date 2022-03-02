@@ -13,7 +13,7 @@
             |
         </span>
         <a href="#" class="no-underline hover:underline text-blue-800" target="_blank">
-            GitHub <sup>soon</sup>
+            GitHub <sup class="z-0">soon</sup>
         </a>
     </div>
 

@@ -8,12 +8,12 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-2">
         <div>
-            <div class="mt-4 mb-8 w-1/2 mx-auto">
+            <div class="mt-2 mb-6 w-1/3 mx-auto">
                 <a href="/" target="_blank">
                     <img class="mx-auto" src="/img/db-logo-fl.png">
                 </a>
             </div>
-            <h2 class="mt-0 text-center text-2xl font-bold text-gray-900">
+            <h2 class="mt-0 text-center text-2xl font-semibold text-gray-700">
                 {!! urldecode($campaign_title) !!}
             </h2>
             <div class="mt-2 mb-4 text-center text-sm text-gray-600">
@@ -102,8 +102,13 @@
                                                     </div>
                                                     <div class="ml-3 text-xs">Recurring payment</div>
                                                 </div>
+                                                <div class="flex items-center justify-center mt-8 mb-4">
+                                                    <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">1</div>
+                                                    <div class="ml-3 text-xs text-gray-500 text-center">Enter the amount of your donation</div>
+                                                </div>
                                                 <div x-data="{ preamount: '' }">
-                                                    <div class="w-48 max-w-xs mr-auto ml-auto mt-8">
+                                                    <div class="w-48 max-w-xs mr-auto ml-auto">
                                                         <div class="relative">
                                                             <div
                                                                 class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -129,7 +134,7 @@
                                                                 required>
                                                         </div>
                                                     </div>
-                                                    <div class="p-1 mt-1 mb-4 text-center space-y-2">
+                                                    <div class="p-1 mt-1 mb-8 text-center space-y-2">
                                                         <button class="transition duration-150 ease-in-out w-16
                                                         focus:outline-none py-2 px-5 mr-2 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
@@ -149,6 +154,12 @@
                                                             25€
                                                         </button>
                                                     </div>
+                                                </div>
+                                                <div class="flex items-center justify-center">
+                                                    <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">2</div>
+                                                    <div class="ml-3 text-xs text-gray-500 text-center">Choose a payment
+                                                        method</div>
                                                 </div>
                                                 <div class="">
                                                     <div x-show="!toggle" class="p-1 mt-2 text-center space-x-1 space-y-2">
@@ -232,19 +243,10 @@
                                                                 type="submit"
                                                                 name="action"
                                                                 value="donorbox"
-                                                                class="transition duration-150 ease-in-out bg-white
-                                                                px-5
+                                                                class="transition duration-150 ease-in-out bg-white px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-red-400 rounded-full hover:shadow-lg
                                                      hover:bg-gray-50 inline-flex items-center">
-                                                                <svg class="w-6 h-6 mr-2" fill="none"
-                                                                            stroke="currentColor" viewBox="0 0 24 24"
-                                                                            xmlns="http://www.w3.org/2000/svg"><path
-                                                                        stroke-linecap="round"
-                                                                        stroke-linejoin="round" stroke-width="2"
-                                                                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0
-                                                                        003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0
-                                                                        003 3z"></path></svg>
                                                                 <span>Credit cards (Donorbox)</span>
                                                             </button>
                                                         @endif
