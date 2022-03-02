@@ -45,7 +45,6 @@
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}" defer></script>
 <script src="//unpkg.com/alpinejs" defer></script>
-<script src="{{ asset('js/share.js') }}"></script>
 <script src="//kit.fontawesome.com/6940ba20ce.js" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 
