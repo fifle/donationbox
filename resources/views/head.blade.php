@@ -39,6 +39,9 @@
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
+<!-- Favicon -->
+<link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}">
+
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}" defer></script>
 <script src="//unpkg.com/alpinejs" defer></script>
