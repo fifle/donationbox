@@ -7,19 +7,26 @@
 
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-2">
-        <div>
-            <div class="mb-8 w-1/2 mx-auto">
+        <div class="items-center justify-center">
+            <div class="mb-4 w-1/2 mx-auto">
                 <a href="/" target="_blank">
                     <img class="mx-auto" src="/img/db-logo-fl.png">
                 </a>
             </div>
             <h2 class="mt-0 text-center text-xl font-bold text-gray-900">
-                Create your donation box for
-                <br>Estonian banks with no fees
+                Open your own donation box for
+                Estonian banks with no hidden fees
             </h2>
-            <p class="mt-2 mb-4 text-center text-sm text-gray-600">
-                It only takes a few minutes to start receiving donations
-            </p>
+            <div class="w-full mt-2 mb-4 flex justify-center items-center text-left">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                     xmlns="http://www.w3
+                    .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <a href="#" class="inline-block items-center no-underline hover:underline text-sm text-blue-800
+                text-left">
+                    It's secure and we don't store your data.
+                    <br>Learn more about how it works >
+                </a>
+            </div>
         </div>
         <div x-data="app()" x-cloak>
             <!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->
@@ -311,8 +318,7 @@
             </div>
 
         </div>
-
-
+        @include('footer')
     </div>
 
 </div>
