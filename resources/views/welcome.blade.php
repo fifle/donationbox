@@ -14,7 +14,7 @@
                 </a>
             </div>
             <h2 class="text-center text-xl text-gray-700">
-                Open your own donation box for
+                Open your virtual donation box for
                 Estonian banks with no hidden fees
             </h2>
             <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, LHV, Coop, Donorbox, Paypal)</p>
@@ -61,7 +61,7 @@
                                         <div class="grid gap-6">
                                             <div class="col-span-12">
                                                 <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-1">Name your virtual donation box</label>
+                                                        block mb-1">Name your donation box</label>
                                                 <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
                                                     This text will be used as the title of your donation box page.
@@ -154,7 +154,7 @@
                                                                placeholder-gray-500 text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                placeholder="eg. 'Tädi Maali' or 'Hea MTÜ'"
+                                                placeholder="eg. 'Tädi Maali' or 'Tavai MTÜ'"
                                                 required/>
                                         </div>
                                     </div>
@@ -167,7 +167,7 @@
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
-                                <div class="ml-2 text-gray-500">Your bank details</div>
+                                <div class="ml-2 text-gray-500">Details for Estonian banks</div>
                             </div>
                             <div class="mb-5">
                                 @csrf
@@ -225,7 +225,7 @@
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">4</div>
-                                <div class="ml-2 text-gray-500">Paypal & Donorbox</div>
+                                <div class="ml-2 text-gray-500">Credit cards</div>
                             </div>
                             <div class="mb-5">
                                 @csrf
@@ -289,7 +289,7 @@
             </div>
 
             <!-- Bottom Navigation -->
-            <div class="fixed bottom-0 left-0 right-0 py-5 bg-white bg-opacity-80 shadow-md z-10" x-show="step !=
+            <div class="fixed bottom-0 left-0 right-0 py-5 bg-white bg-opacity-90 shadow-md z-10" x-show="step !=
             'complete'">
                 <div class="max-w-3xl mx-auto px-4">
                     <div class="flex justify-between">

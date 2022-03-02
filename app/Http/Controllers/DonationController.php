@@ -90,6 +90,12 @@ class DonationController extends Controller
 
     public function donationEmbed(Request $request)
     {
+        $request->validate([
+            'campaign_title' => 'required|string|max:250',
+            'detail' => 'required|string|max:250',
+            'payee' => 'required|string|max:250',
+        ]);
+
         if (!$request->has('campaign_title')) {
             return redirect()->route('welcome');
         } else {
@@ -110,17 +116,11 @@ class DonationController extends Controller
             // swedbank
             $amount = null;
 
-//            $qrcode = QrCode::
-//                merge('https://i.imgur.com/JEjl8SV.png', .3, true)
-//                ->size(1920)
-//                ->generate($link);
-
+            // QR-code generation
             $qrcode = QrCode::format('png')
                 ->merge('img/db-logo-qr.png', .3, true)
                 ->size(1920)
                 ->generate($link);
-
-//            $qrcode = QrCode::size(200)->generate($link);
 
             // passing values to the session
             session(array(
@@ -145,6 +145,7 @@ class DonationController extends Controller
                 'sebuid',
                 'amount',
                 'embedlink',
+                'link',
             );
 
             $data = array(
@@ -157,7 +158,8 @@ class DonationController extends Controller
                 'db' => $db,
                 'sebuid' => $sebuid,
                 'amount' => $amount,
-                'embedlink' => $embedlink
+                'embedlink' => $embedlink,
+                'link' => $link,
             );
 
             return view("embed", compact($compactData));
