@@ -16,13 +16,23 @@
             <h2 class="mt-0 text-center text-2xl font-bold text-gray-900">
                 {!! urldecode($campaign_title) !!}
             </h2>
-            <p class="mt-2 mb-4 text-center text-sm text-gray-600">
-                {!! urldecode($payee) !!}<br>
+            <div class="mt-2 mb-4 text-center text-sm text-gray-600">
+                {!! urldecode($payee) !!}
+                <a href="{{ sprintf("https://www.teatmik.ee/en/search/%s", $payee) }}" class="no-underline
+                 hover:underline text-xs text-blue-800">
+                    <div class="inline-flex items-center">
+                        (Teatmik.ee
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
+                .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0
+                 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>)
+                    </div>
+                </a><br>
                 {!! urldecode($iban) !!}<br>
                 {!! urldecode($detail) !!}<br>
-                Paypal: {!! urldecode($pp) !!}
-                {{--                <a href="" class="no-underline hover:underline text-xs text-blue-800">payee's background ></a>--}}
-            </p>
+                @if($pp)
+                Paypal username: {!! urldecode($pp) !!}
+                @endif
+            </div>
 
         </div>
         <div x-data="app()" x-cloak>
@@ -301,9 +311,9 @@
                     <p class="mt-2 mb-2 text-center text-1xl font-bold text-gray-600">
                         Scan QR-code and easily share donation box!
                     </p>
-                    <img
-                        src="data:image/png;base64, {!! base64_encode($qrcode) !!}"
-                        class="p-3.5">
+                    <img src="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="p-3.5">
+
+{{--                    {{ $qrcode }}--}}
 
                     <div class="p-1 mt-2 text-center">
                     <a href="#" class="no-underline text-mg text-blue-800">

@@ -31,12 +31,17 @@ class DonationController extends Controller
             // swedbank
             $amount = null;
 
-//            $qrcode = QrCode::format('png')
-//                ->merge('https://i.imgur.com/JEjl8SV.png', .3, true)
+//            $qrcode = QrCode::
+//                merge('https://i.imgur.com/JEjl8SV.png', .3, true)
 //                ->size(1920)
 //                ->generate($link);
 
-            $qrcode = QrCode::size(200)->generate($link);
+            $qrcode = QrCode::format('png')
+                ->merge('https://i.imgur.com/JEjl8SV.png', .3, true)
+                ->size(1920)
+                ->generate($link);
+
+//            $qrcode = QrCode::size(200)->generate($link);
 
             // passing values to the session
             session(array(
