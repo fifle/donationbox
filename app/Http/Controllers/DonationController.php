@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Jorenvh\Share\Share;
@@ -37,17 +38,11 @@ class DonationController extends Controller
             // swedbank
             $amount = null;
 
-//            $qrcode = QrCode::
-//                merge('https://i.imgur.com/JEjl8SV.png', .3, true)
-//                ->size(1920)
-//                ->generate($link);
-
+            // QR-code generation
             $qrcode = QrCode::format('png')
                 ->merge('img/db-logo-qr.png', .3, true)
                 ->size(1920)
                 ->generate($link);
-
-//            $qrcode = QrCode::size(200)->generate($link);
 
             // passing values to the session
             session(array(
@@ -167,5 +162,10 @@ class DonationController extends Controller
 
             return view("embed", compact($compactData));
         }
+    }
+
+    // Generate PDF
+    public function createPDF(Request $request) {
+
     }
 }

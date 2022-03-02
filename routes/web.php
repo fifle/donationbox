@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SocialShareButtonsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,5 +32,9 @@ Route::post('/embed', 'App\Http\Controllers\DonationController@donationEmbed')->
 Route::get('/redirect', 'App\Http\Controllers\RedirectController@getBankLink')->name('redirect');
 
 Route::post('/redirect', 'App\Http\Controllers\RedirectController@getBankLink')->name('redirect.show');
+
+Route::get('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('pdf');
+
+Route::post('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('pdf.show');
 
 Route::view('/welcome', 'welcome');
