@@ -8,23 +8,13 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-2">
         <div class="items-center justify-center">
-            <div class="mb-4 w-1/2 mx-auto">
-                <a href="/" target="_blank">
-                    <img class="mx-auto" src="/img/db-logo-fl.png">
-                </a>
-            </div>
             <h2 class="mt-0 text-center text-xl font-bold text-gray-900">
                 Open your own donation box for
                 Estonian banks with no hidden fees
             </h2>
-            <div class="w-full mt-2 mb-4 flex justify-center items-center text-left">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                     xmlns="http://www.w3
-                    .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                <a href="#" class="inline-block items-center no-underline hover:underline text-sm text-blue-800
-                text-left">
-                    It's secure and we don't store your data.
-                    <br>Learn more about how it works >
+            <div class="mt-8 mb-8 w-1/2 mx-auto">
+                <a href="/" target="_blank">
+                    <img class="mx-auto" src="/img/db-logo-fl.png">
                 </a>
             </div>
         </div>
@@ -91,12 +81,12 @@
                                                 </label>
                                                 <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
-                                                    This value will be used as a requisite for the money transfer.
-                                                    <br>
+                                                    This will be used as a requisite for the money transfer.
+
                                                     <a href="/" class="no-underline hover:underline
                                                     text-blue-800">
                                                         Learn more about why it's important to keep it serious and
-                                                        straightforward.
+                                                        straightforward >
                                                     </a>
                                                 </div>
                                                 <input
@@ -151,7 +141,7 @@
                                                                placeholder-gray-500 text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                placeholder="eg. Vassili Pupkin"
+                                                placeholder="eg. 'Tädi Maali' or 'Hea MTÜ'"
                                                 required/>
                                         </div>
                                     </div>
@@ -291,7 +281,7 @@
             <div class="py-4">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                     <div class="flex-1">
-                        <div class="uppercase tracking-normal text-xs font-normal text-gray-400 mb-1 leading-tight"
+                        <div class="uppercase tracking-normal text-xs font-normal text-gray-400 mb-4 leading-tight"
                              x-text="`Step: ${step} of 3`"></div>
                         {{--                            <div x-show="step === 1">--}}
                         {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Campaign name</div>--}}
@@ -318,6 +308,8 @@
             </div>
 
         </div>
+        @include('secure')
+
         @include('footer')
     </div>
 

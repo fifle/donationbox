@@ -47,7 +47,7 @@
                 <!-- /Top Navigation -->
             </div>
 
-            <div class="bg-white rounded-lg p-5 pt-0 shadow justify-between">
+            <div class="bg-white rounded-lg p-5 pt-0 shadow justify-between mb-4">
                 <div x-show.transition="step != 'complete'">
 
                     <!-- Step Content -->
@@ -303,10 +303,11 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
-            <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
+
+            @include('secure')
+
+            <div class="bg-white rounded-lg p-5 mt-4 shadow justify-between">
                 <div class="content-center">
                     <p class="mt-2 mb-2 text-center text-1xl font-bold text-gray-600">
                         Scan QR-code and easily share donation box!
@@ -383,7 +384,7 @@
             </div>
 
 
-            @include('footer')
+                @include('footer')
 
 
         </div>
