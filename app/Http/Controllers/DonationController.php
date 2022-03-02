@@ -31,12 +31,12 @@ class DonationController extends Controller
             // swedbank
             $amount = null;
 
-//            echo $link;
-//            echo '<br>';
-//            echo urldecode($link);
+//            $qrcode = QrCode::format('png')
+//                ->merge('https://i.imgur.com/JEjl8SV.png', .3, true)
+//                ->size(1920)
+//                ->generate($link);
 
             $qrcode = QrCode::format('png')
-                ->merge('https://i.imgur.com/JEjl8SV.png', .3, true)
                 ->size(1920)
                 ->generate($link);
 
