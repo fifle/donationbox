@@ -242,7 +242,7 @@
                                                         leading-tight">
                                                 If you have a Paypal account, you can create your own Paypal.me page to accept donations from other users.
                                                 <a href="https://www.paypal.com/paypalme/" class="no-underline hover:underline
-                                                    text-blue-800">You can create it here ></a>
+                                                    text-blue-800" target="_blank">You can create it here ></a>
                                             </div>
                                             <div class="flex flex-wrap items-stretch w-full mb-2 relative">
                                                 <div class="flex -mr-px">
@@ -268,7 +268,7 @@
                                                 To start accepting payments for bank cards, you can use the Donorbox
                                                 service.
                                                 <a href="https://donorbox.org/pricing" class="no-underline hover:underline
-                                                    text-blue-800">Registration and more information here ></a>
+                                                    text-blue-800" target="_blank">Registration and more information here ></a>
                                             </div>
                                             <div class="flex flex-wrap items-stretch w-full mb-2 relative">
                                             <div class="flex -mr-px">

@@ -177,7 +177,7 @@ return [
 
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Jorenvh\Share\Providers\ShareServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
+//        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -233,8 +233,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'Share' => Jorenvh\Share\ShareFacade::class,
-        'Bitly' => Shivella\Bitly\Facade\Bitly::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
+//        'Bitly' => Shivella\Bitly\Facade\Bitly::class,
+//        'PDF' => Barryvdh\DomPDF\Facade::class,
 
 
     ],

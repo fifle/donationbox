@@ -52,7 +52,9 @@
                     Share this donation box with your friends!
                 </p>
                 <div class="mt-2 inline-flex items-center">
-                {!! Share::page(url()->full(), urldecode($campaign_title))->facebook()->twitter()->linkedin()->whatsapp() !!}
+                {!! Share::page(urlencode(url()->full()), urldecode($campaign_title))->facebook()->twitter()
+                ->linkedin()
+                ->whatsapp() !!}
                 <!-- Trigger -->
                     <button href="#_" class="btn px-4 py-2.5 ml-2 font-medium bg-blue-50 hover:bg-blue-100
                             hover:text-blue-600
