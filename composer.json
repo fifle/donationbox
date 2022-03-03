@@ -15,6 +15,7 @@
         "jorenvanhocht/laravel-share": "^4.2",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+        "renatomarinho/laravel-page-speed": "^2.0",
         "shivella/laravel-bitly": "^1.1",
         "simplesoftwareio/simple-qrcode": "~4"
     },
