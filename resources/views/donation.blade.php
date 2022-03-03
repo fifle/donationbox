@@ -73,7 +73,7 @@
             <input id="foo"
                    class="shadow appearance-none border rounded py-2 px-3 w-auto text-gray-700 leading-tight
                        focus:outline-none focus:shadow-outline"
-                   value="{{ sprintf("<embed src='%s' width='100%' height='900' style='border:none;
+                   value="{{ sprintf("<embed src='%s' width='100%%' height='900' style='border:none;
                    overflow:hidden'></embed>", $embedlink) }}">
 
             <!-- Trigger -->
