@@ -73,7 +73,7 @@
                                                           </span>
                                                     </div>
                                                     <form class="space-y-4" action="{{ route('redirect') }}"
-                                                          method="get" id="sumforbank" target="_blank">@csrf</form>
+                                                          method="get" id="sumforbank">@csrf</form>
                                                     <input
                                                         form="sumforbank"
                                                         type="number"
