@@ -62,7 +62,7 @@
                                             <div class="col-span-12">
                                                 <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-1">Name your donation box
-                                                    <span class="font-normal text-red-500"><sup>* required</sup></span>
+                                                    <span class="font-normal text-red-500"><sup>*</sup></span>
                                                 </label>
                                                 <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
@@ -87,7 +87,7 @@
 
                                                 <label for="detail" class="font-bold text-gray-700
                                                         block mb-1">
-                                                    Bank transfer detail                                                     <span class="font-normal text-red-500"><sup>* required</sup></span>
+                                                    Bank transfer detail                                                     <span class="font-normal text-red-500"><sup>*</sup></span>
                                                 </label>
                                                 <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
@@ -140,7 +140,7 @@
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-2">Payee's name
-                                                <span class="font-normal text-red-500"><sup>* required</sup></span>
+                                                <span class="font-normal text-red-500"><sup>*</sup></span>
                                             </label>
                                             <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
