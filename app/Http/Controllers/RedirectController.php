@@ -10,19 +10,13 @@ class RedirectController extends Controller
 {
     public function getBankLink(Request $request) {
         $campaign_title = session('campaign_title');
-        $detail = session('detail');
-//        $payee = session('payee');
+        $detail = urlencode($request->input('detail'));
         $payee = urlencode($request->input('payee'));
-//        $iban = session('iban');
         $iban = urlencode($request->input('iban'));
-//        $pp = session('pp');
         $pp = urlencode($request->input('pp'));
-//        $db = session('db');
         $db = urlencode($request->input('db'));
-//        $sebuid = session('sebuid');
         $sebuid = urlencode($request->input('sebuid'));
         $amount = urlencode($request->input('donationsum'));
-
 
         switch ($request->input('action')) {
             case 'swed':

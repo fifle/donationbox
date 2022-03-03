@@ -105,6 +105,13 @@
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
+                                                        name="iban"
+                                                        id="iban"
+                                                        value="{{ $iban }}"
+                                                    >
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
                                                         name="pp"
                                                         id="pp"
                                                         value="{{ $pp }}"
