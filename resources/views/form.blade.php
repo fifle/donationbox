@@ -57,7 +57,7 @@
                         <div class="rounded-md -space-y-px">
                             <div class="grid gap-6">
                                 <div class="col-span-12">
-                                    <div x-data="{toggle: false}">
+                                    <div x-data="{ tab: 'onetime' }">
                                         <div class="flex items-center justify-center mt-8 mb-4">
                                             <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">1</div>
@@ -126,22 +126,28 @@
                                                 </div>
                                             </div>
                                             <div class="p-1 mt-1 mb-8 text-center space-y-2">
-                                                <button class="transition duration-150 ease-in-out w-16
+                                                <button class="transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 mr-2 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
-                                                        font-medium border" @click="preamount = '5'">
+                                                        font-medium border focus:ring-1 focus:ring-offset-1
+                                                        focus:ring-pink-700 w-auto"
+                                                        @click="preamount = '5'">
                                                     5€
                                                 </button>
-                                                <button class="transition duration-150 ease-in-out w-16
+                                                <button class="transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 mr-2 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
-                                                        font-medium border" @click="preamount = '10'">
+                                                        font-medium border focus:ring-1 focus:ring-offset-1
+                                                        focus:ring-pink-700 w-auto"
+                                                        @click="preamount = '10'">
                                                     10€
                                                 </button>
-                                                <button class="transition duration-150 ease-in-out w-16
+                                                <button class="transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 mr-2 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
-                                                        font-medium border" @click="preamount = '25'">
+                                                        font-medium border focus:ring-1 focus:ring-offset-1
+                                                        focus:ring-pink-700 w-auto"
+                                                        @click="preamount = '25'">
                                                     25€
                                                 </button>
                                             </div>
@@ -153,48 +159,28 @@
                                             <div class="ml-3 text-xs text-gray-500 text-center">Select
                                                 payment type</div>
                                         </div>
-                                        <div class="flex items-center justify-center mt-2 mb-8">
-                                            <div class="mr-3 text-xs">One-time payment</div>
-                                            <div
-                                                class="
-            relative
-            w-16
-            h-8
-            transition
-            duration-200
-            ease-linear
-            rounded-full
-          "
-                                                :class="[toggle ? 'bg-pink-500' : 'bg-gray-300']"
-                                            >
-                                                <label
-                                                    for="toggle"
-                                                    class="
-              absolute
-              left-0
-              w-8
-              h-8
-              transition
-              duration-100
-              ease-linear
-              transform
-              bg-gray-100
-              rounded-full
-              cursor-pointer
-            "
-                                                    :class="[toggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"
-                                                >
-                                                </label>
 
-                                                <input
-                                                    type="checkbox"
-                                                    id="toggle"
-                                                    name="toggle"
-                                                    x-model="toggle"
-                                                    class="w-full h-full appearance-none focus:outline-none"
-                                                />
-                                            </div>
-                                            <div class="ml-3 text-xs">Recurring payment</div>
+                                        <div class="flex items-center justify-center mt-2 mb-8">
+                                            <button
+                                                class="transition duration-150 ease-in-out
+                                                        focus:outline-none py-2 px-5 mr-2 rounded-lg
+                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
+                                                        font-medium border focus:ring-1 focus:ring-offset-1
+                                                        focus:ring-pink-700 w-auto"
+                                                @click="tab = 'onetime'"
+                                            >
+                                                One-time payment
+                                            </button>
+                                            <button
+                                                class="transition duration-150 ease-in-out
+                                                        focus:outline-none py-2 px-5 mr-2 rounded-lg
+                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
+                                                        font-medium border focus:ring-1 focus:ring-offset-1
+                                                        focus:ring-pink-700 w-auto"
+                                                @click="tab = 'standing'"
+                                            >
+                                                Recurring payment
+                                            </button>
                                         </div>
 
                                         <div class="flex items-center justify-center">
@@ -204,50 +190,52 @@
                                                 method</div>
                                         </div>
                                         <div class="">
-                                            <div x-show="!toggle" class="p-1 mt-2 text-center space-x-1
+                                            <div x-show="tab === 'onetime'" class="p-1 mt-2 text-center space-x-1
                                                     space-y-2">
-                                                <button
-                                                    form="sumforbank"
-                                                    type="submit"
-                                                    name="action"
-                                                    value="swed"
-                                                    class="transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
-                                                    text-sm shadow-sm font-medium
-                                                        tracking-wider border text-yellow-100 rounded-full
-                                                        hover:shadow-lg hover:bg-yellow-600">Swedbank
-                                                </button>
-                                                @if($sebuid)
+                                                @if($iban)
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
                                                         name="action"
-                                                        value="seb"
-                                                        class="transition duration-150 ease-in-out bg-green-500 px-5 py-3
-                                                     text-sm shadow-sm
-                                                    font-medium tracking-wider border text-green-100 rounded-full
-                                                    hover:shadow-lg hover:bg-green-600">SEB
+                                                        value="swed"
+                                                        class="transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
+                                                        text-sm shadow-sm font-medium
+                                                            tracking-wider border text-yellow-100 rounded-full
+                                                            hover:shadow-lg hover:bg-yellow-600">Swedbank
+                                                    </button>
+                                                    @if($sebuid)
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="seb"
+                                                            class="transition duration-150 ease-in-out bg-green-500 px-5 py-3
+                                                         text-sm shadow-sm
+                                                        font-medium tracking-wider border text-green-100 rounded-full
+                                                        hover:shadow-lg hover:bg-green-600">SEB
+                                                        </button>
+                                                    @endif
+                                                    <button
+                                                        form="sumforbank"
+                                                        type="submit"
+                                                        name="action"
+                                                        value="lhv"
+                                                        class="transition duration-150 ease-in-out bg-gray-700 px-5 py-3
+                                                        text-sm shadow-sm
+                                                        font-medium tracking-wider border text-gray-100 rounded-full
+                                                        hover:shadow-lg hover:bg-gray-800">LHV
+                                                    </button>
+                                                    <button
+                                                        form="sumforbank"
+                                                        type="submit"
+                                                        name="action"
+                                                        value="coop"
+                                                        class="transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
+                                                        text-sm shadow-sm
+                                                        font-medium tracking-wider border text-blue-100 rounded-full
+                                                        hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
                                                 @endif
-                                                <button
-                                                    form="sumforbank"
-                                                    type="submit"
-                                                    name="action"
-                                                    value="lhv"
-                                                    class="transition duration-150 ease-in-out bg-gray-700 px-5 py-3
-                                                    text-sm shadow-sm
-                                                    font-medium tracking-wider border text-gray-100 rounded-full
-                                                    hover:shadow-lg hover:bg-gray-800">LHV
-                                                </button>
-                                                <button
-                                                    form="sumforbank"
-                                                    type="submit"
-                                                    name="action"
-                                                    value="coop"
-                                                    class="transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
-                                                    text-sm shadow-sm
-                                                    font-medium tracking-wider border text-blue-100 rounded-full
-                                                    hover:shadow-lg hover:bg-blue-700">Coop
-                                                </button>
                                                 {{--                                                        <button--}}
                                                 {{--                                                            form="sumforbank"--}}
                                                 {{--                                                            type="submit"--}}
@@ -294,49 +282,52 @@
                                                     </button>
                                                 @endif
                                             </div>
-                                            <div x-show="toggle" class="p-1 mt-2 text-center space-x-1 space-y-2">
-                                                <button
-                                                    form="sumforbank"
-                                                    type="submit"
-                                                    name="action"
-                                                    value="swed-standing"
-                                                    class="transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
-                                                    text-sm shadow-sm font-medium
-                                                        tracking-wider border text-yellow-100 rounded-full
-                                                        hover:shadow-lg hover:bg-yellow-600">Swedbank
-                                                </button>
-                                                @if($sebuid)
+                                            <div x-show="tab === 'standing'" class="p-1 mt-2 text-center space-x-1
+                                            space-y-2">
+                                                @if($iban)
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
                                                         name="action"
-                                                        value="seb-standing"
-                                                        class="transition duration-150 ease-in-out bg-green-500 px-5 py-3
-                                                     text-sm shadow-sm
-                                                    font-medium tracking-wider border text-green-100 rounded-full
-                                                    hover:shadow-lg hover:bg-green-600">SEB
+                                                        value="swed-standing"
+                                                        class="transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
+                                                        text-sm shadow-sm font-medium
+                                                            tracking-wider border text-yellow-100 rounded-full
+                                                            hover:shadow-lg hover:bg-yellow-600">Swedbank
+                                                    </button>
+                                                    @if($sebuid)
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="seb-standing"
+                                                            class="transition duration-150 ease-in-out bg-green-500 px-5 py-3
+                                                         text-sm shadow-sm
+                                                        font-medium tracking-wider border text-green-100 rounded-full
+                                                        hover:shadow-lg hover:bg-green-600">SEB
+                                                        </button>
+                                                    @endif
+                                                    <button
+                                                        form="sumforbank"
+                                                        type="submit"
+                                                        name="action"
+                                                        value="lhv-standing"
+                                                        class="transition duration-150 ease-in-out bg-gray-700 px-5 py-3
+                                                        text-sm shadow-sm
+                                                        font-medium tracking-wider border text-gray-100 rounded-full
+                                                        hover:shadow-lg hover:bg-gray-800">LHV
+                                                    </button>
+                                                    <button
+                                                        form="sumforbank"
+                                                        type="submit"
+                                                        name="action"
+                                                        value="coop-standing"
+                                                        class="transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
+                                                        text-sm shadow-sm
+                                                        font-medium tracking-wider border text-blue-100 rounded-full
+                                                        hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
                                                 @endif
-                                                <button
-                                                    form="sumforbank"
-                                                    type="submit"
-                                                    name="action"
-                                                    value="lhv-standing"
-                                                    class="transition duration-150 ease-in-out bg-gray-700 px-5 py-3
-                                                    text-sm shadow-sm
-                                                    font-medium tracking-wider border text-gray-100 rounded-full
-                                                    hover:shadow-lg hover:bg-gray-800">LHV
-                                                </button>
-                                                <button
-                                                    form="sumforbank"
-                                                    type="submit"
-                                                    name="action"
-                                                    value="coop-standing"
-                                                    class="transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
-                                                    text-sm shadow-sm
-                                                    font-medium tracking-wider border text-blue-100 rounded-full
-                                                    hover:shadow-lg hover:bg-blue-700">Coop
-                                                </button>
                                                 @if($db)
                                                     <button
                                                         form="sumforbank"

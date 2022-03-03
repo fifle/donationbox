@@ -61,7 +61,9 @@
                                         <div class="grid gap-6">
                                             <div class="col-span-12">
                                                 <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-1">Name your donation box</label>
+                                                        block mb-1">Name your donation box
+                                                    <span class="font-normal text-red-500"><sup>* required</sup></span>
+                                                </label>
                                                 <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
                                                     This text will be used as the title of your donation box page.
@@ -74,10 +76,10 @@
                                                     value="{{ request('campaign_title') }}"
                                                     class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
-                                                               placeholder-gray-500 text-gray-900 rounded-md
+                                                               text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                    {{--                                                            placeholder=""--}}
+                                                    placeholder="eg. 'Support our community'"
                                                     required>
                                             </div>
 
@@ -85,7 +87,7 @@
 
                                                 <label for="detail" class="font-bold text-gray-700
                                                         block mb-1">
-                                                    Bank transfer detail
+                                                    Bank transfer detail                                                     <span class="font-normal text-red-500"><sup>* required</sup></span>
                                                 </label>
                                                 <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
@@ -105,7 +107,7 @@
                                                     {{--                                                            value="{{ request('detail') }}"--}}
                                                     class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
-                                                               placeholder-gray-500 text-gray-900 rounded-md
+                                                               text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                     placeholder="eg. Ülekanne"
@@ -137,7 +139,9 @@
                                     <div class="grid gap-6">
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">Payee's name</label>
+                                                        block mb-2">Payee's name
+                                                <span class="font-normal text-red-500"><sup>* required</sup></span>
+                                            </label>
                                             <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
                                                 Insert the name of the individual or company you would like
@@ -151,7 +155,7 @@
                                                 value="{{ request('payee') }}"
                                                 class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
-                                                               placeholder-gray-500 text-gray-900 rounded-md
+                                                               text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                 placeholder="eg. 'Tädi Maali' or 'Tavai MTÜ'"
@@ -183,11 +187,11 @@
                                                 value="{{ request('iban') }}"
                                                 class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
-                                                               placeholder-gray-500 text-gray-900 rounded-md
+                                                               text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                 placeholder="eg. EE471000001020145685"
-                                                required/>
+                                                />
                                         </div>
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
@@ -208,10 +212,10 @@
                                                 value="{{ request('sebuid') }}"
                                                 class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
-                                                               placeholder-gray-500 text-gray-900 rounded-md
+                                                               text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                placeholder="Insert your UID here"
+                                                placeholder="eg. f0233a8a-2c62-414d-a8e0-868d5ca345cb"
                                             />
                                         </div>
 
@@ -252,13 +256,13 @@
                                                     value="{{ request('pp') }}"
                                                     class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
-                                                    placeholder="Insert your Paypal username here"
+                                                    placeholder="your-paypal-me-username"
                                                 />
                                             </div>
                                         </div>
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">Donorbox username (for credit cards)</label>
+                                                        block mb-2">Donorbox campaign slug (for credit cards)</label>
                                             <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
                                                 To start accepting payments for bank cards, you can use the Donorbox
@@ -266,18 +270,21 @@
                                                 <a href="https://donorbox.org/pricing" class="no-underline hover:underline
                                                     text-blue-800">Registration and more information here ></a>
                                             </div>
+                                            <div class="flex flex-wrap items-stretch w-full mb-2 relative">
+                                            <div class="flex -mr-px">
+                                                    <span
+                                                        class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">donorbox.org/</span>
+                                            </div>
                                             <input
                                                 form="generator"
                                                 type="text"
                                                 name="db"
                                                 value="{{ request('db') }}"
-                                                class="appearance-none rounded-none relative block
-                                                               w-full px-3 py-2 border border-gray-300
-                                                               placeholder-gray-500 text-gray-900 rounded-md
-                                                               focus:outline-none focus:ring-indigo-500
-                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                placeholder="Insert your Donorbox username here"
+                                                class="flex-shrink flex-grow flex-auto flex-auto
+                                                        leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
+                                                placeholder="your-campaign-slug"
                                             />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
