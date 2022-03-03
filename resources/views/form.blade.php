@@ -100,9 +100,9 @@
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
-                                                        name="iban"
-                                                        id="iban"
-                                                        value="{{ $iban }}"
+                                                        name="detail"
+                                                        id="detail"
+                                                        value="{{ $detail }}"
                                                     >
                                                     <input
                                                         form="sumforbank"
@@ -124,6 +124,13 @@
                                                         name="db"
                                                         id="db"
                                                         value="{{ $db }}"
+                                                    >
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
+                                                        name="sebuid"
+                                                        id="sebuid"
+                                                        value="{{ $sebuid }}"
                                                     >
                                                 </div>
                                             </div>

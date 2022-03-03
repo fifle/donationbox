@@ -28,7 +28,7 @@
     </a>
     and inspired by Sheila
     <br>
-    <a href="//fleisher.ee" class="no-underline
+    <a href="/donation?campaign_title=Support+Donationbox.ee&detail=Annetus+donationbox.ee&payee=Pavel+Flei%C5%A1er&iban=EE614204278622417401&pp=pfleiser" class="no-underline
                  hover:underline text-xs text-blue-800 mt-4" target="_blank">
         <div class="inline-flex items-center mt-2">
             Support the project <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"

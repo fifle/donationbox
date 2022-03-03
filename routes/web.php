@@ -22,19 +22,15 @@ Route::get('/', function () {
 });
 
 Route::get('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation');
-
 Route::post('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation.show');
 
 Route::get('/embed', 'App\Http\Controllers\DonationController@donationEmbed')->name('donationembed');
-
 Route::post('/embed', 'App\Http\Controllers\DonationController@donationEmbed')->name('donationembed.show');
 
 Route::get('/redirect', 'App\Http\Controllers\RedirectController@getBankLink')->name('redirect');
-
 Route::post('/redirect', 'App\Http\Controllers\RedirectController@getBankLink')->name('redirect.show');
 
 Route::get('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('pdf');
-
 Route::post('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('pdf.show');
 
-Route::view('/welcome', 'welcome');
+Route::view('/about', 'about');

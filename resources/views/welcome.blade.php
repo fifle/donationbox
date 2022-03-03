@@ -28,18 +28,6 @@
 
             <div class="bg-white rounded-lg p-5 shadow justify-between">
                 <div class="">
-                    <div x-show.transition="step === 'complete'">
-                        <div class="">
-                            <div>
-                                <button
-                                    @click="step = 1"
-                                    class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border"
-                                >Back to home
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
                     <div x-show.transition="step != 'complete'">
 
                         <!-- Step Content -->
