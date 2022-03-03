@@ -3,7 +3,10 @@
         {!! urldecode($campaign_title) !!}
     </h2>
     <div class="mt-2 mb-4 text-center text-sm text-gray-600 align-middle">
-        {!! urldecode($payee) !!} / {!! urldecode($iban) !!} /
+        {!! urldecode($payee) !!} /
+        @if($iban)
+            {!! urldecode($iban) !!} /
+        @endif
         @if($pp)
             <i class="fa-brands fa-paypal"></i> {!! urldecode($pp) !!}
         @endif<br>
