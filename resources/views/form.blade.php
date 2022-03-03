@@ -162,7 +162,7 @@
                                                 payment type</div>
                                         </div>
 
-                                        <div class="flex items-center justify-center mt-2 mb-8">
+                                        <div class="flex items-center justify-center mt-2 mb-8 pl-2">
                                             <button
                                                 class="transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 mr-2 rounded-lg
@@ -171,6 +171,8 @@
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto"
                                                 @click="tab = 'onetime'"
+                                                :class="{'font-bold bg-gray-100' : tab === 'onetime', 'font-normal' :
+                                                !tab === 'onetime'}"
                                             >
                                                 One-time payment
                                             </button>
@@ -182,6 +184,8 @@
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto"
                                                 @click="tab = 'standing'"
+                                                :class="{'font-bold bg-gray-100' : tab === 'standing', 'font-normal' :
+                                                !tab === 'standing'}"
                                             >
                                                 Recurring payment
                                             </button>
