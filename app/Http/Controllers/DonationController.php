@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
-use Jorenvh\Share\Share;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DonationController extends Controller
@@ -44,17 +41,17 @@ class DonationController extends Controller
                 ->size(1920)
                 ->generate($link);
 
-            // passing values to the session
-            session(array(
-                    'campaign_title' => $campaign_title,
-                    'detail' => $detail,
-                    'payee' => $payee,
-                    'iban' => $iban,
-                    'pp' => $pp,
-                    'db' => $db,
-                    'sebuid' => $sebuid,
-                )
-            );
+//            // passing values to the session
+//            session(array(
+//                    'campaign_title' => $campaign_title,
+//                    'detail' => $detail,
+//                    'payee' => $payee,
+//                    'iban' => $iban,
+//                    'pp' => $pp,
+//                    'db' => $db,
+//                    'sebuid' => $sebuid,
+//                )
+//            );
 
             $compactData = array(
                 'qrcode',
@@ -70,19 +67,6 @@ class DonationController extends Controller
                 'link',
             );
 
-            $data = array(
-                'qrcode' => $qrcode,
-                'campaign_title' => $campaign_title,
-                'detail' => $detail,
-                'payee' => $payee,
-                'iban' => $iban,
-                'pp' => $pp,
-                'db' => $db,
-                'sebuid' => $sebuid,
-                'amount' => $amount,
-                'embedlink' => $embedlink,
-                'link' => $link,
-            );
 
             return view("donation", compact($compactData));
         }
@@ -122,17 +106,17 @@ class DonationController extends Controller
                 ->size(1920)
                 ->generate($link);
 
-            // passing values to the session
-            session(array(
-                    'campaign_title' => $campaign_title,
-                    'detail' => $detail,
-                    'payee' => $payee,
-                    'iban' => $iban,
-                    'pp' => $pp,
-                    'db' => $db,
-                    'sebuid' => $sebuid,
-                )
-            );
+//            // passing values to the session
+//            session(array(
+//                    'campaign_title' => $campaign_title,
+//                    'detail' => $detail,
+//                    'payee' => $payee,
+//                    'iban' => $iban,
+//                    'pp' => $pp,
+//                    'db' => $db,
+//                    'sebuid' => $sebuid,
+//                )
+//            );
 
             $compactData = array(
                 'qrcode',
@@ -148,26 +132,13 @@ class DonationController extends Controller
                 'link',
             );
 
-            $data = array(
-                'qrcode' => $qrcode,
-                'campaign_title' => $campaign_title,
-                'detail' => $detail,
-                'payee' => $payee,
-                'iban' => $iban,
-                'pp' => $pp,
-                'db' => $db,
-                'sebuid' => $sebuid,
-                'amount' => $amount,
-                'embedlink' => $embedlink,
-                'link' => $link,
-            );
-
             return view("embed", compact($compactData));
         }
     }
 
     // Generate PDF
-    public function createPDF(Request $request) {
+    public function createPDF(Request $request)
+    {
 
     }
 }
