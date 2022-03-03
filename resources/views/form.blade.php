@@ -88,6 +88,34 @@
                                                         placeholder="0.00" min="0" step="any" maxlength="4"
                                                         x-model="preamount"
                                                         required>
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
+                                                        name="payee"
+                                                        id="payee"
+                                                        value="{{ $payee }}"
+                                                    >
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
+                                                        name="iban"
+                                                        id="iban"
+                                                        value="{{ $iban }}"
+                                                    >
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
+                                                        name="pp"
+                                                        id="pp"
+                                                        value="{{ $pp }}"
+                                                    >
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
+                                                        name="db"
+                                                        id="db"
+                                                        value="{{ $db }}"
+                                                    >
                                                 </div>
                                             </div>
                                             <div class="p-1 mt-1 mb-8 text-center space-y-2">

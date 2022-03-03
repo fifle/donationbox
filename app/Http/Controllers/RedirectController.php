@@ -11,12 +11,16 @@ class RedirectController extends Controller
     public function getBankLink(Request $request) {
         $campaign_title = session('campaign_title');
         $detail = session('detail');
-        $payee = session('payee');
-        $iban = session('iban');
-        $pp = session('pp');
-        $db = session('db');
-        $sebuid = session('sebuid');
-
+//        $payee = session('payee');
+        $payee = urlencode($request->input('payee'));
+//        $iban = session('iban');
+        $iban = urlencode($request->input('iban'));
+//        $pp = session('pp');
+        $pp = urlencode($request->input('pp'));
+//        $db = session('db');
+        $db = urlencode($request->input('db'));
+//        $sebuid = session('sebuid');
+        $sebuid = urlencode($request->input('sebuid'));
         $amount = urlencode($request->input('donationsum'));
 
 
