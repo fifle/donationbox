@@ -2,13 +2,26 @@
     <h2 class="mt-0 text-center text-2xl font-semibold text-gray-700">
         {!! urldecode($campaign_title) !!}
     </h2>
-    <div class="mt-2 mb-4 text-center text-sm text-gray-600">
+    <div class="mt-2 mb-4 text-center text-sm text-gray-600 align-middle">
         {!! urldecode($payee) !!} / {!! urldecode($iban) !!} /
         @if($pp)
             <i class="fa-brands fa-paypal"></i> {!! urldecode($pp) !!}
         @endif<br>
-        {!! urldecode($detail) !!}<br>
-
+        {!! urldecode($detail) !!}
+        <!-- Trigger -->
+        <button data-tooltip-target="tooltip-click" data-tooltip-trigger="click" type="button" class="
+         btn focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  text-center dark:bg-blue-600
+         dark:hover:bg-blue-700 dark:focus:ring-blue-800 align-middle"
+        data-clipboard-text="{{
+                urldecode($payee)
+                }} / {{ urldecode($iban) }} / Selgitus: {{ urldecode($detail) }}">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
+            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+        </button>
+        <div id="tooltip-click" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
+            Copied!
+            <div class="tooltip-arrow" data-popper-arrow></div>
+        </div><br>
         <a href="{{ sprintf("https://www.teatmik.ee/en/search/%s", $payee) }}" class="no-underline
                  hover:underline text-xs text-blue-800" target="_blank">
             <div class="inline-flex items-center mt-2">

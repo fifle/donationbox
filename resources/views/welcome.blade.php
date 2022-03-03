@@ -14,8 +14,8 @@
                 </a>
             </div>
             <h2 class="text-center text-xl text-gray-700">
-                Open your virtual donation box for
-                Estonian banks with no hidden fees
+                Start your virtual donation box for
+                Estonian banks for free and without any hidden fees
             </h2>
             <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, LHV, Coop, Donorbox, Paypal)</p>
         </div>

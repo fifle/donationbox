@@ -37,3 +37,8 @@
     </a>
     </div>
 </div>
+
+{{--Init of ClipboardJS--}}
+<script type="text/javascript">
+    var Clipboard = new ClipboardJS('.btn');
+</script>

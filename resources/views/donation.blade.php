@@ -84,9 +84,7 @@
                 Copy to clipboard
             </button>
 
-            <script type="text/javascript">
-                var Clipboard = new ClipboardJS('.btn');
-            </script>
+
         </div>
 
 
