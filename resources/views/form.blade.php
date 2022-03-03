@@ -12,8 +12,7 @@
         @endif<br>
         {!! urldecode($detail) !!}
         <!-- Trigger -->
-        <button data-tooltip-target="tooltip-click" data-tooltip-trigger="click" type="button" class="
-         btn focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  text-center dark:bg-blue-600
+        <button data-tooltip-target="tooltip-click" data-tooltip-trigger="click" type="button" class="btn focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  text-center dark:bg-blue-600
          dark:hover:bg-blue-700 dark:focus:ring-blue-800 align-middle"
         data-clipboard-text="{{
                 urldecode($payee)
