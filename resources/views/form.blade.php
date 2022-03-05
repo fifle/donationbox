@@ -132,6 +132,13 @@
                                                         id="sebuid"
                                                         value="{{ $sebuid }}"
                                                     >
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
+                                                        name="rev"
+                                                        id="rev"
+                                                        value="{{ $rev }}"
+                                                    >
                                                 </div>
                                             </div>
                                             <div class="p-1 mt-1 mb-8 text-center space-y-2">
@@ -251,7 +258,20 @@
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
                                                 @endif
-                                                {{--                                                        <button--}}
+                                                    @if($rev)
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="rev"
+                                                            class="transition duration-150 ease-in-out bg-gray-50 px-5
+                                                             py-3
+                                                        text-sm shadow-sm
+                                                        font-medium tracking-wider border text-blue-500 rounded-full
+                                                        hover:shadow-lg hover:bg-gray-100">Revolut
+                                                        </button>
+                                                    @endif
+                                                    {{--                                                        <button--}}
                                                 {{--                                                            form="sumforbank"--}}
                                                 {{--                                                            type="submit"--}}
                                                 {{--                                                            name="action"--}}

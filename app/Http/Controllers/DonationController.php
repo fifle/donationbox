@@ -25,12 +25,13 @@ class DonationController extends Controller
             $pp = urlencode($request->input('pp'));
             $db = urlencode($request->input('db'));
             $sebuid = urlencode($request->input('sebuid'));
+            $rev = urlencode($request->input('rev'));
 
             // links
-            $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s'),
-                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid);
-            $embedlink = sprintf(url('/embed?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s'),
-                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid);
+            $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
+                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid, $rev);
+            $embedlink = sprintf(url('/embed?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
+                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid, $rev);
 
             // swedbank
             $amount = null;
@@ -62,11 +63,11 @@ class DonationController extends Controller
                 'pp',
                 'db',
                 'sebuid',
+                'rev',
                 'amount',
                 'embedlink',
                 'link',
             );
-
 
             return view("donation", compact($compactData));
         }
@@ -90,12 +91,13 @@ class DonationController extends Controller
             $pp = urlencode($request->input('pp'));
             $db = urlencode($request->input('db'));
             $sebuid = urlencode($request->input('sebuid'));
+            $rev = urlencode($request->input('rev'));
 
             // links
-            $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s'),
-                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid);
-            $embedlink = sprintf(url('/embed?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s'),
-                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid);
+            $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
+                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid, $rev);
+            $embedlink = sprintf(url('/embed?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
+                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid, $rev);
 
             // swedbank
             $amount = null;
@@ -127,6 +129,7 @@ class DonationController extends Controller
                 'pp',
                 'db',
                 'sebuid',
+                'rev',
                 'amount',
                 'embedlink',
                 'link',

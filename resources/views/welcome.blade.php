@@ -9,7 +9,7 @@
     <div class="max-w-md w-full space-y-2">
         <div class="items-center justify-center mt-8 mb-6">
             <div class="w-1/2 mx-auto mb-4">
-                <a href="/" target="_blank">
+                <a href="/">
                     <img class="mx-auto" src="/img/db-logo-fl.png">
                 </a>
             </div>
@@ -17,7 +17,7 @@
                 Start your virtual donation box for
                 Estonian banks for free and without any hidden fees
             </h2>
-            <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, LHV, Coop, Donorbox, Paypal)</p>
+            <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, LHV, Coop, Revolut, Donorbox, Paypal)</p>
         </div>
         <div x-data="app()" x-cloak>
             <!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->
@@ -91,14 +91,14 @@
                                                     form="generator"
                                                     type="text"
                                                     name="detail"
-                                                    value="Ülekanne"
+                                                    value="Annetus"
                                                     {{--                                                            value="{{ request('detail') }}"--}}
                                                     class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
                                                                text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                    placeholder="eg. Ülekanne"
+                                                    placeholder="eg. Annetus"
                                                     required/>
 
 {{--                                                <input type="checkbox" name="duplicateName" id="duplicateName"--}}
@@ -225,6 +225,35 @@
                                     <div class="grid gap-6">
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-2">Revolut.me username</label>
+                                            <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">
+                                                If you have a Revolut account, you can create your own Revolut.me page
+                                                to accept payments from other users in Revolut or by credit card.
+                                                <a href="#" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">How can I create it? ></a>
+                                            </div>
+                                            <div class="flex flex-wrap items-stretch w-full mb-2 relative">
+                                                <div class="flex -mr-px">
+                                                    <span
+                                                        class="flex items-center leading-normal bg-grey-lighter
+                                                        rounded rounded-r-none border border-r-0 border-grey-light
+                                                        px-3 whitespace-no-wrap text-grey-dark text-sm">revolut
+                                                        .me/</span>
+                                                </div>
+                                                <input
+                                                    form="generator"
+                                                    type="text"
+                                                    name="rev"
+                                                    value="{{ request('rev') }}"
+                                                    class="flex-shrink flex-grow flex-auto flex-auto
+                                                        leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
+                                                    placeholder="your-revolut-me-username"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col-span-12">
+                                            <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-2">PayPal.me username</label>
                                             <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
@@ -250,7 +279,7 @@
                                         </div>
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">Donorbox campaign slug (for credit cards)</label>
+                                                        block mb-2">Donorbox campaign slug</label>
                                             <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
                                                 To start accepting payments for bank cards, you can use the Donorbox

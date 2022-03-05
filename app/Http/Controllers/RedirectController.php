@@ -16,6 +16,7 @@ class RedirectController extends Controller
         $pp = urldecode($request->input('pp'));
         $db = urldecode($request->input('db'));
         $sebuid = urldecode($request->input('sebuid'));
+        $rev = urldecode($request->input('rev'));
         $amount = urldecode($request->input('donationsum'));
 
         switch ($request->input('action')) {
@@ -74,10 +75,14 @@ class RedirectController extends Controller
                 $bankname = "Donorbox";
                 $url = sprintf("https://donorbox.org/%s?&amount=%s&default_interval=m&currency=eur", $db, $amount);
                 return Redirect::to($url);
+
+            case 'rev':
+                $bankname = "Revolut";
+                $url = sprintf("https://revolut.me/%s", $rev);
+                return Redirect::to($url);
         }
 
-
-        $compactData=array(
+        $compactData = array(
             'bankname',
             'url',
             'campaign_title',
@@ -86,6 +91,7 @@ class RedirectController extends Controller
             'iban',
             'pp',
             'sebuid',
+            'rev',
             'amount'
         );
 
@@ -98,6 +104,7 @@ class RedirectController extends Controller
             'iban' => $iban,
             'pp' => $pp,
             'sebuid' => $sebuid,
+            'rev' => $rev,
             'amount' => $amount
         );
 
