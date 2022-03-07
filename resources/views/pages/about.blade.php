@@ -59,7 +59,7 @@
                     security
                 @endslot
                 @slot('cardTitle')
-                        Is this website secure? It's not phishing?
+                        Is this website secure? Isn't it phishing?
                 @endslot
                 @slot('cardContent')
                     <p>
@@ -70,7 +70,7 @@
                         bank chosen by the user is responsible for the security of the transfer and all actions
                         related to user authentication.<br><br>
 
-                        We, according to all modern standards, use a secure SSL connection, but we advise you to use
+                        According to all modern standards, we use a secure SSL connection, but we advise you to use
                         additional data encryption tools such as incognito mode, VPN, etc. for anonymity.
                     </p>
                 @endslot
@@ -101,23 +101,20 @@
                     dataSecurity
                 @endslot
                 @slot('cardTitle')
-                        Okay, but how do you protect and store my data? Will my transactions be able to be seen by
-                        someone else?
+                        Okay, but how do you protect and store my data? Will my transactions be visible to others?
                     @endslot
                 @slot('cardContent')
                     <p>
-                        In short, we do our best to make sure that no one but only you, your bank, and payee knows
-                        about your transfer. To do this, DonationBox is arranged as follows:<br> <br>
+                        In short, we do our best to make sure that no one besides you, your bank, and payee knows
+                        about your transfer. To make sure it works, we do the following:<br> <br>
 
                         <ul class="list-decimal ml-6 break-words">
-                            <li>We don't store your data in a database. Instead, we generate a special link for you that
+                            <li>We don't store your data in a database. Instead, we generate a special link that
                                 already contains all the data related to the campaign. The parameters from this link
-                                are read by the DonationBox application, which displays the donation form. The link
-                                includes the campaign name, payment detail, payee's name, IBAN bank account number,
-                                your Revolut.me username, your Paypal.me username, slug for your Donorbox campaign,
-                                your UID from SEB. You can check this by changing any value in the URL link and
-                                paying attention to the changes in the data displayed on the donations page
-                                .<br><br>
+                                are read by the DonationBox application. Parameters
+                                include the campaign name, payment detail, payee's name, IBAN account number / your
+                                Revolut.me username / your Paypal.me username / slug for your Donorbox campaign / your
+                                UID from SEB.<br><br>
                                 <b>Example link with parameters:</b> <a href="https://donationbox
                                 .ee/donation?campaign_title=Donate+Estonian+Jewish+Museum&detail=Annetus&payee=Eesti
                                     +Juudi+Muuseum+MT%C3%9C&iban=EE312200221037561773&pp=&db=support-estonian-jewish
@@ -126,26 +123,13 @@
                                     +Juudi+Muuseum+MT%C3%9C&iban=EE312200221037561773&pp=&db=support-estonian-jewish
                                     -museum&sebuid=f0233a8a-2c62-414d-a8e0-868d5ca345cb</a><br><br>
                             </li>
-                            <li>We only redirect you to the bank's page, where after authentication you will be waiting for the pre-filled with the data for the transfer. All you have to do is make sure the data is correct and make the payment the same way you would do it if you entered all the data into the form manually. To do this we use the parameter transfer method supported by Estonian online banks. For example, the link to start a new payment for Swedbank would look like this:
-                                <a href="https://www.swedbank.ee/private/d2d/payments2/domestic/new?payment
-                                .beneficiaryAccountNumber=EE312200221037561773&payment
-                                    .beneficiaryName=Eesti%20Juudi%20Muuseum%20MT%C3%9C&payment
-                                    .details=Annetus&payment.amount=5" class="no-underline hover:underline text-blue-800">https://www.swedbank.ee/private/d2d/payments2/domestic/new?payment
-                                .beneficiaryAccountNumber=EE312200221037561773&payment
-                                    .beneficiaryName=Eesti%20Juudi%20Muuseum%20MT%C3%9C&payment
-                                    .details=Annetus&payment.amount=5</a><br><br>
-                            </li>
-                            <li>You also have the opportunity to correct the data in the payment form on your
-                                internet-bank webpage. This is the key difference from the banklink, which creates a
-                                request to the bank on payment initiation, where the amount and other bank data are
-                                already specified, which are not subject to any changes on the bank's website.<br><br>
-                                This is done so that after the client confirms the payment, you can get confirmation from the bank that the transaction has taken place and record in the database of your own service (online store, portal, etc.). DonationBox transmits the data through the parameters in the URL, without the need for a response back from the bank's server. You won't be redirected back to DonationBox after finishing the payment.
+                            <li>We only redirect you to the bank page. After logging into the bank,
+                                you will see the pre-filled for the transfer. All you have to do is to make
+                                sure the data is correct and proceed as usually.
                             </li>
                         </ul><br>
-                        Donationbox is not responsible for the use of your bank information, name and other
-                        information by third parties. When you create a donation box and share a link to it, it is
-                        your responsibility to evaluate the risks of making this information available on the
-                        Internet.<br><br>
+                        Donationbox is not responsible for the data exchanged between your payment provider and the
+                        recipient. Fundraiser, donor and recipient are responsible for the information they provide.<br><br>
                         Also, the DonationBox code is publicly available in the repository on Github: <a
                             href="https://github.com/fifle/donationbox" class="no-underline hover:underline
                             text-blue-800" target="_blank">https://github.com/fifle/donationbox</a>
