@@ -1,6 +1,4 @@
-<p align="center"><a href="https://donationbox.ee/" target="_blank"><img src="https://donationbox.ee/img/db-logo-fl.
-png" 
-width="300"></a></p>
+<p align="center"><a href="https://donationbox.ee/" target="_blank"><img src="https://donationbox.ee/img/db-logo-fl.png" width="300"></a></p>
 
 ## About DonationBox
 
