@@ -289,8 +289,8 @@
                 @endslot
                 @slot('cardContent')
                         Click the "Report fraud" button at the bottom of the page or email us at <a
-                            href="mailto:hello@donationbox.ee" class="no-underline hover:underline
-                            text-blue-800" target="_blank">hello@donationbox.ee</a>. Provide a link to the
+                            href="mailto:donationbox.ee@gmail.com" class="no-underline hover:underline
+                            text-blue-800" target="_blank">donationbox.ee@gmail.com</a>. Provide a link to the
                         donation
                             box that seems suspicious to you and specify in the message what exactly confuses you. For our part, we will do our best to respond to your request as soon as possible. When checking, we rely on the opening of data on the company or individual. If a violation is detected, the link may be blocked.
                     @endslot
@@ -363,8 +363,8 @@
                     @endslot
                 @slot('cardContent')
                         Email us at <a
-                            href="mailto:hello@donationbox.ee" class="no-underline hover:underline
-                            text-blue-800" target="_blank">hello@donationbox.ee</a>. Specify the address where the problem was found and briefly describe it. Thank you for your contribution to the project!
+                            href="mailto:donationbox.ee@gmail.com" class="no-underline hover:underline
+                            text-blue-800" target="_blank">donationbox.ee@gmail.com</a>. Specify the address where the problem was found and briefly describe it. Thank you for your contribution to the project!
                     @endslot
             @endcomponent
             @component('components.faq-card')
@@ -411,8 +411,8 @@
                     @endslot
                 @slot('cardContent')
                         Please write us to <a
-                            href="mailto:hello@donationbox.ee" class="no-underline hover:underline
-                            text-blue-800" target="_blank">hello@donationbox.ee</a>. We will be happy to help you set up all the integrations with payment systems, design your page at donationbox.ee, and add our widget to your website.
+                            href="mailto:donationbox.ee@gmail.com" class="no-underline hover:underline
+                            text-blue-800" target="_blank">donationbox.ee@gmail.com</a>. We will be happy to help you set up all the integrations with payment systems, design your page at donationbox.ee, and add our widget to your website.
                     @endslot
             @endcomponent
         </div>
