@@ -16,14 +16,14 @@
     @endif
 
     <div class="flex justify-center mb-2 text-xs">
-        <a href="#" class="no-underline hover:underline text-blue-800" target="_blank">
+        <a href="/about" class="no-underline hover:underline text-blue-800">
             FAQ
         </a>
         <span class="ml-2 mr-2">
             |
         </span>
-        <a href="#" class="no-underline hover:underline text-blue-800" target="_blank">
-            Privacy Policy
+        <a href="/about" class="no-underline hover:underline text-blue-800">
+            About us
         </a>
         <span class="ml-2 mr-2">
             |
