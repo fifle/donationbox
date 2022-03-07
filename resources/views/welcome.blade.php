@@ -81,10 +81,10 @@
                                                         leading-tight">
                                                     This will be used as a requisite for the money transfer.
 
-                                                    <a href="/" class="no-underline hover:underline
-                                                    text-blue-800">
-                                                        Learn more about why it's important to keep it serious and
-                                                        straightforward >
+                                                    <a href="/about#bankDetails" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">
+                                                        Learn more about why it's important to keep details serious and
+                                                        straightforward.
                                                     </a>
                                                 </div>
                                                 <input
@@ -188,8 +188,8 @@
                                                         leading-tight">
                                                 If you want to connect SEB bank as part of the payment methods, you
                                                 need to get your own UID code from SEB.
-                                                <a href="#" class="no-underline hover:underline
-                                                    text-blue-800">Read more about how to
+                                                <a href="/about#sebUID" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">Read more about how to
                                                     obtain a special identifier for private individuals and companies
                                                 >   </a>
                                             </div>
@@ -230,7 +230,7 @@
                                                         leading-tight">
                                                 If you have a Revolut account, you can create your own Revolut.me page
                                                 to accept payments from other users in Revolut or by credit card.
-                                                <a href="#" class="no-underline hover:underline
+                                                <a href="/about#revolut" class="no-underline hover:underline
                                                     text-blue-800" target="_blank">How can I create it? ></a>
                                             </div>
                                             <div class="flex flex-wrap items-stretch w-full mb-2 relative">
@@ -258,8 +258,8 @@
                                             <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
                                                 If you have a Paypal account, you can create your own Paypal.me page to accept donations from other users.
-                                                <a href="https://www.paypal.com/paypalme/" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">You can create it here ></a>
+                                                <a href="/about#paypal" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">How can I create it? ></a>
                                             </div>
                                             <div class="flex flex-wrap items-stretch w-full mb-2 relative">
                                                 <div class="flex -mr-px">
@@ -284,8 +284,8 @@
                                                         leading-tight">
                                                 To start accepting payments for bank cards, you can use the Donorbox
                                                 service.
-                                                <a href="https://donorbox.org/pricing" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">Registration and more information here ></a>
+                                                <a href="/about#donorbox" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">How can I create it? ></a>
                                             </div>
                                             <div class="flex flex-wrap items-stretch w-full mb-2 relative">
                                             <div class="flex -mr-px">

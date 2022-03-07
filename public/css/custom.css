@@ -11,17 +11,17 @@ input[type=number] {
 }
 
 /* Social network buttons */
-li{
+#social-links li{
     list-style: none;
     background: #e2e2e2;
     margin-left: 5px;
     text-align: center;
     border-radius:5px;
 }
-li span{
+#social-links li span{
     font-size: 24px;
 }
-ul li{
+#social-links ul li{
     display: inline-block;
     padding: 10px 10px 5px;
 }

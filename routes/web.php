@@ -33,4 +33,4 @@ Route::post('/redirect', 'App\Http\Controllers\RedirectController@getBankLink')-
 Route::get('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('pdf');
 Route::post('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('pdf.show');
 
-Route::view('/about', 'about');
+Route::get('/about', function () {return view('pages.about');});

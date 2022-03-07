@@ -31,6 +31,12 @@
         <a href="#" class="no-underline hover:underline text-blue-800" target="_blank">
             GitHub <sup class="z-0">soon</sup>
         </a>
+        <span class="ml-2 mr-2">
+            |
+        </span>
+        <a href="mailto:hello@donationbox.ee" class="no-underline hover:underline text-blue-800" target="_blank">
+            Contact us
+        </a>
     </div>
 
     <div class="text-xs">
