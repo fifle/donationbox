@@ -9,7 +9,7 @@
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="{{ request()->fullUrl() }}"/>
 <meta property="og:description" content="@yield('description', config('app.description'))"/>
-<meta property="og:image" content="{{ request()->root() }}/img/db-social.jpg"/>
+<meta property="og:image" content="/img/db-social.jpg"/>
 <meta property="article:author" content=""/>
 <meta property="og:locale" content="en_UK"/>
 <!--Twitter Tags-->
@@ -17,9 +17,7 @@
 <meta name="twitter:site" content="{{ '@' . config('app.name') }}"/>
 <meta name="twitter:title" content="@yield('title', config('app.name'))"/>
 <meta name="twitter:description" content="@yield('description', config('app.description'))"/>
-<meta name="twitter:image" content="{{ request()->root() }}/img/db-social.jpg"/>
-<!--LinkedIn-->
-<meta name="image" property="og:image" content="{{ request()->root() }}/img/db-social.jpg">
+<meta name="twitter:image" content="/img/db-social.jpg"/>
 
 <title>DonationBox</title>
 
