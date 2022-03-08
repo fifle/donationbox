@@ -9,7 +9,7 @@
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="{{ request()->fullUrl() }}"/>
 <meta property="og:description" content="@yield('description', config('app.description'))"/>
-<meta property="og:image" content="/img/db-social.jpg"/>
+<meta name="image" property="og:image" content="/img/db-social.jpg"/>
 <meta property="article:author" content=""/>
 <meta property="og:locale" content="en_UK"/>
 <!--Twitter Tags-->
