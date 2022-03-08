@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>Start your virtual donation box for Estonian banks for free and without any hidden fees - DonationBox
-        .ee</title>
+    <title>Start your virtual donation box for Estonian banks for free and without any hidden fees - DonationBox.ee</title>
     @include('head')
 </head>
 <body class="antialiased">
