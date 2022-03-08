@@ -18,6 +18,8 @@
 <meta name="twitter:title" content="@yield('title', config('app.name'))"/>
 <meta name="twitter:description" content="@yield('description', config('app.description'))"/>
 <meta name="twitter:image" content="{{ request()->root() }}/img/db-social.jpg"/>
+<!--LinkedIn-->
+<meta name="image" property="og:image" content="{{ request()->root() }}/img/db-social.jpg">
 
 <title>DonationBox</title>
 
