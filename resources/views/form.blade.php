@@ -186,6 +186,7 @@
                                             >
                                                 One-time payment
                                             </button>
+                                            @if($iban or $db)
                                             <button
                                                 class="transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 mr-2 rounded-lg
@@ -199,6 +200,7 @@
                                             >
                                                 Recurring payment
                                             </button>
+                                            @endif
                                         </div>
 
                                         <div>
@@ -255,9 +257,11 @@
                                                 @endif
 
                                                 <div>
+                                                @if($rev or $pp or $db)
                                                     <div class="flex items-center justify-center">
                                                         <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate with credit card</div>
                                                     </div>
+                                                    @endif
                                                     @if($rev)
                                                         <button
                                                             form="sumforbank"
@@ -350,9 +354,11 @@
                                                     </div>
                                                 @endif
                                                 <div>
+                                                    @if($db)
                                                     <div class="flex items-center justify-center">
                                                         <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate with credit card</div>
                                                     </div>
+                                                    @endif
                                                 @if($db)
                                                     <button
                                                         form="sumforbank"
