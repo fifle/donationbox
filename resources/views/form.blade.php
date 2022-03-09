@@ -12,13 +12,13 @@
         @endif<br>
         {!! urldecode($detail) !!}
         <!-- Trigger -->
-        <button data-tooltip-target="tooltip-click" data-tooltip-trigger="click" type="button" class="btn focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  text-center dark:bg-blue-600
-         dark:hover:bg-blue-700 dark:focus:ring-blue-800 align-middle"
+        <button data-tooltip-target="tooltip-click" data-tooltip-trigger="click" type="button" class="btn "
         data-clipboard-text="{{
                 urldecode($payee)
                 }} / {{ urldecode($iban) }} / Selgitus: {{ urldecode($detail) }}">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
-            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <div class="inline-flex items-center text-xs text-gray-500">
+            (<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
+            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy)</div>
         </button>
         <div id="tooltip-click" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
             Copied!
@@ -60,10 +60,8 @@
                             <div class="grid gap-6">
                                 <div class="col-span-12">
                                     <div x-data="{ tab: 'onetime' }">
-                                        <div class="flex items-center justify-center mt-8 mb-4">
-                                            <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">1</div>
-                                            <div class="ml-3 text-xs text-gray-500 text-center">Enter the amount of your donation</div>
+                                        <div class="flex items-center justify-center mt-8 mb-2">
+                                            <div class="text-xs text-gray-500 text-center">Enter the amount of your donation</div>
                                         </div>
                                         <div x-data="{ preamount: '' }">
                                             <div class="w-48 max-w-xs mr-auto ml-auto">
@@ -85,8 +83,8 @@
                                                         class="transition duration-150 ease-in-out w-full
                                                                 pl-7 pr-7 px-3 py-3 border border-gray-300
                                                         placeholder-gray-500 text-gray-900 rounded-md
-                                                        focus:outline-none focus:ring-indigo-500
-                                                        focus:border-indigo-500 focus:z-10 text-5xl text-center"
+                                                        focus:outline-none focus:ring-1 focus:ring-offset-0
+                                                        focus:ring-pink-700 focus:z-10 text-5xl text-center"
                                                         placeholder="0.00" min="0" step="any" maxlength="4"
                                                         x-model="preamount"
                                                         required>
@@ -170,13 +168,11 @@
                                         </div>
 
                                         <div class="flex items-center justify-center">
-                                            <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500    text-xs font-bold">2</div>
-                                            <div class="ml-3 text-xs text-gray-500 text-center">Select
+                                            <div class="text-xs text-gray-500 text-center">Select
                                                 payment type</div>
                                         </div>
 
-                                        <div class="flex items-center justify-center mt-2 mb-8 pl-2">
+                                        <div class="flex items-center justify-center mt-2 mb-4 pl-2">
                                             <button
                                                 class="transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 mr-2 rounded-lg
@@ -205,16 +201,14 @@
                                             </button>
                                         </div>
 
-                                        <div class="flex items-center justify-center">
-                                            <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">3</div>
-                                            <div class="ml-3 text-xs text-gray-500 text-center">Choose a payment
-                                                method</div>
-                                        </div>
-                                        <div class="">
+                                        <div>
                                             <div x-show="tab === 'onetime'" class="p-1 mt-2 text-center space-x-1
                                                     space-y-2">
                                                 @if($iban)
+                                                    <div>
+                                                        <div class="flex items-center justify-center">
+                                                            <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate via internet-bank</div>
+                                                        </div>
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -257,40 +251,26 @@
                                                         font-medium tracking-wider border text-blue-100 rounded-full
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
+                                                    </div>
                                                 @endif
+
+                                                <div>
+                                                    <div class="flex items-center justify-center">
+                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate with credit card</div>
+                                                    </div>
                                                     @if($rev)
                                                         <button
                                                             form="sumforbank"
                                                             type="submit"
                                                             name="action"
                                                             value="rev"
-                                                            class="transition duration-150 ease-in-out bg-gray-50 px-5
+                                                            class="transition duration-150 ease-in-out bg-white px-5
                                                              py-3
                                                         text-sm shadow-sm
                                                         font-medium tracking-wider border text-blue-500 rounded-full
                                                         hover:shadow-lg hover:bg-gray-100">Revolut
                                                         </button>
                                                     @endif
-                                                    {{--                                                        <button--}}
-                                                {{--                                                            form="sumforbank"--}}
-                                                {{--                                                            type="submit"--}}
-                                                {{--                                                            name="action"--}}
-                                                {{--                                                            value="luminor"--}}
-                                                {{--                                                            class="transition duration-150 ease-in-out bg-pink-900 px-5--}}
-                                                {{--                                                py-3 text-sm shadow-sm--}}
-                                                {{--                                                    font-medium tracking-wider border text-pink-100 rounded-full--}}
-                                                {{--                                                    hover:shadow-lg hover:bg-pink-800">Luminor--}}
-                                                {{--                                                        </button>--}}
-                                                {{--                                                        <button--}}
-                                                {{--                                                            form="sumforbank"--}}
-                                                {{--                                                            type="submit"--}}
-                                                {{--                                                            name="action"--}}
-                                                {{--                                                            value="citadele"--}}
-                                                {{--                                                            class="transition duration-150 ease-in-out bg-red-600 px-5--}}
-                                                {{--                                                py-3 text-sm shadow-sm font-medium--}}
-                                                {{--                                                     tracking-wider border text-red-100 rounded-full hover:shadow-lg--}}
-                                                {{--                                                     hover:bg-red-700">Citadele--}}
-                                                {{--                                                        </button>--}}
                                                 @if($pp)
                                                     <button
                                                         form="sumforbank"
@@ -309,17 +289,22 @@
                                                         type="submit"
                                                         name="action"
                                                         value="donorbox"
-                                                        class="transition duration-150 ease-in-out bg-white px-5
+                                                        class="transition duration-150 ease-in-out bg-red-700 px-5
                                                 py-3 text-sm shadow-sm font-medium
-                                                     tracking-wider border text-red-400 rounded-full hover:shadow-lg
-                                                     hover:bg-gray-50 inline-flex items-center">
-                                                        <span>Credit cards (Donorbox)</span>
+                                                     tracking-wider border text-white rounded-full hover:shadow-lg
+                                                     hover:bg-red-700 inline-flex items-center">
+                                                        <span>Donorbox</span>
                                                     </button>
                                                 @endif
+                                                </div>
                                             </div>
                                             <div x-show="tab === 'standing'" class="p-1 mt-2 text-center space-x-1
                                             space-y-2">
                                                 @if($iban)
+                                                    <div>
+                                                    <div class="flex items-center justify-center">
+                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate via internet-bank</div>
+                                                    </div>
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -362,20 +347,26 @@
                                                         font-medium tracking-wider border text-blue-100 rounded-full
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
+                                                    </div>
                                                 @endif
+                                                <div>
+                                                    <div class="flex items-center justify-center">
+                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate with credit card</div>
+                                                    </div>
                                                 @if($db)
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
                                                         name="action"
                                                         value="donorbox-standing"
-                                                        class="transition duration-150 ease-in-out bg-white px-5
+                                                        class="transition duration-150 ease-in-out bg-red-700 px-5
                                                 py-3 text-sm shadow-sm font-medium
-                                                     tracking-wider border text-red-400 rounded-full hover:shadow-lg
-                                                     hover:bg-gray-50 inline-flex items-center">
-                                                        <span>Credit cards (Donorbox)</span>
+                                                     tracking-wider border text-white rounded-full hover:shadow-lg
+                                                     hover:bg-red-700 inline-flex items-center">
+                                                        <span>Donorbox</span>
                                                     </button>
                                                 @endif
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
