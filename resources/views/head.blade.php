@@ -57,3 +57,16 @@
 </script>
 <!-- End Matomo Code -->
 
+<style>
+    /* Fonts */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Space Grotesk', 'Rubik', sans-serif;
+    }
+    input {
+        font-family: 'Space Grotesk', 'Rubik', sans-serif;
+    }
+    body {
+        font-family: 'Rubik', sans-serif;
+    }
+</style>
+
