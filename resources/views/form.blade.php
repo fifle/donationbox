@@ -61,6 +61,8 @@
                                 <div class="col-span-12">
                                     <div x-data="{ tab: 'onetime' }">
                                         <div class="flex items-center justify-center mt-8 mb-2">
+                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">1</div>
                                             <div class="text-xs text-gray-500 text-center">Enter the amount of your donation</div>
                                         </div>
                                         <div x-data="{ preamount: '' }">
@@ -168,6 +170,8 @@
                                         </div>
 
                                         <div class="flex items-center justify-center">
+                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">2</div>
                                             <div class="text-xs text-gray-500 text-center">Select
                                                 payment type</div>
                                         </div>
@@ -205,10 +209,12 @@
 
                                         <div>
                                             <div x-show="tab === 'onetime'" class="p-1 mt-2 text-center space-x-1
-                                                    space-y-2">
+                                                    space-y-2" x-transition:enter.duration.500ms>
                                                 @if($iban)
                                                     <div>
                                                         <div class="flex items-center justify-center">
+                                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">3</div>
                                                             <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate via internet-bank</div>
                                                         </div>
                                                     <button
@@ -259,6 +265,10 @@
                                                 <div>
                                                 @if($rev or $pp or $db)
                                                     <div class="flex items-center justify-center">
+                                                        @if(!$iban)
+                                                        <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">3</div>
+                                                        @endif
                                                         <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate with credit card</div>
                                                     </div>
                                                     @endif
@@ -303,10 +313,12 @@
                                                 </div>
                                             </div>
                                             <div x-show="tab === 'standing'" class="p-1 mt-2 text-center space-x-1
-                                            space-y-2">
+                                            space-y-2" x-transition:enter.duration.500ms>
                                                 @if($iban)
                                                     <div>
                                                     <div class="flex items-center justify-center">
+                                                        <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">3</div>
                                                         <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate via internet-bank</div>
                                                     </div>
                                                     <button
@@ -356,6 +368,10 @@
                                                 <div>
                                                     @if($db)
                                                     <div class="flex items-center justify-center">
+                                                        @if(!$iban)
+                                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">3</div>
+                                                        @endif
                                                         <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate with credit card</div>
                                                     </div>
                                                     @endif
