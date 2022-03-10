@@ -40,6 +40,7 @@
 <script src="//unpkg.com/flowbite@1.3.4/dist/flowbite.js" defer></script>
 <script src="//kit.fontawesome.com/6940ba20ce.js" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+
 <!-- Matomo -->
 <script>
     var _paq = window._paq = window._paq || [];
@@ -56,10 +57,9 @@
 </script>
 <!-- End Matomo Code -->
 
-
 <style>
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'Space Grotesk', sans-serif;
+        font-family: 'Space Grotesk', 'Rubik', sans-serif;
     }
     body {
         font-family: 'Rubik', sans-serif;
