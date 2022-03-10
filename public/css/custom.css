@@ -1,3 +1,14 @@
+/* Fonts */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Rubik', sans-serif;
+}
+input {
+    font-family: 'Space Grotesk', 'Rubik', sans-serif;
+}
+body {
+    font-family: 'Rubik', sans-serif;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -19,7 +30,7 @@ input[type=number] {
     border-radius:5px;
 }
 #social-links li span{
-    font-size: 24px;
+    font-size: 18px;
 }
 #social-links ul li{
     display: inline-block;

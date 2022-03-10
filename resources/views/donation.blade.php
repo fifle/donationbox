@@ -18,7 +18,7 @@
                 <p class="mt-2 mb-2 text-center text-1xl font-bold text-gray-600">
                     Scan QR-code and easily share donation box!
                 </p>
-                <img src="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="p-3.5">
+                <img src="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="p-5">
 
                 <div class="p-1 mt-2 text-center">
                     {{--                    <a href="#" class="no-underline text-mg text-blue-800">--}}
@@ -33,7 +33,7 @@
                     {{--                    </a>--}}
                     <a href="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="no-underline text-mg
                     text-blue-800" download="donationbox-{{$iban}}.png">
-                        <div class="mt-2 transition duration-150 ease-in-out bg-white
+                        <div class="transition duration-150 ease-in-out bg-white
                                                      px-5 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-gray-600 rounded-full hover:shadow-lg
                                                      hover:bg-gray-50 inline-flex items-center">
@@ -51,7 +51,7 @@
                 <p class="mb-2 text-center text-1xl font-bold text-gray-600">
                     Share this donation box with your friends!
                 </p>
-                <div class="mt-2 inline-flex items-center">
+                <div class="mt-2 flex items-center justify-center">
                 {!! Share::page(urlencode(url()->full()), urldecode($campaign_title))->facebook()->twitter()
                 ->linkedin()
                 ->whatsapp() !!}
@@ -60,7 +60,7 @@
                             hover:text-blue-600
                 text-blue-500 rounded-lg text-sm inline-flex items-center" data-clipboard-text="{{ $link }}" >
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
-            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>     Copy link to clipboard
+            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy link
                     </button>
                 </div>
             </div>
@@ -71,19 +71,20 @@
                 Embed your donation box to your webpage
             </p>
 
+            <div class="flex items-center justify-center">
             <!-- Target -->
             <input id="foo"
-                   class="shadow appearance-none border rounded py-2 px-3 w-auto text-gray-700 leading-tight
+                   class="w-2/3 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight
                        focus:outline-none focus:shadow-outline"
                    value="{{ sprintf("<embed src='%s' width='100%%' height='900' style='border:none;overflow:hidden'></embed>", $embedlink) }}">
 
             <!-- Trigger -->
-            <button href="#_" class="btn px-3 py-2.5 font-medium bg-blue-50 hover:bg-blue-100 hover:text-blue-600
+            <button href="#_" class="btn w-auto ml-2 px-3 py-2.5 font-medium bg-blue-50 hover:bg-blue-100 hover:text-blue-600
                 text-blue-500 rounded-lg text-sm inline-flex items-center" data-clipboard-target="#foo">
                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
-            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy embed code
+            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy code
             </button>
-
+            </div>
 
         </div>
 
