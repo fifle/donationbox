@@ -23,6 +23,7 @@
 
 <!-- Fonts -->
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 </style>
 
@@ -57,8 +58,11 @@
 
 
 <style>
-    body {
+    h1, h2, h3, h4, h5, h6 {
         font-family: 'Space Grotesk', sans-serif;
+    }
+    body {
+        font-family: 'Rubik', sans-serif;
     }
 </style>
 

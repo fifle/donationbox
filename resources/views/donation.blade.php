@@ -48,7 +48,7 @@
 
         <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
             <div class="content-center">
-                <p class="mt-2 mb-2 text-center text-1xl font-bold text-gray-600">
+                <p class="mb-2 text-center text-1xl font-bold text-gray-600">
                     Share this donation box with your friends!
                 </p>
                 <div class="mt-2 inline-flex items-center">
@@ -67,7 +67,7 @@
         </div>
 
         <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
-            <p class="mt-2 mb-2 text-center text-1xl font-bold text-gray-600">
+            <p class="mb-2 text-center text-1xl font-bold text-gray-600">
                 Embed your donation box to your webpage
             </p>
 
