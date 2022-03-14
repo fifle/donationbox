@@ -28,8 +28,8 @@
         <span class="ml-2 mr-2">
             |
         </span>
-        <a href="#" class="no-underline hover:underline text-blue-800" target="_blank">
-            GitHub <sup class="z-0">soon</sup>
+        <a href="https://github.com/fifle/donationbox" class="no-underline hover:underline text-blue-800" target="_blank">
+            GitHub
         </a>
         <span class="ml-2 mr-2">
             |

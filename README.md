@@ -10,6 +10,11 @@ We provide a convenient interface for donors so that they don't have to enter da
 - [Create your first DonationBox](https://donationbox.ee)
 - [Buy us a hot choco. Support the project!](https://donationbox.ee/donation?campaign_title=Support+Donationbox.ee&detail=Annetus+donationbox.ee&payee=Pavel+Flei%C5%A1er&iban=EE614204278622417401&pp=pfleiser&rev=pavelvtd)
 
+## Coming soon
+- [ ] Support of Latvian and Lithuanian banks
+- [ ] Support for Estonian, Russian, Latvian and Lithuanian in the interface
+- [ ] QR-code generation in PDF format
+
 ## License
 
 DonationBox.ee is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
