@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>Start your virtual donation box for Estonian banks for free and without any hidden fees - DonationBox.ee</title>
+    <title>Create your virtual donation box for Estonian banks for free - DonationBox.ee</title>
     @include('head')
 </head>
 <body class="antialiased">
@@ -16,7 +16,7 @@
             </div>
             <h2 class="text-center text-xl text-gray-700">
                 Start your virtual donation box for
-                Estonian banks for free and without any hidden fees
+                Estonian banks for free
             </h2>
             <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, LHV, Coop, Revolut, Donorbox, Paypal)</p>
         </div>
