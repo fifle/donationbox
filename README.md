@@ -12,7 +12,7 @@ We provide a convenient interface for donors so that they don't have to enter da
 
 ## Coming soon
 - [ ] Support of Latvian and Lithuanian banks
-- [ ] Support for Estonian, Russian, Latvian and Lithuanian in the interface
+- [ ] Multi-language interface (Estonian, Russian, Latvian and Lithuanian)
 - [ ] QR-code generation in PDF format
 
 ## License
