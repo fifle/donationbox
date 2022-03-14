@@ -33,7 +33,7 @@ class DonationController extends Controller
             $embedlink = sprintf(url('/embed?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
                 $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid, $rev);
 
-            // swedbank
+            // amount
             $amount = null;
 
             // QR-code generation
@@ -41,18 +41,6 @@ class DonationController extends Controller
                 ->merge('img/db-logo-qr.png', .3, true)
                 ->size(1920)
                 ->generate($link);
-
-//            // passing values to the session
-//            session(array(
-//                    'campaign_title' => $campaign_title,
-//                    'detail' => $detail,
-//                    'payee' => $payee,
-//                    'iban' => $iban,
-//                    'pp' => $pp,
-//                    'db' => $db,
-//                    'sebuid' => $sebuid,
-//                )
-//            );
 
             $compactData = array(
                 'qrcode',
@@ -102,26 +90,7 @@ class DonationController extends Controller
             // swedbank
             $amount = null;
 
-            // QR-code generation
-            $qrcode = QrCode::format('png')
-                ->merge('img/db-logo-qr.png', .3, true)
-                ->size(1920)
-                ->generate($link);
-
-//            // passing values to the session
-//            session(array(
-//                    'campaign_title' => $campaign_title,
-//                    'detail' => $detail,
-//                    'payee' => $payee,
-//                    'iban' => $iban,
-//                    'pp' => $pp,
-//                    'db' => $db,
-//                    'sebuid' => $sebuid,
-//                )
-//            );
-
             $compactData = array(
-                'qrcode',
                 'campaign_title',
                 'detail',
                 'payee',
