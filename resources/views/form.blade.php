@@ -239,6 +239,7 @@
                                                         hover:shadow-lg hover:bg-green-600">SEB
                                                         </button>
                                                     @endif
+                                                        @if(env('COUNTRY') == 'ee')
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -249,6 +250,8 @@
                                                         font-medium tracking-wider border text-gray-100 rounded-full
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
+                                                        @endif
+                                                        @if(env('COUNTRY') == 'ee')
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -259,6 +262,7 @@
                                                         font-medium tracking-wider border text-blue-100 rounded-full
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
+                                                        @endif
                                                     </div>
                                                 @endif
 
@@ -343,6 +347,7 @@
                                                         hover:shadow-lg hover:bg-green-600">SEB
                                                         </button>
                                                     @endif
+                                                        @if(env('COUNTRY') == 'ee')
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -353,6 +358,8 @@
                                                         font-medium tracking-wider border text-gray-100 rounded-full
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
+                                                        @endif
+                                                        @if(env('COUNTRY') == 'ee')
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -363,6 +370,7 @@
                                                         font-medium tracking-wider border text-blue-100 rounded-full
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
+                                                        @endif
                                                     </div>
                                                 @endif
                                                 <div>

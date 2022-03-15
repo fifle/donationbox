@@ -15,10 +15,26 @@
                 </a>
             </div>
             <h2 class="text-center text-xl text-gray-700">
-                Start your virtual donation box for
-                Estonian banks for free
+                Start your virtual donation box <br>
+                @if(env('COUNTRY') == 'ee')
+                    for Estonian banks for free
+                @endif
+                @if(env('COUNTRY') == 'lv')
+                    for Latvian banks for free
+                @endif
+                @if(env('COUNTRY') == 'lt')
+                    for Lithuanian banks for free
+                @endif
             </h2>
-            <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, LHV, Coop, Revolut, Donorbox, Paypal)</p>
+            @if(env('COUNTRY') == 'ee')
+                <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, LHV, Coop, Revolut, Donorbox, Paypal)</p>
+            @endif
+            @if(env('COUNTRY') == 'lv')
+                <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, Revolut, Donorbox, Paypal)</p>
+            @endif
+            @if(env('COUNTRY') == 'lt')
+                <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, Revolut, Donorbox, Paypal)</p>
+            @endif
         </div>
         <div x-data="app()" x-cloak>
             <!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->
@@ -92,7 +108,15 @@
                                                     form="generator"
                                                     type="text"
                                                     name="detail"
-                                                    value="Annetus"
+                                                    @if(env('COUNTRY') == 'ee')
+                                                        value="Annetus"
+                                                    @endif
+                                                    @if(env('COUNTRY') == 'lv')
+                                                        value="Ziedojums"
+                                                    @endif
+                                                    @if(env('COUNTRY') == 'lt')
+                                                        value="Donorystė"
+                                                    @endif
                                                     {{--                                                            value="{{ request('detail') }}"--}}
                                                     class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
@@ -147,7 +171,15 @@
                                                                text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                placeholder="eg. 'Tädi Maali' or 'Tavai MTÜ'"
+                                                @if(env('COUNTRY') == 'ee')
+                                                    placeholder="eg. 'Tädi Maali' or 'Tavai MTÜ'"
+                                                @endif
+                                                @if(env('COUNTRY') == 'lv')
+                                                    placeholder="eg. 'Jānis Bērziņš' or 'Biedrība'"
+                                                @endif
+                                                @if(env('COUNTRY') == 'lt')
+                                                    placeholder="eg. 'Vardenis Pavardenis' or 'VšĮ'"
+                                                @endif
                                                 required/>
                                         </div>
                                     </div>
@@ -160,7 +192,17 @@
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
-                                <div class="ml-2 text-gray-500">Details for Estonian banks</div>
+                                <div class="ml-2 text-gray-500">Details for
+                                    @if(env('COUNTRY') == 'ee')
+                                        Estonian
+                                    @endif
+                                    @if(env('COUNTRY') == 'lv')
+                                        Latvian
+                                    @endif
+                                    @if(env('COUNTRY') == 'lt')
+                                        Lithuanian
+                                    @endif
+                                    banks</div>
                             </div>
                             <div class="mb-5">
                                 @csrf
@@ -179,7 +221,15 @@
                                                                text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                placeholder="eg. EE471000001020145685"
+                                                @if(env('COUNTRY') == 'ee')
+                                                    placeholder="eg. EE471000001020145685"
+                                                @endif
+                                                @if(env('COUNTRY') == 'lv')
+                                                    placeholder="eg. LV471000001020145685"
+                                                @endif
+                                                @if(env('COUNTRY') == 'lt')
+                                                    placeholder="eg. LT471000001020145685"
+                                                @endif
                                                 />
                                         </div>
                                         <div class="col-span-12">
@@ -239,8 +289,7 @@
                                                     <span
                                                         class="flex items-center leading-normal bg-grey-lighter
                                                         rounded rounded-r-none border border-r-0 border-grey-light
-                                                        px-3 whitespace-no-wrap text-grey-dark text-sm">revolut
-                                                        .me/</span>
+                                                        px-3 whitespace-no-wrap text-grey-dark text-sm">revolut.me/</span>
                                                 </div>
                                                 <input
                                                     form="generator"

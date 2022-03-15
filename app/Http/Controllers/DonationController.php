@@ -87,7 +87,6 @@ class DonationController extends Controller
             $embedlink = sprintf(url('/embed?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
                 $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid, $rev);
 
-            // swedbank
             $amount = null;
 
             $compactData = array(
