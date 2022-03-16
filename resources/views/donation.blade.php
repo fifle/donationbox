@@ -18,8 +18,9 @@
                 <p class="mt-2 mb-2 text-center text-1xl font-bold text-gray-600">
                     Scan QR-code and easily share donation box!
                 </p>
-                <img src="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="p-5">
-
+                <div x-data="app()" x-cloak>
+                    <img src="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="p-5">
+                </div>
                 <div class="p-1 mt-2 text-center">
                     {{--                    <a href="#" class="no-underline text-mg text-blue-800">--}}
                     {{--                        <div class="transition duration-150 ease-in-out bg-white--}}
