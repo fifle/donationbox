@@ -280,6 +280,28 @@
                                         </div>
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-2">or Paypal donate button for private</label>
+                                            <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">text
+                                                <a href="/about#paypal" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">How can I create it? ></a>
+                                            </div>
+                                            <div class="flex flex-wrap items-stretch w-full mb-2 relative">
+
+                                                <input
+                                                    form="generator"
+                                                    type="text"
+                                                    name="pp_dp"
+                                                    value="{{ request('pp_dp') }}"
+                                                    pattern=""
+                                                    class="flex-shrink flex-grow flex-auto flex-auto
+                                                        leading-normal w-px flex-1 border h-10 border-grey-light rounded px-3 relative transition duration-150 ease-in-out"
+                                                    placeholder="your-paypal-me-username"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col-span-12">
+                                            <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-2">Donorbox campaign slug</label>
                                             <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">

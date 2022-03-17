@@ -17,6 +17,8 @@ class RedirectController extends Controller
         $db = urldecode($request->input('db'));
         $sebuid = urldecode($request->input('sebuid'));
         $rev = urldecode($request->input('rev'));
+        $pp_dp = urldecode($request->input('pp_dp')); // Paypal donation button - private account
+        $pp_db = urldecode($request->input('pp_db')); // Paypal donation button - business account
         $amount = urldecode($request->input('donationsum'));
 
         switch ($request->input('action')) {
@@ -64,6 +66,16 @@ class RedirectController extends Controller
             case 'paypal':
                 $bankname = "Paypal";
                 $url = sprintf("https://paypal.me/%s/%sEUR", $pp, $amount);
+                return Redirect::to($url);
+
+            case 'pp_dp':
+                $bankname = "Paypal";
+                $url = sprintf("https://www.paypal.com/donate/?business=%s&amount=%s&no_recurring=0&item_name=%s&currency_code=EUR", $pp_dp, $amount, $campaign_title);
+                return Redirect::to($url);
+
+            case 'pp_db':
+                $bankname = "Paypal";
+                $url = sprintf("https://www.paypal.com/donate/?hosted_button_id=%s", $pp);
                 return Redirect::to($url);
 
             case 'donorbox':

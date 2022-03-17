@@ -139,6 +139,20 @@
                                                         id="rev"
                                                         value="{{ $rev }}"
                                                     >
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
+                                                        name="pp_dp"
+                                                        id="pp_dp"
+                                                        value="{{ $pp_dp }}"
+                                                    >
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
+                                                        name="pp_db"
+                                                        id="pp_db"
+                                                        value="{{ $pp_db }}"
+                                                    >
                                                 </div>
                                             </div>
                                             <div class="p-1 mt-1 mb-8 text-center space-y-2">
@@ -290,13 +304,25 @@
                                                         form="sumforbank"
                                                         type="submit"
                                                         name="action"
-                                                        value="paypal"
+                                                        value="paypalme"
                                                         class="transition duration-150 ease-in-out bg-blue-800 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-blue-100 rounded-full hover:shadow-lg
-                                                     hover:bg-blue-900">Paypal
+                                                     hover:bg-blue-900">Paypal.me
                                                     </button>
                                                 @endif
+                                                    @if($pp_dp)
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="pp_dp"
+                                                            class="transition duration-150 ease-in-out bg-blue-800 px-5
+                                                py-3 text-sm shadow-sm font-medium
+                                                     tracking-wider border text-blue-100 rounded-full hover:shadow-lg
+                                                     hover:bg-blue-900">Paypal & credit cards
+                                                        </button>
+                                                    @endif
                                                 @if($db)
                                                     <button
                                                         form="sumforbank"
