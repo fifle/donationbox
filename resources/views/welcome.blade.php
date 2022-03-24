@@ -11,7 +11,7 @@
         <div class="items-center justify-center mt-8 mb-6">
             <div class="w-1/2 mx-auto mb-4">
                 <a href="/">
-                    <img class="mx-auto" src="/img/db-logo-fl.png">
+                    <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png">
                 </a>
             </div>
             <h2 class="text-center text-xl text-gray-700">
@@ -27,7 +27,8 @@
                 @endif
             </h2>
             @if(env('COUNTRY') == 'ee')
-                <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, LHV, Coop, Revolut, Donorbox, Paypal)</p>
+                <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, LHV, Coop, Revolut, Donorbox,
+                    Paypal)</p>
             @endif
             @if(env('COUNTRY') == 'lv')
                 <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, Revolut, Donorbox, Paypal)</p>
@@ -55,7 +56,8 @@
 
                                 <div class="mb-4 flex items-center">
                                     <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">1</div>
+                                    text-gray-500 text-xs font-bold">1
+                                    </div>
                                     <div class="ml-2 text-gray-500">Your campaign page details</div>
                                 </div>
 
@@ -92,7 +94,8 @@
 
                                                 <label for="detail" class="font-bold text-gray-700
                                                         block mb-1">
-                                                    Bank transfer detail                                                     <span class="font-normal text-red-500"><sup>*</sup></span>
+                                                    Bank transfer detail <span
+                                                        class="font-normal text-red-500"><sup>*</sup></span>
                                                 </label>
                                                 <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
@@ -109,13 +112,13 @@
                                                     type="text"
                                                     name="detail"
                                                     @if(env('COUNTRY') == 'ee')
-                                                        value="Annetus"
+                                                    value="Annetus"
                                                     @endif
                                                     @if(env('COUNTRY') == 'lv')
-                                                        value="Ziedojums"
+                                                    value="Ziedojums"
                                                     @endif
                                                     @if(env('COUNTRY') == 'lt')
-                                                        value="Donorystė"
+                                                    value="Donorystė"
                                                     @endif
                                                     {{--                                                            value="{{ request('detail') }}"--}}
                                                     class="appearance-none rounded-none relative block
@@ -126,11 +129,11 @@
                                                     placeholder="eg. Annetus"
                                                     required/>
 
-{{--                                                <input type="checkbox" name="duplicateName" id="duplicateName"--}}
-{{--                                                       value="Yes" placeholder="test"/>--}}
-{{--                                                <label for="duplicateName" class="tracking-normal text-xs--}}
-{{--                                                text-gray-500 mb-3 leading-tight">Use the same as the name for the--}}
-{{--                                                    donation box?</label>--}}
+                                                {{--                                                <input type="checkbox" name="duplicateName" id="duplicateName"--}}
+                                                {{--                                                       value="Yes" placeholder="test"/>--}}
+                                                {{--                                                <label for="duplicateName" class="tracking-normal text-xs--}}
+                                                {{--                                                text-gray-500 mb-3 leading-tight">Use the same as the name for the--}}
+                                                {{--                                                    donation box?</label>--}}
 
                                             </div>
                                         </div>
@@ -143,7 +146,8 @@
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">2</div>
+                                    text-gray-500 text-xs font-bold">2
+                                </div>
                                 <div class="ml-2 text-gray-500">Your personal data</div>
                             </div>
                             <div class="mb-5">
@@ -172,13 +176,13 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                 @if(env('COUNTRY') == 'ee')
-                                                    placeholder="eg. 'Tädi Maali' or 'Tavai MTÜ'"
+                                                placeholder="eg. 'Tädi Maali' or 'Tavai MTÜ'"
                                                 @endif
                                                 @if(env('COUNTRY') == 'lv')
-                                                    placeholder="eg. 'Jānis Bērziņš' or 'Biedrība'"
+                                                placeholder="eg. 'Jānis Bērziņš' or 'Biedrība'"
                                                 @endif
                                                 @if(env('COUNTRY') == 'lt')
-                                                    placeholder="eg. 'Vardenis Pavardenis' or 'VšĮ'"
+                                                placeholder="eg. 'Vardenis Pavardenis' or 'VšĮ'"
                                                 @endif
                                                 required/>
                                         </div>
@@ -191,7 +195,8 @@
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">3</div>
+                                    text-gray-500 text-xs font-bold">3
+                                </div>
                                 <div class="ml-2 text-gray-500">Details for
                                     @if(env('COUNTRY') == 'ee')
                                         Estonian
@@ -202,7 +207,8 @@
                                     @if(env('COUNTRY') == 'lt')
                                         Lithuanian
                                     @endif
-                                    banks</div>
+                                    banks
+                                </div>
                             </div>
                             <div class="mb-5">
                                 @csrf
@@ -222,15 +228,15 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                 @if(env('COUNTRY') == 'ee')
-                                                    placeholder="eg. EE471000001020145685"
+                                                placeholder="eg. EE471000001020145685"
                                                 @endif
                                                 @if(env('COUNTRY') == 'lv')
-                                                    placeholder="eg. LV471000001020145685"
+                                                placeholder="eg. LV471000001020145685"
                                                 @endif
                                                 @if(env('COUNTRY') == 'lt')
-                                                    placeholder="eg. LT471000001020145685"
+                                                placeholder="eg. LT471000001020145685"
                                                 @endif
-                                                />
+                                            />
                                         </div>
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
@@ -242,7 +248,7 @@
                                                 <a href="/about#sebUID" class="no-underline hover:underline
                                                     text-blue-800" target="_blank">Read more about how to
                                                     obtain a special identifier for private individuals and companies
-                                                >   </a>
+                                                    > </a>
                                             </div>
                                             <input
                                                 form="generator"
@@ -267,7 +273,8 @@
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">4</div>
+                                    text-gray-500 text-xs font-bold">4
+                                </div>
                                 <div class="ml-2 text-gray-500">Credit cards</div>
                             </div>
                             <div class="mb-5">
@@ -307,7 +314,8 @@
                                                         block mb-2">PayPal.me username</label>
                                             <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
-                                                If you have a Paypal account, you can create your own Paypal.me page to accept donations from other users.
+                                                If you have a Paypal account, you can create your own Paypal.me page to
+                                                accept donations from other users.
                                                 <a href="/about#paypal" class="no-underline hover:underline
                                                     text-blue-800" target="_blank">How can I create it? ></a>
                                             </div>
@@ -338,19 +346,19 @@
                                                     text-blue-800" target="_blank">How can I create it? ></a>
                                             </div>
                                             <div class="flex flex-wrap items-stretch w-full mb-2 relative">
-                                            <div class="flex -mr-px">
+                                                <div class="flex -mr-px">
                                                     <span
                                                         class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">donorbox.org/</span>
-                                            </div>
-                                            <input
-                                                form="generator"
-                                                type="text"
-                                                name="db"
-                                                value="{{ request('db') }}"
-                                                class="flex-shrink flex-grow flex-auto flex-auto
+                                                </div>
+                                                <input
+                                                    form="generator"
+                                                    type="text"
+                                                    name="db"
+                                                    value="{{ request('db') }}"
+                                                    class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
-                                                placeholder="your-campaign-slug"
-                                            />
+                                                    placeholder="your-campaign-slug"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -456,8 +464,8 @@
     function app() {
         return {
             step: 1,
-            }
         }
+    }
 </script>
 </body>
 </html>
