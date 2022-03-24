@@ -9,7 +9,7 @@
     <div class="max-w-md w-full space-y-2">
         <div class="mb-6 w-1/3 mx-auto">
             <a href="/" target="_blank">
-                <img class="mx-auto" src="/img/db-logo-fl.png">
+                <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png">
             </a>
         </div>
         @include('form')

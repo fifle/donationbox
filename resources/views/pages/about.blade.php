@@ -10,7 +10,7 @@
         <div class="items-center justify-center mt-8 mb-6">
             <div class="w-1/3 mx-auto mb-4">
                 <a href="/">
-                    <img class="mx-auto" src="/img/db-logo-fl.png">
+                    <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png">
                 </a>
             </div>
             <h1 class="text-center text-3xl text-gray-700 mb-8">
