@@ -4,7 +4,7 @@
     </h2>
     <div class="mt-2 mb-4 text-center text-sm text-gray-600 align-middle">
         {!! urldecode($payee) !!} /
-        @if($iban)
+        @if(isset($iban))
             {!! urldecode($iban) !!} /
         @endif
         @if($pp)
@@ -15,7 +15,7 @@
         <button data-tooltip-target="tooltip-click" data-tooltip-trigger="click" type="button" class="btn "
         data-clipboard-text="{{
                 urldecode($payee)
-                }} / {{ urldecode($iban) }} / Selgitus: {{ urldecode($detail) }}">
+                }} / {{ urldecode(isset($iban)) }} / Selgitus: {{ urldecode($detail) }}">
             <div class="inline-flex items-center text-xs text-gray-500">
             (<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
             .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy)</div>
@@ -97,13 +97,7 @@
                                                         id="payee"
                                                         value="{{ $payee }}"
                                                     >
-                                                    <input
-                                                        form="sumforbank"
-                                                        type="hidden"
-                                                        name="detail"
-                                                        id="detail"
-                                                        value="{{ $detail }}"
-                                                    >
+
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
@@ -141,7 +135,7 @@
                                                     >
                                                 </div>
                                             </div>
-                                            <div class="p-1 mt-1 mb-8 text-center space-y-2">
+                                            <div class="p-1 mt-1 mb-4 text-center space-y-2">
                                                 <button class="transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 mr-2 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
@@ -159,7 +153,7 @@
                                                     10€
                                                 </button>
                                                 <button class="transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-5 mr-2 rounded-lg
+                                                        focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto"
@@ -167,6 +161,7 @@
                                                     25€
                                                 </button>
                                             </div>
+
                                         </div>
 
                                         <div class="flex items-center justify-center">
@@ -185,21 +180,21 @@
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto"
                                                 @click="tab = 'onetime'"
-                                                :class="{'font-bold bg-gray-100' : tab === 'onetime', 'font-normal' :
+                                                :class="{'bg-gray-100' : tab === 'onetime', 'font-normal' :
                                                 !tab === 'onetime'}"
                                             >
                                                 One-time payment
                                             </button>
-                                            @if($iban or $db)
+                                            @if(isset($iban) or $db)
                                             <button
                                                 class="transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-5 mr-2 rounded-lg
+                                                        focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-sm text-gray-600 bg-white
                                                         hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto"
                                                 @click="tab = 'standing'"
-                                                :class="{'font-bold bg-gray-100' : tab === 'standing', 'font-normal' :
+                                                :class="{'bg-gray-100' : tab === 'standing', 'font-normal' :
                                                 !tab === 'standing'}"
                                             >
                                                 Recurring payment
@@ -207,10 +202,60 @@
                                             @endif
                                         </div>
 
+                                        @if($tax)
+                                        <div class="flex items-center justify-center">
+                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">3</div>
+                                            <div class="text-xs text-gray-500 text-center">Apply for tax return</div>
+                                        </div>
+
+                                        <div class="flex items-center justify-center mt-2 mb-2 pl-2">
+                                            <button
+                                                class="transition duration-150 ease-in-out
+                                                        focus:outline-none py-2 px-5 rounded-lg
+                                                        shadow-sm text-center text-sm text-gray-600 bg-white
+                                                        hover:bg-gray-100
+                                                        font-medium border focus:ring-1 focus:ring-offset-1
+                                                        focus:ring-pink-700 w-auto"
+                                                @click="tab = 'onetime'"
+                                                :class="{'bg-gray-100' : tab === 'onetime', 'font-normal' :
+                                                !tab === 'onetime'}"
+                                            >
+                                                I'd like to have a tax return
+                                            </button>
+                                        </div>
+                                            <div class="mb-2 text-xs text-gray-500 text-center">
+                                                Please type your identity code
+                                            </div>
+                                            <div class="flex items-center justify-center mt-0 mb-4 pl-2">
+                                                <input
+                                                    form="sumforbank"
+                                                    type="text"
+                                                    name="ik"
+                                                    id="ik"
+                                                    value="{{ $ik }}"
+{{--                                                    pattern="/[1-6][0-9]{2}[1,2][0-9][0-9]{2}[0-9]{4}/"--}}
+                                                class="appearance-none rounded-none relative block
+                                                               w-1/2 px-2 py-1 border border-gray-300
+                                                               text-gray-900 rounded-md
+                                                               focus:outline-none focus:ring-indigo-500
+                                                               focus:border-indigo-500 focus:z-10 text-normal
+                                                               transition duration-150 ease-in-out text-center"
+                                                placeholder="eg. 38001085718">
+                                                <input
+                                                    form="sumforbank"
+                                                    type="hidden"
+                                                    name="detail"
+                                                    id="detail"
+                                                    value="{{ $detail }} {{ $ik }}"
+                                                >
+                                            </div>
+                                        @endif
+
                                         <div>
                                             <div x-show="tab === 'onetime'" class="p-1 mt-2 text-center space-x-1
                                                     space-y-2" x-transition:enter.duration.500ms>
-                                                @if($iban)
+                                                @if(isset($iban))
                                                     <div>
                                                         <div class="flex items-center justify-center">
                                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
@@ -269,7 +314,7 @@
                                                 <div>
                                                 @if($rev or $pp or $db)
                                                     <div class="flex items-center justify-center">
-                                                        @if(!$iban)
+                                                        @if(!isset($iban))
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
                                                         @endif
@@ -318,7 +363,7 @@
                                             </div>
                                             <div x-show="tab === 'standing'" class="p-1 mt-2 text-center space-x-1
                                             space-y-2" x-transition:enter.duration.500ms>
-                                                @if($iban)
+                                                @if(isset($iban))
                                                     <div>
                                                     <div class="flex items-center justify-center">
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100

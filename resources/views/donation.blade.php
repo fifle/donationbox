@@ -33,7 +33,7 @@
                     {{--                        </div>--}}
                     {{--                    </a>--}}
                     <a href="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="no-underline text-mg
-                    text-blue-800" download="donationbox-{{$iban}}.png">
+                    text-blue-800" download="donationbox-qr.png">
                         <div class="transition duration-150 ease-in-out bg-white
                                                      px-5 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-gray-600 rounded-full hover:shadow-lg

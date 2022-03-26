@@ -189,6 +189,44 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @if(env('COUNTRY') == 'ee')
+                            <div class="mb-5">
+                                <div class="rounded-md -space-y-px">
+                                    <div class="grid gap-6">
+                                        <div class="col-span-12">
+                                            <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-2">Tax return for donors
+                                            </label>
+                                            <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">
+                                                In this case, your donors will be able to request an income tax
+                                                refund on their donation. NB! Your organization must be on the
+                                                    register of associations eligible for tax incentives.
+                                                <a href="/about#taxfree-ee" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">Learn more ></a>
+                                            </div>
+                                            <div class="flex items-start mb-2">
+                                                <div class="flex items-center h-5">
+                                                    <input
+                                                        form="generator"
+                                                        type="checkbox"
+                                                        id="tax"
+                                                        name="tax"
+                                                        value="true"
+                                                        class="w-5 h-5
+                                                       bg-red-100 border-red-300 text-red-500 focus:ring-red-200"/>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="tax" class="font-medium text-gray-900
+                                                    dark:text-gray-300">Let my donors apply for a tax refund</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                         <!-- Step 3 -->
                         <div x-show="step === 3"
@@ -228,13 +266,13 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                 @if(env('COUNTRY') == 'ee')
-                                                placeholder="eg. EE471000001020145685"
+                                                placeholder="eg. EE382200221020145685"
                                                 @endif
                                                 @if(env('COUNTRY') == 'lv')
-                                                placeholder="eg. LV471000001020145685"
+                                                placeholder="eg. LV80BANK0000435195001"
                                                 @endif
                                                 @if(env('COUNTRY') == 'lt')
-                                                placeholder="eg. LT471000001020145685"
+                                                placeholder="eg. LT121000011101001000"
                                                 @endif
                                             />
                                         </div>
@@ -424,18 +462,6 @@
                     <div class="flex-1">
                         <div class="uppercase tracking-normal text-xs font-normal text-gray-400 mb-4 leading-tight"
                              x-text="`Step: ${step} of 4`"></div>
-                        {{--                            <div x-show="step === 1">--}}
-                        {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Campaign name</div>--}}
-                        {{--                            </div>--}}
-
-                        {{--                            <div x-show="step === 2">--}}
-                        {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Payee's name--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-
-                        {{--                            <div x-show="step === 3">--}}
-                        {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Bank details</div>--}}
-                        {{--                            </div>--}}
                     </div>
 
                     <div class="flex items-center md:w-64">

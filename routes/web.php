@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\StripEmptyParams;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +22,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation');
-Route::post('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation.show');
+Route::get('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation')->middleware(StripEmptyParams::class);;
+Route::post('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation.show')->middleware(StripEmptyParams::class);;
 
 Route::get('/embed', 'App\Http\Controllers\DonationController@donationEmbed')->name('donationembed');
 Route::post('/embed', 'App\Http\Controllers\DonationController@donationEmbed')->name('donationembed.show');
