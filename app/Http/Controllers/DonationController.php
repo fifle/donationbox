@@ -27,7 +27,6 @@ class DonationController extends Controller
             $sebuid = urlencode($request->input('sebuid'));
             $rev = urlencode($request->input('rev'));
             $tax = urlencode($request->boolean('tax'));
-            $ik = null;
 
             // links
             $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
@@ -37,6 +36,7 @@ class DonationController extends Controller
 
             // amount
             $amount = null;
+            $ik = null;
 
             // QR-code generation
             $qrcode = QrCode::format('png')
@@ -50,9 +50,9 @@ class DonationController extends Controller
                 'detail',
                 'payee',
                 'amount',
+                'ik',
                 'embedlink',
                 'link',
-                'ik',
             );
 
             if (isset($iban)) {

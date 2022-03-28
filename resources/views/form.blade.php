@@ -97,7 +97,13 @@
                                                         id="payee"
                                                         value="{{ $payee }}"
                                                     >
-
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
+                                                        name="detail"
+                                                        id="detail"
+                                                        value="{{ $detail }}"
+                                                    >
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
@@ -206,50 +212,51 @@
                                         <div class="flex items-center justify-center">
                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
-                                            <div class="text-xs text-gray-500 text-center">Apply for tax return</div>
+                                            <div class="text-xs text-gray-500 text-center">Apply for tax return (valid only for Estonian banks)</div>
                                         </div>
 
+                                        <div x-data="{ show: false }">
                                         <div class="flex items-center justify-center mt-2 mb-2 pl-2">
-                                            <button
-                                                class="transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-5 rounded-lg
-                                                        shadow-sm text-center text-sm text-gray-600 bg-white
-                                                        hover:bg-gray-100
-                                                        font-medium border focus:ring-1 focus:ring-offset-1
-                                                        focus:ring-pink-700 w-auto"
-                                                @click="tab = 'onetime'"
-                                                :class="{'bg-gray-100' : tab === 'onetime', 'font-normal' :
-                                                !tab === 'onetime'}"
-                                            >
-                                                I'd like to have a tax return
-                                            </button>
-                                        </div>
-                                            <div class="mb-2 text-xs text-gray-500 text-center">
-                                                Please type your identity code
+                                            <div class="flex items-start mb-2">
+                                                <div class="flex items-center h-5">
+                                                    <input
+                                                        form="generator"
+                                                        type="checkbox"
+                                                        id="ikcheckbox"
+                                                        name="ikcheckbox"
+                                                        value="true"
+                                                        x-model="show"
+                                                        class="w-4 h-4
+                                                       bg-red-100 border-red-300 text-red-500 focus:ring-red-200"
+                                                        >
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="ikcheckbox" class="font-medium text-gray-600
+                                                    dark:text-gray-300">I'd like to have a tax return</label>
+                                                </div>
                                             </div>
-                                            <div class="flex items-center justify-center mt-0 mb-4 pl-2">
-                                                <input
-                                                    form="sumforbank"
-                                                    type="text"
-                                                    name="ik"
-                                                    id="ik"
-                                                    value="{{ $ik }}"
-{{--                                                    pattern="/[1-6][0-9]{2}[1,2][0-9][0-9]{2}[0-9]{4}/"--}}
-                                                class="appearance-none rounded-none relative block
+                                        </div>
+                                            <div x-show="show" x-transition:enter.duration.500ms>
+                                                <div class="mb-1 text-xs text-gray-500 text-center">
+                                                    Please type your identity code (isikukood)
+                                                </div>
+                                                <div class="flex items-center justify-center mt-0 mb-4">
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="number"
+                                                        name="taxik"
+                                                        id="taxik"
+                                                        value="{{ $ik }}"
+                                                        class="appearance-none rounded-none relative block
                                                                w-1/2 px-2 py-1 border border-gray-300
                                                                text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 text-normal
                                                                transition duration-150 ease-in-out text-center"
-                                                placeholder="eg. 38001085718">
-                                                <input
-                                                    form="sumforbank"
-                                                    type="hidden"
-                                                    name="detail"
-                                                    id="detail"
-                                                    value="{{ $detail }} {{ $ik }}"
-                                                >
+                                                        placeholder="eg. 38001085718">
+                                                </div>
                                             </div>
+                                    </div>
                                         @endif
 
                                         <div>
@@ -259,7 +266,13 @@
                                                     <div>
                                                         <div class="flex items-center justify-center">
                                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">3</div>
+                                    text-gray-500 text-xs font-bold">
+                                                                @if($tax)
+                                                                    4
+                                                                @else
+                                                                    3
+                                                                @endif
+                                                            </div>
                                                             <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate via internet-bank</div>
                                                         </div>
                                                     <button
