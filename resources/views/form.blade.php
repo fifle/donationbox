@@ -208,7 +208,7 @@
                                             @endif
                                         </div>
 
-                                        @if($tax)
+                                        @if($tax and env('COUNTRY') == 'ee')
                                         <div class="flex items-center justify-center">
                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
@@ -267,7 +267,7 @@
                                                         <div class="flex items-center justify-center">
                                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">
-                                                                @if($tax)
+                                                                @if($tax and env('COUNTRY') == 'ee')
                                                                     4
                                                                 @else
                                                                     3
