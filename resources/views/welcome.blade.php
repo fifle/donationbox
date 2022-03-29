@@ -288,6 +288,11 @@
                                                     obtain a special identifier for private individuals and companies
                                                     > </a>
                                             </div>
+                                            @if(env('COUNTRY') == 'lv')
+                                                <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
+                                                            leading-tight">
+                                                    Insert SEB UID for <b>One-time direct payments</b>.</div>
+                                            @endif
                                             <input
                                                 form="generator"
                                                 type="text"
@@ -300,6 +305,23 @@
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                 placeholder="eg. f0233a8a-2c62-414d-a8e0-868d5ca345cb"
                                             />
+                                            @if(env('COUNTRY') == 'lv')
+                                                <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
+                                                        leading-tight">
+                                                    Insert SEB UID for <b>Standing order</b>.</div>
+                                                <input
+                                                    form="generator"
+                                                    type="text"
+                                                    name="sebuid_st"
+                                                    value="{{ request('sebuid_st') }}"
+                                                    class="appearance-none rounded-none relative block
+                                                               w-full px-3 py-2 border border-gray-300
+                                                               text-gray-900 rounded-md
+                                                               focus:outline-none focus:ring-indigo-500
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
+                                                    placeholder="eg. 7d28392a-771e-4128-95ee-a9cc1de7f25e"
+                                                />
+                                            @endif
                                         </div>
 
                                     </div>

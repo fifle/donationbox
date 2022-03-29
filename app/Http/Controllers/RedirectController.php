@@ -16,6 +16,7 @@ class RedirectController extends Controller
         $pp = urldecode($request->input('pp'));
         $db = urldecode($request->input('db'));
         $sebuid = urldecode($request->input('sebuid'));
+        $sebuid_st = urldecode($request->input('sebuid_st'));
         $rev = urldecode($request->input('rev'));
         $amount = urldecode($request->input('donationsum'));
         $ik = " " . urldecode($request->input('taxik'));
@@ -104,7 +105,7 @@ class RedirectController extends Controller
                 // TODO: needs to be verified
                 case 'seb-standing':
                     $bankname = "SEB";
-                    $url = sprintf("https://ibanka.seb.lv/ip/ipank?UID=%s&act=ADDSOSMARTPAYM&lang=EST&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $sebuid, $payee, $iban, $detail, $amount);
+                    $url = sprintf("https://ibanka.seb.lv/ip/ipank?UID=%s&act=ADDSOSMARTPAYM&lang=EST&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $sebuid_st, $payee, $iban, $detail, $amount);
                     return Redirect::to($url);
 
                 case 'paypal':
@@ -182,6 +183,7 @@ class RedirectController extends Controller
             'iban',
             'pp',
             'sebuid',
+            'sebuid_st',
             'rev',
             'amount',
             'ik'
@@ -196,6 +198,7 @@ class RedirectController extends Controller
             'iban' => $iban,
             'pp' => $pp,
             'sebuid' => $sebuid,
+            'sebuid_st' => $sebuid_st,
             'rev' => $rev,
             'amount' => $amount,
             'ik' => $ik,

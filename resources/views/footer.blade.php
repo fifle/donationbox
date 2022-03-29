@@ -34,7 +34,7 @@
         <span class="ml-2 mr-2">
             |
         </span>
-        <a href="mailto:hello@donationbox.ee" class="no-underline hover:underline text-blue-800" target="_blank">
+        <a href="mailto:donationbox.ee@gmail.com" class="no-underline hover:underline text-blue-800" target="_blank">
             Contact us
         </a>
     </div>

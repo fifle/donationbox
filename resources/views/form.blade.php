@@ -24,7 +24,7 @@
             Copied!
             <div class="tooltip-arrow" data-popper-arrow></div>
         </div><br>
-        <a href="{{ sprintf("https://www.teatmik.ee/en/search/%s", $payee) }}" class="no-underline
+        <a href="{{ $bg_check }}" class="no-underline
                  hover:underline text-xs text-blue-800" target="_blank">
             <div class="inline-flex items-center mt-2">
                 Check payee's background
@@ -128,6 +128,13 @@
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
+                                                        name="sebuid_st"
+                                                        id="sebuid_st"
+                                                        value="{{ $sebuid_st }}"
+                                                    >
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
                                                         name="sebuid"
                                                         id="sebuid"
                                                         value="{{ $sebuid }}"
@@ -212,7 +219,7 @@
                                         <div class="flex items-center justify-center">
                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
-                                            <div class="text-xs text-gray-500 text-center">Apply for tax return (valid only for Estonian banks)</div>
+                                            <div class="text-xs text-gray-500 text-center">Apply for a tax return (valid only for Estonian banks)</div>
                                         </div>
 
                                         <div x-data="{ show: false }">
@@ -227,7 +234,7 @@
                                                         value="true"
                                                         x-model="show"
                                                         class="w-4 h-4
-                                                       bg-red-100 border-red-300 text-red-500 focus:ring-red-200"
+                                                     bg-red-100 border-red-300 text-red-500 focus:ring-red-200 "
                                                         >
                                                 </div>
                                                 <div class="ml-3 text-sm">
