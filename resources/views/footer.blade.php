@@ -15,20 +15,26 @@
     </a>
     @endif
 
-    <div class="flex justify-center mb-2 text-xs">
-        <a href="https://donationbox.ee" class="no-underline hover:underline text-blue-800" target="_blank">
+    <div class="flex justify-center mb-4 text-xs">
+        <a href="https://donationbox.ee" class="transition duration-150 ease-in-out
+                                                        focus:outline-none py-2 px-3 mr-2 rounded-lg
+                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
+                                                        font-medium border focus:ring-1 focus:ring-offset-1
+                                                        focus:ring-pink-700 w-auto" target="_blank">
             🇪🇪 EE
         </a>
-        <span class="ml-2 mr-2">
-            |
-        </span>
-        <a href="https://donationbox.lv" class="no-underline hover:underline text-blue-800" target="_blank">
+        <a href="https://donationbox.lv" class="transition duration-150 ease-in-out
+                                                        focus:outline-none py-2 px-3 mr-2 rounded-lg
+                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
+                                                        font-medium border focus:ring-1 focus:ring-offset-1
+                                                        focus:ring-pink-700 w-auto" target="_blank">
             🇱🇻 LV
         </a>
-        <span class="ml-2 mr-2">
-            |
-        </span>
-        <a href="https://donationbox.lt" class="no-underline hover:underline text-blue-800" target="_blank">
+        <a href="https://donationbox.lt" class="transition duration-150 ease-in-out
+                                                        focus:outline-none py-2 px-3 rounded-lg
+                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
+                                                        font-medium border focus:ring-1 focus:ring-offset-1
+                                                        focus:ring-pink-700 w-auto" target="_blank">
             🇱🇹 LT
         </a>
     </div>
