@@ -16,6 +16,23 @@
     @endif
 
     <div class="flex justify-center mb-2 text-xs">
+        <a href="https://donationbox.ee" class="no-underline hover:underline text-blue-800" target="_blank">
+            🇪🇪 EE
+        </a>
+        <span class="ml-2 mr-2">
+            |
+        </span>
+        <a href="https://donationbox.lv" class="no-underline hover:underline text-blue-800" target="_blank">
+            🇱🇻 LV
+        </a>
+        <span class="ml-2 mr-2">
+            |
+        </span>
+        <a href="https://donationbox.lt" class="no-underline hover:underline text-blue-800" target="_blank">
+            🇱🇹 LT
+        </a>
+    </div>
+    <div class="flex justify-center mb-2 text-xs">
         <a href="/about" class="no-underline hover:underline text-blue-800">
             FAQ
         </a>
@@ -40,7 +57,7 @@
     </div>
 
     <div class="text-xs">
-    Made with ❤ by <a href="//fleisher.ee" class="no-underline
+    Made with ❤️ by <a href="//fleisher.ee" class="no-underline
                  hover:underline text-blue-800" target="_blank">
         <div class="inline-flex items-center">Pavel<svg class="w-3 h-3 ml-1" fill="none"
                                                         stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
