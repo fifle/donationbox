@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>Create your virtual donation box for Estonian banks for free - DonationBox.ee</title>
+        @if(env('COUNTRY') == 'ee')
+                <title>Create your virtual donation box for Estonian banks for free - DonationBox.ee</title>
+        @endif
+        @if(env('COUNTRY') == 'lv')
+                <title>Create your virtual donation box for Latvian banks for free - DonationBox.lv</title>
+        @endif
+        @if(env('COUNTRY') == 'lt')
+                <title>Create your virtual donation box for Lithuanian banks for free - DonationBox.lt</title>
+        @endif
     @include('head')
 </head>
 <body class="antialiased">
