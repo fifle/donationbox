@@ -1,3 +1,13 @@
+/* Noto Color Emoji font for flags */
+@font-face {
+    font-family: 'Noto Color Emoji';
+    src: url(//raw.githack.com/googlefonts/noto-emoji/main/fonts/NotoColorEmoji.ttf);
+}
+
+.noto-emoji {
+    font-family: 'Noto Color Emoji';
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -25,3 +35,8 @@ input[type=number] {
     display: inline-block;
     padding: 10px 10px 5px;
 }
+
+/* Load Alpine modules */
+/*[x-cloak] {*/
+/*    display: none !important;*/
+/*}*/

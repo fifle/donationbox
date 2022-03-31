@@ -4,7 +4,7 @@
     </h2>
     <div class="mt-2 mb-4 text-center text-sm text-gray-600 align-middle">
         {!! urldecode($payee) !!} /
-        @if($iban)
+        @if(isset($iban))
             {!! urldecode($iban) !!} /
         @endif
         @if($pp)
@@ -15,7 +15,7 @@
         <button data-tooltip-target="tooltip-click" data-tooltip-trigger="click" type="button" class="btn "
         data-clipboard-text="{{
                 urldecode($payee)
-                }} / {{ urldecode($iban) }} / Selgitus: {{ urldecode($detail) }}">
+                }} / {{ urldecode($iban) }} / Payment description: {{ urldecode($detail) }}">
             <div class="inline-flex items-center text-xs text-gray-500">
             (<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
             .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy)</div>
@@ -24,7 +24,7 @@
             Copied!
             <div class="tooltip-arrow" data-popper-arrow></div>
         </div><br>
-        <a href="{{ sprintf("https://www.teatmik.ee/en/search/%s", $payee) }}" class="no-underline
+        <a href="{{ $bg_check }}" class="no-underline
                  hover:underline text-xs text-blue-800" target="_blank">
             <div class="inline-flex items-center mt-2">
                 Check payee's background
@@ -128,6 +128,13 @@
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
+                                                        name="sebuid_st"
+                                                        id="sebuid_st"
+                                                        value="{{ $sebuid_st }}"
+                                                    >
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
                                                         name="sebuid"
                                                         id="sebuid"
                                                         value="{{ $sebuid }}"
@@ -141,7 +148,7 @@
                                                     >
                                                 </div>
                                             </div>
-                                            <div class="p-1 mt-1 mb-8 text-center space-y-2">
+                                            <div class="p-1 mt-1 mb-4 text-center space-y-2">
                                                 <button class="transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 mr-2 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
@@ -159,7 +166,7 @@
                                                     10€
                                                 </button>
                                                 <button class="transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-5 mr-2 rounded-lg
+                                                        focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto"
@@ -167,6 +174,7 @@
                                                     25€
                                                 </button>
                                             </div>
+
                                         </div>
 
                                         <div class="flex items-center justify-center">
@@ -176,7 +184,7 @@
                                                 payment type</div>
                                         </div>
 
-                                        <div class="flex items-center justify-center mt-2 mb-4 pl-2">
+                                        <div class="flex items-center justify-center mt-2 mb-4">
                                             <button
                                                 class="transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 mr-2 rounded-lg
@@ -185,21 +193,21 @@
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto"
                                                 @click="tab = 'onetime'"
-                                                :class="{'font-bold bg-gray-100' : tab === 'onetime', 'font-normal' :
+                                                :class="{'bg-gray-100' : tab === 'onetime', 'font-normal' :
                                                 !tab === 'onetime'}"
                                             >
                                                 One-time payment
                                             </button>
-                                            @if($iban or $db)
+                                            @if(isset($iban) or $db)
                                             <button
                                                 class="transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-5 mr-2 rounded-lg
+                                                        focus:outline-none py-2 px-3 rounded-lg
                                                         shadow-sm text-center text-sm text-gray-600 bg-white
                                                         hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto"
                                                 @click="tab = 'standing'"
-                                                :class="{'font-bold bg-gray-100' : tab === 'standing', 'font-normal' :
+                                                :class="{'bg-gray-100' : tab === 'standing', 'font-normal' :
                                                 !tab === 'standing'}"
                                             >
                                                 Recurring payment
@@ -207,14 +215,71 @@
                                             @endif
                                         </div>
 
+                                        @if($tax and env('COUNTRY') == 'ee')
+                                        <div class="flex items-center justify-center">
+                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">3</div>
+                                            <div class="text-xs text-gray-500 text-center">Apply for a tax return (valid only for Estonian banks)</div>
+                                        </div>
+
+                                        <div x-data="{ show: false }">
+                                        <div class="flex items-center justify-center mt-2 mb-2 pl-2">
+                                            <div class="flex items-start mb-2">
+                                                <div class="flex items-center h-5">
+                                                    <input
+                                                        form="generator"
+                                                        type="checkbox"
+                                                        id="ikcheckbox"
+                                                        name="ikcheckbox"
+                                                        value="true"
+                                                        x-model="show"
+                                                        class="w-4 h-4
+                                                     bg-red-100 border-red-300 text-red-500 focus:ring-red-200 "
+                                                        >
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="ikcheckbox" class="font-medium text-gray-600
+                                                    dark:text-gray-300">I'd like to have a tax return</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <div x-show="show" x-transition:enter.duration.500ms>
+                                                <div class="mb-1 text-xs text-gray-500 text-center">
+                                                    Please type your identity code (isikukood)
+                                                </div>
+                                                <div class="flex items-center justify-center mt-0 mb-4">
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="number"
+                                                        name="taxik"
+                                                        id="taxik"
+                                                        value="{{ $ik }}"
+                                                        class="appearance-none rounded-none relative block
+                                                               w-1/2 px-2 py-1 border border-gray-300
+                                                               text-gray-900 rounded-md
+                                                               focus:outline-none focus:ring-indigo-500
+                                                               focus:border-indigo-500 focus:z-10 text-normal
+                                                               transition duration-150 ease-in-out text-center"
+                                                        placeholder="eg. 38001085718">
+                                                </div>
+                                            </div>
+                                    </div>
+                                        @endif
+
                                         <div>
                                             <div x-show="tab === 'onetime'" class="p-1 mt-2 text-center space-x-1
                                                     space-y-2" x-transition:enter.duration.500ms>
-                                                @if($iban)
+                                                @if(isset($iban))
                                                     <div>
                                                         <div class="flex items-center justify-center">
                                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">3</div>
+                                    text-gray-500 text-xs font-bold">
+                                                                @if($tax and env('COUNTRY') == 'ee')
+                                                                    4
+                                                                @else
+                                                                    3
+                                                                @endif
+                                                            </div>
                                                             <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate via internet-bank</div>
                                                         </div>
                                                     <button
@@ -239,6 +304,7 @@
                                                         hover:shadow-lg hover:bg-green-600">SEB
                                                         </button>
                                                     @endif
+                                                        @if(env('COUNTRY') == 'ee')
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -249,6 +315,8 @@
                                                         font-medium tracking-wider border text-gray-100 rounded-full
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
+                                                        @endif
+                                                        @if(env('COUNTRY') == 'ee')
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -259,13 +327,14 @@
                                                         font-medium tracking-wider border text-blue-100 rounded-full
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
+                                                        @endif
                                                     </div>
                                                 @endif
 
                                                 <div>
                                                 @if($rev or $pp or $db)
                                                     <div class="flex items-center justify-center">
-                                                        @if(!$iban)
+                                                        @if(!isset($iban))
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
                                                         @endif
@@ -314,7 +383,7 @@
                                             </div>
                                             <div x-show="tab === 'standing'" class="p-1 mt-2 text-center space-x-1
                                             space-y-2" x-transition:enter.duration.500ms>
-                                                @if($iban)
+                                                @if(isset($iban))
                                                     <div>
                                                     <div class="flex items-center justify-center">
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
@@ -343,6 +412,7 @@
                                                         hover:shadow-lg hover:bg-green-600">SEB
                                                         </button>
                                                     @endif
+                                                        @if(env('COUNTRY') == 'ee')
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -353,6 +423,8 @@
                                                         font-medium tracking-wider border text-gray-100 rounded-full
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
+                                                        @endif
+                                                        @if(env('COUNTRY') == 'ee')
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -363,6 +435,7 @@
                                                         font-medium tracking-wider border text-blue-100 rounded-full
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
+                                                        @endif
                                                     </div>
                                                 @endif
                                                 <div>

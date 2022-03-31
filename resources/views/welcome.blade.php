@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>Create your virtual donation box for Estonian banks for free - DonationBox.ee</title>
+        @if(env('COUNTRY') == 'ee')
+                <title>Create your virtual donation box for Estonian banks for free - DonationBox.ee</title>
+        @endif
+        @if(env('COUNTRY') == 'lv')
+                <title>Create your virtual donation box for Latvian banks for free - DonationBox.lv</title>
+        @endif
+        @if(env('COUNTRY') == 'lt')
+                <title>Create your virtual donation box for Lithuanian banks for free - DonationBox.lt</title>
+        @endif
     @include('head')
 </head>
 <body class="antialiased">
@@ -11,14 +19,31 @@
         <div class="items-center justify-center mt-8 mb-6">
             <div class="w-1/2 mx-auto mb-4">
                 <a href="/">
-                    <img class="mx-auto" src="/img/db-logo-fl.png">
+                    <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png">
                 </a>
             </div>
             <h2 class="text-center text-xl text-gray-700">
-                Start your virtual donation box for
-                Estonian banks for free
+                Start your virtual donation box <br>
+                @if(env('COUNTRY') == 'ee')
+                    for Estonian banks for free
+                @endif
+                @if(env('COUNTRY') == 'lv')
+                    for Latvian banks for free
+                @endif
+                @if(env('COUNTRY') == 'lt')
+                    for Lithuanian banks for free
+                @endif
             </h2>
-            <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, LHV, Coop, Revolut, Donorbox, Paypal)</p>
+            @if(env('COUNTRY') == 'ee')
+                <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, LHV, Coop, Revolut, Donorbox,
+                    Paypal)</p>
+            @endif
+            @if(env('COUNTRY') == 'lv')
+                <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, Revolut, Donorbox, Paypal)</p>
+            @endif
+            @if(env('COUNTRY') == 'lt')
+                <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, Revolut, Donorbox, Paypal)</p>
+            @endif
         </div>
         <div x-data="app()" x-cloak>
             <!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->
@@ -39,7 +64,8 @@
 
                                 <div class="mb-4 flex items-center">
                                     <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">1</div>
+                                    text-gray-500 text-xs font-bold">1
+                                    </div>
                                     <div class="ml-2 text-gray-500">Your campaign page details</div>
                                 </div>
 
@@ -76,7 +102,8 @@
 
                                                 <label for="detail" class="font-bold text-gray-700
                                                         block mb-1">
-                                                    Bank transfer detail                                                     <span class="font-normal text-red-500"><sup>*</sup></span>
+                                                    Bank transfer detail <span
+                                                        class="font-normal text-red-500"><sup>*</sup></span>
                                                 </label>
                                                 <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
@@ -92,7 +119,15 @@
                                                     form="generator"
                                                     type="text"
                                                     name="detail"
+                                                    @if(env('COUNTRY') == 'ee')
                                                     value="Annetus"
+                                                    @endif
+                                                    @if(env('COUNTRY') == 'lv')
+                                                    value="Ziedojums"
+                                                    @endif
+                                                    @if(env('COUNTRY') == 'lt')
+                                                    value="Donorystė"
+                                                    @endif
                                                     {{--                                                            value="{{ request('detail') }}"--}}
                                                     class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
@@ -102,11 +137,11 @@
                                                     placeholder="eg. Annetus"
                                                     required/>
 
-{{--                                                <input type="checkbox" name="duplicateName" id="duplicateName"--}}
-{{--                                                       value="Yes" placeholder="test"/>--}}
-{{--                                                <label for="duplicateName" class="tracking-normal text-xs--}}
-{{--                                                text-gray-500 mb-3 leading-tight">Use the same as the name for the--}}
-{{--                                                    donation box?</label>--}}
+                                                {{--                                                <input type="checkbox" name="duplicateName" id="duplicateName"--}}
+                                                {{--                                                       value="Yes" placeholder="test"/>--}}
+                                                {{--                                                <label for="duplicateName" class="tracking-normal text-xs--}}
+                                                {{--                                                text-gray-500 mb-3 leading-tight">Use the same as the name for the--}}
+                                                {{--                                                    donation box?</label>--}}
 
                                             </div>
                                         </div>
@@ -119,7 +154,8 @@
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">2</div>
+                                    text-gray-500 text-xs font-bold">2
+                                </div>
                                 <div class="ml-2 text-gray-500">Your personal data</div>
                             </div>
                             <div class="mb-5">
@@ -147,20 +183,78 @@
                                                                text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
+                                                @if(env('COUNTRY') == 'ee')
                                                 placeholder="eg. 'Tädi Maali' or 'Tavai MTÜ'"
+                                                @endif
+                                                @if(env('COUNTRY') == 'lv')
+                                                placeholder="eg. 'Jānis Bērziņš' or 'Biedrība'"
+                                                @endif
+                                                @if(env('COUNTRY') == 'lt')
+                                                placeholder="eg. 'Vardenis Pavardenis' or 'VšĮ'"
+                                                @endif
                                                 required/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            @if(env('COUNTRY') == 'ee')
+                            <div class="mb-5">
+                                <div class="rounded-md -space-y-px">
+                                    <div class="grid gap-6">
+                                        <div class="col-span-12">
+                                            <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-2">Tax return for donors
+                                            </label>
+                                            <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">
+                                                In this case, your donors will be able to request an income tax
+                                                refund on their donation. NB! Your organization must be on the
+                                                    register of associations eligible for tax incentives.
+                                                <a href="/about#taxfree-ee" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">Learn more ></a>
+                                            </div>
+                                            <div class="flex items-start mb-2">
+                                                <div class="flex items-center h-5">
+                                                    <input
+                                                        form="generator"
+                                                        type="checkbox"
+                                                        id="tax"
+                                                        name="tax"
+                                                        value="true"
+                                                        class="w-5 h-5
+                                                       bg-red-100 border-red-300 text-red-500 focus:ring-red-200"/>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="tax" class="font-medium text-gray-900
+                                                    dark:text-gray-300">Let my donors apply for a tax refund</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                         <!-- Step 3 -->
                         <div x-show="step === 3"
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">3</div>
-                                <div class="ml-2 text-gray-500">Details for Estonian banks</div>
+                                    text-gray-500 text-xs font-bold">3
+                                </div>
+                                <div class="ml-2 text-gray-500">Details for
+                                    @if(env('COUNTRY') == 'ee')
+                                        Estonian
+                                    @endif
+                                    @if(env('COUNTRY') == 'lv')
+                                        Latvian
+                                    @endif
+                                    @if(env('COUNTRY') == 'lt')
+                                        Lithuanian
+                                    @endif
+                                    banks
+                                </div>
                             </div>
                             <div class="mb-5">
                                 @csrf
@@ -180,8 +274,16 @@
                                                                text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                placeholder="eg. EE471000001020145685"
-                                                />
+                                                @if(env('COUNTRY') == 'ee')
+                                                placeholder="eg. EE382200221020145685"
+                                                @endif
+                                                @if(env('COUNTRY') == 'lv')
+                                                placeholder="eg. LV80BANK0000435195001"
+                                                @endif
+                                                @if(env('COUNTRY') == 'lt')
+                                                placeholder="eg. LT121000011101001000"
+                                                @endif
+                                            />
                                         </div>
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="font-bold text-gray-700
@@ -193,8 +295,13 @@
                                                 <a href="/about#sebUID" class="no-underline hover:underline
                                                     text-blue-800" target="_blank">Read more about how to
                                                     obtain a special identifier for private individuals and companies
-                                                >   </a>
+                                                    > </a>
                                             </div>
+                                            @if(env('COUNTRY') == 'lv')
+                                                <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
+                                                            leading-tight">
+                                                    Insert SEB UID for <b>One-time direct payments</b>.</div>
+                                            @endif
                                             <input
                                                 form="generator"
                                                 type="text"
@@ -207,6 +314,23 @@
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                 placeholder="eg. f0233a8a-2c62-414d-a8e0-868d5ca345cb"
                                             />
+                                            @if(env('COUNTRY') == 'lv')
+                                                <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
+                                                        leading-tight">
+                                                    Insert SEB UID for <b>Standing order</b>.</div>
+                                                <input
+                                                    form="generator"
+                                                    type="text"
+                                                    name="sebuid_st"
+                                                    value="{{ request('sebuid_st') }}"
+                                                    class="appearance-none rounded-none relative block
+                                                               w-full px-3 py-2 border border-gray-300
+                                                               text-gray-900 rounded-md
+                                                               focus:outline-none focus:ring-indigo-500
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
+                                                    placeholder="eg. 7d28392a-771e-4128-95ee-a9cc1de7f25e"
+                                                />
+                                            @endif
                                         </div>
 
                                     </div>
@@ -218,7 +342,8 @@
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">4</div>
+                                    text-gray-500 text-xs font-bold">4
+                                </div>
                                 <div class="ml-2 text-gray-500">Credit cards</div>
                             </div>
                             <div class="mb-5">
@@ -240,8 +365,7 @@
                                                     <span
                                                         class="flex items-center leading-normal bg-grey-lighter
                                                         rounded rounded-r-none border border-r-0 border-grey-light
-                                                        px-3 whitespace-no-wrap text-grey-dark text-sm">revolut
-                                                        .me/</span>
+                                                        px-3 whitespace-no-wrap text-grey-dark text-sm">revolut.me/</span>
                                                 </div>
                                                 <input
                                                     form="generator"
@@ -259,7 +383,8 @@
                                                         block mb-2">PayPal.me username</label>
                                             <div class="tracking-normal text-xs text-gray-500 mb-3
                                                         leading-tight">
-                                                If you have a Paypal account, you can create your own Paypal.me page to accept donations from other users.
+                                                If you have a Paypal account, you can create your own Paypal.me page to
+                                                accept donations from other users.
                                                 <a href="/about#paypal" class="no-underline hover:underline
                                                     text-blue-800" target="_blank">How can I create it? ></a>
                                             </div>
@@ -290,19 +415,19 @@
                                                     text-blue-800" target="_blank">How can I create it? ></a>
                                             </div>
                                             <div class="flex flex-wrap items-stretch w-full mb-2 relative">
-                                            <div class="flex -mr-px">
+                                                <div class="flex -mr-px">
                                                     <span
                                                         class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">donorbox.org/</span>
-                                            </div>
-                                            <input
-                                                form="generator"
-                                                type="text"
-                                                name="db"
-                                                value="{{ request('db') }}"
-                                                class="flex-shrink flex-grow flex-auto flex-auto
+                                                </div>
+                                                <input
+                                                    form="generator"
+                                                    type="text"
+                                                    name="db"
+                                                    value="{{ request('db') }}"
+                                                    class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
-                                                placeholder="your-campaign-slug"
-                                            />
+                                                    placeholder="your-campaign-slug"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -368,18 +493,6 @@
                     <div class="flex-1">
                         <div class="uppercase tracking-normal text-xs font-normal text-gray-400 mb-4 leading-tight"
                              x-text="`Step: ${step} of 4`"></div>
-                        {{--                            <div x-show="step === 1">--}}
-                        {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Campaign name</div>--}}
-                        {{--                            </div>--}}
-
-                        {{--                            <div x-show="step === 2">--}}
-                        {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Payee's name--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-
-                        {{--                            <div x-show="step === 3">--}}
-                        {{--                                <div class="text-lg font-normal text-gray-500 leading-tight">Bank details</div>--}}
-                        {{--                            </div>--}}
                     </div>
 
                     <div class="flex items-center md:w-64">
@@ -408,8 +521,8 @@
     function app() {
         return {
             step: 1,
-            }
         }
+    }
 </script>
 </body>
 </html>

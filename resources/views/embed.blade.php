@@ -10,7 +10,7 @@
         @include('form')
         <div class="mt-8 w-1/4 mx-auto">
             <a href="/" target="_blank">
-                <img class="mx-auto" src="/img/db-logo-fl.png">
+                <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png">
             </a>
         </div>
     </div>
