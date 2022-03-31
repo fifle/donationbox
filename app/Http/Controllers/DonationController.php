@@ -53,7 +53,7 @@ class DonationController extends Controller
 
             // QR-code generation
             $qrcode = QrCode::format('png')
-                ->merge('img/db-logo-qr.png', .3, true)
+//                ->merge('img/db-logo-qr.png', .3, true)
                 ->size(1920)
                 ->generate(url()->full());
 
