@@ -1,12 +1,11 @@
 {
     "version": 2,
-    "builds": [
-        { "src": "/api/index.php", "use": "vercel-php@0.4.0" },
-        { "src": "/public/**", "use": "@vercel/static" }
-    ],
+    "functions": {
+        "api/index.php": { "runtime": "vercel-php@0.4.0" }
+    },
     "routes": [
         {
-            "src": "/(css|js)/(.*)$",
+            "src": "/(css|js|img)/(.*)$",
             "dest": "/api/assets.php?type=$1&file=$2"
         },
         {
