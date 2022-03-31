@@ -19,8 +19,11 @@
                     Scan QR-code and easily share donation box!
                 </p>
                 <div x-data="app()" x-cloak>
+                    @if (env('COUNTRY') == 'lt' or env('COUNTRY') == 'lv')
                     <div id="qrcode">{{ $qrcode }}</div>
-{{--                    <img src="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="p-5">--}}
+                    @else
+                    <img src="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="p-5">
+                    @endif
                 </div>
                 <div class="p-1 mt-2 text-center">
                     <a href="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="no-underline text-mg
