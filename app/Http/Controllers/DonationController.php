@@ -64,8 +64,6 @@ class DonationController extends Controller
                     ->generate(url()->full());
             }
 
-
-
             $compactData = array(
                 'qrcode',
                 'campaign_title',
