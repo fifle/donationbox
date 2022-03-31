@@ -36,6 +36,11 @@ input[type=number] {
     padding: 10px 10px 5px;
 }
 
+#qrcode svg {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 /* Load Alpine modules */
 /*[x-cloak] {*/
 /*    display: none !important;*/

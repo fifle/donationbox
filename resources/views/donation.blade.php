@@ -19,7 +19,8 @@
                     Scan QR-code and easily share donation box!
                 </p>
                 <div x-data="app()" x-cloak>
-                    <img src="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="p-5">
+                    <div id="qrcode">{{ $qrcode }}</div>
+{{--                    <img src="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="p-5">--}}
                 </div>
                 <div class="p-1 mt-2 text-center">
                     <a href="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="no-underline text-mg

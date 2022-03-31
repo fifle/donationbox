@@ -52,9 +52,9 @@ class DonationController extends Controller
             }
 
             // QR-code generation
-            $qrcode = QrCode::format('png')
+            $qrcode = QrCode::format('svg')
 //                ->merge('img/db-logo-qr.png', .3, true)
-                ->size(1920)
+                ->size(250)
                 ->generate(url()->full());
 
             $compactData = array(
