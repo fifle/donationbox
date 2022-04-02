@@ -285,54 +285,170 @@
                                                 @endif
                                             />
                                         </div>
-                                        <div class="col-span-12">
-                                            <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">SEB UID code</label>
-                                            <div class="tracking-normal text-xs text-gray-500 mb-3
-                                                        leading-tight">
-                                                If you want to connect SEB bank as part of the payment methods, you
-                                                need to get your own UID code from SEB.
-                                                <a href="/about#sebUID" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">Read more about how to
-                                                    obtain a special identifier for private individuals and companies
-                                                    > </a>
-                                            </div>
-                                            @if(env('COUNTRY') == 'lv')
-                                                <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
-                                                            leading-tight">
-                                                    Insert SEB UID for <b>One-time direct payments</b>.</div>
-                                            @endif
-                                            <input
-                                                form="generator"
-                                                type="text"
-                                                name="sebuid"
-                                                value="{{ request('sebuid') }}"
-                                                class="appearance-none rounded-none relative block
-                                                               w-full px-3 py-2 border border-gray-300
-                                                               text-gray-900 rounded-md
-                                                               focus:outline-none focus:ring-indigo-500
-                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                placeholder="eg. f0233a8a-2c62-414d-a8e0-868d5ca345cb"
-                                            />
-                                            @if(env('COUNTRY') == 'lv')
-                                                <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
-                                                        leading-tight">
-                                                    Insert SEB UID for <b>Standing order</b>.</div>
-                                                <input
-                                                    form="generator"
-                                                    type="text"
-                                                    name="sebuid_st"
-                                                    value="{{ request('sebuid_st') }}"
-                                                    class="appearance-none rounded-none relative block
-                                                               w-full px-3 py-2 border border-gray-300
-                                                               text-gray-900 rounded-md
-                                                               focus:outline-none focus:ring-indigo-500
-                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                    placeholder="eg. 7d28392a-771e-4128-95ee-a9cc1de7f25e"
-                                                />
-                                            @endif
-                                        </div>
 
+                                        <div class="col-span-12">
+                                            <label for="campaign_title" class="font-bold text-gray-700 mb-2">
+                                                Choose banking methods
+                                            </label>
+                                        </div>
+                                        {{--Swedbank--}}
+                                        <div class="col-span-12" x-data="{swedtoggle: false}">
+                                            <div class="grid grid-cols-2 gap-4 space-y-0">
+                                            <div>
+                                                <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-yellow-100 bg-yellow-500 uppercase">Swedbank</h2 >
+                                            </div>
+                                            <div>
+                                                <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
+                                                     :class="[swedtoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                    <label
+                                                        for="swedtoggle"
+                                                        class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
+                                                    transform bg-gray-100 rounded-full cursor-pointer"
+                                                        :class="[swedtoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                    <input
+                                                        type="checkbox"
+                                                        id="swedtoggle"
+                                                        name="swedtoggle"
+                                                        x-model="swedtoggle"
+                                                        value="true"
+                                                        class="w-full h-full appearance-none focus:outline-none"
+                                                    />
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        {{--SEB--}}
+                                        <div class="col-span-12" x-data="{sebtoggle: false}">
+                                            <div class="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-green-100 bg-green-500 uppercase">SEB bank</h2>
+                                            </div>
+                                            <div>
+                                                <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
+                                                     :class="[sebtoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                    <label
+                                                        for="sebtoggle"
+                                                        class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
+                                                    transform bg-gray-100 rounded-full cursor-pointer"
+                                                        :class="[sebtoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                    <input
+                                                        type="checkbox"
+                                                        id="sebtoggle"
+                                                        name="sebtoggle"
+                                                        x-model="sebtoggle"
+                                                        class="w-full h-full appearance-none focus:outline-none"
+                                                    />
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div x-show="sebtoggle">
+                                                <div class="col-span-12 mt-3 ml-2 mr-2">
+                                                    <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-2">SEB UID code</label>
+                                                    <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">
+                                                        If you want to connect SEB bank as part of the payment methods, you
+                                                        need to get your own UID code from SEB.
+                                                        <a href="/about#sebUID" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">Read more about how to
+                                                            obtain a special identifier for private individuals and companies
+                                                            > </a>
+                                                    </div>
+                                                    @if(env('COUNTRY') == 'lv')
+                                                        <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
+                                                            leading-tight">
+                                                            Insert SEB UID for <b>One-time direct payments</b>.</div>
+                                                    @endif
+                                                    <input
+                                                        form="generator"
+                                                        type="text"
+                                                        name="sebuid"
+                                                        value="{{ request('sebuid') }}"
+                                                        class="appearance-none rounded-none relative block
+                                                               w-full px-3 py-2 border border-gray-300
+                                                               text-gray-900 rounded-md
+                                                               focus:outline-none focus:ring-indigo-500
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
+                                                        placeholder="eg. f0233a8a-2c62-414d-a8e0-868d5ca345cb"
+                                                    />
+                                                    @if(env('COUNTRY') == 'lv')
+                                                        <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
+                                                        leading-tight">
+                                                            Insert SEB UID for <b>Standing order</b>.</div>
+                                                        <input
+                                                            form="generator"
+                                                            type="text"
+                                                            name="sebuid_st"
+                                                            value="{{ request('sebuid_st') }}"
+                                                            class="appearance-none rounded-none relative block
+                                                               w-full px-3 py-2 border border-gray-300
+                                                               text-gray-900 rounded-md
+                                                               focus:outline-none focus:ring-indigo-500
+                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
+                                                            placeholder="eg. 7d28392a-771e-4128-95ee-a9cc1de7f25e"
+                                                        />
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if(env('COUNTRY') == 'ee')
+                                        {{--LHV--}}
+                                        <div class="col-span-12" x-data="{lhvtoggle: false}">
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-yellow-100 bg-gray-700 uppercase">LHV bank</h2>
+                                                </div>
+                                                <div>
+                                                    <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
+                                                         :class="[lhvtoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                        <label
+                                                            for="lhvtoggle"
+                                                            class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
+                                                    transform bg-gray-100 rounded-full cursor-pointer"
+                                                            :class="[lhvtoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="lhvtoggle"
+                                                            name="lhvtoggle"
+                                                            x-model="lhvtoggle"
+                                                            class="w-full h-full appearance-none focus:outline-none"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div x-show="lhvtoggle">
+                                            </div>
+                                        </div>
+                                        @endif
+                                        @if(env('COUNTRY') == 'ee')
+                                        {{--COOP--}}
+                                        <div class="col-span-12" x-data="{cooptoggle: false}">
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-blue-100 bg-blue-600 uppercase">Coop bank</h2>
+                                                </div>
+                                                <div>
+                                                    <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
+                                                         :class="[cooptoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                        <label
+                                                            for="cooptoggle"
+                                                            class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
+                                                    transform bg-gray-100 rounded-full cursor-pointer"
+                                                            :class="[cooptoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="cooptoggle"
+                                                            name="cooptoggle"
+                                                            x-model="cooptoggle"
+                                                            class="w-full h-full appearance-none focus:outline-none"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div x-show="cooptoggle">
+                                            </div>
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -347,87 +463,173 @@
                                 <div class="ml-2 text-gray-500">Credit cards</div>
                             </div>
                             <div class="mb-5">
+                                <div class="col-span-12 mb-3">
+                                    <label for="campaign_title" class="font-bold text-gray-700 mb-2">
+                                        Choose banking methods
+                                    </label>
+                                </div>
                                 @csrf
                                 <div class="rounded-md -space-y-px">
                                     <div class="grid gap-6">
-                                        <div class="col-span-12">
-                                            <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">Revolut.me username</label>
-                                            <div class="tracking-normal text-xs text-gray-500 mb-3
-                                                        leading-tight">
-                                                If you have a Revolut account, you can create your own Revolut.me page
-                                                to accept payments from other users in Revolut or by credit card.
-                                                <a href="/about#revolut" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">How can I create it? ></a>
+                                        {{--Revolut.me--}}
+                                        <div class="col-span-12" x-data="{revtoggle: false}">
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-black uppercase">Revolut.me</h2>
+                                                </div>
+                                                <div>
+                                                    <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
+                                                         :class="[revtoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                        <label
+                                                            for="revtoggle"
+                                                            class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
+                                                    transform bg-gray-100 rounded-full cursor-pointer"
+                                                            :class="[revtoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="revtoggle"
+                                                            name="revtoggle"
+                                                            x-model="revtoggle"
+                                                            class="w-full h-full appearance-none focus:outline-none"
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="flex flex-wrap items-stretch w-full mb-2 relative">
-                                                <div class="flex -mr-px">
+                                            <div x-show="revtoggle">
+                                                <div class="col-span-12 mt-3 ml-2 mr-2">
+                                                    <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-2">Revolut.me username</label>
+                                                    <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">
+                                                        If you have a Revolut account, you can create your own Revolut.me page
+                                                        to accept payments from other users in Revolut or by credit card.
+                                                        <a href="/about#revolut" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">How can I create it? ></a>
+                                                    </div>
+                                                    <div class="flex flex-wrap items-stretch w-full mb-2 relative">
+                                                        <div class="flex -mr-px">
                                                     <span
                                                         class="flex items-center leading-normal bg-grey-lighter
                                                         rounded rounded-r-none border border-r-0 border-grey-light
                                                         px-3 whitespace-no-wrap text-grey-dark text-sm">revolut.me/</span>
-                                                </div>
-                                                <input
-                                                    form="generator"
-                                                    type="text"
-                                                    name="rev"
-                                                    value="{{ request('rev') }}"
-                                                    class="flex-shrink flex-grow flex-auto flex-auto
+                                                        </div>
+                                                        <input
+                                                            form="generator"
+                                                            type="text"
+                                                            name="rev"
+                                                            value="{{ request('rev') }}"
+                                                            class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
-                                                    placeholder="your-revolut-me-username"
-                                                />
+                                                            placeholder="your-revolut-me-username"
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-span-12">
-                                            <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">PayPal.me username</label>
-                                            <div class="tracking-normal text-xs text-gray-500 mb-3
-                                                        leading-tight">
-                                                If you have a Paypal account, you can create your own Paypal.me page to
-                                                accept donations from other users.
-                                                <a href="/about#paypal" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">How can I create it? ></a>
+                                        {{--Paypal.me--}}
+                                        <div class="col-span-12" x-data="{pptoggle: false}">
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-blue-500 uppercase">Paypal.me</h2>
+                                                </div>
+                                                <div>
+                                                    <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
+                                                         :class="[pptoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                        <label
+                                                            for="pptoggle"
+                                                            class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
+                                                    transform bg-gray-100 rounded-full cursor-pointer"
+                                                            :class="[pptoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="pptoggle"
+                                                            name="pptoggle"
+                                                            x-model="pptoggle"
+                                                            class="w-full h-full appearance-none focus:outline-none"
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="flex flex-wrap items-stretch w-full mb-2 relative">
-                                                <div class="flex -mr-px">
+                                            <div x-show="pptoggle">
+                                                <div class="col-span-12 mt-3 ml-2 mr-2">
+                                                    <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-2">PayPal.me username</label>
+                                                    <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">
+                                                        If you have a Paypal account, you can create your own Paypal.me page to
+                                                        accept donations from other users.
+                                                        <a href="/about#paypal" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">How can I create it? ></a>
+                                                    </div>
+                                                    <div class="flex flex-wrap items-stretch w-full mb-2 relative">
+                                                        <div class="flex -mr-px">
                                                     <span
                                                         class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">paypal.me/</span>
-                                                </div>
-                                                <input
-                                                    form="generator"
-                                                    type="text"
-                                                    name="pp"
-                                                    value="{{ request('pp') }}"
-                                                    class="flex-shrink flex-grow flex-auto flex-auto
+                                                        </div>
+                                                        <input
+                                                            form="generator"
+                                                            type="text"
+                                                            name="pp"
+                                                            value="{{ request('pp') }}"
+                                                            class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
-                                                    placeholder="your-paypal-me-username"
-                                                />
+                                                            placeholder="your-paypal-me-username"
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-span-12">
-                                            <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">Donorbox campaign slug</label>
-                                            <div class="tracking-normal text-xs text-gray-500 mb-3
-                                                        leading-tight">
-                                                To start accepting payments for bank cards, you can use the Donorbox
-                                                service.
-                                                <a href="/about#donorbox" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">How can I create it? ></a>
+                                        {{--Donorbox--}}
+                                        <div class="col-span-12" x-data="{dbtoggle: false}">
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-red-500 uppercase">Donorbox</h2>
+                                                </div>
+                                                <div>
+                                                    <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
+                                                         :class="[dbtoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                        <label
+                                                            for="dbtoggle"
+                                                            class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
+                                                    transform bg-gray-100 rounded-full cursor-pointer"
+                                                            :class="[dbtoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="dbtoggle"
+                                                            name="dbtoggle"
+                                                            x-model="dbtoggle"
+                                                            class="w-full h-full appearance-none focus:outline-none"
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="flex flex-wrap items-stretch w-full mb-2 relative">
-                                                <div class="flex -mr-px">
+                                            <div x-show="dbtoggle">
+                                                <div class="col-span-12 mt-3 ml-2 mr-2">
+                                                    <label for="campaign_title" class="font-bold text-gray-700
+                                                        block mb-2">Donorbox campaign slug</label>
+                                                    <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        leading-tight">
+                                                        To start accepting payments for bank cards, you can use the Donorbox
+                                                        service.
+                                                        <a href="/about#donorbox" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">How can I create it? ></a>
+                                                    </div>
+                                                    <div class="flex flex-wrap items-stretch w-full mb-2 relative">
+                                                        <div class="flex -mr-px">
                                                     <span
                                                         class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">donorbox.org/</span>
-                                                </div>
-                                                <input
-                                                    form="generator"
-                                                    type="text"
-                                                    name="db"
-                                                    value="{{ request('db') }}"
-                                                    class="flex-shrink flex-grow flex-auto flex-auto
+                                                        </div>
+                                                        <input
+                                                            form="generator"
+                                                            type="text"
+                                                            name="db"
+                                                            value="{{ request('db') }}"
+                                                            class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
-                                                    placeholder="your-campaign-slug"
-                                                />
+                                                            placeholder="your-campaign-slug"
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
