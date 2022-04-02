@@ -292,25 +292,33 @@
                                             </label>
                                         </div>
                                         {{--Swedbank--}}
-                                        <div class="col-span-12" x-data="{swedtoggle: false}">
+                                        <div class="col-span-12" x-data="{swt: false}">
                                             <div class="grid grid-cols-2 gap-4 space-y-0">
                                             <div>
                                                 <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-yellow-100 bg-yellow-500 uppercase">Swedbank</h2 >
                                             </div>
                                             <div>
                                                 <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                     :class="[swedtoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                     :class="[swt ? 'bg-pink-500' : 'bg-gray-300']">
                                                     <label
-                                                        for="swedtoggle"
+                                                        for="swt"
                                                         class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
                                                     transform bg-gray-100 rounded-full cursor-pointer"
-                                                        :class="[swedtoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                        :class="[swt ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
                                                     <input
-                                                        type="checkbox"
-                                                        id="swedtoggle"
-                                                        name="swedtoggle"
-                                                        x-model="swedtoggle"
+                                                        form="generator"
+                                                        type="hidden"
+                                                        id="swt"
+                                                        name="swt"
                                                         value="true"
+                                                    />
+                                                    <input
+                                                        form="generator"
+                                                        type="checkbox"
+                                                        id="swt"
+                                                        name="swt"
+                                                        x-model="swt"
+                                                        value=""
                                                         class="w-full h-full appearance-none focus:outline-none"
                                                     />
                                                 </div>
@@ -318,30 +326,30 @@
                                             </div>
                                         </div>
                                         {{--SEB--}}
-                                        <div class="col-span-12" x-data="{sebtoggle: false}">
+                                        <div class="col-span-12" x-data="{sebt: false}">
                                             <div class="grid grid-cols-2 gap-4">
                                             <div>
                                                 <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-green-100 bg-green-500 uppercase">SEB bank</h2>
                                             </div>
                                             <div>
                                                 <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                     :class="[sebtoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                     :class="[sebt ? 'bg-pink-500' : 'bg-gray-300']">
                                                     <label
-                                                        for="sebtoggle"
+                                                        for="sebt"
                                                         class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
                                                     transform bg-gray-100 rounded-full cursor-pointer"
-                                                        :class="[sebtoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                        :class="[sebt ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
                                                     <input
                                                         type="checkbox"
-                                                        id="sebtoggle"
-                                                        name="sebtoggle"
-                                                        x-model="sebtoggle"
+                                                        id="sebt"
+                                                        name="sebt"
+                                                        x-model="sebt"
                                                         class="w-full h-full appearance-none focus:outline-none"
                                                     />
                                                 </div>
                                             </div>
                                             </div>
-                                            <div x-show="sebtoggle">
+                                            <div x-show="sebt">
                                                 <div class="col-span-12 mt-3 ml-2 mr-2">
                                                     <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-2">SEB UID code</label>
@@ -357,7 +365,7 @@
                                                     @if(env('COUNTRY') == 'lv')
                                                         <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
                                                             leading-tight">
-                                                            Insert SEB UID for <b>One-time direct payments</b>.</div>
+                                                            Insert SEB UID for <b>One-time direct payments</b></div>
                                                     @endif
                                                     <input
                                                         form="generator"
@@ -374,7 +382,7 @@
                                                     @if(env('COUNTRY') == 'lv')
                                                         <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
                                                         leading-tight">
-                                                            Insert SEB UID for <b>Standing order</b>.</div>
+                                                            Insert SEB UID for <b>Standing order</b></div>
                                                         <input
                                                             form="generator"
                                                             type="text"
@@ -393,59 +401,75 @@
                                         </div>
                                         @if(env('COUNTRY') == 'ee')
                                         {{--LHV--}}
-                                        <div class="col-span-12" x-data="{lhvtoggle: false}">
+                                        <div class="col-span-12" x-data="{lhvt: false}">
                                             <div class="grid grid-cols-2 gap-4">
                                                 <div>
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-yellow-100 bg-gray-700 uppercase">LHV bank</h2>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                         :class="[lhvtoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                         :class="[lhvt ? 'bg-pink-500' : 'bg-gray-300']">
                                                         <label
-                                                            for="lhvtoggle"
+                                                            for="lhvt"
                                                             class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
                                                     transform bg-gray-100 rounded-full cursor-pointer"
-                                                            :class="[lhvtoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                            :class="[lhvt ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                        <input
+                                                            form="generator"
+                                                            type="hidden"
+                                                            id="lhvt"
+                                                            name="lhvt"
+                                                            value="true"
+                                                        />
                                                         <input
                                                             type="checkbox"
-                                                            id="lhvtoggle"
-                                                            name="lhvtoggle"
-                                                            x-model="lhvtoggle"
+                                                            id="lhvt"
+                                                            name="lhvt"
+                                                            x-model="lhvt"
                                                             class="w-full h-full appearance-none focus:outline-none"
+                                                            value=""
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div x-show="lhvtoggle">
+                                            <div x-show="lhvt">
                                             </div>
                                         </div>
                                         @endif
                                         @if(env('COUNTRY') == 'ee')
                                         {{--COOP--}}
-                                        <div class="col-span-12" x-data="{cooptoggle: false}">
+                                        <div class="col-span-12" x-data="{coopt: false}">
                                             <div class="grid grid-cols-2 gap-4">
                                                 <div>
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-blue-100 bg-blue-600 uppercase">Coop bank</h2>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                         :class="[cooptoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                         :class="[coopt ? 'bg-pink-500' : 'bg-gray-300']">
                                                         <label
-                                                            for="cooptoggle"
+                                                            for="coopt"
                                                             class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
                                                     transform bg-gray-100 rounded-full cursor-pointer"
-                                                            :class="[cooptoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                            :class="[coopt ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                        <input
+                                                            form="generator"
+                                                            type="hidden"
+                                                            id="coopt"
+                                                            name="coopt"
+                                                            value="true"
+                                                        />
                                                         <input
                                                             type="checkbox"
-                                                            id="cooptoggle"
-                                                            name="cooptoggle"
-                                                            x-model="cooptoggle"
+                                                            id="coopt"
+                                                            name="coopt"
+                                                            x-model="coopt"
                                                             class="w-full h-full appearance-none focus:outline-none"
+                                                            value=""
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div x-show="cooptoggle">
+                                            <div x-show="coopt">
                                             </div>
                                         </div>
                                         @endif
