@@ -376,7 +376,7 @@
                                                         type="submit"
                                                         name="action"
                                                         value="donorbox"
-                                                        class="transition duration-150 ease-in-out bg-red-700 px-5
+                                                        class="transition duration-150 ease-in-out bg-red-600 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-white rounded-full hover:shadow-lg
                                                      hover:bg-red-700 inline-flex items-center">

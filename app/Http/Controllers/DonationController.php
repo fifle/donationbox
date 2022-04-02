@@ -144,6 +144,9 @@ class DonationController extends Controller
             $sebuid_st = urlencode($request->input('sebuid_st')); // uid for standing order for SEB LV
             $rev = urlencode($request->input('rev'));
             $tax = urlencode($request->boolean('tax'));
+            $swt = urlencode($request->boolean('swt'));
+            $lhvt = urlencode($request->boolean('lhvt'));
+            $coopt = urlencode($request->boolean('coopt'));
 
             // links
             $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
@@ -202,6 +205,18 @@ class DonationController extends Controller
 
             if (isset($tax)) {
                 $compactData['tax'] = 'tax';
+            }
+
+            if (isset($swt)) {
+                $compactData['swt'] = 'swt';
+            }
+
+            if (isset($lhvt)) {
+                $compactData['lhvt'] = 'lhvt';
+            }
+
+            if (isset($coopt)) {
+                $compactData['coopt'] = 'coopt';
             }
 
             return view("embed", compact($compactData));

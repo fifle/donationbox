@@ -310,7 +310,7 @@
                                                         type="hidden"
                                                         id="swt"
                                                         name="swt"
-                                                        value="true"
+                                                        value="1"
                                                     />
                                                     <input
                                                         form="generator"
@@ -419,7 +419,7 @@
                                                             type="hidden"
                                                             id="lhvt"
                                                             name="lhvt"
-                                                            value="true"
+                                                            value="1"
                                                         />
                                                         <input
                                                             type="checkbox"
@@ -456,7 +456,7 @@
                                                             type="hidden"
                                                             id="coopt"
                                                             name="coopt"
-                                                            value="true"
+                                                            value="1"
                                                         />
                                                         <input
                                                             type="checkbox"
