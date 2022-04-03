@@ -187,7 +187,7 @@
                                         <div class="flex items-center justify-center mt-2 mb-4">
                                             <button
                                                 class="transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-5 mr-2 rounded-lg
+                                                        focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-sm text-gray-600 bg-white
                                                         hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
@@ -198,10 +198,10 @@
                                             >
                                                 One-time payment
                                             </button>
-                                            @if(isset($iban) or $db)
+                                            @if($iban or $db)
                                             <button
                                                 class="transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-3 rounded-lg
+                                                        focus:outline-none py-2 px-3 ml-2 rounded-lg
                                                         shadow-sm text-center text-sm text-gray-600 bg-white
                                                         hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
@@ -271,6 +271,7 @@
                                                     space-y-2" x-transition:enter.duration.500ms>
                                                 @if(isset($iban))
                                                     <div>
+                                                        @if($swt and $lhvt and $coopt and $sebuid)
                                                         <div class="flex items-center justify-center">
                                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">
@@ -282,16 +283,19 @@
                                                             </div>
                                                             <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate via internet-bank</div>
                                                         </div>
-                                                    <button
-                                                        form="sumforbank"
-                                                        type="submit"
-                                                        name="action"
-                                                        value="swed"
-                                                        class="transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
-                                                        text-sm shadow-sm font-medium
-                                                            tracking-wider border text-yellow-100 rounded-full
-                                                            hover:shadow-lg hover:bg-yellow-600">Swedbank
-                                                    </button>
+                                                        @endif
+                                                        @if(!$swt)
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="swed"
+                                                            class="transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
+                                                            text-sm shadow-sm font-medium
+                                                                tracking-wider border text-yellow-100 rounded-full
+                                                                hover:shadow-lg hover:bg-yellow-600">Swedbank
+                                                        </button>
+                                                        @endif
                                                     @if($sebuid)
                                                         <button
                                                             form="sumforbank"
@@ -304,7 +308,7 @@
                                                         hover:shadow-lg hover:bg-green-600">SEB
                                                         </button>
                                                     @endif
-                                                        @if(env('COUNTRY') == 'ee')
+                                                        @if(env('COUNTRY') == 'ee' and !$lhvt)
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -316,7 +320,7 @@
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
                                                         @endif
-                                                        @if(env('COUNTRY') == 'ee')
+                                                        @if(env('COUNTRY') == 'ee' and !$coopt)
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -334,7 +338,7 @@
                                                 <div>
                                                 @if($rev or $pp or $db)
                                                     <div class="flex items-center justify-center">
-                                                        @if(!isset($iban))
+                                                        @if(!$iban)
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
                                                         @endif
@@ -372,7 +376,7 @@
                                                         type="submit"
                                                         name="action"
                                                         value="donorbox"
-                                                        class="transition duration-150 ease-in-out bg-red-700 px-5
+                                                        class="transition duration-150 ease-in-out bg-red-600 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-white rounded-full hover:shadow-lg
                                                      hover:bg-red-700 inline-flex items-center">
@@ -386,10 +390,13 @@
                                                 @if(isset($iban))
                                                     <div>
                                                     <div class="flex items-center justify-center">
+                                                        @if($swt and $lhvt and $coopt and $sebuid)
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
                                                         <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate via internet-bank</div>
+                                                        @endif
                                                     </div>
+                                                        @if(!$swt)
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -400,6 +407,7 @@
                                                             tracking-wider border text-yellow-100 rounded-full
                                                             hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                     </button>
+                                                        @endif
                                                     @if($sebuid)
                                                         <button
                                                             form="sumforbank"
@@ -412,7 +420,7 @@
                                                         hover:shadow-lg hover:bg-green-600">SEB
                                                         </button>
                                                     @endif
-                                                        @if(env('COUNTRY') == 'ee')
+                                                        @if(env('COUNTRY') == 'ee' and !$lhvt)
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
@@ -424,7 +432,7 @@
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
                                                         @endif
-                                                        @if(env('COUNTRY') == 'ee')
+                                                        @if(env('COUNTRY') == 'ee' and !$coopt)
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"

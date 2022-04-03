@@ -43,5 +43,7 @@ input[type=number] {
 
 /* Load Alpine modules */
 [x-cloak] {
-    display: none !important;
+    visibility: hidden;
+    overflow: hidden
 }
+
