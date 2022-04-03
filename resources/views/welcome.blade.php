@@ -221,7 +221,7 @@
                                                         type="checkbox"
                                                         id="tax"
                                                         name="tax"
-                                                        value="true"
+                                                        value="1"
                                                         class="w-5 h-5
                                                        bg-red-100 border-red-300 text-red-500 focus:ring-red-200"/>
                                                 </div>
