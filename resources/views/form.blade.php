@@ -390,11 +390,9 @@
                                                 @if(isset($iban))
                                                     <div>
                                                     <div class="flex items-center justify-center">
-                                                        @if($swt and $lhvt and $coopt and $sebuid)
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
                                                         <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate via internet-bank</div>
-                                                        @endif
                                                     </div>
                                                         @if(!$swt)
                                                     <button

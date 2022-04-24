@@ -55,17 +55,17 @@ class DonationController extends Controller
             }
 
             // QR-code generation
-            if (env('COUNTRY') == 'ee'){
-                $qrcode = QrCode::format('png')
-                ->merge('img/db-logo-qr.png', .3, true)
-                    ->size(1920)
-                    ->generate(url()->full());
-            } else {
+//            if (env('COUNTRY') == 'ee'){
+//                $qrcode = QrCode::format('png')
+//                ->merge('img/db-logo-qr.png', .3, true)
+//                    ->size(1920)
+//                    ->generate(url()->full());
+//            } else {
                 $qrcode = QrCode::format('svg')
 //                ->merge('img/db-logo-qr.png', .3, true)
                     ->size(250)
                     ->generate(url()->full());
-            }
+//            }
 
             $compactData = array(
                 'qrcode',

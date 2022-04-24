@@ -19,22 +19,18 @@
                     Scan QR-code and easily share donation box!
                 </p>
                 <div x-data="app()" x-cloak>
-                    @if (env('COUNTRY') == 'lt' or env('COUNTRY') == 'lv')
-                    <div id="qrcode">{{ $qrcode }}</div>
-                    @else
-                    <img src="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="p-5">
-                    @endif
+                        <div id="qrcode">{{ $qrcode }}</div>
                 </div>
                 <div class="p-1 mt-2 text-center">
                     <a href="data:image/png;base64, {!! base64_encode($qrcode) !!}" class="no-underline text-mg
-                    text-blue-800" download="donationbox-qr.png">
+                    text-blue-800" download="donationbox-qr.svg">
                         <div class="transition duration-150 ease-in-out bg-white
                                                      px-5 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-gray-600 rounded-full hover:shadow-lg
                                                      hover:bg-gray-50 inline-flex items-center">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                  xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            Download QR-code (PNG)
+                            Download QR-code (SVG)
                         </div>
                     </a>
                 </div>
