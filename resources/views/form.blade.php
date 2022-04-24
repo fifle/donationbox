@@ -187,7 +187,7 @@
                                         <div class="flex items-center justify-center mt-2 mb-4">
                                             <button
                                                 class="transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-5 rounded-lg
+                                                        focus:outline-none py-2 px-4 rounded-lg
                                                         shadow-sm text-center text-sm text-gray-600 bg-white
                                                         hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
@@ -201,7 +201,7 @@
                                             @if($iban or $db)
                                             <button
                                                 class="transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-3 ml-2 rounded-lg
+                                                        focus:outline-none py-2 px-4 ml-2 rounded-lg
                                                         shadow-sm text-center text-sm text-gray-600 bg-white
                                                         hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1

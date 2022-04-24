@@ -35,3 +35,13 @@ Route::get('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('p
 Route::post('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('pdf.show');
 
 Route::get('/about', function () {return view('pages.about');});
+
+/**
+ * Custom redirects for our partners.
+ */
+if (env('COUNTRY') == 'ee') {
+    // MTÜ Helihool
+    Route::get('/mariupolsfriends', function () {
+        return redirect('/donation/?iban=EE534204278619625400&campaign_title=Help+for+Ukrainian+refugees&payee=Mittetulundus%C3%BChing+Helihool&detail=Annetus+pagulastele');
+    });
+}
