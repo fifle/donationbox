@@ -350,7 +350,7 @@
                                             </div>
                                             </div>
                                             <div x-show="sebt">
-                                                <div class="col-span-12 mt-3 ml-2 mr-2">
+                                                <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-2">SEB UID code</label>
                                                     <div class="tracking-normal text-xs text-gray-500 mb-3
@@ -362,11 +362,9 @@
                                                             obtain a special identifier for private individuals and companies
                                                             > </a>
                                                     </div>
-                                                    @if(env('COUNTRY') == 'lv')
                                                         <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
                                                             leading-tight">
                                                             Insert SEB UID for <b>One-time direct payments</b></div>
-                                                    @endif
                                                     <input
                                                         form="generator"
                                                         type="text"
@@ -379,7 +377,6 @@
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                         placeholder="eg. f0233a8a-2c62-414d-a8e0-868d5ca345cb"
                                                     />
-                                                    @if(env('COUNTRY') == 'lv')
                                                         <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
                                                         leading-tight">
                                                             Insert SEB UID for <b>Standing order</b></div>
@@ -395,7 +392,6 @@
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                             placeholder="eg. 7d28392a-771e-4128-95ee-a9cc1de7f25e"
                                                         />
-                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
