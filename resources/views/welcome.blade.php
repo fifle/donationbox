@@ -45,7 +45,16 @@
                 <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, Revolut, Donorbox, Paypal)</p>
             @endif
         </div>
+
         <div x-data="app()" x-cloak>
+            <!-- Loading -->
+
+            <div x-show="!loaded" class="loading">
+                <div style="border-top-color:transparent"
+                     class="w-16 h-16 border-4 border-blue-400 border-dotted rounded-full animate-spin"></div>
+            </div>
+
+            <div x-show="loaded">
             <!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->
             <div x-show.transition="step != 'complete'">
                 <!-- Top Navigation -->
@@ -299,25 +308,19 @@
                                             </div>
                                             <div>
                                                 <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                     :class="[swt ? 'bg-pink-500' : 'bg-gray-300']">
+                                                     :class="[swt ? 'bg-gray-300' : 'bg-pink-500']">
                                                     <label
                                                         for="swt"
                                                         class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
                                                     transform bg-gray-100 rounded-full cursor-pointer"
-                                                        :class="[swt ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
-                                                    <input
-                                                        form="generator"
-                                                        type="hidden"
-                                                        id="swt"
-                                                        name="swt"
-                                                    />
+                                                        :class="[swt ? 'translate-x-0 border-green-400' : 'translate-x-full border-gray-400' ]"></label>
                                                     <input
                                                         form="generator"
                                                         type="checkbox"
                                                         id="swt"
                                                         name="swt"
                                                         x-model="swt"
-                                                        value=""
+                                                        @click="swt = !swt"
                                                         class="w-full h-full appearance-none focus:outline-none"
                                                     />
                                                 </div>
@@ -399,30 +402,24 @@
                                         <div class="col-span-12" x-data="{lhvt: false}">
                                             <div class="grid grid-cols-2 gap-4">
                                                 <div>
-                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-yellow-100 bg-gray-700 uppercase">LHV bank</h2>
+                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-gray-200 bg-gray-700 uppercase">LHV bank</h2>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                         :class="[lhvt ? 'bg-pink-500' : 'bg-gray-300']">
+                                                         :class="[lhvt ? 'bg-gray-300' : 'bg-pink-500']">
                                                         <label
                                                             for="lhvt"
                                                             class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
                                                     transform bg-gray-100 rounded-full cursor-pointer"
-                                                            :class="[lhvt ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
-                                                        <input
-                                                            form="generator"
-                                                            type="hidden"
-                                                            id="lhvt"
-                                                            name="lhvt"
-                                                        />
+                                                            :class="[lhvt ? 'translate-x-0 border-green-400' : 'translate-x-full border-gray-400' ]"></label>
                                                         <input
                                                             form="generator"
                                                             type="checkbox"
                                                             id="lhvt"
                                                             name="lhvt"
                                                             x-model="lhvt"
+                                                            @click="lhvt = !lhvt"
                                                             class="w-full h-full appearance-none focus:outline-none"
-                                                            value="true"
                                                         />
                                                     </div>
                                                 </div>
@@ -440,25 +437,20 @@
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                         :class="[coopt ? 'bg-pink-500' : 'bg-gray-300']">
+                                                         :class="[coopt ? 'bg-gray-300' : 'bg-pink-500']">
                                                         <label
                                                             for="coopt"
                                                             class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
                                                     transform bg-gray-100 rounded-full cursor-pointer"
-                                                            :class="[coopt ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                            :class="[coopt ? 'translate-x-0 border-green-400' : 'translate-x-full border-gray-400' ]"></label>
                                                         <input
                                                             form="generator"
-                                                            type="hidden"
-                                                            id="coopt"
-                                                            name="coopt"
-                                                        />
-                                                        <input
                                                             type="checkbox"
                                                             id="coopt"
                                                             name="coopt"
                                                             x-model="coopt"
+                                                            @click="coopt = !coopt"
                                                             class="w-full h-full appearance-none focus:outline-none"
-                                                            value=""
                                                         />
                                                     </div>
                                                 </div>
@@ -730,6 +722,7 @@
         @include('secure')
 
         @include('footer')
+        </div>
     </div>
 
 </div>
@@ -741,6 +734,7 @@
     function app() {
         return {
             step: 1,
+            loaded: true
         }
     }
 </script>

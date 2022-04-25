@@ -115,11 +115,8 @@
                                 include the campaign name, payment detail, payee's name, IBAN account number / your
                                 Revolut.me username / your Paypal.me username / slug for your Donorbox campaign / your
                                 UID from SEB.<br><br>
-                                <b>Example link with parameters:</b> <a href="https://donationbox
-                                .ee/donation?campaign_title=Donate+Estonian+Jewish+Museum&detail=Annetus&payee=Eesti
-                                    +Juudi+Muuseum+MT%C3%9C&iban=EE312200221037561773&pp=&db=support-estonian-jewish
-                                    -museum&sebuid=f0233a8a-2c62-414d-a8e0-868d5ca345cb" class="no-underline hover:underline text-blue-800">https://donationbox
-                                .ee/donation?campaign_title=Donate+Estonian+Jewish+Museum&detail=Annetus&payee=Eesti
+                                <b>Example link with parameters:</b> <a href="https://donationbox.ee/donation?campaign_title=Donate+Estonian+Jewish+Museum&detail=Annetus&payee=Eesti+Juudi+Muuseum+MT%C3%9C&iban=EE312200221037561773&pp=&db=support-estonian-jewish-museum&sebuid=f0233a8a-2c62-414d-a8e0-868d5ca345cb" class="no-underline hover:underline text-blue-800">
+                                    https://donationbox.ee/donation?campaign_title=Donate+Estonian+Jewish+Museum&detail=Annetus&payee=Eesti
                                     +Juudi+Muuseum+MT%C3%9C&iban=EE312200221037561773&pp=&db=support-estonian-jewish
                                     -museum&sebuid=f0233a8a-2c62-414d-a8e0-868d5ca345cb</a><br><br>
                             </li>
