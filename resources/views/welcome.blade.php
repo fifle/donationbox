@@ -498,7 +498,7 @@
                                                 </div>
                                             </div>
                                             <div x-show="revtoggle">
-                                                <div class="col-span-12 mt-3 ml-2 mr-2">
+                                                <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-2">Revolut.me username</label>
                                                     <div class="tracking-normal text-xs text-gray-500 mb-3
@@ -553,7 +553,7 @@
                                                 </div>
                                             </div>
                                             <div x-show="pptoggle">
-                                                <div class="col-span-12 mt-3 ml-2 mr-2">
+                                                <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-2">PayPal.me username</label>
                                                     <div class="tracking-normal text-xs text-gray-500 mb-3
@@ -606,7 +606,7 @@
                                                 </div>
                                             </div>
                                             <div x-show="dbtoggle">
-                                                <div class="col-span-12 mt-3 ml-2 mr-2">
+                                                <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-2">Donorbox campaign slug</label>
                                                     <div class="tracking-normal text-xs text-gray-500 mb-3
