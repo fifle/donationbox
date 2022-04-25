@@ -225,6 +225,10 @@ class DonationController extends Controller
                 $compactData['coopt'] = 'coopt';
             }
 
+            if (isset($pphb)) {
+                $compactData['pphb'] = 'pphb';
+            }
+
             return view("embed", compact($compactData));
         }
     }
