@@ -42,6 +42,7 @@ Route::get('/about', function () {return view('pages.about');});
 if (env('COUNTRY') == 'ee') {
     // MTÜ Helihool
     Route::get('/mariupolsfriends', function () {
-        return redirect('/donation/?iban=EE534204278619625400&_token=c8zXToGGcCAlrWAaAFiMAb9VxXDJGVGABtN9alpv&campaign_title=Help+for+Ukrainian+refugees+in+Estonia+%2F+abi+Ukraina+pagulastele+Eestis&payee=Mittetulundusühing+Helihool&detail=Help+for+Ukrainian+refugees+%2F+abi+Ukraina+pagulastele&pphb=GYBURV4YX4KLY');
+        $url = urldecode('/donation/?iban=EE534204278619625400&campaign_title=Help+for+Ukrainian+refugees+in+Estonia+%2F+abi+Ukraina+pagulastele+Eestis&payee=Mittetulundusühing+Helihool&detail=Help+for+Ukrainian+refugees+%2F+abi+Ukraina+pagulastele&pphb=GYBURV4YX4KLY');
+        return redirect($url);
     });
 }
