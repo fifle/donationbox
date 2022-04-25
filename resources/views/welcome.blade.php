@@ -310,7 +310,6 @@
                                                         type="hidden"
                                                         id="swt"
                                                         name="swt"
-                                                        value="1"
                                                     />
                                                     <input
                                                         form="generator"
@@ -415,15 +414,15 @@
                                                             type="hidden"
                                                             id="lhvt"
                                                             name="lhvt"
-                                                            value="1"
                                                         />
                                                         <input
+                                                            form="generator"
                                                             type="checkbox"
                                                             id="lhvt"
                                                             name="lhvt"
                                                             x-model="lhvt"
                                                             class="w-full h-full appearance-none focus:outline-none"
-                                                            value=""
+                                                            value="true"
                                                         />
                                                     </div>
                                                 </div>
@@ -452,7 +451,6 @@
                                                             type="hidden"
                                                             id="coopt"
                                                             name="coopt"
-                                                            value="1"
                                                         />
                                                         <input
                                                             type="checkbox"
