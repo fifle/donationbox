@@ -47,14 +47,6 @@
         </div>
 
         <div x-data="app()" x-cloak>
-            <!-- Loading -->
-
-            <div x-show="!loaded" class="loading">
-                <div style="border-top-color:transparent"
-                     class="w-16 h-16 border-4 border-blue-400 border-dotted rounded-full animate-spin"></div>
-            </div>
-
-            <div x-show="loaded">
             <!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->
             <div x-show.transition="step != 'complete'">
                 <!-- Top Navigation -->
@@ -722,7 +714,6 @@
         @include('secure')
 
         @include('footer')
-        </div>
     </div>
 
 </div>
@@ -734,7 +725,6 @@
     function app() {
         return {
             step: 1,
-            loaded: true
         }
     }
 </script>

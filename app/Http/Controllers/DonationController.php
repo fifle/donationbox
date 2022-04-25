@@ -31,6 +31,8 @@ class DonationController extends Controller
             $swt = urlencode($request->boolean('swt'));
             $lhvt = urlencode($request->boolean('lhvt'));
             $coopt = urlencode($request->boolean('coopt'));
+            // paypal hosted button
+            $pphb = urlencode($request->input('pphb'));
 
             // links
 //            $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
@@ -117,6 +119,10 @@ class DonationController extends Controller
 
             if (isset($coopt)) {
                 $compactData['coopt'] = 'coopt';
+            }
+
+            if (isset($pphb)) {
+                $compactData['pphb'] = 'pphb';
             }
 
             return view("donation", compact($compactData));

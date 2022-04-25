@@ -121,6 +121,13 @@
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
+                                                        name="pphb"
+                                                        id="pphb"
+                                                        value="{{ $pphb }}"
+                                                    >
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
                                                         name="db"
                                                         id="db"
                                                         value="{{ $db }}"
@@ -368,6 +375,18 @@
                                                      hover:bg-blue-900">Paypal
                                                     </button>
                                                 @endif
+                                                    @if($pphb)
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="pphb"
+                                                            class="transition duration-150 ease-in-out bg-blue-800 px-5
+                                                py-3 text-sm shadow-sm font-medium
+                                                     tracking-wider border text-blue-100 rounded-full hover:shadow-lg
+                                                     hover:bg-blue-900">Paypal
+                                                        </button>
+                                                    @endif
                                                 @if($db)
                                                     <button
                                                         form="sumforbank"

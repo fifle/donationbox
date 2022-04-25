@@ -20,6 +20,8 @@ class RedirectController extends Controller
         $rev = urldecode($request->input('rev'));
         $amount = urldecode($request->input('donationsum'));
         $ik = " " . urldecode($request->input('taxik'));
+        // paypal hosted button
+        $pphb = urldecode($request->input('pphb'));
 
         if (env('COUNTRY') == 'ee') {
             switch ($request->input('action')) {
@@ -82,6 +84,11 @@ class RedirectController extends Controller
                 case 'rev':
                     $bankname = "Revolut";
                     $url = sprintf("https://revolut.me/%s", $rev);
+                    return Redirect::to($url);
+
+                case 'pphb':
+                    $bankname = "Paypal Hosted button";
+                    $url = sprintf("https://www.paypal.com/donate/?hosted_button_id=%s", $pphb);
                     return Redirect::to($url);
             }
         } else if (env('COUNTRY') == 'lv') {
@@ -186,7 +193,8 @@ class RedirectController extends Controller
             'sebuid_st',
             'rev',
             'amount',
-            'ik'
+            'ik',
+            'pphb',
         );
 
         $data = array(
@@ -202,6 +210,7 @@ class RedirectController extends Controller
             'rev' => $rev,
             'amount' => $amount,
             'ik' => $ik,
+            'pphb' => $pphb,
         );
 
         return view("redirect", compact($compactData));
