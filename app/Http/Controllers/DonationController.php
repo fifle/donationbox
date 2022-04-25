@@ -153,6 +153,8 @@ class DonationController extends Controller
             $swt = rawurlencode($request->boolean('swt'));
             $lhvt = rawurlencode($request->boolean('lhvt'));
             $coopt = rawurlencode($request->boolean('coopt'));
+            // paypal hosted button
+            $pphb = rawurlencode($request->input('pphb'));
 
             // links
             $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
