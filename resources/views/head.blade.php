@@ -35,12 +35,13 @@
 <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}">
 
 <!-- Scripts -->
-<script src="{{ mix('js/app.js') }}" defer></script>
-{{--<script src="//unpkg.com/alpinejs" defer></script>--}}
+<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="//unpkg.com/alpinejs" defer></script>
 <script src="//unpkg.com/flowbite@1.3 .4/dist/flowbite.js" defer></script>
 <script src="//kit.fontawesome.com/6940ba20ce.js" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 
+<!-- Matomo -->
 <!-- Matomo -->
 <script>
     var _paq = window._paq = window._paq || [];
@@ -48,13 +49,14 @@
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function() {
-        var u="https://donationboxee.matomo.cloud/";
+        var u="//analytics.fleisher.ee/";
         _paq.push(['setTrackerUrl', u+'matomo.php']);
-        _paq.push(['setSiteId', '1']);
+        _paq.push(['setSiteId', '2']);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.async=true; g.src='//cdn.matomo.cloud/donationboxee.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
     })();
 </script>
+<!-- End Matomo Code -->
 <!-- End Matomo Code -->
 
 <style>
