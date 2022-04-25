@@ -10,18 +10,18 @@ class RedirectController extends Controller
 {
     public function getBankLink(Request $request) {
         $campaign_title = session('campaign_title');
-        $detail = urldecode($request->input('detail'));
-        $payee = urldecode($request->input('payee'));
-        $iban = urldecode($request->input('iban'));
-        $pp = urldecode($request->input('pp'));
-        $db = urldecode($request->input('db'));
-        $sebuid = urldecode($request->input('sebuid'));
-        $sebuid_st = urldecode($request->input('sebuid_st'));
-        $rev = urldecode($request->input('rev'));
-        $amount = urldecode($request->input('donationsum'));
-        $ik = " " . urldecode($request->input('taxik'));
+        $detail = rawurldecode($request->input('detail'));
+        $payee = rawurldecode($request->input('payee'));
+        $iban = rawurldecode($request->input('iban'));
+        $pp = rawurldecode($request->input('pp'));
+        $db = rawurldecode($request->input('db'));
+        $sebuid = rawurldecode($request->input('sebuid'));
+        $sebuid_st = rawurldecode($request->input('sebuid_st'));
+        $rev = rawurldecode($request->input('rev'));
+        $amount = rawurldecode($request->input('donationsum'));
+        $ik = " " . rawurldecode($request->input('taxik'));
         // paypal hosted button
-        $pphb = urldecode($request->input('pphb'));
+        $pphb = rawurldecode($request->input('pphb'));
 
         if (env('COUNTRY') == 'ee') {
             switch ($request->input('action')) {

@@ -18,21 +18,21 @@ class DonationController extends Controller
         if (!$request->has('campaign_title')) {
             return redirect()->route('welcome');
         } else {
-            $campaign_title = urlencode($request->input('campaign_title'));
-            $detail = urlencode($request->input('detail'));
-            $payee = urlencode($request->input('payee'));
-            $iban = urlencode($request->input('iban'));
-            $pp = urlencode($request->input('pp'));
-            $db = urlencode($request->input('db'));
-            $sebuid = urlencode($request->input('sebuid'));
-            $sebuid_st = urlencode($request->input('sebuid_st')); // uid for standing order for SEB LV
-            $rev = urlencode($request->input('rev'));
-            $tax = urlencode($request->boolean('tax'));
-            $swt = urlencode($request->boolean('swt'));
-            $lhvt = urlencode($request->boolean('lhvt'));
-            $coopt = urlencode($request->boolean('coopt'));
+            $campaign_title = rawurlencode($request->input('campaign_title'));
+            $detail = rawurlencode($request->input('detail'));
+            $payee = rawurlencode($request->input('payee'));
+            $iban = rawurlencode($request->input('iban'));
+            $pp = rawurlencode($request->input('pp'));
+            $db = rawurlencode($request->input('db'));
+            $sebuid = rawurlencode($request->input('sebuid'));
+            $sebuid_st = rawurlencode($request->input('sebuid_st')); // uid for standing order for SEB LV
+            $rev = rawurlencode($request->input('rev'));
+            $tax = rawurlencode($request->boolean('tax'));
+            $swt = rawurlencode($request->boolean('swt'));
+            $lhvt = rawurlencode($request->boolean('lhvt'));
+            $coopt = rawurlencode($request->boolean('coopt'));
             // paypal hosted button
-            $pphb = urlencode($request->input('pphb'));
+            $pphb = rawurlencode($request->input('pphb'));
 
             // links
 //            $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
@@ -140,19 +140,19 @@ class DonationController extends Controller
         if (!$request->has('campaign_title')) {
             return redirect()->route('welcome');
         } else {
-            $campaign_title = urlencode($request->input('campaign_title'));
-            $detail = urlencode($request->input('detail'));
-            $payee = urlencode($request->input('payee'));
-            $iban = urlencode($request->input('iban'));
-            $pp = urlencode($request->input('pp'));
-            $db = urlencode($request->input('db'));
-            $sebuid = urlencode($request->input('sebuid'));
-            $sebuid_st = urlencode($request->input('sebuid_st')); // uid for standing order for SEB LV
-            $rev = urlencode($request->input('rev'));
-            $tax = urlencode($request->boolean('tax'));
-            $swt = urlencode($request->boolean('swt'));
-            $lhvt = urlencode($request->boolean('lhvt'));
-            $coopt = urlencode($request->boolean('coopt'));
+            $campaign_title = rawurlencode($request->input('campaign_title'));
+            $detail = rawurlencode($request->input('detail'));
+            $payee = rawurlencode($request->input('payee'));
+            $iban = rawurlencode($request->input('iban'));
+            $pp = rawurlencode($request->input('pp'));
+            $db = rawurlencode($request->input('db'));
+            $sebuid = rawurlencode($request->input('sebuid'));
+            $sebuid_st = rawurlencode($request->input('sebuid_st')); // uid for standing order for SEB LV
+            $rev = rawurlencode($request->input('rev'));
+            $tax = rawurlencode($request->boolean('tax'));
+            $swt = rawurlencode($request->boolean('swt'));
+            $lhvt = rawurlencode($request->boolean('lhvt'));
+            $coopt = rawurlencode($request->boolean('coopt'));
 
             // links
             $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
