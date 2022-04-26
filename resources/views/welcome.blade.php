@@ -47,7 +47,6 @@
         </div>
 
         <div x-data="app()" x-cloak>
-            <!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->
             <div x-show.transition="step != 'complete'">
                 <!-- Top Navigation -->
                 <!-- /Top Navigation -->
@@ -76,11 +75,11 @@
                                     <div class="rounded-md -space-y-px">
                                         <div class="grid gap-6">
                                             <div class="col-span-12">
-                                                <label for="campaign_title" class="font-bold text-gray-700
+                                                <label for="campaign_title" class="d-font font-bold text-gray-700
                                                         block mb-1">Name your donation box
                                                     <span class="font-normal text-red-500"><sup>*</sup></span>
                                                 </label>
-                                                <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
                                                     This text will be used as the title of your donation box page.
                                                 </div>
@@ -101,12 +100,12 @@
 
                                             <div class="col-span-12">
 
-                                                <label for="detail" class="font-bold text-gray-700
+                                                <label for="detail" class="d-font font-bold text-gray-700
                                                         block mb-1">
                                                     Bank transfer detail <span
                                                         class="font-normal text-red-500"><sup>*</sup></span>
                                                 </label>
-                                                <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
                                                     This will be used as a requisite for the money transfer.
 
@@ -164,15 +163,13 @@
                                 <div class="rounded-md -space-y-px">
                                     <div class="grid gap-6">
                                         <div class="col-span-12">
-                                            <label for="campaign_title" class="font-bold text-gray-700
+                                            <label for="campaign_title" class="d-font font-bold text-gray-700
                                                         block mb-2">Payee's name
                                                 <span class="font-normal text-red-500"><sup>*</sup></span>
                                             </label>
-                                            <div class="tracking-normal text-xs text-gray-500 mb-3
+                                            <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
-                                                Insert the name of the individual or company you would like
-                                                to donate to. Please make sure that the name is spelled correctly and in
-                                                Latin letters.
+                                                Insert the name of the person or company on whose behalf you want to open a fundraiser. Please make sure that the name is spelled correctly in Latin letters.
                                             </div>
                                             <input
                                                 form="generator"
@@ -204,13 +201,13 @@
                                 <div class="rounded-md -space-y-px">
                                     <div class="grid gap-6">
                                         <div class="col-span-12">
-                                            <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">Tax return for donors
+                                            <label for="campaign_title" class="d-font font-bold text-gray-700
+                                                        block mb-2">Tax return for donors in Estonia
                                             </label>
-                                            <div class="tracking-normal text-xs text-gray-500 mb-3
+                                            <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
-                                                In this case, your donors will be able to request an income tax
-                                                refund on their donation. NB! Your organization must be on the
+                                                If you'll turn on this checkbox, your donors will be able to request an
+                                                income tax refund on their donation. NB! Your organization must be on the
                                                     register of associations eligible for tax incentives.
                                                 <a href="/about#taxfree-ee" class="no-underline hover:underline
                                                     text-blue-800" target="_blank">Learn more ></a>
@@ -254,7 +251,7 @@
                                     @if(env('COUNTRY') == 'lt')
                                         Lithuanian
                                     @endif
-                                    banks
+                                    internet-banks
                                 </div>
                             </div>
                             <div class="mb-5">
@@ -262,7 +259,7 @@
                                 <div class="rounded-md -space-y-px">
                                     <div class="grid gap-6">
                                         <div class="col-span-12">
-                                            <label for="campaign_title" class="font-bold text-gray-700
+                                            <label for="campaign_title" class="d-font font-bold text-gray-700
                                                         block mb-2">Payee's bank account (IBAN) number</label>
                                             <input
                                                 form="generator"
@@ -288,7 +285,7 @@
                                         </div>
 
                                         <div class="col-span-12">
-                                            <label for="campaign_title" class="font-bold text-gray-700 mb-2">
+                                            <label for="campaign_title" class="d-font font-bold text-gray-700 mb-2">
                                                 Choose banking methods
                                             </label>
                                         </div>
@@ -345,12 +342,12 @@
                                             </div>
                                             <div x-show="sebt">
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
-                                                    <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">SEB UID code</label>
-                                                    <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                    <label for="campaign_title" class="d-font font-bold text-gray-700
+                                                        block mb-2">SEB UID token</label>
+                                                    <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
                                                         If you want to connect SEB bank as part of the payment methods, you
-                                                        need to get your own UID code from SEB.
+                                                        need to get your own UID token from SEB.
                                                         <a href="/about#sebUID" class="no-underline hover:underline
                                                     text-blue-800" target="_blank">Read more about how to
                                                             obtain a special identifier for private individuals and companies
@@ -466,7 +463,7 @@
                             </div>
                             <div class="mb-5">
                                 <div class="col-span-12 mb-3">
-                                    <label for="campaign_title" class="font-bold text-gray-700 mb-2">
+                                    <label for="campaign_title" class="d-font font-bold text-gray-700 mb-2">
                                         Choose banking methods
                                     </label>
                                 </div>
@@ -501,7 +498,7 @@
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-2">Revolut.me username</label>
-                                                    <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                    <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
                                                         If you have a Revolut account, you can create your own Revolut.me page
                                                         to accept payments from other users in Revolut or by credit card.
@@ -556,7 +553,7 @@
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="font-bold text-gray-700
                                                         block mb-2">PayPal.me username</label>
-                                                    <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                    <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
                                                         If you have a Paypal account, you can create your own Paypal.me page to
                                                         accept donations from other users.
@@ -585,7 +582,8 @@
                                         <div class="col-span-12" x-data="{dbtoggle: false}">
                                             <div class="grid grid-cols-2 gap-4">
                                                 <div>
-                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-red-500 uppercase">Donorbox</h2>
+                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase
+                                                     rounded-full text-white bg-red-500 uppercase">Donorbox.org</h2>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -608,8 +606,8 @@
                                             <div x-show="dbtoggle">
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">Donorbox campaign slug</label>
-                                                    <div class="tracking-normal text-xs text-gray-500 mb-3
+                                                        block mb-2">Donorbox.org campaign slug</label>
+                                                    <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
                                                         To start accepting payments for bank cards, you can use the Donorbox
                                                         service.

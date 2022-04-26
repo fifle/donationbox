@@ -157,13 +157,13 @@
                     sebUID
                 @endslot
                 @slot('cardTitle')
-                        What is SEB UID identifier? How do I get it?
+                        What is SEB UID token? How do I get it?
                     @endslot
                 @slot('cardContent')
-                        The UID identifier is necessary for initiating payments in SEB's online bank. This way SEB
+                        The UID token is necessary for initiating payments in SEB's online bank. This way SEB
                         improves the security of pre-filled forms on the payment transfer pages.<br><br>
-                        UID numbers can be received by both individuals and legal entities. Please note that the
-                        person representing a legal entity must be a member of the board. To get the UID number, you
+                        UID can be received by both individuals and legal entities. Please note that the
+                        person representing a legal entity must be a member of the board. To get the UID, you
                         need to send a free-form application with a request for UID to the email: <a
                             href="mailto:eservice@seb.ee" class="no-underline hover:underline
                             text-blue-800" target="_blank">eservice@seb.ee</a><br><br>
