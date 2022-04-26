@@ -15,9 +15,9 @@
         @include('form')
         <div class="bg-white rounded-lg p-5 mt-8 shadow justify-between">
             <div class="content-center">
-                <p class="mt-2 mb-2 text-center text-1xl font-bold text-gray-600">
+                <h3 class="mt-4 mb-2 text-center text-1xl font-bold text-gray-600">
                     Scan QR-code and easily share donation box!
-                </p>
+                </h3>
                 <div x-data="app()" x-cloak>
                         <div id="qrcode">{{ $qrcode }}</div>
                 </div>
@@ -39,9 +39,9 @@
 
         <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
             <div class="content-center">
-                <p class="mb-2 text-center text-1xl font-bold text-gray-600">
+                <h3 class="mb-2 text-center text-1xl font-bold text-gray-600">
                     Share this donation box with your friends!
-                </p>
+                </h3>
                 <div class="mt-2 flex items-center justify-center">
                 {!! Share::page(urlencode(url()->full()), urldecode($campaign_title))->facebook()->twitter()
                 ->linkedin()
@@ -58,9 +58,9 @@
         </div>
 
         <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
-            <p class="mb-2 text-center text-1xl font-bold text-gray-600">
+            <h3 class="mb-2 text-center text-1xl font-bold text-gray-600">
                 Embed your donation box to your webpage
-            </p>
+            </h3>
 
             <div class="flex items-center justify-center">
             <!-- Target -->

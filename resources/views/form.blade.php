@@ -2,7 +2,7 @@
     <h2 class="mt-0 text-center text-2xl font-semibold text-gray-700">
         {!! urldecode($campaign_title) !!}
     </h2>
-    <div class="mt-2 mb-4 text-center text-sm text-gray-600 align-middle">
+    <div class="mt-2 mb-4 text-center text-md text-gray-500 align-middle">
         {!! urldecode($payee) !!} /
         @if(isset($iban))
             {!! urldecode($iban) !!} /
@@ -156,7 +156,7 @@
                                                 </div>
                                             </div>
                                             <div class="p-1 mt-1 mb-4 text-center space-y-2">
-                                                <button class="transition duration-150 ease-in-out
+                                                <button class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 mr-2 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
@@ -164,7 +164,7 @@
                                                         @click="preamount = '5'">
                                                     5€
                                                 </button>
-                                                <button class="transition duration-150 ease-in-out
+                                                <button class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 mr-2 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
@@ -172,7 +172,7 @@
                                                         @click="preamount = '10'">
                                                     10€
                                                 </button>
-                                                <button class="transition duration-150 ease-in-out
+                                                <button class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
@@ -193,7 +193,7 @@
 
                                         <div class="flex items-center justify-center mt-2 mb-4">
                                             <button
-                                                class="transition duration-150 ease-in-out
+                                                class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-4 rounded-lg
                                                         shadow-sm text-center text-sm text-gray-600 bg-white
                                                         hover:bg-gray-100
@@ -207,7 +207,7 @@
                                             </button>
                                             @if($iban or $db)
                                             <button
-                                                class="transition duration-150 ease-in-out
+                                                class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-4 ml-2 rounded-lg
                                                         shadow-sm text-center text-sm text-gray-600 bg-white
                                                         hover:bg-gray-100
@@ -276,7 +276,7 @@
                                         <div>
                                             <div x-show="tab === 'onetime'" class="p-1 mt-2 text-center space-x-1
                                                     space-y-2" x-transition:enter.duration.500ms>
-                                                @if(isset($iban))
+                                                @if($iban)
                                                     <div>
                                                         <div class="flex items-center justify-center">
                                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
@@ -295,7 +295,8 @@
                                                             type="submit"
                                                             name="action"
                                                             value="swed"
-                                                            class="transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
+                                                            class="d-font transition duration-150 ease-in-out
+                                                            bg-yellow-500 px-5 py-3
                                                             text-sm shadow-sm font-medium
                                                                 tracking-wider border text-yellow-100 rounded-full
                                                                 hover:shadow-lg hover:bg-yellow-600">Swedbank
@@ -307,7 +308,7 @@
                                                             type="submit"
                                                             name="action"
                                                             value="seb"
-                                                            class="transition duration-150 ease-in-out bg-green-500 px-5 py-3
+                                                            class="d-font transition duration-150 ease-in-out bg-green-500 px-5 py-3
                                                          text-sm shadow-sm
                                                         font-medium tracking-wider border text-green-100 rounded-full
                                                         hover:shadow-lg hover:bg-green-600">SEB
@@ -319,7 +320,7 @@
                                                         type="submit"
                                                         name="action"
                                                         value="lhv"
-                                                        class="transition duration-150 ease-in-out bg-gray-700 px-5 py-3
+                                                        class="d-font transition duration-150 ease-in-out bg-gray-700 px-5 py-3
                                                         text-sm shadow-sm
                                                         font-medium tracking-wider border text-gray-100 rounded-full
                                                         hover:shadow-lg hover:bg-gray-800">LHV
@@ -331,7 +332,7 @@
                                                         type="submit"
                                                         name="action"
                                                         value="coop"
-                                                        class="transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
+                                                        class="d-font transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
                                                         text-sm shadow-sm
                                                         font-medium tracking-wider border text-blue-100 rounded-full
                                                         hover:shadow-lg hover:bg-blue-700">Coop
@@ -356,7 +357,7 @@
                                                             type="submit"
                                                             name="action"
                                                             value="rev"
-                                                            class="transition duration-150 ease-in-out bg-white px-5
+                                                            class="d-font transition duration-150 ease-in-out bg-white px-5
                                                              py-3
                                                         text-sm shadow-sm
                                                         font-medium tracking-wider border text-blue-500 rounded-full
@@ -369,7 +370,7 @@
                                                         type="submit"
                                                         name="action"
                                                         value="paypal"
-                                                        class="transition duration-150 ease-in-out bg-blue-800 px-5
+                                                        class="d-font transition duration-150 ease-in-out bg-blue-800 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-blue-100 rounded-full hover:shadow-lg
                                                      hover:bg-blue-900">Paypal
@@ -381,7 +382,7 @@
                                                             type="submit"
                                                             name="action"
                                                             value="pphb"
-                                                            class="transition duration-150 ease-in-out bg-blue-800 px-5
+                                                            class="d-font transition duration-150 ease-in-out bg-blue-800 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-blue-100 rounded-full hover:shadow-lg
                                                      hover:bg-blue-900">Paypal
@@ -393,7 +394,7 @@
                                                         type="submit"
                                                         name="action"
                                                         value="donorbox"
-                                                        class="transition duration-150 ease-in-out bg-red-600 px-5
+                                                        class="d-font transition duration-150 ease-in-out bg-red-600 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-white rounded-full hover:shadow-lg
                                                      hover:bg-red-700 inline-flex items-center">
@@ -417,7 +418,7 @@
                                                         type="submit"
                                                         name="action"
                                                         value="swed-standing"
-                                                        class="transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
+                                                        class="d-font transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
                                                         text-sm shadow-sm font-medium
                                                             tracking-wider border text-yellow-100 rounded-full
                                                             hover:shadow-lg hover:bg-yellow-600">Swedbank
@@ -429,7 +430,7 @@
                                                             type="submit"
                                                             name="action"
                                                             value="seb-standing"
-                                                            class="transition duration-150 ease-in-out bg-green-500 px-5 py-3
+                                                            class="d-font transition duration-150 ease-in-out bg-green-500 px-5 py-3
                                                          text-sm shadow-sm
                                                         font-medium tracking-wider border text-green-100 rounded-full
                                                         hover:shadow-lg hover:bg-green-600">SEB
@@ -441,7 +442,7 @@
                                                         type="submit"
                                                         name="action"
                                                         value="lhv-standing"
-                                                        class="transition duration-150 ease-in-out bg-gray-700 px-5 py-3
+                                                        class="d-font transition duration-150 ease-in-out bg-gray-700 px-5 py-3
                                                         text-sm shadow-sm
                                                         font-medium tracking-wider border text-gray-100 rounded-full
                                                         hover:shadow-lg hover:bg-gray-800">LHV
@@ -453,7 +454,7 @@
                                                         type="submit"
                                                         name="action"
                                                         value="coop-standing"
-                                                        class="transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
+                                                        class="d-font transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
                                                         text-sm shadow-sm
                                                         font-medium tracking-wider border text-blue-100 rounded-full
                                                         hover:shadow-lg hover:bg-blue-700">Coop
@@ -477,7 +478,7 @@
                                                         type="submit"
                                                         name="action"
                                                         value="donorbox-standing"
-                                                        class="transition duration-150 ease-in-out bg-red-700 px-5
+                                                        class="d-font transition duration-150 ease-in-out bg-red-700 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-white rounded-full hover:shadow-lg
                                                      hover:bg-red-700 inline-flex items-center">

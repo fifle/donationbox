@@ -1,10 +1,10 @@
-<div class="pt-8 pb-14 text-center text-gray-600">
+<div class="pt-8 pb-8 text-center text-gray-600">
 
     @if(Route::currentRouteName() === 'donation')
     <a href="mailto:donationbox.ee@gmail.com?subject=Report%20Alert%20from%20Donationbox.ee&body=Your%20name%3A%0D%0AYour%20email%3A%0D%0AReason%20for%20reporting%3A%0D%0AReported%20URL%3A%20{{
     urlencode(url()->full()) }}"
        target="_blank"
-       class="transition duration-150 ease-in-out bg-white px-5
+       class="d-font transition duration-150 ease-in-out bg-white px-5
                                                 py-2 mb-4 text-sm shadow-sm font-medium
                                                      tracking-wider border text-red-400 rounded-full hover:shadow-lg
                                                      hover:bg-gray-50 inline-flex items-center">
@@ -16,21 +16,21 @@
     @endif
 
     <div class="flex justify-center mb-4 text-xs">
-        <a href="https://donationbox.ee" class="transition duration-150 ease-in-out
+        <a href="https://donationbox.ee" class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-3 mr-2 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto" target="_blank">
             <span class="noto-emoji">🇪🇪</span> EE
         </a>
-        <a href="https://donationbox.lv" class="transition duration-150 ease-in-out
+        <a href="https://donationbox.lv" class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-3 mr-2 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto" target="_blank">
             <span class="noto-emoji">🇱🇻</span> LV
         </a>
-        <a href="https://donationbox.lt" class="transition duration-150 ease-in-out
+        <a href="https://donationbox.lt" class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-3 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1

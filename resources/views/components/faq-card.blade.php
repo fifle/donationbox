@@ -2,7 +2,7 @@
     <h2 class="font-medium text-xl">
         {{$cardTitle}}
     </h2>
-    <div class="mt-2 font-light text-gray-700">
+    <div class="mt-2 text-gray-700">
         {{$cardContent}}
     </div>
 </div>
