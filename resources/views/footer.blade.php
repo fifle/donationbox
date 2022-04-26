@@ -1,4 +1,4 @@
-<div class="pt-8 pb-8 text-center text-gray-600">
+<div class="pt-8 pb-14 text-center text-gray-600">
 
     @if(Route::currentRouteName() === 'donation')
     <a href="mailto:donationbox.ee@gmail.com?subject=Report%20Alert%20from%20Donationbox.ee&body=Your%20name%3A%0D%0AYour%20email%3A%0D%0AReason%20for%20reporting%3A%0D%0AReported%20URL%3A%20{{
