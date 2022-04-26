@@ -1,8 +1,8 @@
 <div>
-    <h2 class="mt-0 text-center text-2xl font-semibold text-gray-700">
+    <h2 class="mt-0 ml-3 mr-3 text-center text-2xl font-semibold text-gray-700">
         {!! urldecode($campaign_title) !!}
     </h2>
-    <div class="mt-2 mb-4 text-center text-md text-gray-500 align-middle">
+    <div class="mt-2 mb-4 ml-3 mr-3 text-center text-sm text-gray-500 align-middle">
         {!! urldecode($payee) !!} /
         @if(isset($iban))
             {!! urldecode($iban) !!} /
