@@ -341,7 +341,7 @@
                                                 @endif
 
                                                 <div>
-                                                @if($rev or $pp or $db)
+                                                @if($rev or $pp or $pphb or $db)
                                                     <div class="flex items-center justify-center">
                                                         @if(!$iban)
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
