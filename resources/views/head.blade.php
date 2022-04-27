@@ -23,7 +23,6 @@
 
 <!-- Fonts -->
 <style>
-    /*@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');*/
     @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 </style>
@@ -37,8 +36,8 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}" defer></script>
-<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-{{--<script src="//unpkg.com/flowbite@1.3 .4/dist/flowbite.js" defer></script>--}}
+{{--<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>--}}
+{{--<script defer src="{{ asset('js/alpine.js') }}"></script>--}}
 <script src="//kit.fontawesome.com/6940ba20ce.js" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 
