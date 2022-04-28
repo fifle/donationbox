@@ -3,6 +3,7 @@
 <head>
     <title>{!! urldecode($campaign_title) !!} | {!! urldecode($payee) !!} | DonationBox.ee</title>
     @include('head')
+
 </head>
 <body class="antialiased">
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -24,7 +25,7 @@
                 ->linkedin()
                 ->whatsapp() !!}
                 <!-- Trigger -->
-                    <button href="#_" class="d-font transition duration-150 ease-in-out
+                    <a href="#_" class="d-font btn transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-3 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         text-sm border focus:ring-1 focus:ring-offset-1
@@ -32,7 +33,7 @@
                             data-clipboard-text="{{ $link }}" >
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
             .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy link
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -74,7 +75,7 @@
                        value="{{ sprintf("<embed src='%s' width='100%%' height='900' style='border:none;overflow:hidden'></embed>", $embedlink) }}">
 
                 <!-- Trigger -->
-                <button href="#_" class="d-font transition duration-150 ease-in-out
+                <a href="#_" class="d-font btn transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-3 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         text-sm border focus:ring-1 focus:ring-offset-1
@@ -82,7 +83,7 @@
                         data-clipboard-target="#foo">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
             .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy code
-                </button>
+                </a>
             </div>
 
         </div>
