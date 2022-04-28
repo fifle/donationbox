@@ -73,8 +73,15 @@
     </a>
     and inspired by Sheila
     <br>
-    <a href="/donation?campaign_title=Support+Donationbox.ee&detail=Annetus+donationbox.ee&payee=Pavel+Flei%C5%A1er&iban=EE614204278622417401&pp=pfleiser&rev=pavelvtd" class="no-underline
+        @if (env('COUNTRY') == 'ee')
+            <a href="/donation?campaign_title=Support+Donationbox.ee&detail=Annetus+donationbox.ee&payee=Pavel+Flei%C5%A1er&iban=EE614204278622417401&pp=pfleiser&rev=pavelvtd" class="no-underline
                  hover:underline text-xs text-blue-800 mt-4" target="_blank">
+        @else
+            <a href="/donation?campaign_title=Support+Donationbox.ee&detail=Donation+donationbox.ee&payee=Pavel+Flei%C5%A1er&pp=pfleiser&rev=pavelvtd" class="no-underline
+                 hover:underline text-xs text-blue-800 mt-4" target="_blank">
+        @endif
+
+
         <div class="inline-flex items-center mt-2">
             Support the project <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                      xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>

@@ -3,12 +3,12 @@
         {!! urldecode($campaign_title) !!}
     </h2>
     <div class="mt-2 mb-4 ml-3 mr-3 text-center text-sm text-gray-500 align-middle">
-        {!! urldecode($payee) !!} /
-        @if(isset($iban))
-            {!! urldecode($iban) !!} /
+        {!! urldecode($payee) !!}
+        @if($iban)
+            / {!! urldecode($iban) !!}
         @endif
         @if($pp)
-            <i class="fa-brands fa-paypal"></i> {!! urldecode($pp) !!}
+            / <i class="fa-brands fa-paypal"></i> {!! urldecode($pp) !!}
         @endif<br>
         {!! urldecode($detail) !!}
         <!-- Trigger -->
