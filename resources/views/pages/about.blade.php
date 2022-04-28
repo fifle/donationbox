@@ -17,6 +17,16 @@
                 FAQ
             </h1>
 
+            @if(env('COUNTRY') == 'ee')
+                @php($cc = 'Estonia')
+            @elseif(env('COUNTRY') == 'lv')
+                @php($cc = 'Latvia')
+            @elseif(env('COUNTRY') == 'lt')
+                @php($cc = 'Lithuania')
+            @endif
+
+            @php($cc_domain = env('COUNTRY'))
+
             @component('components.faq-card')
                 @slot('cardName')
                     whatIsDonationBox
@@ -26,7 +36,7 @@
                 @endslot
                 @slot('cardContent')
                     <p>This is a web application for generating links to direct or regular donation forms for
-                        Estonian and international banks. The app allows you to create your own virtual donation box
+                        {{$cc}}n and international payment methods. The app allows you to create your own virtual donation box
                         for donations without having to write code or link your website or app to contracts and
                         integrations with banklink.</p> <br> <p>
                         We provide a convenient interface for donors so that they don't have to enter data manually
@@ -48,7 +58,7 @@
                         person who does not have technical skills, or has a monthly fee, which may be inappropriate
                         in cases where the collection is organized by a private person or an NGO that does not have
                         regular donors.<br><br>
-                        We believe it is important to make organizing fundraisers in Estonia a quick, convenient,
+                        We believe it is important to make organizing fundraisers in {{$cc}} a quick, convenient,
                         and, most importantly, fee free method for fundraisers.
                     </p>
                 @endslot
@@ -141,7 +151,7 @@
                         Why is it important to keep payment details serious and clear?
                     @endslot
                 @slot('cardContent')
-                        According to various international regulations, banks in Estonia and other countries are
+                        According to various international regulations, banks in {{$cc}} and other countries are
                         obliged to monitor payments in real time and ensure that no suspicious transactions pass
                         through them. Otherwise, the bank has the right to freeze funds for transfer from your bank
                         account until the investigation is completed. Therefore, be honest and state the real purpose
@@ -149,7 +159,7 @@
                         <a href="https://arileht.delfi
                         .ee/artikkel/92451593/lisasid-makseselgitusse-midagi-kahtlast-ole-valmis-et-pank-votab-sinuga
                         -uhendust" class="no-underline hover:underline
-                            text-blue-800">Read more about this on Delfi.ee</a>
+                            text-blue-800">Read more about this on Delfi.ee (in Estonian)</a>
                     @endslot
             @endcomponent
             @component('components.faq-card')
@@ -181,7 +191,7 @@
                         Donorbox is an international online donation platform for non-profits. It allows you to start
                         receiving donations for international payments systems. Donorbox integrates with
                         payment processing platform Stripe, which allows automatically receive
-                        money directly to Estonian IBAN bank account. Also, Donorbox allows you to
+                        money directly to {{$cc}}n IBAN bank account. Also, Donorbox allows you to
                         make anonymous, recurring payments, connect CRM systems to process donor data, etc.<br><br>
                         In order to connect Donorbox, you need to register your account. You can do this here:
                         <a href="https://donorbox.org/orgs/new" class="no-underline hover:underline
@@ -250,10 +260,10 @@
                     estBanks
                 @endslot
                 @slot('cardTitle')
-                        Which Estonian banks are supported now?
+                        Which banks operating in the Baltics are currently supported?
                 @endslot
                 @slot('cardContent')
-                        DonationBox is available for Swedbank, SEB, LHV, Coop banks. All of them support one-time and
+                        DonationBox is available for Swedbank (EE, LV, LT), SEB (EE, LV, LT), LHV (EE), Coop (EE). All of them support one-time and
                         recurring payments. We hope that this list may be expanded in the future.
                     @endslot
             @endcomponent
@@ -266,8 +276,8 @@
                 @endslot
                 @slot('cardContent')
                         Click the "Report fraud" button at the bottom of the page or email us at <a
-                            href="mailto:donationbox.ee@gmail.com" class="no-underline hover:underline
-                            text-blue-800" target="_blank">donationbox.ee@gmail.com</a>. Provide a link to the
+                            href="mailto:donationbox.{{$cc_domain}}@gmail.com" class="no-underline hover:underline
+                            text-blue-800" target="_blank">donationbox.{{$cc_domain}}@gmail.com</a>. Provide a link to the
                         donation box that seems suspicious to you and specify in the message what exactly confuses
                         you. For our part, we will do our best to respond to your request as soon as possible. When checking, we rely on the opening of data on the company or individual. If a violation is detected, the link may be blocked.
                     @endslot
@@ -295,7 +305,7 @@
                         Can payee use a foreign IBAN account number?
                     @endslot
                 @slot('cardContent')
-                        Currently the service works only with Estonian IBAN accounts. In the near future the logic for European payments through Estonian banks will be finalized.
+                        Currently the service works only with local IBAN accounts. In the near future the logic for European payments through {{$cc}}n banks will be finalized.
                     @endslot
             @endcomponent
             @component('components.faq-card')
@@ -306,7 +316,7 @@
                         Can I use DonationBox only for Revolut, Donorbox and Paypal?
                     @endslot
                 @slot('cardContent')
-                        Yes, it is possible. Just leave the IBAN field blank and the selection with Estonian banks will not appear on the donation form.
+                        Yes, it is possible. Just leave the IBAN field blank and the selection with {{$cc}}n banks will not appear on the donation form.
                     @endslot
             @endcomponent
             @component('components.faq-card')
@@ -340,8 +350,8 @@
                     @endslot
                 @slot('cardContent')
                         Email us at <a
-                            href="mailto:donationbox.ee@gmail.com" class="no-underline hover:underline
-                            text-blue-800" target="_blank">donationbox.ee@gmail.com</a>. Specify the address where the problem was found and briefly describe it. Thank you for your contribution to the project!
+                            href="mailto:donationbox.{{$cc_domain}}@gmail.com" class="no-underline hover:underline
+                            text-blue-800" target="_blank">donationbox.{{$cc_domain}}@gmail.com</a>. Specify the address where the problem was found and briefly describe it. Thank you for your contribution to the project!
                     @endslot
             @endcomponent
             @component('components.faq-card')
@@ -352,7 +362,7 @@
                         What does the "Check payee's background" link mean?
                 @endslot
                 @slot('cardContent')
-                        This link leads to Teatmik.ee service, which collects information about known reports of
+                        This link leads to Teatmik.ee or Lursoft.lv services, which collects information about known reports of
                         companies, organizations, as well as individuals and their participation in the boards or
                         ownership of companies. This is an additional method that was created for security purposes
                         to combat fraudsters.<br><br>
@@ -367,14 +377,14 @@
                         Can I remain anonymous when making a payment?
                     @endslot
                 @slot('cardContent')
-                        The method for working with Estonian bank systems, Revolut and Paypal, which we use at
-                        DonationBox, does not allow you to remain anonymous when transferring funds. Your name as
-                        well as bank details such as IBAN account can be seen by the recipient of the funds. In fact,
+                        Shortly, no, if you donate through local banks, Revolut or Paypal.<br><br>
+
+                        Your name as well as bank details such as IBAN account can be seen by the recipient of the funds. In fact,
                         this is the same as would be the case with a manual direct transfer of funds through your
                         online bank.<br><br>
 
-                        The only method to connect anonymous payments is to use the Donorbox service, which you can
-                        also connect to your DonationBox page. You can read more about it here: <a
+                        Currently, the only method to connect anonymous payments is to use the Donorbox.org service that you can
+                        also connect to DonationBox. You can read more about anonymous donations at Donorbox.org FAQ page: <a
                             href="https://donorbox.zendesk.com/hc/en-us/articles/360020559851-How-do-I-enable-anonymous-donations- " class="no-underline hover:underline
                             text-blue-800" target="_blank">https://donorbox.zendesk.com/hc/en-us/articles/360020559851-How-do-I-enable-anonymous-donations- </a>
                     @endslot
@@ -388,8 +398,8 @@
                     @endslot
                 @slot('cardContent')
                         Please write us to <a
-                            href="mailto:donationbox.ee@gmail.com" class="no-underline hover:underline
-                            text-blue-800" target="_blank">donationbox.ee@gmail.com</a>. We will be happy to help you set up all the integrations with payment systems, design your page at donationbox.ee, and add our widget to your website.
+                            href="mailto:donationbox.{{$cc_domain}}@gmail.com" class="no-underline hover:underline
+                            text-blue-800" target="_blank">donationbox.{{$cc_domain}}@gmail.com</a>. We will be happy to help you set up all the integrations with payment systems, design your page at donationbox.ee, and add our widget to your website.
                     @endslot
             @endcomponent
         </div>
