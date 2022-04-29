@@ -8,7 +8,7 @@
             / {!! urldecode($iban) !!}
         @endif
         @if($pp)
-            / <i class="fa-brands fa-paypal"></i> {!! urldecode($pp) !!}
+            / <i class="fa-brands fa-paypal text-gray-400"></i> {!! urldecode($pp) !!}
         @endif<br>
         {!! urldecode($detail) !!}
         <!-- Trigger -->
@@ -55,7 +55,7 @@
             <div class="py-1">
                 <!-- Step 1 -->
                 <div>
-                    <div class="mb-5">
+                    <div class="mb-1">
                         <div class="rounded-md -space-y-px">
                             <div class="grid gap-6">
                                 <div class="col-span-12">
@@ -348,7 +348,7 @@
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
                                                         @endif
-                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate with credit card</div>
+                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate by credit card</div>
                                                     </div>
                                                     @endif
                                                     @if($rev)
@@ -361,7 +361,8 @@
                                                              py-3
                                                         text-sm shadow-sm
                                                         font-medium tracking-wider border text-blue-500 rounded-full
-                                                        hover:shadow-lg hover:bg-gray-100">Revolut
+                                                        hover:shadow-lg hover:bg-gray-100 mb-2">
+                                                            Revolut <span class="text-xs tracking-tight">(Visa/MC)</span>
                                                         </button>
                                                     @endif
                                                 @if($pp)
@@ -373,7 +374,7 @@
                                                         class="d-font transition duration-150 ease-in-out bg-blue-800 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-blue-100 rounded-full hover:shadow-lg
-                                                     hover:bg-blue-900">Paypal
+                                                     hover:bg-blue-900 mb-2">Paypal
                                                     </button>
                                                 @endif
                                                     @if($pphb)
@@ -385,7 +386,8 @@
                                                             class="d-font transition duration-150 ease-in-out bg-blue-800 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-blue-100 rounded-full hover:shadow-lg
-                                                     hover:bg-blue-900">Paypal
+                                                     hover:bg-blue-900 mb-2">
+                                                            Paypal <span class="text-xs tracking-tight">(Visa/MC)</span>
                                                         </button>
                                                     @endif
                                                 @if($db)
@@ -397,15 +399,15 @@
                                                         class="d-font transition duration-150 ease-in-out bg-red-600 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-white rounded-full hover:shadow-lg
-                                                     hover:bg-red-700 inline-flex items-center">
-                                                        <span>Donorbox</span>
+                                                     hover:bg-red-700 inline-flex items-center mb-2">
+                                                        Donorbox <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                     </button>
                                                 @endif
                                                 </div>
                                             </div>
                                             <div x-show="tab === 'standing'" class="p-1 mt-2 text-center space-x-1
                                             space-y-2" x-transition:enter.duration.500ms>
-                                                @if(isset($iban))
+                                                @if($iban)
                                                     <div>
                                                     <div class="flex items-center justify-center">
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
@@ -469,7 +471,7 @@
                                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
                                                         @endif
-                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate with credit card</div>
+                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate by credit card</div>
                                                     </div>
                                                     @endif
                                                 @if($db)
@@ -478,11 +480,11 @@
                                                         type="submit"
                                                         name="action"
                                                         value="donorbox-standing"
-                                                        class="d-font transition duration-150 ease-in-out bg-red-700 px-5
+                                                        class="d-font transition duration-150 ease-in-out bg-red-600 px-5
                                                 py-3 text-sm shadow-sm font-medium
                                                      tracking-wider border text-white rounded-full hover:shadow-lg
                                                      hover:bg-red-700 inline-flex items-center">
-                                                        <span>Donorbox</span>
+                                                        Donorbox <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                     </button>
                                                 @endif
                                                 </div>

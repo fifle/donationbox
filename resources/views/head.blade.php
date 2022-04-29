@@ -9,7 +9,17 @@
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="{{ request()->fullUrl() }}"/>
 <meta property="og:description" content="@yield('description', config('app.description'))"/>
-<meta name="image" property="og:image" content="/img/db-social.jpg"/>
+@if(env('COUNTRY') == 'ee')
+    <meta name="image" property="og:image" content="/img/db-social.jpg"/>
+    <meta name="twitter:image" content="/img/db-social.jpg"/>
+@elseif(env('COUNTRY') == 'lv')
+    <meta name="image" property="og:image" content="/img/db-social-lv.jpg"/>
+    <meta name="twitter:image" content="/img/db-social-lv.jpg"/>
+@elseif(env('COUNTRY') == 'lt')
+    <meta name="image" property="og:image" content="/img/db-social-lt.jpg"/>
+    <meta name="twitter:image" content="/img/db-social-lt.jpg"/>
+@endif
+
 <meta property="article:author" content=""/>
 <meta property="og:locale" content="en_UK"/>
 <!--Twitter Tags-->
@@ -17,7 +27,6 @@
 <meta name="twitter:site" content="{{ '@' . config('app.name') }}"/>
 <meta name="twitter:title" content="@yield('title', config('app.name'))"/>
 <meta name="twitter:description" content="@yield('description', config('app.description'))"/>
-<meta name="twitter:image" content="/img/db-social.jpg"/>
 
 <title>DonationBox</title>
 
@@ -38,7 +47,7 @@
 <script src="{{ asset('js/app.js') }}" defer></script>
 {{--<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>--}}
 <script defer src="{{ asset('js/alpine.js') }}"></script>
-<script src="//kit.fontawesome.com/6940ba20ce.js" crossorigin="anonymous"></script>
+{{--<script src="//kit.fontawesome.com/6940ba20ce.js" crossorigin="anonymous"></script>--}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
 
 @if(env('COUNTRY') == 'ee')

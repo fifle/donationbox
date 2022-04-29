@@ -14,7 +14,8 @@
             </a>
         </div>
         @include('form')
-        <!-- COPY LINK -->
+
+    <!-- COPY LINK -->
         <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
             <div class="content-center">
                 <h3 class="mb-2 text-center text-1xl font-bold text-gray-600">
