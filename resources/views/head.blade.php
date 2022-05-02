@@ -50,7 +50,7 @@
 {{--<script src="//kit.fontawesome.com/6940ba20ce.js" crossorigin="anonymous"></script>--}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
 
-@if(env('COUNTRY') == 'ee')
+@if(env('COUNTRY') == 'ee' and env('APP_ENV') != 'local')
     <!-- Matomo EE -->
     <script>
         var _paq = window._paq = window._paq || [];
@@ -66,7 +66,7 @@
         })();
     </script>
     <!-- End Matomo Code -->
-@elseif(env('COUNTRY') == 'lv')
+@elseif(env('COUNTRY') == 'lv' and env('APP_ENV') != 'local')
     <!-- Matomo LV -->
     <script>
         var _paq = window._paq = window._paq || [];
@@ -82,7 +82,7 @@
         })();
     </script>
     <!-- End Matomo Code -->
-@elseif(env('COUNTRY') == 'lt')
+@elseif(env('COUNTRY') == 'lt' and env('APP_ENV') != 'local')
     <!-- Matomo LT -->
     <script>
         var _paq = window._paq = window._paq || [];

@@ -32,6 +32,14 @@ Route::post('/embed', 'App\Http\Controllers\DonationController@donationEmbed')->
 Route::get('/redirect', 'App\Http\Controllers\RedirectController@getBankLink')->name('redirect');
 Route::post('/redirect', 'App\Http\Controllers\RedirectController@getBankLink')->name('redirect.show');
 
+// QR PNG generator
+Route::get('/qrpng', 'App\Http\Controllers\QRController@generatePNG')->name('qrpng');
+Route::post('/qrpng', 'App\Http\Controllers\QRController@generatePNG')->name('qrpng.show');
+
+// QR PNG generator
+Route::get('/qrsvg', 'App\Http\Controllers\QRController@generateSVG')->name('qrsvg');
+Route::post('/qrsvg', 'App\Http\Controllers\QRController@generateSVG')->name('qrsvg.show');
+
 Route::get('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('pdf');
 Route::post('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('pdf.show');
 

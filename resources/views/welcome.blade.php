@@ -71,7 +71,7 @@
 
                                 <div class="mb-5">
                                     <form class="space-y-4" action="{{ route('donation') }}" method="get"
-                                          id="generator">@csrf</form>
+                                          id="generator"></form>
                                     <div class="rounded-md -space-y-px">
                                         <div class="grid gap-6">
                                             <div class="col-span-12">

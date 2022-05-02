@@ -12,10 +12,10 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "h4cc/wkhtmltopdf-i386": "0.12.x",
         "jorenvanhocht/laravel-share": "^4.2",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "shivella/laravel-bitly": "^1.1",
         "simplesoftwareio/simple-qrcode": "~4",
         "symfony/symfony": "5.4.x"
     },

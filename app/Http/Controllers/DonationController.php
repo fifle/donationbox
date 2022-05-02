@@ -16,7 +16,7 @@ class DonationController extends Controller
         ]);
 
         if (!$request->has('campaign_title')) {
-            return redirect()->route('welcome');
+            return redirect()->route('welcome'); // TODO: too many redirects error here
         } else {
             $campaign_title = rawurlencode($request->input('campaign_title'));
             $detail = rawurlencode($request->input('detail'));
@@ -35,11 +35,8 @@ class DonationController extends Controller
             $pphb = rawurlencode($request->input('pphb'));
 
             // links
-//            $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
-//                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid, $rev);
             $link = url()->full();
-            $embedlink = sprintf(url('/embed?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
-                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid, $rev);
+            $embedlink = str_replace("donation", "embed", $link);
 
             // amount
             $amount = null;
@@ -78,7 +75,7 @@ class DonationController extends Controller
                 'ik',
                 'embedlink',
                 'link',
-                'bg_check',
+                'bg_check'
             );
 
             if (isset($iban)) {
@@ -157,10 +154,8 @@ class DonationController extends Controller
             $pphb = rawurlencode($request->input('pphb'));
 
             // links
-            $link = sprintf(url('/donation?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
-                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid, $rev);
-            $embedlink = sprintf(url('/embed?campaign_title=%s&detail=%s&payee=%s&iban=%s&pp=%s&db=%s&sebuid=%s&rev=%s'),
-                $campaign_title, $detail, $payee, $iban, $pp, $db, $sebuid, $rev);
+            $link = url()->full();
+            $embedlink = str_replace("donation", "embed", $link);
 
             $amount = null;
             $ik = null;
