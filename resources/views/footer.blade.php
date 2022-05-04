@@ -21,21 +21,21 @@
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto" target="_blank">
-            <span class="noto-emoji">🇪🇪</span> EE
+            <span class="">🇪🇪</span> EE
         </a>
         <a href="https://donationbox.lv" class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-3 mr-2 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto" target="_blank">
-            <span class="noto-emoji">🇱🇻</span> LV
+            <span class="">🇱🇻</span> LV
         </a>
         <a href="https://donationbox.lt" class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-3 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto" target="_blank">
-            <span class="noto-emoji">🇱🇹</span> LT
+            <span class="">🇱🇹</span> LT
         </a>
     </div>
     <div class="flex justify-center mb-2 text-xs">
@@ -63,7 +63,7 @@
     </div>
 
     <div class="text-xs">
-        Made with <span class="noto-emoji">❤</span> by <a href="//fleisher.ee" class="no-underline
+        Made with <span class="">❤</span> by <a href="//fleisher.ee" class="no-underline
                  hover:underline text-blue-800" target="_blank">
         <div class="inline-flex items-center">Pavel<svg class="w-3 h-3 ml-1" fill="none"
                                                         stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
