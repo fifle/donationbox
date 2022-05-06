@@ -36,7 +36,7 @@ class DonationController extends Controller
 
             // links
             $link = url()->full();
-            $embedlink = str_replace("donation", "embed", $link);
+            $embedlink = str_replace("/donation", "/embed", $link);
 
             // amount
             $amount = null;
@@ -155,7 +155,7 @@ class DonationController extends Controller
 
             // links
             $link = url()->full();
-            $embedlink = str_replace("donation", "embed", $link);
+            $embedlink = str_replace("/donation", "/embed", $link);
 
             $amount = null;
             $ik = null;
