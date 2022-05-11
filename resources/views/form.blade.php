@@ -18,7 +18,7 @@
                 }} / {{ urldecode($iban) }} / Payment description: {{ urldecode($detail) }}">
             <div class="inline-flex items-center text-xs text-gray-500">
             (<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
-            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy)</div>
+            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>@lang("Copy"))</div>
         </button>
         <div id="tooltip-click" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
             Copied!
@@ -27,7 +27,7 @@
         <a href="{{ $bg_check }}" class="no-underline
                  hover:underline text-xs text-blue-800" target="_blank">
             <div class="inline-flex items-center mt-2">
-                Check payee's background
+                @lang("Check payee's background")
                 <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                      xmlns="http://www.w3
                 .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0
@@ -63,7 +63,9 @@
                                         <div class="flex items-center justify-center mt-8 mb-2">
                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">1</div>
-                                            <div class="text-xs text-gray-500 text-center">Enter the amount of your donation</div>
+                                            <div class="text-xs text-gray-500 text-center">
+                                                @lang("Enter the amount of your donation")
+                                            </div>
                                         </div>
                                         <div x-data="{ preamount: '' }">
                                             <div class="w-48 max-w-xs mr-auto ml-auto">
@@ -187,8 +189,9 @@
                                         <div class="flex items-center justify-center">
                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">2</div>
-                                            <div class="text-xs text-gray-500 text-center">Select
-                                                payment type</div>
+                                            <div class="text-xs text-gray-500 text-center">
+                                                @lang("Select payment type")
+                                            </div>
                                         </div>
 
                                         <div class="flex items-center justify-center mt-2 mb-4">
@@ -203,7 +206,7 @@
                                                 :class="{'bg-gray-100' : tab === 'onetime', 'font-normal' :
                                                 !tab === 'onetime'}"
                                             >
-                                                One-time payment
+                                                @lang("One-time payment")
                                             </button>
                                             @if($iban or $db)
                                             <button
@@ -217,7 +220,7 @@
                                                 :class="{'bg-gray-100' : tab === 'standing', 'font-normal' :
                                                 !tab === 'standing'}"
                                             >
-                                                Recurring payment
+                                                @lang("Recurring payment")
                                             </button>
                                             @endif
                                         </div>
@@ -226,7 +229,7 @@
                                         <div class="flex items-center justify-center">
                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
-                                            <div class="text-xs text-gray-500 text-center">Apply for a tax return (valid only for Estonian banks)</div>
+                                            <div class="text-xs text-gray-500 text-center">@lang("Apply for a tax return (valid only for Estonian banks)")</div>
                                         </div>
 
                                         <div x-data="{ show: false }">
@@ -246,13 +249,13 @@
                                                 </div>
                                                 <div class="ml-3 text-sm">
                                                     <label for="ikcheckbox" class="font-medium text-gray-600
-                                                    dark:text-gray-300">I'd like to have a tax return</label>
+                                                    dark:text-gray-300">@lang("I'd like to have a tax return")</label>
                                                 </div>
                                             </div>
                                         </div>
                                             <div x-show="show" x-transition:enter.duration.500ms>
                                                 <div class="mb-1 text-xs text-gray-500 text-center">
-                                                    Please type your identity code (isikukood)
+                                                    @lang("Please type your identity code (isikukood)")
                                                 </div>
                                                 <div class="flex items-center justify-center mt-0 mb-4">
                                                     <input
@@ -287,7 +290,7 @@
                                                                     3
                                                                 @endif
                                                             </div>
-                                                            <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate via internet-bank</div>
+                                                            <div class="mt-3 mb-2 text-xs text-gray-500 text-center">@lang("Donate via internet-bank")</div>
                                                         </div>
                                                         @if(!$swt)
                                                         <button
@@ -348,7 +351,7 @@
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
                                                         @endif
-                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate by credit card</div>
+                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">@lang("Donate by credit card")</div>
                                                     </div>
                                                     @endif
                                                     @if($rev)
@@ -412,7 +415,7 @@
                                                     <div class="flex items-center justify-center">
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
-                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate via internet-bank</div>
+                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">@lang("Donate via internet-bank")</div>
                                                     </div>
                                                         @if(!$swt)
                                                     <button
@@ -471,7 +474,7 @@
                                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
                                                         @endif
-                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">Donate by credit card</div>
+                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">@lang("Donate by credit card")</div>
                                                     </div>
                                                     @endif
                                                 @if($db)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DonationController extends Controller
@@ -12,12 +13,15 @@ class DonationController extends Controller
         $request->validate([
             'campaign_title' => 'required|string|max:250',
             'detail' => 'required|string|max:250',
-            'payee' => 'required|string|max:250',
+            'payee' => 'required|string|max:250'
         ]);
 
         if (!$request->has('campaign_title')) {
-            return redirect()->route('welcome'); // TODO: too many redirects error here
-        } else {
+            return redirect()->away('/');
+//        } else if (in_array($request->input('iban'), $array)) {
+//            return redirect()->away('/');
+        }
+        else {
             $campaign_title = rawurlencode($request->input('campaign_title'));
             $detail = rawurlencode($request->input('detail'));
             $payee = rawurlencode($request->input('payee'));
