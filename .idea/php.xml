@@ -100,7 +100,6 @@
       <path value="$PROJECT_DIR$/vendor/psy/psysh" />
       <path value="$PROJECT_DIR$/vendor/jorenvanhocht/laravel-share" />
       <path value="$PROJECT_DIR$/vendor/laravel/serializable-closure" />
-      <path value="$PROJECT_DIR$/vendor/shivella/laravel-bitly" />
       <path value="$PROJECT_DIR$/vendor/alkhwlani/xss-middleware" />
       <path value="$PROJECT_DIR$/vendor/voku/portable-utf8" />
       <path value="$PROJECT_DIR$/vendor/voku/anti-xss" />
@@ -129,8 +128,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/contracts" />
       <path value="$PROJECT_DIR$/vendor/laminas/laminas-code" />
       <path value="$PROJECT_DIR$/vendor/h4cc/wkhtmltopdf-i386" />
-      <path value="$PROJECT_DIR$/vendor/knplabs/knp-snappy" />
-      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-snappy" />
+      <path value="$PROJECT_DIR$/vendor/whitecube/lingua" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">

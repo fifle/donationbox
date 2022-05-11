@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use WhiteCube\Lingua\Service as Lingua;
 
 class RedirectController extends Controller
 {
@@ -23,26 +25,47 @@ class RedirectController extends Controller
         // paypal hosted button
         $pphb = rawurldecode($request->input('pphb'));
 
+        // current language and its conversion from ISO_639_1 to ISO_639_2 for ibanks
+        $currentLang = $request->session()->get('locale');
+        switch ($currentLang) {
+            case "":
+            case "en":
+                $currentLang = "ENG";
+                break;
+            case "ee":
+                $currentLang = "EST";
+                break;
+            case "lv":
+                $currentLang = "LAT";
+                break;
+            case "lt":
+                $currentLang = "LIT";
+                break;
+            case "ru":
+                $currentLang = "RUS";
+                break;
+        }
+
         if (env('COUNTRY') == 'ee') {
             switch ($request->input('action')) {
                 case 'swed':
                     $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.ee/private/d2d/payments2/smartNew?payment.beneficiaryAccountNumber=%s&payment.beneficiaryName=%s&payment.details=%s%s&payment.amount=%s", $iban, $payee, $detail, $ik, $amount);
+                    $url = sprintf("https://www.swedbank.ee/private/d2d/payments2/smartNew?payment.beneficiaryAccountNumber=%s&payment.beneficiaryName=%s&payment.details=%s%s&payment.amount=%s&language=%s", $iban, $payee, $detail, $ik, $amount, $currentLang);
                     return Redirect::to($url);
 
                 case 'swed-standing':
                     $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.ee/private/d2d/payments2/standing_order/new?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s%s&standingOrder.amount=%s", $iban, $payee, $detail, $ik, $amount);
+                    $url = sprintf("https://www.swedbank.ee/private/d2d/payments2/standing_order/new?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s%s&standingOrder.amount=%s&language=%s", $iban, $payee, $detail, $ik, $amount, $currentLang);
                     return Redirect::to($url);
 
                 case 'seb':
                     $bankname = "SEB";
-                    $url = sprintf("https://e.seb.ee/ip/ipank?UID=%s&act=SMARTPAYM&lang=EST&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s%s&value11=12345&field5=amount&value5=%s&paymtype=REMSEBEE&field6=currency&value6=EUR", $sebuid, $payee, $iban, $detail, $ik, $amount);
+                    $url = sprintf("https://e.seb.ee/ip/ipank?UID=%s&act=SMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s%s&value11=12345&field5=amount&value5=%s&paymtype=REMSEBEE&field6=currency&value6=EUR", $sebuid, $currentLang, $payee, $iban, $detail, $ik, $amount);
                     return Redirect::to($url);
 
                 case 'seb-standing':
                     $bankname = "SEB";
-                    $url = sprintf("https://e.seb.ee/ip/ipank?UID=%s&act=ADDSOSMARTPAYM&lang=EST&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $sebuid, $payee, $iban, $detail, $ik, $amount);
+                    $url = sprintf("https://e.seb.ee/ip/ipank?UID=%s&act=ADDSOSMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $sebuid, $currentLang, $payee, $iban, $detail, $ik, $amount);
                     return Redirect::to($url);
 
                 case 'lhv':
@@ -95,22 +118,22 @@ class RedirectController extends Controller
             switch ($request->input('action')) {
                 case 'swed':
                     $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.lv/private/d2d/payments2/smartNew?payment.beneficiaryAccountNumber=%s&payment.beneficiaryName=%s&payment.details=%s&payment.amount=%s", $iban, $payee, $detail, $amount);
+                    $url = sprintf("https://www.swedbank.lv/private/d2d/payments2/smartNew?payment.beneficiaryAccountNumber=%s&payment.beneficiaryName=%s&payment.details=%s&payment.amount=%s&language=%s", $iban, $payee, $detail, $amount, $currentLang);
                     return Redirect::to($url);
 
                 case 'swed-standing':
                     $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.lv/private/d2d/payments2/standing_order/new?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s&standingOrder.amount=%s", $iban, $payee, $detail, $amount);
+                    $url = sprintf("https://www.swedbank.lv/private/d2d/payments2/standing_order/new?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s&standingOrder.amount=%s&language=%s", $iban, $payee, $detail, $amount, $currentLang);
                     return Redirect::to($url);
 
                 case 'seb':
                     $bankname = "SEB";
-                    $url = sprintf("https://ibanka.seb.lv/ip/ipank?UID=%s&act=SMARTPAYM&lang=EST&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&value11=12345&field5=amount&value5=%s&paymtype=REMSEBEE&field6=currency&value6=EUR", $sebuid, $payee, $iban, $detail, $amount);
+                    $url = sprintf("https://ibanka.seb.lv/ip/ipank?UID=%s&act=SMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&value11=12345&field5=amount&value5=%s&paymtype=REMSEBEE&field6=currency&value6=EUR", $sebuid, $currentLang, $payee, $iban, $detail, $amount);
                     return Redirect::to($url);
 
                 case 'seb-standing':
                     $bankname = "SEB";
-                    $url = sprintf("https://ibanka.seb.lv/ip/ipank?UID=%s&act=ADDSOSMARTPAYM&lang=EST&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $sebuid_st, $payee, $iban, $detail, $amount);
+                    $url = sprintf("https://ibanka.seb.lv/ip/ipank?UID=%s&act=ADDSOSMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $sebuid_st, $currentLang, $payee, $iban, $detail, $amount);
                     return Redirect::to($url);
 
                 case 'paypal':
@@ -137,22 +160,22 @@ class RedirectController extends Controller
             switch ($request->input('action')) {
                 case 'swed':
                     $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.lt/private/d2d/payments2/smartNew?payment.beneficiaryAccountNumber=%s&payment.beneficiaryName=%s&payment.details=%s&payment.amount=%s", $iban, $payee, $detail, $amount);
+                    $url = sprintf("https://www.swedbank.lt/private/d2d/payments2/smartNew?payment.beneficiaryAccountNumber=%s&payment.beneficiaryName=%s&payment.details=%s&payment.amount=%s&language=%s", $iban, $payee, $detail, $amount, $currentLang);
                     return Redirect::to($url);
 
                 case 'swed-standing':
                     $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.lt/private/d2d/payments2/standing_order/new?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s&standingOrder.amount=%s", $iban, $payee, $detail, $amount);
+                    $url = sprintf("https://www.swedbank.lt/private/d2d/payments2/standing_order/new?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s&standingOrder.amount=%s&language=%s", $iban, $payee, $detail, $amount, $currentLang);
                     return Redirect::to($url);
 
                 case 'seb':
                     $bankname = "SEB";
-                    $url = sprintf("https://e.seb.lt/ip/ipank?UID=%s&act=SMARTPAYM&lang=EST&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&value11=12345&field5=amount&value5=%s&paymtype=REMSEBEE&field6=currency&value6=EUR", $sebuid, $payee, $iban, $detail, $amount);
+                    $url = sprintf("https://e.seb.lt/ip/ipank?UID=%s&act=SMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&value11=12345&field5=amount&value5=%s&paymtype=REMSEBEE&field6=currency&value6=EUR", $sebuid, $currentLang, $payee, $iban, $detail, $amount);
                     return Redirect::to($url);
 
                 case 'seb-standing':
                     $bankname = "SEB";
-                    $url = sprintf("https://e.seb.lt/ip/ipank?UID=%s&act=ADDSOSMARTPAYM&lang=EST&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $sebuid, $payee, $iban, $detail, $amount);
+                    $url = sprintf("https://e.seb.lt/ip/ipank?UID=%s&act=ADDSOSMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $sebuid, $currentLang, $payee, $iban, $detail, $amount);
                     return Redirect::to($url);
 
                 case 'paypal':

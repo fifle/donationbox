@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -79,7 +80,7 @@ class DonationController extends Controller
                 'ik',
                 'embedlink',
                 'link',
-                'bg_check'
+                'bg_check',
             );
 
             if (isset($iban)) {
