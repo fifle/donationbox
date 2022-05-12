@@ -1,8 +1,8 @@
 {
-    "Start your virtual donation box" : "Alusta annetuste kogumist",
-    "for Estonian banks for free" : "Eesti makseviiside abil",
-    "for Latvian banks for free" : "Läti makseviiside abil",
-    "for Lithunian banks for free" : "Leedu makseviiside abil",
+    "Start your virtual donation box" : "Loo tasuta virtuaalne annetuskast",
+    "for Estonian banks for free" : "ja kogu makseid Eesti pankade kaudu",
+    "for Latvian banks for free" : "ja kogu makseid Läti pankade kaudu",
+    "for Lithunian banks for free" : "ja kogu makseid Leedu pankade kaudu",
     "Your campaign page details" : "Kampaania info",
     "Name your donation box" : "Anna oma annetuskastile nimi",
     "This text will be used as the title of your donation box page." : "Seda teksti kasutatakse teie kampaania lehekülje pealkirjana.",
@@ -71,8 +71,8 @@
     "Embed this donation box to your website" : "Paigalda kampaania vidinat oma veebisaidile",
     "Copy code" : "Kopeeri",
     "Copy link" : "Kopeeri",
-    "Create your virtual donation box for Estonian banks for free - DonationBox.ee" : "Loo tasuta virtuaalne annetuskast Eesti pankadele - DonationBox.ee",
-    "Create your virtual donation box for Latvian banks for free - DonationBox.lv" : "Loo tasuta virtuaalne annetuskast Läti pankadele - DonationBox.lv",
-    "Create your virtual donation box for Lithuanian banks for free - DonationBox.lt" : "Loo tasuta virtuaalne annetuskast Leedu pankadele - DonationBox.lt",
+    "Create your virtual donation box for Estonian banks for free - DonationBox.ee" : "Loo tasuta virtuaalne annetuskast ja kogu makseid Eesti pankade kaudu - DonationBox.ee",
+    "Create your virtual donation box for Latvian banks for free - DonationBox.lv" : "Loo tasuta virtuaalne annetuskast ja kogu makseid Eesti pankade kaudu - DonationBox.lv",
+    "Create your virtual donation box for Lithuanian banks for free - DonationBox.lt" : "Loo tasuta virtuaalne annetuskast ja kogu makseid Eesti pankade kaudu - DonationBox.lt",
     "Payment description:" : "Selgitus:"
 }

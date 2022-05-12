@@ -37,16 +37,16 @@
                     <a href="lang/ee" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Eesti</a>
                 </li>
             @endif
-            @if(env('COUNTRY') == 'lv')
-                <li>
-                    <a href="lang/lv" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Latviešu</a>
-                </li>
-            @endif
-            @if(env('COUNTRY') == 'lt')
-                <li>
-                    <a href="lang/lt" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lietuvių</a>
-                </li>
-            @endif
+{{--            @if(env('COUNTRY') == 'lv')--}}
+{{--                <li>--}}
+{{--                    <a href="lang/lv" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Latviešu</a>--}}
+{{--                </li>--}}
+{{--            @endif--}}
+{{--            @if(env('COUNTRY') == 'lt')--}}
+{{--                <li>--}}
+{{--                    <a href="lang/lt" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lietuvių</a>--}}
+{{--                </li>--}}
+{{--            @endif--}}
             <li>
                 <a href="lang/ru" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Русский</a>
             </li>
