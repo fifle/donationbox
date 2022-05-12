@@ -13,13 +13,13 @@
             @case('ru')
             RU
             @break
-            @case(env('COUNTRY') == 'ee' and 'ee')
+            @case('ee')
             EE
             @break
-            @case(env('COUNTRY') == 'lv' and 'lv')
+            @case('lv')
             LV
             @break
-            @case(env('COUNTRY') == 'lt' and 'lt')
+            @case('lt')
             LT
             @break
             @default
@@ -30,7 +30,7 @@
     <div id="dropdownSmall" class="text-left z-10 hidden bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
         <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSmallButton">
             <li>
-                <a href="lang/en" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">English</a>
+                <a href="   lang/en" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">English</a>
             </li>
             @if(env('COUNTRY') == 'ee')
                 <li>

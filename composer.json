@@ -17,7 +17,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "simplesoftwareio/simple-qrcode": "~4",
-        "symfony/symfony": "5.4.x",
+        "symfony/symfony": "5.4.x"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
