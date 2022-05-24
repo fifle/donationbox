@@ -144,14 +144,13 @@ class DonationController extends Controller
             $pp = rawurlencode($request->input('pp'));
             $db = rawurlencode($request->input('db'));
             $sebuid = rawurlencode($request->input('sebuid'));
-            $sebuid_st = rawurlencode($request->input('sebuid_st')); // uid for standing order for SEB LV
+            $sebuid_st = rawurlencode($request->input('sebuid_st')); // SEB standing orders
             $rev = rawurlencode($request->input('rev'));
             $tax = rawurlencode($request->boolean('tax'));
-            $swt = rawurlencode($request->boolean('swt'));
-            $lhvt = rawurlencode($request->boolean('lhvt'));
-            $coopt = rawurlencode($request->boolean('coopt'));
-            // paypal hosted button
-            $pphb = rawurlencode($request->input('pphb'));
+            $swt = rawurlencode($request->boolean('swt')); // Swed turn off
+            $lhvt = rawurlencode($request->boolean('lhvt')); // LHV turn off
+            $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
+            $pphb = rawurlencode($request->input('pphb')); // Paypal Hosted Button
 
             // links
             $link = url()->full();

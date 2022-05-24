@@ -426,7 +426,7 @@
                                                             hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                     </button>
                                                         @endif
-                                                    @if($sebuid)
+                                                    @if($sebuid_st)
                                                         <button
                                                             form="sumforbank"
                                                             type="submit"
