@@ -34,6 +34,12 @@ class DonationController extends Controller
             // paypal hosted button
             $pphb = rawurlencode($request->input('pphb'));
 
+            // custom sums
+            $defsum = 5;
+            $s1 = rawurlencode($request->input('s1'));
+            $s2 = rawurlencode($request->input('s2'));
+            $s3 = rawurlencode($request->input('s3'));
+
             // links
             $link = url()->full();
             $embedlink = str_replace("/donation?", "/embed?", $link);
@@ -75,7 +81,8 @@ class DonationController extends Controller
                 'ik',
                 'embedlink',
                 'link',
-                'bg_check'
+                'bg_check',
+                'defsum'
             );
 
             if (isset($iban)) {
@@ -120,6 +127,18 @@ class DonationController extends Controller
 
             if (isset($pphb)) {
                 $compactData['pphb'] = 'pphb';
+            }
+
+            if (isset($s1)) {
+                $compactData['s1'] = 's1';
+            }
+
+            if (isset($s2)) {
+                $compactData['s2'] = 's2';
+            }
+
+            if (isset($s3)) {
+                $compactData['s3'] = 's3';
             }
 
             return view("donation", compact($compactData));
@@ -152,6 +171,12 @@ class DonationController extends Controller
             $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
             $pphb = rawurlencode($request->input('pphb')); // Paypal Hosted Button
 
+            // custom sums
+            $defsum = 5;
+            $s1 = rawurlencode($request->input('s1'));
+            $s2 = rawurlencode($request->input('s2'));
+            $s3 = rawurlencode($request->input('s3'));
+
             // links
             $link = url()->full();
             $embedlink = str_replace("/donation", "/embed", $link);
@@ -179,6 +204,7 @@ class DonationController extends Controller
                 'embedlink',
                 'link',
                 'bg_check',
+                'defsum'
             );
 
             if (isset($iban)) {
@@ -223,6 +249,18 @@ class DonationController extends Controller
 
             if (isset($pphb)) {
                 $compactData['pphb'] = 'pphb';
+            }
+
+            if (isset($s1)) {
+                $compactData['s1'] = 's1';
+            }
+
+            if (isset($s2)) {
+                $compactData['s2'] = 's2';
+            }
+
+            if (isset($s3)) {
+                $compactData['s3'] = 's3';
             }
 
             return view("embed", compact($compactData));
