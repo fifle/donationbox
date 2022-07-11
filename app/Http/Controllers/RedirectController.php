@@ -81,12 +81,12 @@ class RedirectController extends Controller
                 // needs fix for MakseSumma
                 case 'coop':
                     $bankname = "Coop Pank";
-                    $url = sprintf("https://i-pank.krediidipank.ee/newpmt?SaajaNimi=%s&SaajaKonto=%s&MaksePohjus=%s%s&MakseSumma=%s", $payee, $iban, $detail, $ik, $amount);
+                    $url = sprintf("https://i.cooppank.ee/newpmt?SaajaNimi=%s&SaajaKonto=%s&MaksePohjus=%s%s&MuutMakseSumma=%s", $payee, $iban, $detail, $ik, $amount);
                     return Redirect::to($url);
 
                 case 'coop-standing':
                     $bankname = "Coop Pank";
-                    $url = sprintf("https://i-pank.krediidipank.ee/permpmtnew?SaajaNimi=%s&SaajaKonto=%s&MaksePohjus=%s%s&MakseSumma=%s", $payee, $iban, $detail, $ik, $amount);
+                    $url = sprintf("https://i.cooppank.ee/permpmtnew?SaajaNimi=%s&SaajaKonto=%s&MaksePohjus=%s%s&MakseSumma=%s", $payee, $iban, $detail, $ik, $amount);
                     return Redirect::to($url);
 
                 case 'paypal':

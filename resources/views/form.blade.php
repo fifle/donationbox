@@ -159,28 +159,49 @@
                                             </div>
                                             <div class="p-1 mt-1 mb-4 text-center space-y-2">
                                                 <button class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-5 mr-2 rounded-lg
+                                                        focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto"
-                                                        @click="preamount = '5'">
-                                                    5€
-                                                </button>
-                                                <button class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-5 mr-2 rounded-lg
-                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
-                                                        font-medium border focus:ring-1 focus:ring-offset-1
-                                                        focus:ring-pink-700 w-auto"
-                                                        @click="preamount = '10'">
-                                                    10€
+                                                        @if($s1)
+                                                        @click="preamount = '{{ $s1 }}'">
+                                                    {{ $s1 }}€
+                                                    @else
+                                                        @click="preamount = '{{ $defsum }}'">
+                                                        {{ $defsum }}€
+                                                    @endif
                                                 </button>
                                                 <button class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto"
-                                                        @click="preamount = '25'">
-                                                    25€
+                                                    @if($s2)
+                                                        @click="preamount = '{{ $s2 }}'">
+                                                        {{ $s2 }}€
+                                                    @elseif($s1)
+                                                        @click="preamount = '{{ $s1 * 2 }}'">
+                                                        {{ $s1 * 2 }}€
+                                                    @else
+                                                        @click="preamount = '{{ $defsum * 2 }}'">
+                                                        {{ $defsum * 2 }}€
+                                                    @endif
+                                                </button>
+                                                <button class="d-font transition duration-150 ease-in-out
+                                                        focus:outline-none py-2 px-5 rounded-lg
+                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
+                                                        font-medium border focus:ring-1 focus:ring-offset-1
+                                                        focus:ring-pink-700 w-auto"
+                                                        @if($s3)
+                                                        @click="preamount = '{{ $s3 }}'">
+                                                    {{ $s3 }}€
+                                                    @elseif($s1)
+                                                        @click="preamount = '{{ $s1 * 3 }}'">
+                                                        {{ $s1 * 3 }}€
+                                                    @else
+                                                        @click="preamount = '{{ $defsum * 3 }}'">
+                                                        {{ $defsum * 3 }}€
+                                                    @endif
                                                 </button>
                                             </div>
 
@@ -429,7 +450,7 @@
                                                             hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                     </button>
                                                         @endif
-                                                    @if($sebuid)
+                                                    @if($sebuid_st)
                                                         <button
                                                             form="sumforbank"
                                                             type="submit"

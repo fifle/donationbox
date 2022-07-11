@@ -49,7 +49,7 @@ Route::get('/about', function () {return view('pages.about');})->middleware(Stri
 if (env('COUNTRY') == 'ee') {
     // MTÜ Helihool
     Route::get('/mariupolsfriends', function () {
-        $url ='//donationbox.ee/donation/?iban=EE534204278619625400&campaign_title=Help+for+Ukrainian+refugees+in+Estonia+%2F+abi+Ukraina+pagulastele+Eestis&payee=' . rawurlencode("Mittetulundusühing") . '+Helihool&detail=Help+for+Ukrainian+refugees+%2F+abi+Ukraina+pagulastele&pphb=GYBURV4YX4KLY';
+        $url ='//donationbox.ee/donation/?iban=EE534204278619625400&campaign_title=Help+for+Ukrainian+refugees+in+Estonia+%2F+abi+Ukraina+pagulastele+Eestis&payee=' . rawurlencode("Mittetulundusühing") . '+Mariupoli+Sõbrad&detail=Help+for+Ukrainian+refugees+%2F+abi+Ukraina+pagulastele&db=mariupoli-sobrad&sebuid=7f741bb6-ecb3-4c39-a661-513fe1229fe1&sebuid_st=2fd9407d-b827-4b5b-aae7-9889d5facc74&s1=25&s2=50&s3=100';
         return Redirect::to($url);
     });
 }

@@ -12,15 +12,12 @@ class DonationController extends Controller
         $request->validate([
             'campaign_title' => 'required|string|max:250',
             'detail' => 'required|string|max:250',
-            'payee' => 'required|string|max:250'
+            'payee' => 'required|string|max:250',
         ]);
 
         if (!$request->has('campaign_title')) {
-            return redirect()->away('/');
-//        } else if (in_array($request->input('iban'), $array)) {
-//            return redirect()->away('/');
-        }
-        else {
+            return redirect()->route('welcome'); // TODO: too many redirects error here
+        } else {
             $campaign_title = rawurlencode($request->input('campaign_title'));
             $detail = rawurlencode($request->input('detail'));
             $payee = rawurlencode($request->input('payee'));
@@ -36,6 +33,12 @@ class DonationController extends Controller
             $coopt = rawurlencode($request->boolean('coopt'));
             // paypal hosted button
             $pphb = rawurlencode($request->input('pphb'));
+
+            // custom sums
+            $defsum = 5;
+            $s1 = rawurlencode($request->input('s1'));
+            $s2 = rawurlencode($request->input('s2'));
+            $s3 = rawurlencode($request->input('s3'));
 
             // links
             $link = url()->full();
@@ -79,6 +82,7 @@ class DonationController extends Controller
                 'embedlink',
                 'link',
                 'bg_check',
+                'defsum'
             );
 
             if (isset($iban)) {
@@ -125,6 +129,18 @@ class DonationController extends Controller
                 $compactData['pphb'] = 'pphb';
             }
 
+            if (isset($s1)) {
+                $compactData['s1'] = 's1';
+            }
+
+            if (isset($s2)) {
+                $compactData['s2'] = 's2';
+            }
+
+            if (isset($s3)) {
+                $compactData['s3'] = 's3';
+            }
+
             return view("donation", compact($compactData));
         }
     }
@@ -147,14 +163,19 @@ class DonationController extends Controller
             $pp = rawurlencode($request->input('pp'));
             $db = rawurlencode($request->input('db'));
             $sebuid = rawurlencode($request->input('sebuid'));
-            $sebuid_st = rawurlencode($request->input('sebuid_st')); // uid for standing order for SEB LV
+            $sebuid_st = rawurlencode($request->input('sebuid_st')); // SEB standing orders
             $rev = rawurlencode($request->input('rev'));
             $tax = rawurlencode($request->boolean('tax'));
-            $swt = rawurlencode($request->boolean('swt'));
-            $lhvt = rawurlencode($request->boolean('lhvt'));
-            $coopt = rawurlencode($request->boolean('coopt'));
-            // paypal hosted button
-            $pphb = rawurlencode($request->input('pphb'));
+            $swt = rawurlencode($request->boolean('swt')); // Swed turn off
+            $lhvt = rawurlencode($request->boolean('lhvt')); // LHV turn off
+            $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
+            $pphb = rawurlencode($request->input('pphb')); // Paypal Hosted Button
+
+            // custom sums
+            $defsum = 5;
+            $s1 = rawurlencode($request->input('s1'));
+            $s2 = rawurlencode($request->input('s2'));
+            $s3 = rawurlencode($request->input('s3'));
 
             // links
             $link = url()->full();
@@ -183,6 +204,7 @@ class DonationController extends Controller
                 'embedlink',
                 'link',
                 'bg_check',
+                'defsum'
             );
 
             if (isset($iban)) {
@@ -227,6 +249,18 @@ class DonationController extends Controller
 
             if (isset($pphb)) {
                 $compactData['pphb'] = 'pphb';
+            }
+
+            if (isset($s1)) {
+                $compactData['s1'] = 's1';
+            }
+
+            if (isset($s2)) {
+                $compactData['s2'] = 's2';
+            }
+
+            if (isset($s3)) {
+                $compactData['s3'] = 's3';
             }
 
             return view("embed", compact($compactData));
