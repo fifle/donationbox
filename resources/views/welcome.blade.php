@@ -30,13 +30,13 @@
                 @lang("Start your virtual donation box")
                  <br>
                 @if(env('COUNTRY') == 'ee')
-                    @lang("for Estonian banks for free")
+                    @lang("for 🇪🇪 Estonian banks for free")
                 @endif
                 @if(env('COUNTRY') == 'lv')
-                    @lang("for Latvian banks for free")
+                    @lang("for 🇱🇻 Latvian banks for free")
                 @endif
                 @if(env('COUNTRY') == 'lt')
-                    @lang("for Lithuanian banks for free")
+                    @lang("for 🇱🇹 Lithuanian banks for free")
                 @endif
             </h2>
 
