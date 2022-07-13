@@ -8,18 +8,25 @@
 <body class="antialiased">
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-2">
-        <div class="mb-6 w-1/3 mx-auto">
-            <a href="/" target="_blank">
-                <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png">
-            </a>
+
+        <div class="grid grid-cols-2 items-center mb-4">
+            <div class="w-32">
+                <a href="/" target="_blank">
+                    <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png">
+                </a>
+            </div>
+            <div class="">
+                @include('components.lang-switcher')
+            </div>
         </div>
+
         @include('form')
 
     <!-- COPY LINK -->
         <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
             <div class="content-center">
                 <h3 class="mb-2 text-center text-1xl font-bold text-gray-600">
-                    Share this donation box with your friends!
+                    @lang("Share this donation box with your friends!")
                 </h3>
                 <div class="mt-2 flex items-center justify-center">
                 {!! Share::page(urlencode(url()->full()), urldecode($campaign_title))->facebook()->twitter()
@@ -33,7 +40,7 @@
                                                         focus:ring-pink-700 w-auto inline-flex items-center ml-2"
                             data-clipboard-text="{{ $link }}" >
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
-            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy link
+            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> @lang("Copy link")
                     </a>
                 </div>
             </div>
@@ -43,7 +50,7 @@
         <div class="bg-white rounded-lg p-5 mt-8 shadow justify-between">
             <div class="content-center">
                 <h3 class="mb-2 text-center text-1xl font-bold text-gray-600">
-                    Download your QR-code
+                    @lang("Download your QR-code")
                 </h3>
                 <div class="mt-4" x-data="app()" x-cloak>
                         <div id="qrcode">{{ $qrcode }}</div>
@@ -80,7 +87,7 @@
         <!-- EMBED WIDGET -->
         <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
             <h3 class="mb-2 text-center text-1xl font-bold text-gray-600">
-                Embed this donation box to your website
+                @lang("Embed this donation box to your website")
             </h3>
 
             <div class="flex items-center justify-center">
@@ -98,7 +105,7 @@
                                                         focus:ring-pink-700 w-auto inline-flex items-center ml-2"
                         data-clipboard-target="#foo">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
-            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy code
+            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> @lang("Copy code")
                 </a>
             </div>
 

@@ -8,13 +8,18 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-xl w-full space-y-2">
         <div class="items-center justify-center mt-8 mb-6">
-            <div class="w-1/3 mx-auto mb-4">
-                <a href="/">
-                    <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png">
-                </a>
+            <div class="grid grid-cols-2 items-center mb-2">
+                <div class="w-32">
+                    <a href="/">
+                        <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png">
+                    </a>
+                </div>
+                <div class="">
+                    @include('components.lang-switcher')
+                </div>
             </div>
             <h1 class="text-center text-3xl text-gray-700 mb-8">
-                FAQ
+                @lang("FAQ")
             </h1>
 
             @if(env('COUNTRY') == 'ee')

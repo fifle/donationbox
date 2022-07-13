@@ -2,13 +2,13 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
         @if(env('COUNTRY') == 'ee')
-                <title>Create your virtual donation box for Estonian banks for free - DonationBox.ee</title>
+                <title>@lang("Create your virtual donation box for Estonian banks for free - DonationBox.ee")</title>
         @endif
         @if(env('COUNTRY') == 'lv')
-                <title>Create your virtual donation box for Latvian banks for free - DonationBox.lv</title>
+                <title>@lang("Create your virtual donation box for Latvian banks for free - DonationBox.lv")</title>
         @endif
         @if(env('COUNTRY') == 'lt')
-                <title>Create your virtual donation box for Lithuanian banks for free - DonationBox.lt</title>
+                <title>@lang("Create your virtual donation box for Lithuanian banks for free - DonationBox.lt")</title>
         @endif
     @include('head')
 </head>
@@ -16,33 +16,39 @@
 
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-2">
+
+        @include('components.lang-switcher')
+
         <div class="items-center justify-center mt-8 mb-6">
             <div class="w-1/2 mx-auto mb-4">
                 <a href="/">
                     <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png">
                 </a>
             </div>
+
             <h2 class="text-center text-xl text-gray-700">
-                Start your virtual donation box <br>
+                @lang("Start your virtual donation box")
+                 <br>
                 @if(env('COUNTRY') == 'ee')
-                    for Estonian banks for free
+                    @lang("for Estonian banks for free")
                 @endif
                 @if(env('COUNTRY') == 'lv')
-                    for Latvian banks for free
+                    @lang("for Latvian banks for free")
                 @endif
                 @if(env('COUNTRY') == 'lt')
-                    for Lithuanian banks for free
+                    @lang("for Lithuanian banks for free")
                 @endif
             </h2>
+
             @if(env('COUNTRY') == 'ee')
-                <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, LHV, Coop, Revolut, Donorbox,
+                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, LHV, Coop, Revolut, Donorbox,
                     Paypal)</p>
             @endif
             @if(env('COUNTRY') == 'lv')
-                <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, Revolut, Donorbox, Paypal)</p>
+                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, Revolut, Donorbox, Paypal)</p>
             @endif
             @if(env('COUNTRY') == 'lt')
-                <p class="text-center text-xs mt-2 text-gray-600">(Swedbank, SEB, Revolut, Donorbox, Paypal)</p>
+                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, Revolut, Donorbox, Paypal)</p>
             @endif
         </div>
 
@@ -66,7 +72,7 @@
                                     <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">1
                                     </div>
-                                    <div class="ml-2 text-gray-500">Your campaign page details</div>
+                                    <div class="ml-2 text-gray-500">@lang("Your campaign page details")</div>
                                 </div>
 
                                 <div class="mb-5">
@@ -76,12 +82,13 @@
                                         <div class="grid gap-6">
                                             <div class="col-span-12">
                                                 <label for="campaign_title" class="d-font font-bold text-gray-700
-                                                        block mb-1">Name your donation box
+                                                        block mb-1">
+                                                    @lang("Name your donation box")
                                                     <span class="font-normal text-red-500"><sup>*</sup></span>
                                                 </label>
                                                 <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
-                                                    This text will be used as the title of your donation box page.
+                                                    @lang("This text will be used as the title of your donation box page.")
                                                 </div>
                                                 <input
                                                     form="generator"
@@ -94,7 +101,7 @@
                                                                text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                    placeholder="eg. 'Support our community'"
+                                                    placeholder="@lang("eg. 'Support our community'")"
                                                     required>
                                             </div>
 
@@ -102,17 +109,16 @@
 
                                                 <label for="detail" class="d-font font-bold text-gray-700
                                                         block mb-1">
-                                                    Bank transfer detail <span
+                                                    @lang("Bank transfer detail") <span
                                                         class="font-normal text-red-500"><sup>*</sup></span>
                                                 </label>
                                                 <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
-                                                    This will be used as a requisite for the money transfer.
+                                                    @lang("This will be used as a requisite for the money transfer.")
 
                                                     <a href="/about#bankDetails" class="no-underline hover:underline
                                                     text-blue-800" target="_blank">
-                                                        Learn more about why it's important to keep details serious and
-                                                        straightforward.
+                                                        @lang("Learn more about why it's important to keep details serious and straightforward.")
                                                     </a>
                                                 </div>
                                                 <input
@@ -136,13 +142,6 @@
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                     placeholder="eg. Annetus"
                                                     required/>
-
-                                                {{--                                                <input type="checkbox" name="duplicateName" id="duplicateName"--}}
-                                                {{--                                                       value="Yes" placeholder="test"/>--}}
-                                                {{--                                                <label for="duplicateName" class="tracking-normal text-xs--}}
-                                                {{--                                                text-gray-500 mb-3 leading-tight">Use the same as the name for the--}}
-                                                {{--                                                    donation box?</label>--}}
-
                                             </div>
                                         </div>
                                     </div>
@@ -156,7 +155,7 @@
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">2
                                 </div>
-                                <div class="ml-2 text-gray-500">Your personal data</div>
+                                <div class="ml-2 text-gray-500">@lang("Your personal data")</div>
                             </div>
                             <div class="mb-5">
                                 @csrf
@@ -164,12 +163,12 @@
                                     <div class="grid gap-6">
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="d-font font-bold text-gray-700
-                                                        block mb-2">Payee's name
+                                                        block mb-2">@lang("Payee's name")
                                                 <span class="font-normal text-red-500"><sup>*</sup></span>
                                             </label>
                                             <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
-                                                Insert the name of the person or company on whose behalf you want to open a fundraiser. Please make sure that the name is spelled correctly in Latin letters.
+                                                @lang("Insert the name of the person or company on whose behalf you want to open a fundraiser. Please make sure that the name is spelled correctly in Latin letters.")
                                             </div>
                                             <input
                                                 form="generator"
@@ -182,13 +181,13 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                 @if(env('COUNTRY') == 'ee')
-                                                placeholder="eg. 'Tädi Maali' or 'Tavai MTÜ'"
+                                                placeholder="@lang("eg. 'Tädi Maali' or 'Tavai MTÜ'")"
                                                 @endif
                                                 @if(env('COUNTRY') == 'lv')
-                                                placeholder="eg. 'Jānis Bērziņš' or 'Biedrība'"
+                                                placeholder="@lang("eg. 'Jānis Bērziņš' or 'Biedrība'")"
                                                 @endif
                                                 @if(env('COUNTRY') == 'lt')
-                                                placeholder="eg. 'Vardenis Pavardenis' or 'VšĮ'"
+                                                placeholder="@lang("eg. 'Vardenis Pavardenis' or 'VšĮ'")"
                                                 @endif
                                                 required/>
                                         </div>
@@ -202,15 +201,13 @@
                                     <div class="grid gap-6">
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="d-font font-bold text-gray-700
-                                                        block mb-2">Tax return for donors in Estonia
+                                                        block mb-2">@lang("Tax return for donors in Estonia")
                                             </label>
                                             <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
-                                                If you'll turn on this checkbox, your donors will be able to request an
-                                                income tax refund on their donation. NB! Your organization must be on the
-                                                    register of associations eligible for tax incentives.
-                                                <a href="/about#taxfree-ee" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">Learn more ></a>
+                                                @lang("If you'll turn on this checkbox, your donors will be able to request an income tax refund on their donation. NB! Your organization must be on the register of associations eligible for tax incentives.")
+{{--                                                <a href="/about#taxfree-ee" class="no-underline hover:underline--}}
+{{--                                                    text-blue-800" target="_blank">Learn more ></a>--}}
                                             </div>
                                             <div class="flex items-start mb-2">
                                                 <div class="flex items-center h-5">
@@ -225,7 +222,9 @@
                                                 </div>
                                                 <div class="ml-3 text-sm">
                                                     <label for="tax" class="font-medium text-gray-900
-                                                    dark:text-gray-300">Let my donors apply for a tax refund</label>
+                                                    dark:text-gray-300">
+                                                        @lang("Let my donors apply for a tax refund")
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -241,17 +240,16 @@
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3
                                 </div>
-                                <div class="ml-2 text-gray-500">Details for
+                                <div class="ml-2 text-gray-500">@lang("Details for")
                                     @if(env('COUNTRY') == 'ee')
-                                        Estonian
+                                        @lang("Estonian internet-banks")
                                     @endif
                                     @if(env('COUNTRY') == 'lv')
-                                        Latvian
+                                        @lang("Latvian internet-banks")
                                     @endif
                                     @if(env('COUNTRY') == 'lt')
-                                        Lithuanian
+                                        @lang("Lithuanian internet-banks")
                                     @endif
-                                    internet-banks
                                 </div>
                             </div>
                             <div class="mb-5">
@@ -260,7 +258,7 @@
                                     <div class="grid gap-6">
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="d-font font-bold text-gray-700
-                                                        block mb-2">Payee's bank account (IBAN) number</label>
+                                                        block mb-2">@lang("Payee's bank account (IBAN) number")</label>
                                             <input
                                                 form="generator"
                                                 type="text"
@@ -286,7 +284,7 @@
 
                                         <div class="col-span-12">
                                             <label for="campaign_title" class="d-font font-bold text-gray-700 mb-2">
-                                                Choose banking methods
+                                                @lang("Choose banking methods")
                                             </label>
                                         </div>
                                         {{--Swedbank--}}
@@ -343,19 +341,17 @@
                                             <div x-show="sebt">
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="d-font font-bold text-gray-700
-                                                        block mb-2">SEB UID token</label>
+                                                        block mb-2">@lang("SEB UID token")</label>
                                                     <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
-                                                        If you want to connect SEB bank as part of the payment methods, you
-                                                        need to get your own UID token from SEB.
+                                                        @lang("If you want to connect SEB bank as part of the payment methods, you need to get your own UID token from SEB.")
                                                         <a href="/about#sebUID" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">Read more about how to
-                                                            obtain a special identifier for private individuals and companies
-                                                            > </a>
+                                                    text-blue-800" target="_blank">
+                                                            @lang("Read more about how to obtain a special identifier for private individuals and companies >") </a>
                                                     </div>
                                                         <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
                                                             leading-tight">
-                                                            Insert SEB UID for <b>One-time direct payments</b></div>
+                                                            @lang("Insert SEB UID for") <b>@lang("One-time direct payments")</b></div>
                                                     <input
                                                         form="generator"
                                                         type="text"
@@ -370,7 +366,7 @@
                                                     />
                                                         <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
                                                         leading-tight">
-                                                            Insert SEB UID for <b>Standing order</b></div>
+                                                            @lang("Insert SEB UID for") <b>@lang("Standing order")</b></div>
                                                         <input
                                                             form="generator"
                                                             type="text"
@@ -459,12 +455,12 @@
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">4
                                 </div>
-                                <div class="ml-2 text-gray-500">Credit cards</div>
+                                <div class="ml-2 text-gray-500">@lang("Credit cards")</div>
                             </div>
                             <div class="mb-5">
                                 <div class="col-span-12 mb-3">
                                     <label for="campaign_title" class="d-font font-bold text-gray-700 mb-2">
-                                        Choose banking methods
+                                        @lang("Choose banking methods")
                                     </label>
                                 </div>
                                 @csrf
@@ -497,13 +493,13 @@
                                             <div x-show="revtoggle">
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">Revolut.me username</label>
+                                                        block mb-2">@lang("Revolut.me username")</label>
                                                     <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
-                                                        If you have a Revolut account, you can create your own Revolut.me page
-                                                        to accept payments from other users in Revolut or by credit card.
+                                                        @lang("If you have a Revolut account, you can create your own Revolut.me page to accept payments from other users in Revolut or by credit card.")
                                                         <a href="/about#revolut" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">How can I create it? ></a>
+                                                    text-blue-800" target="_blank">
+                                                            @lang("How can I create it? >")</a>
                                                     </div>
                                                     <div class="flex flex-wrap items-stretch w-full mb-2 relative">
                                                         <div class="flex -mr-px">
@@ -552,13 +548,14 @@
                                             <div x-show="pptoggle">
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">PayPal.me username</label>
+                                                        block mb-2">@lang("PayPal.me username")</label>
                                                     <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
-                                                        If you have a Paypal account, you can create your own Paypal.me page to
-                                                        accept donations from other users.
+                                                        @lang("If you have a Paypal account, you can create your own Paypal.me page to accept donations from other users.")
                                                         <a href="/about#paypal" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">How can I create it? ></a>
+                                                    text-blue-800" target="_blank">
+                                                            @lang("How can I create it? >")</a>
+                                                        </a>
                                                     </div>
                                                     <div class="flex flex-wrap items-stretch w-full mb-2 relative">
                                                         <div class="flex -mr-px">
@@ -606,13 +603,14 @@
                                             <div x-show="dbtoggle">
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="font-bold text-gray-700
-                                                        block mb-2">Donorbox.org campaign slug</label>
+                                                        block mb-2">@lang("Donorbox.org campaign slug")</label>
                                                     <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
-                                                        To start accepting payments for bank cards, you can use the Donorbox
-                                                        service.
+                                                        @lang("To start accepting payments for bank cards, you can use the Donorbox service.")
                                                         <a href="/about#donorbox" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">How can I create it? ></a>
+                                                    text-blue-800" target="_blank">
+                                                            @lang("How can I create it? >")</a>
+                                                        </a>
                                                     </div>
                                                     <div class="flex flex-wrap items-stretch w-full mb-2 relative">
                                                         <div class="flex -mr-px">
@@ -653,14 +651,14 @@
                                     text-gray-600 bg-white hover:bg-gray-100 font-medium border transition
                                     duration-150 ease-in-out cursor-not-allowed opacity-50"
                                 disabled
-                            >Previous
+                            >@lang("Previous")
                             </button>
                             <button
                                 x-show="step > 1"
                                 @click="step--"
                                 class="w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
                                     text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out"
-                            >Previous
+                            >@lang("Previous")
                             </button>
                         </div>
 
@@ -672,7 +670,7 @@
                                     border border-transparent font-medium rounded-md text-white bg-pink-500
                                     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                                     focus:ring-pink-700 transition duration-150 ease-in-out">
-                                Next
+                                @lang("Next")
                             </button>
 
                             <button
@@ -684,7 +682,7 @@
                                     border border-transparent font-medium rounded-md text-white bg-pink-500
                                     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                                     focus:ring-pink-700 transition duration-150 ease-in-out">
-                                Complete
+                                @lang("Complete")
                             </button>
                         </div>
                     </div>
@@ -694,7 +692,7 @@
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                     <div class="flex-1">
                         <div class="uppercase tracking-normal text-xs font-normal text-gray-400 mb-4 leading-tight"
-                             x-text="`Step: ${step} of 4`"></div>
+                             x-text="`@lang("Step:") ${step} @lang("of") 4`"></div>
                     </div>
 
                     <div class="flex items-center md:w-64">
