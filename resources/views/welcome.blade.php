@@ -647,7 +647,7 @@
                         <div class="w-1/2 text-right">
                             <button
                                 x-show="step == 1"
-                                class="w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
+                                class="d-font w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
                                     text-gray-600 bg-white hover:bg-gray-100 font-medium border transition
                                     duration-150 ease-in-out cursor-not-allowed opacity-50"
                                 disabled
@@ -656,7 +656,7 @@
                             <button
                                 x-show="step > 1"
                                 @click="step--"
-                                class="w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
+                                class="d-font w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
                                     text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out"
                             >@lang("Previous")
                             </button>
@@ -666,7 +666,7 @@
                             <button
                                 x-show="step < 4"
                                 @click="step++"
-                                class="w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
+                                class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
                                     border border-transparent font-medium rounded-md text-white bg-pink-500
                                     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                                     focus:ring-pink-700 transition duration-150 ease-in-out">
@@ -678,7 +678,7 @@
                                 form="generator"
                                 value="submit"
                                 x-show="step === 4"
-                                class="w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
+                                class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
                                     border border-transparent font-medium rounded-md text-white bg-pink-500
                                     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                                     focus:ring-pink-700 transition duration-150 ease-in-out">
