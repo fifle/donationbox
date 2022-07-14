@@ -11,7 +11,7 @@ We provide a convenient interface for donors so that they don't have to enter da
 
 ## Coming soon
 - [x] Support of Latvian and Lithuanian banks
-- [ ] Multi-language interface (Estonian, Russian, Latvian and Lithuanian)
+- [x] Multi-language interface (Estonian, Russian, Latvian and Lithuanian)
 - [ ] QR-code generation in PDF format
 - [ ] Blockchain wallets support (Bitcoin URI protocol, other blockchain payment providers)
 
