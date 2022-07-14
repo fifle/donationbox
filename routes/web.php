@@ -15,20 +15,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Homepage
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Language switcher
 Route::get('lang/{locale}', [App\Http\Controllers\LocalizationController::class, 'index']);
 
+// Default donation page
 Route::get('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation')->middleware(StripEmptyParams::class);
 Route::post('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation.show')->middleware(StripEmptyParams::class);
 
+// Widgets
 Route::get('/embed', 'App\Http\Controllers\DonationController@donationEmbed')->name('donationembed')->middleware(StripEmptyParams::class);
 Route::post('/embed', 'App\Http\Controllers\DonationController@donationEmbed')->name('donationembed.show')->middleware(StripEmptyParams::class);
 
+// Cashier mode
+Route::get('/cashier', 'App\Http\Controllers\DonationController@cashier')->name('cashier')->middleware(StripEmptyParams::class);
+Route::post('/cashier', 'App\Http\Controllers\DonationController@cashier')->name('cashier.show')->middleware(StripEmptyParams::class);
+
+// Bank redirect links
 Route::get('/redirect', 'App\Http\Controllers\RedirectController@getBankLink')->name('redirect')->middleware(StripEmptyParams::class);
 Route::post('/redirect', 'App\Http\Controllers\RedirectController@getBankLink')->name('redirect.show')->middleware(StripEmptyParams::class);
+
+// Cashier mode redirect to payment QR code and link details
+Route::get('/plink', 'App\Http\Controllers\DonationController@getCashierQR')->name('plink')->middleware(StripEmptyParams::class);
+Route::post('/plink', 'App\Http\Controllers\DonationController@getCashierQR')->name('plink.show')->middleware(StripEmptyParams::class);
 
 // QR PNG generator
 Route::get('/qrpng', 'App\Http\Controllers\QRController@generatePNG')->name('qrpng')->middleware(StripEmptyParams::class);
@@ -38,9 +51,11 @@ Route::post('/qrpng', 'App\Http\Controllers\QRController@generatePNG')->name('qr
 Route::get('/qrsvg', 'App\Http\Controllers\QRController@generateSVG')->name('qrsvg')->middleware(StripEmptyParams::class);
 Route::post('/qrsvg', 'App\Http\Controllers\QRController@generateSVG')->name('qrsvg.show')->middleware(StripEmptyParams::class);
 
+// TODO: PDF generator
 Route::get('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('pdf')->middleware(StripEmptyParams::class);
 Route::post('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('pdf.show')->middleware(StripEmptyParams::class);
 
+// About/FAQ page
 Route::get('/about', function () {return view('pages.about');})->middleware(StripEmptyParams::class);
 
 /*

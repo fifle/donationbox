@@ -6,12 +6,13 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use WhiteCube\Lingua\Service as Lingua;
 
 class RedirectController extends Controller
 {
     public function getBankLink(Request $request) {
-        $campaign_title = session('campaign_title');
+        $campaign_title = rawurldecode($request->input('campaign_title'));
         $detail = rawurldecode($request->input('detail'));
         $payee = rawurldecode($request->input('payee'));
         $iban = rawurldecode($request->input('iban'));
@@ -20,7 +21,12 @@ class RedirectController extends Controller
         $sebuid = rawurldecode($request->input('sebuid'));
         $sebuid_st = rawurldecode($request->input('sebuid_st'));
         $rev = rawurldecode($request->input('rev'));
-        $amount = rawurldecode($request->input('donationsum'));
+        $s0 = rawurldecode($request->input('s0'));
+        if ($s0) {
+            $amount = rawurldecode($request->input('s0'));
+        } else {
+            $amount = rawurldecode($request->input('donationsum'));
+        }
         $ik = " " . rawurldecode($request->input('taxik'));
         // paypal hosted button
         $pphb = rawurldecode($request->input('pphb'));

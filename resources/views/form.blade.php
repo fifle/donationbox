@@ -48,7 +48,7 @@
         <!-- /Top Navigation -->
     </div>
 
-    <div class="bg-white rounded-lg p-5 pt-0 shadow justify-between mb-4">
+    <div class="bg-white rounded-lg p-3 pt-0 shadow justify-between mb-12">
         <div x-show.transition="step != 'complete'">
 
             <!-- Step Content -->
@@ -64,11 +64,15 @@
                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">1</div>
                                             <div class="text-xs text-gray-500 text-center">
-                                                @lang("Enter the amount of your donation")
+                                                @if($s0)
+                                                    @lang("The amount of your payment")
+                                                @else
+                                                    @lang("Enter the amount of your donation")
+                                                @endif
                                             </div>
                                         </div>
                                         <div x-data="{ preamount: '' }">
-                                            <div class="w-48 max-w-xs mr-auto ml-auto">
+                                            <div class="w-60 max-w-xs mr-auto ml-auto">
                                                 <div class="relative">
                                                     <div
                                                         class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -80,17 +84,30 @@
                                                           method="get" id="sumforbank" target="_blank">@csrf</form>
                                                     <input
                                                         form="sumforbank"
-                                                        type="number"
+                                                        @if($s0)
+                                                            type="text"
+                                                        @else
+                                                            type="number"
+                                                        @endif
                                                         name="donationsum"
                                                         id="donationsum"
-                                                        value="{{ $amount }}"
+                                                        @if($s0)
+                                                            value="{{ $s0 }}"
+                                                        @else
+                                                            value="{{ $amount }}"
+                                                        @endif
                                                         class="transition duration-150 ease-in-out w-full
                                                                 pl-7 pr-7 px-3 py-3 border border-gray-300
                                                         placeholder-gray-500 text-gray-900 rounded-md
                                                         focus:outline-none focus:ring-1 focus:ring-offset-0
                                                         focus:ring-pink-700 focus:z-10 text-5xl text-center"
                                                         placeholder="0.00" min="0" step="any" maxlength="4"
-                                                        x-model="preamount"
+                                                        @if($s0)
+                                                            x-model="preamount = '{{ $s0 }}'"
+                                                            disabled
+                                                        @else
+                                                            x-model="preamount"
+                                                        @endif
                                                         required>
                                                     <input
                                                         form="sumforbank"
@@ -113,6 +130,7 @@
                                                         id="iban"
                                                         value="{{ $iban }}"
                                                     >
+                                                    @if($pp)
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
@@ -120,6 +138,8 @@
                                                         id="pp"
                                                         value="{{ $pp }}"
                                                     >
+                                                    @endif
+                                                    @if($pphb)
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
@@ -127,6 +147,8 @@
                                                         id="pphb"
                                                         value="{{ $pphb }}"
                                                     >
+                                                    @endif
+                                                    @if($db)
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
@@ -134,6 +156,8 @@
                                                         id="db"
                                                         value="{{ $db }}"
                                                     >
+                                                    @endif
+                                                    @if($sebuid_st)
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
@@ -141,6 +165,8 @@
                                                         id="sebuid_st"
                                                         value="{{ $sebuid_st }}"
                                                     >
+                                                    @endif
+                                                    @if($sebuid)
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
@@ -148,6 +174,8 @@
                                                         id="sebuid"
                                                         value="{{ $sebuid }}"
                                                     >
+                                                    @endif
+                                                    @if($rev)
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
@@ -155,9 +183,21 @@
                                                         id="rev"
                                                         value="{{ $rev }}"
                                                     >
+                                                    @endif
+                                                    @if($s0)
+                                                    <input
+                                                        form="sumforbank"
+                                                        type="hidden"
+                                                        name="s0"
+                                                        id="s0"
+                                                        value="{{ $s0 }}"
+                                                    >
+                                                    @endif
                                                 </div>
                                             </div>
+
                                             <div class="p-1 mt-1 mb-4 text-center space-y-2">
+                                                @if(!$s0)
                                                 <button class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
@@ -203,10 +243,12 @@
                                                         {{ $defsum * 3 }}€
                                                     @endif
                                                 </button>
+                                                @endif
                                             </div>
 
                                         </div>
 
+                                        @if(!$s0)
                                         <div class="flex items-center justify-center">
                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">2</div>
@@ -229,7 +271,7 @@
                                             >
                                                 @lang("One-time payment")
                                             </button>
-                                            @if($iban or $db)
+                                            @if($iban or $db or $s0)
                                             <button
                                                 class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-4 ml-2 rounded-lg
@@ -245,6 +287,7 @@
                                             </button>
                                             @endif
                                         </div>
+                                        @endif
 
                                         @if($tax and env('COUNTRY') == 'ee')
                                         <div class="flex items-center justify-center">
@@ -307,6 +350,8 @@
                                     text-gray-500 text-xs font-bold">
                                                                 @if($tax and env('COUNTRY') == 'ee')
                                                                     4
+                                                                @elseif($s0)
+                                                                    2
                                                                 @else
                                                                     3
                                                                 @endif
@@ -322,7 +367,7 @@
                                                             class="d-font transition duration-150 ease-in-out
                                                             bg-yellow-500 px-5 py-3
                                                             text-sm shadow-sm font-medium
-                                                                tracking-wider border text-yellow-100 rounded-full
+                                                                border text-yellow-100 rounded-full
                                                                 hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                         </button>
                                                         @endif
@@ -334,7 +379,7 @@
                                                             value="seb"
                                                             class="d-font transition duration-150 ease-in-out bg-green-500 px-5 py-3
                                                          text-sm shadow-sm
-                                                        font-medium tracking-wider border text-green-100 rounded-full
+                                                        font-medium  border text-green-100 rounded-full
                                                         hover:shadow-lg hover:bg-green-600">SEB
                                                         </button>
                                                     @endif
@@ -346,7 +391,7 @@
                                                         value="lhv"
                                                         class="d-font transition duration-150 ease-in-out bg-gray-700 px-5 py-3
                                                         text-sm shadow-sm
-                                                        font-medium tracking-wider border text-gray-100 rounded-full
+                                                        font-medium  border text-gray-100 rounded-full
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
                                                         @endif
@@ -358,7 +403,7 @@
                                                         value="coop"
                                                         class="d-font transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
                                                         text-sm shadow-sm
-                                                        font-medium tracking-wider border text-blue-100 rounded-full
+                                                        font-medium  border text-blue-100 rounded-full
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
                                                         @endif
@@ -384,7 +429,7 @@
                                                             class="d-font transition duration-150 ease-in-out bg-white px-5
                                                              py-3
                                                         text-sm shadow-sm
-                                                        font-medium tracking-wider border text-blue-500 rounded-full
+                                                        font-medium  border text-blue-500 rounded-full
                                                         hover:shadow-lg hover:bg-gray-100 mb-2">
                                                             Revolut <span class="text-xs tracking-tight">(Visa/MC)</span>
                                                         </button>
@@ -397,7 +442,7 @@
                                                         value="paypal"
                                                         class="d-font transition duration-150 ease-in-out bg-blue-800 px-5
                                                 py-3 text-sm shadow-sm font-medium
-                                                     tracking-wider border text-blue-100 rounded-full hover:shadow-lg
+                                                      border text-blue-100 rounded-full hover:shadow-lg
                                                      hover:bg-blue-900 mb-2">Paypal
                                                     </button>
                                                 @endif
@@ -409,7 +454,7 @@
                                                             value="pphb"
                                                             class="d-font transition duration-150 ease-in-out bg-blue-800 px-5
                                                 py-3 text-sm shadow-sm font-medium
-                                                     tracking-wider border text-blue-100 rounded-full hover:shadow-lg
+                                                      border text-blue-100 rounded-full hover:shadow-lg
                                                      hover:bg-blue-900 mb-2">
                                                             Paypal <span class="text-xs tracking-tight">(Visa/MC)</span>
                                                         </button>
@@ -422,7 +467,7 @@
                                                         value="donorbox"
                                                         class="d-font transition duration-150 ease-in-out bg-red-600 px-5
                                                 py-3 text-sm shadow-sm font-medium
-                                                     tracking-wider border text-white rounded-full hover:shadow-lg
+                                                      border text-white rounded-full hover:shadow-lg
                                                      hover:bg-red-700 inline-flex items-center mb-2">
                                                         Donorbox <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                     </button>
@@ -446,7 +491,7 @@
                                                         value="swed-standing"
                                                         class="d-font transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
                                                         text-sm shadow-sm font-medium
-                                                            tracking-wider border text-yellow-100 rounded-full
+                                                             border text-yellow-100 rounded-full
                                                             hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                     </button>
                                                         @endif
@@ -458,7 +503,7 @@
                                                             value="seb-standing"
                                                             class="d-font transition duration-150 ease-in-out bg-green-500 px-5 py-3
                                                          text-sm shadow-sm
-                                                        font-medium tracking-wider border text-green-100 rounded-full
+                                                        font-medium  border text-green-100 rounded-full
                                                         hover:shadow-lg hover:bg-green-600">SEB
                                                         </button>
                                                     @endif
@@ -470,7 +515,7 @@
                                                         value="lhv-standing"
                                                         class="d-font transition duration-150 ease-in-out bg-gray-700 px-5 py-3
                                                         text-sm shadow-sm
-                                                        font-medium tracking-wider border text-gray-100 rounded-full
+                                                        font-medium  border text-gray-100 rounded-full
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
                                                         @endif
@@ -482,7 +527,7 @@
                                                         value="coop-standing"
                                                         class="d-font transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
                                                         text-sm shadow-sm
-                                                        font-medium tracking-wider border text-blue-100 rounded-full
+                                                        font-medium  border text-blue-100 rounded-full
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
                                                         @endif
@@ -506,7 +551,7 @@
                                                         value="donorbox-standing"
                                                         class="d-font transition duration-150 ease-in-out bg-red-600 px-5
                                                 py-3 text-sm shadow-sm font-medium
-                                                     tracking-wider border text-white rounded-full hover:shadow-lg
+                                                      border text-white rounded-full hover:shadow-lg
                                                      hover:bg-red-700 inline-flex items-center">
                                                         Donorbox <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                     </button>

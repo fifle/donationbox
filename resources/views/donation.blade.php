@@ -23,6 +23,7 @@
         @include('form')
 
     <!-- COPY LINK -->
+        @if(!$s0)
         <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
             <div class="content-center">
                 <h3 class="mb-2 text-center text-1xl font-bold text-gray-600">
@@ -45,8 +46,10 @@
                 </div>
             </div>
         </div>
+        @endif
 
         <!-- QR CODE -->
+        @if(!$s0)
         <div class="bg-white rounded-lg p-5 mt-8 shadow justify-between">
             <div class="content-center">
                 <h3 class="mb-2 text-center text-1xl font-bold text-gray-600">
@@ -80,11 +83,12 @@
                         </div>
                     </a>
                 </div>
-
             </div>
         </div>
+        @endif
 
         <!-- EMBED WIDGET -->
+        @if(!$s0)
         <div class="bg-white rounded-lg p-5 mt-10 shadow justify-between">
             <h3 class="mb-2 text-center text-1xl font-bold text-gray-600">
                 @lang("Embed this donation box to your website")
@@ -110,6 +114,7 @@
             </div>
 
         </div>
+        @endif
 
         @include('footer')
     </div>
