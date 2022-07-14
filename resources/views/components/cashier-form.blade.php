@@ -243,10 +243,14 @@
                                                                 type="submit"
                                                                 name="action"
                                                                 value="cashier"
-                                                                class="d-font btn focus:outline-none border border-transparent mt-4 py-2 px-5 rounded-lg
-                                    border border-transparent font-medium rounded-md text-white bg-pink-500
-                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
-                                    focus:ring-pink-700 transition duration-150 ease-in-out">
+                                                                class="d-font btn transition duration-150 ease-in-out
+                                                        focus:outline-none py-3 px-4 rounded-lg font-medium
+                                                        shadow-sm text-center text-white bg-pink-500 hover:bg-pink-700
+                                                        text-sm focus:ring-1 focus:ring-offset-1
+                                                        focus:ring-pink-700 w-auto inline-flex items-center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                                                                </svg>
                                                                 @lang('Generate payment link & QR-code')
                                                             </button>
                                             </div>
