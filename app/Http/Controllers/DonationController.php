@@ -417,7 +417,7 @@ class DonationController extends Controller
 
             $qrcode = QrCode::format('svg')
                 ->size(250)
-                ->generate($fullLink);
+                ->generate($link);
         }
 
         $compactData = array(
