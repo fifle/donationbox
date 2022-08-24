@@ -634,6 +634,29 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Step 5 -->
+                        <div x-show="step === 5"
+                             x-transition:enter.duration.500ms>
+                            <div class="mb-4 flex items-center">
+                                <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">5
+                                </div>
+                                <div class="ml-2 text-gray-500">@lang("Receiving types")</div>
+                            </div>
+                            <div class="mb-5">
+                                <div class="col-span-12 mb-3">
+                                    <label for="campaign_title" class="d-font font-bold text-gray-700 mb-2">
+                                        @lang("Choose receiving type")
+                                    </label>
+                                </div>
+                                @csrf
+                                <div class="rounded-md -space-y-px">
+                                    <div class="grid gap-6">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- / Step Content -->
                 </div>
@@ -664,7 +687,7 @@
 
                         <div class="w-1/2 ">
                             <button
-                                x-show="step < 4"
+                                x-show="step < 5"
                                 @click="step++"
                                 class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
                                     border border-transparent font-medium rounded-md text-white bg-pink-500
@@ -677,7 +700,7 @@
                                 type="submit"
                                 form="generator"
                                 value="submit"
-                                x-show="step === 4"
+                                x-show="step === 5"
                                 class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
                                     border border-transparent font-medium rounded-md text-white bg-pink-500
                                     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
@@ -701,7 +724,7 @@
                                  :style="'width: '+ parseInt(step / 4 * 100) +'%'"></div>
                         </div>
                         <div class="text-xs w-10 text-gray-600 transition duration-150 ease-in-out" x-text="parseInt
-                        (step / 4 * 100) +'%'"></div>
+                        (step / 5 * 100) +'%'"></div>
                     </div>
                 </div>
             </div>
