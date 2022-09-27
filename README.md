@@ -1,7 +1,7 @@
 <p align="center"><a href="https://donationbox.ee/" target="_blank"><img src="https://donationbox.ee/img/db-logo-fl.png" width="300"></a></p>
 
 ## About DonationBox
-This is a web application for generating links to direct or regular donation forms for Estonian and international banks. The app allows you to create your own virtual donation box for donations without having to write code or link your website or app to contracts and integrations with banklink.
+This is a web application for generating links to direct or regular donation forms for Estonian, Latvia and Lithuanian and international banks. The app allows you to create your own virtual donation box for donations without having to write code or link your website or app to contracts and integrations with banklink.
 
 We provide a convenient interface for donors so that they don't have to enter data manually or copy it. The donor only has to follow a link by scanning a QR-code or going to a direct URL-address, enter the amount of donation, choose the transfer type - one-time or regular payment (single or standing order), and choose your bank, Paypal or credit card payment type.
 
@@ -16,4 +16,28 @@ We provide a convenient interface for donors so that they don't have to enter da
 - [ ] Blockchain wallets support (Bitcoin URI protocol, other blockchain payment providers)
 
 ## License
-DonationBox.ee is open-sourced software licensed under the [GNU GPLv3 license](https://spdx.org/licenses/GPL-3.0-or-later.html).
+DonationBox is open-sourced software licensed under the [GNU GPLv3 license](https://spdx.org/licenses/GPL-3.0-or-later.html).
+
+## Installation
+You can deploy DonationBox on your personal server for the needs of your NGO. Please contact us by email if you need any support: [donationbox.ee@gmail.com](mailto:donationbox.ee@gmail.com)
+
+NB! DonationBox requires installation of Imagick extension for PHP.
+
+**Install dependencies**
+- `composer install`
+- `npm install`
+- `npm run dev`
+
+**Prepare your environment**
+- `cp .env.example .env`
+- `php artisan key:generate`
+
+**Empty cache**
+- `php artisan config:cache`
+- `php artisan config:clear`
+- `php artisan cache:clear`
+
+**Run the application**
+- `php artisan serve`
+
+The default country is Estonia (EE), change the COUNTRY variable under .env to work with LV and LT.

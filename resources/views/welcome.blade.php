@@ -70,7 +70,7 @@
 
                                 <div class="mb-4 flex items-center">
                                     <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">1
+                                    text-gray-500 text-xs font-semibold">1
                                     </div>
                                     <div class="ml-2 text-gray-500">@lang("Your campaign page details")</div>
                                 </div>
@@ -81,7 +81,7 @@
                                     <div class="rounded-md -space-y-px">
                                         <div class="grid gap-6">
                                             <div class="col-span-12">
-                                                <label for="campaign_title" class="d-font font-bold text-gray-700
+                                                <label for="campaign_title" class="d-font font-semibold text-gray-700
                                                         block mb-1">
                                                     @lang("Name your donation box")
                                                     <span class="font-normal text-red-500"><sup>*</sup></span>
@@ -107,7 +107,7 @@
 
                                             <div class="col-span-12">
 
-                                                <label for="detail" class="d-font font-bold text-gray-700
+                                                <label for="detail" class="d-font font-semibold text-gray-700
                                                         block mb-1">
                                                     @lang("Bank transfer detail") <span
                                                         class="font-normal text-red-500"><sup>*</sup></span>
@@ -153,7 +153,7 @@
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">2
+                                    text-gray-500 text-xs font-semibold">2
                                 </div>
                                 <div class="ml-2 text-gray-500">@lang("Your personal data")</div>
                             </div>
@@ -162,7 +162,7 @@
                                 <div class="rounded-md -space-y-px">
                                     <div class="grid gap-6">
                                         <div class="col-span-12">
-                                            <label for="campaign_title" class="d-font font-bold text-gray-700
+                                            <label for="campaign_title" class="d-font font-semibold text-gray-700
                                                         block mb-2">@lang("Payee's name")
                                                 <span class="font-normal text-red-500"><sup>*</sup></span>
                                             </label>
@@ -200,7 +200,7 @@
                                 <div class="rounded-md -space-y-px">
                                     <div class="grid gap-6">
                                         <div class="col-span-12">
-                                            <label for="campaign_title" class="d-font font-bold text-gray-700
+                                            <label for="campaign_title" class="d-font font-semibold text-gray-700
                                                         block mb-2">@lang("Tax return for donors in Estonia")
                                             </label>
                                             <div class="tracking-normal text-sm text-gray-500 mb-3
@@ -238,7 +238,7 @@
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">3
+                                    text-gray-500 text-xs font-semibold">3
                                 </div>
                                 <div class="ml-2 text-gray-500">@lang("Details for")
                                     @if(env('COUNTRY') == 'ee')
@@ -257,7 +257,7 @@
                                 <div class="rounded-md -space-y-px">
                                     <div class="grid gap-6">
                                         <div class="col-span-12">
-                                            <label for="campaign_title" class="d-font font-bold text-gray-700
+                                            <label for="campaign_title" class="d-font font-semibold text-gray-700
                                                         block mb-2">@lang("Payee's bank account (IBAN) number")</label>
                                             <input
                                                 form="generator"
@@ -283,7 +283,7 @@
                                         </div>
 
                                         <div class="col-span-12">
-                                            <label for="campaign_title" class="d-font font-bold text-gray-700 mb-2">
+                                            <label for="campaign_title" class="d-font font-semibold text-gray-700 mb-2">
                                                 @lang("Choose banking methods")
                                             </label>
                                         </div>
@@ -340,7 +340,7 @@
                                             </div>
                                             <div x-show="sebt">
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
-                                                    <label for="campaign_title" class="d-font font-bold text-gray-700
+                                                    <label for="campaign_title" class="d-font font-semibold text-gray-700
                                                         block mb-2">@lang("SEB UID token")</label>
                                                     <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
@@ -453,13 +453,13 @@
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">4
+                                    text-gray-500 text-xs font-semibold">4
                                 </div>
                                 <div class="ml-2 text-gray-500">@lang("Credit cards")</div>
                             </div>
                             <div class="mb-5">
                                 <div class="col-span-12 mb-3">
-                                    <label for="campaign_title" class="d-font font-bold text-gray-700 mb-2">
+                                    <label for="campaign_title" class="d-font font-semibold text-gray-700 mb-2">
                                         @lang("Choose banking methods")
                                     </label>
                                 </div>
@@ -492,7 +492,7 @@
                                             </div>
                                             <div x-show="revtoggle">
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
-                                                    <label for="campaign_title" class="font-bold text-gray-700
+                                                    <label for="campaign_title" class="font-semibold text-gray-700
                                                         block mb-2">@lang("Revolut.me username")</label>
                                                     <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
@@ -547,7 +547,7 @@
                                             </div>
                                             <div x-show="pptoggle">
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
-                                                    <label for="campaign_title" class="font-bold text-gray-700
+                                                    <label for="campaign_title" class="font-semibold text-gray-700
                                                         block mb-2">@lang("PayPal.me username")</label>
                                                     <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
@@ -602,7 +602,7 @@
                                             </div>
                                             <div x-show="dbtoggle">
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
-                                                    <label for="campaign_title" class="font-bold text-gray-700
+                                                    <label for="campaign_title" class="font-semibold text-gray-700
                                                         block mb-2">@lang("Donorbox.org campaign slug")</label>
                                                     <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
