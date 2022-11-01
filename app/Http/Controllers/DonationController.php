@@ -43,7 +43,8 @@ class DonationController extends Controller
 
             // links
             $link = url()->full();
-            $embedlink = str_replace("/donation?", "/embed?", $link);
+            $changeHttpPrefix = str_replace("http://", "https://", $link);
+            $embedlink = str_replace("/donation?", "/embed?", $changeHttpPrefix);
 
             // amount
             $amount = null;
