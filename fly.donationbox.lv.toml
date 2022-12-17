@@ -1,6 +1,6 @@
-# fly.toml file generated for donationbox-lv-1 on 2022-12-17T22:36:33+02:00
+# fly.toml file generated for donationbox-lv on 2022-12-16T22:45:31+02:00
 
-app = "donationbox-lv-1"
+app = "donationbox-lv"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
@@ -8,7 +8,7 @@ processes = []
 [build]
   [build.args]
     NODE_VERSION = "14"
-    PHP_VERSION = "8.0"
+    PHP_VERSION = "8.2"
 
 [env]
   APP_ENV = "production"
