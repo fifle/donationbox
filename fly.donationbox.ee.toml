@@ -45,3 +45,7 @@ processes = []
     interval = "15s"
     restart_limit = 0
     timeout = "2s"
+
+  [services.ports.http_options.response.headers]
+    X-Frame-Options = false
+    #Content-Security-Policy = "frame-ancestors 'self' https://donationbox.ee/"
