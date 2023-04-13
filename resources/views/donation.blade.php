@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>{!! urldecode($campaign_title) !!} | {!! urldecode($payee) !!} | DonationBox.ee</title>
+    <title>{!! urldecode($campaign_title) !!} | {!! urldecode($payee) !!} | DonationBox.{{ env('COUNTRY') }}</title>
     @include('head')
 
 </head>
@@ -12,7 +12,7 @@
         <div class="grid grid-cols-2 items-center mb-4">
             <div class="w-32">
                 <a href="/" target="_blank">
-                    <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png">
+                    <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png" alt="Donationbox.{{ env('COUNTRY') }}">
                 </a>
             </div>
             <div class="">
@@ -60,17 +60,17 @@
                 </div>
 
                 <div class="p-1 mt-4 text-center">
-                    <a href="{{ route('qrpng.show') }}" class="no-underline text-mg
-                    text-blue-800" download="donationbox-qr.png">
-                        <div class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-3 rounded-lg
-                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
-                                                        text-sm border focus:ring-1 focus:ring-offset-1
-                                                        focus:ring-pink-700 w-auto inline-flex items-center ml-2">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            PNG
-                        </div>
-                    </a>
+{{--                    <a href="{{ route('qrpng.show') }}" class="no-underline text-mg--}}
+{{--                    text-blue-800" download="donationbox-qr.png">--}}
+{{--                        <div class="d-font transition duration-150 ease-in-out--}}
+{{--                                                        focus:outline-none py-2 px-3 rounded-lg--}}
+{{--                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100--}}
+{{--                                                        text-sm border focus:ring-1 focus:ring-offset-1--}}
+{{--                                                        focus:ring-pink-700 w-auto inline-flex items-center ml-2">--}}
+{{--                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>--}}
+{{--                            PNG--}}
+{{--                        </div>--}}
+{{--                    </a>--}}
                     <a href="data:image/png;base64,{!! base64_encode($qrcode) !!}" class="no-underline text-mg
                     text-blue-800" download="donationbox-qr.svg">
                         <div class="d-font transition duration-150 ease-in-out
@@ -118,8 +118,6 @@
 
         @include('footer')
     </div>
-</div>
-
 </div>
 
 </body>
