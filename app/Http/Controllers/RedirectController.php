@@ -36,8 +36,6 @@ class RedirectController extends Controller
         $pphb = rawurldecode($request->input('pphb'));
         // Stripe payment link id
         $strp = rawurldecode($request->input('strp'));
-        // Current language and its conversion from ISO_639_1 to ISO_639_2 for ibanks
-        $currentLang = $request->session()->get('locale');
         // Current logic for presetting the starting donation amount
         $s0 = rawurldecode($request->input('s0'));
         if ($s0) {
@@ -46,6 +44,8 @@ class RedirectController extends Controller
             $amount = rawurldecode($request->input('donationsum'));
         }
 
+        // Setting current language code and its conversion from ISO_639_1 to ISO_639_2 for ibanks
+        $currentLang = $request->session()->get('locale');
         switch ($currentLang) {
             case "":
             case "en":
@@ -65,6 +65,7 @@ class RedirectController extends Controller
                 break;
         }
 
+        // List for Estonian users
         if (env('COUNTRY') == 'ee') {
             switch ($request->input('action')) {
                 // Swedbank one-time payment
@@ -151,7 +152,10 @@ class RedirectController extends Controller
                     $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s", $strp, $amount);
                     return Redirect::to($url);
             }
-        } else if (env('COUNTRY') == 'lv') {
+
+        }
+        // List for Latvian users
+        else if (env('COUNTRY') == 'lv') {
             switch ($request->input('action')) {
                 case 'swed':
                     $bankname = "Swedbank";
@@ -205,7 +209,9 @@ class RedirectController extends Controller
                     $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s", $strp, $amount);
                     return Redirect::to($url);
             }
-        } else if (env('COUNTRY') == 'lt') {
+        }
+        // List for Lithuanian users
+        else if (env('COUNTRY') == 'lt') {
             switch ($request->input('action')) {
                 case 'swed':
                     $bankname = "Swedbank";
