@@ -24,7 +24,7 @@ class StripEmptyParams
             }
         }
         if ($querycount > count($query)) {
-            $path = url()->current() . (!empty($query) ? '/?' . http_build_query($query) : '');
+            $path = url()->current() . (!empty($query) ? '?' . http_build_query($query) : '');
             return redirect()->to($path);
         }
         return $next($request);
