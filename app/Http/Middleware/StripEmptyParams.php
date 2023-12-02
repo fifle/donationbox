@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class StripEmptyParams
 {
@@ -16,7 +18,7 @@ class StripEmptyParams
      */
     public function handle(Request $request, Closure $next)
     {
-        $query = request()->query();
+        $query = $request->query();
         $querycount = count($query);
         foreach ($query as $key => $value) {
             if ($value == '') {
@@ -24,9 +26,12 @@ class StripEmptyParams
             }
         }
         if ($querycount > count($query)) {
-            $path = url()->current() . (!empty($query) ? '/?' . http_build_query($query) : '');
-            return redirect()->to($path);
+            $path = $request->url(); // Use the url() method which excludes query string
+            $queryString = http_build_query($query); // Build the query string without empty params
+            $redirectUrl = $queryString ? $path.'?'.$queryString : $path; // Concatenate properly
+            return redirect()->to($redirectUrl); // Redirect to the cleansed URL
         }
+
         return $next($request);
     }
 }
