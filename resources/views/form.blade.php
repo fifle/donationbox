@@ -434,6 +434,20 @@
                                                             Revolut <span class="text-xs tracking-tight">(Visa/MC)</span>
                                                         </button>
                                                     @endif
+                                                    @if($strp)
+                                                        <p>{!! urldecode($strp) !!}</p>
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="strp"
+                                                            class="d-font transition duration-150 ease-in-out bg-blue-600 px-5
+                                                py-3 text-sm shadow-sm font-medium
+                                                      border text-white rounded-full hover:shadow-lg
+                                                     hover:bg-blue-700 inline-flex items-center mb-2">
+                                                            Stripe <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
+                                                        </button>
+                                                    @endif
                                                 @if($pp)
                                                     <button
                                                         form="sumforbank"

@@ -21,24 +21,26 @@ class DonationController extends Controller
             $iban = rawurlencode($request->input('iban'));
             $pp = rawurlencode($request->input('pp'));
             $db = rawurlencode($request->input('db'));
-            $sebuid = rawurlencode($request->input('sebuid'));
-            $sebuid_st = rawurlencode($request->input('sebuid_st')); // uid for standing order for SEB LV
+            $sebuid = rawurlencode($request->input('sebuid')); // UID for One-time payments for SEB
+            $sebuid_st = rawurlencode($request->input('sebuid_st')); // UID for Standing orders for SEB
             $rev = rawurlencode($request->input('rev'));
             $tax = rawurlencode($request->boolean('tax'));
             $swt = rawurlencode($request->boolean('swt'));
             $lhvt = rawurlencode($request->boolean('lhvt'));
             $coopt = rawurlencode($request->boolean('coopt'));
-            // paypal hosted button
+            // PayPal hosted button
             $pphb = rawurlencode($request->input('pphb'));
+            // Stripe payment link id
+            $strp = rawurlencode($request->input('strp'));
 
-            // custom sums
+            // Custom sums setup
             $defsum = 5;
             $s1 = rawurlencode($request->input('s1'));
             $s2 = rawurlencode($request->input('s2'));
             $s3 = rawurlencode($request->input('s3'));
 
-            // a fixed amount expected from the donor
-            // then all preamounts are disabled
+            // Fixed amount expected from the donor
+            // In this case, all pre-defined amount selections will be disabled
             $s0 = rawurlencode($request->input('s0'));
 
             // links
@@ -131,6 +133,10 @@ class DonationController extends Controller
                 $compactData['pphb'] = 'pphb';
             }
 
+            if (isset($strp)) {
+                $compactData['strp'] = 'strp';
+            }
+
             if (isset($s1)) {
                 $compactData['s1'] = 's1';
             }
@@ -172,6 +178,7 @@ class DonationController extends Controller
             $lhvt = rawurlencode($request->boolean('lhvt')); // LHV turn off
             $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
             $pphb = rawurlencode($request->input('pphb')); // Paypal Hosted Button
+            $strp = rawurlencode($request->input('strp')); // Stripe
 
             // custom sums
             $defsum = 5;
@@ -257,6 +264,10 @@ class DonationController extends Controller
                 $compactData['pphb'] = 'pphb';
             }
 
+            if (isset($strp)) {
+                $compactData['strp'] = 'strp';
+            }
+
             if (isset($s1)) {
                 $compactData['s1'] = 's1';
             }
@@ -298,6 +309,8 @@ class DonationController extends Controller
         $lhvt = rawurlencode($request->boolean('lhvt')); // LHV turn off
         $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
         $pphb = rawurlencode($request->input('pphb')); // Paypal Hosted Button
+        // Stripe payment link id
+        $strp = rawurlencode($request->input('strp'));
 
         // custom sums
         $defsum = 5;
@@ -371,6 +384,10 @@ class DonationController extends Controller
             $compactData['pphb'] = 'pphb';
         }
 
+        if (isset($strp)) {
+            $compactData['strp'] = 'strp';
+        }
+
         if (isset($s1)) {
             $compactData['s1'] = 's1';
         }
@@ -410,6 +427,8 @@ class DonationController extends Controller
         $ik = " " . rawurlencode($request->input('taxik'));
         // paypal hosted button
         $pphb = rawurlencode($request->input('pphb'));
+        // Stripe payment link id
+        $strp = rawurlencode($request->input('strp'));
 
         if ($request->input('action') == 'cashier') {
             $fullLink = url()->full();
@@ -433,6 +452,7 @@ class DonationController extends Controller
             'amount',
             'ik',
             'pphb',
+            'strp',
 
             'qrcode',
             'link',
@@ -451,6 +471,7 @@ class DonationController extends Controller
             'amount' => $amount,
             'ik' => $ik,
             'pphb' => $pphb,
+            'strp' => $strp,
 
             'qrcode' => $qrcode,
             'link' => $link,

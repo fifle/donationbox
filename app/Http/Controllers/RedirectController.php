@@ -35,7 +35,8 @@ class RedirectController extends Controller
         // paypal hosted button
         $pphb = rawurldecode($request->input('pphb'));
         // Stripe payment link id
-        $strp = rawurldecode($request->input('strp'));
+        $strp = urlencode($request->input("strp"));
+
         // Current logic for presetting the starting donation amount
         $s0 = rawurldecode($request->input('s0'));
         if ($s0) {
@@ -149,7 +150,9 @@ class RedirectController extends Controller
                 // Stripe payment link for one-time payments (business accounts only)
                 case 'strp':
                     $bankname = "Stripe";
-                    $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s", $strp, $amount);
+                    error_log("Stripe ID: " . $strp);
+                    $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s", urlencode($strp), $amount);
+                    error_log("Stripe: " . $url);
                     return Redirect::to($url);
             }
 
