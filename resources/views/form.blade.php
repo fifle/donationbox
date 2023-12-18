@@ -478,7 +478,7 @@
                                                     </button>
                                                 @endif
                                                     @if($paypalClientId)
-                                                        <div class="w-1/2 m-auto" id="paypal-button-container"></div>
+                                                        <div class="m-auto" id="paypal-button-container"></div>
                                                     @endif
                                                 </div>
                                             </div>
