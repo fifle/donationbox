@@ -30,8 +30,9 @@ class DonationController extends Controller
             $coopt = rawurlencode($request->boolean('coopt'));
             // paypal hosted button
             $pphb = rawurlencode($request->input('pphb'));
+            $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
-            // custom sums
+        // custom sums
             $defsum = 5;
             $s1 = rawurlencode($request->input('s1'));
             $s2 = rawurlencode($request->input('s2'));
@@ -131,6 +132,10 @@ class DonationController extends Controller
                 $compactData['pphb'] = 'pphb';
             }
 
+        if (isset($paypalClientId)) {
+            $compactData['paypalClientId'] = 'paypalClientId';
+        }
+
             if (isset($s1)) {
                 $compactData['s1'] = 's1';
             }
@@ -172,8 +177,9 @@ class DonationController extends Controller
             $lhvt = rawurlencode($request->boolean('lhvt')); // LHV turn off
             $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
             $pphb = rawurlencode($request->input('pphb')); // Paypal Hosted Button
+            $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
-            // custom sums
+        // custom sums
             $defsum = 5;
             $s1 = rawurlencode($request->input('s1'));
             $s2 = rawurlencode($request->input('s2'));
@@ -257,6 +263,10 @@ class DonationController extends Controller
                 $compactData['pphb'] = 'pphb';
             }
 
+        if (isset($paypalClientId)) {
+            $compactData['paypalClientId'] = 'paypalClientId';
+        }
+
             if (isset($s1)) {
                 $compactData['s1'] = 's1';
             }
@@ -298,6 +308,7 @@ class DonationController extends Controller
         $lhvt = rawurlencode($request->boolean('lhvt')); // LHV turn off
         $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
         $pphb = rawurlencode($request->input('pphb')); // Paypal Hosted Button
+        $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
         // custom sums
         $defsum = 5;
@@ -371,6 +382,14 @@ class DonationController extends Controller
             $compactData['pphb'] = 'pphb';
         }
 
+        if (isset($paypalClientId)) {
+            $compactData['paypalClientId'] = 'paypalClientId';
+        }
+
+        if (isset($paypalClientId)) {
+            $compactData['paypalClientId'] = 'paypalClientId';
+        }
+
         if (isset($s1)) {
             $compactData['s1'] = 's1';
         }
@@ -410,6 +429,7 @@ class DonationController extends Controller
         $ik = " " . rawurlencode($request->input('taxik'));
         // paypal hosted button
         $pphb = rawurlencode($request->input('pphb'));
+        $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
         if ($request->input('action') == 'cashier') {
             $fullLink = url()->full();
@@ -433,6 +453,7 @@ class DonationController extends Controller
             'amount',
             'ik',
             'pphb',
+            'paypalClientId',
 
             'qrcode',
             'link',
@@ -451,6 +472,7 @@ class DonationController extends Controller
             'amount' => $amount,
             'ik' => $ik,
             'pphb' => $pphb,
+            'paypalClientId' => $paypalClientId,
 
             'qrcode' => $qrcode,
             'link' => $link,

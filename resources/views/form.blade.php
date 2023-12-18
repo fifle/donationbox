@@ -1,3 +1,4 @@
+
 <div>
     <h2 class="mt-0 ml-3 mr-3 text-center text-2xl font-semibold text-gray-700">
         {!! urldecode($campaign_title) !!}
@@ -572,9 +573,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @if($paypalClientId)
+                                            <div id="paypal-button-container"></div>
+                                        @endif
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -583,9 +586,55 @@
         </div>
     </div>
 
+
     @include('secure')
 
 </div>
+
+{{-- Conditional loading of PayPal SDK --}}
+@if(isset($paypalClientId))
+    <script src="https://www.paypal.com/sdk/js?client-id={{ $paypalClientId }}"></script>
+@endif
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var donationInput = document.getElementById("donationsum");
+
+        if (donationInput) {
+            donationInput.addEventListener("change", function (e) {
+                const donationAmount = parseFloat(e.target.value);
+
+                // Remove any existing PayPal buttons
+                const paypalButtonContainer = document.getElementById("paypal-button-container");
+                while (paypalButtonContainer.firstChild) {
+                    paypalButtonContainer.removeChild(paypalButtonContainer.firstChild);
+                }
+
+                // Create a new PayPal button with the updated amount
+                if (window.paypal && window.paypal.Buttons) {
+                    paypal.Buttons({
+                        createOrder: function (data, actions) {
+                            console.log("Creating order with amount: " + donationAmount);
+                            return actions.order.create({
+                                purchase_units: [{
+                                    amount: { value: donationAmount },
+                                    currency: "EUR"
+                                }],
+                            });
+                        },
+                        onApprove: function (data, actions) {
+                            return actions.order.capture().then(function (details) {
+                                alert("Donation successful. Thank you for your generosity!");
+                            });
+                        },
+                    }).render("#paypal-button-container");
+                }
+            });
+        } else {
+            console.error("Element with ID 'donationsum' not found.");
+        }
+    });
+</script>
 
 {{--Init of ClipboardJS--}}
 <script type="text/javascript">
