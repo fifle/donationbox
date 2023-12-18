@@ -556,6 +556,19 @@
                                                         Donorbox <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                     </button>
                                                 @endif
+                                                        @if($pphb)
+                                                            <button
+                                                                form="sumforbank"
+                                                                type="submit"
+                                                                name="action"
+                                                                value="pphb"
+                                                                class="d-font transition duration-150 ease-in-out bg-blue-800 px-5
+                                                py-3 text-sm shadow-sm font-medium
+                                                      border text-blue-100 rounded-full hover:shadow-lg
+                                                     hover:bg-blue-900 mb-2">
+                                                                Paypal <span class="text-xs tracking-tight">(Visa/MC)</span>
+                                                            </button>
+                                                        @endif
                                                 </div>
                                             </div>
                                         </div>
