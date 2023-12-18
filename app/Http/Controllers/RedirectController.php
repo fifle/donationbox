@@ -161,6 +161,11 @@ class RedirectController extends Controller
                     $bankname = "Revolut";
                     $url = sprintf("https://revolut.me/%s", $rev);
                     return Redirect::to($url);
+
+                case 'pphb':
+                    $bankname = "Paypal Hosted button";
+                    $url = sprintf("https://www.paypal.com/donate/?hosted_button_id=%s", $pphb);
+                    return Redirect::to($url);
             }
         } else if (env('COUNTRY') == 'lt') {
             switch ($request->input('action')) {
@@ -202,6 +207,11 @@ class RedirectController extends Controller
                 case 'rev':
                     $bankname = "Revolut";
                     $url = sprintf("https://revolut.me/%s", $rev);
+                    return Redirect::to($url);
+
+                case 'pphb':
+                    $bankname = "Paypal Hosted button";
+                    $url = sprintf("https://www.paypal.com/donate/?hosted_button_id=%s", $pphb);
                     return Redirect::to($url);
             }
         }
