@@ -199,7 +199,7 @@
 
                                             <div class="p-1 mt-1 mb-4 text-center space-y-2">
                                                 @if(!$s0)
-                                                <button class="d-font transition duration-150 ease-in-out
+                                                <button id="preamount1" class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
@@ -212,7 +212,7 @@
                                                         {{ $defsum }}€
                                                     @endif
                                                 </button>
-                                                <button class="d-font transition duration-150 ease-in-out
+                                                <button id="preamount2" class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
@@ -228,7 +228,7 @@
                                                         {{ $defsum * 2 }}€
                                                     @endif
                                                 </button>
-                                                <button class="d-font transition duration-150 ease-in-out
+                                                <button id="preamount3" class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
@@ -412,12 +412,16 @@
                                                 @endif
 
                                                 <div>
-                                                @if($rev or $pp or $pphb or $db)
+                                                @if($rev or $pp or $pphb or $db or $paypalClientId)
                                                     <div class="flex items-center justify-center">
                                                         @if(!$iban)
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
                                                         @endif
+                                                            @if($iban)
+                                                                <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">4</div>
+                                                            @endif
                                                         <div class="mt-3 mb-2 text-xs text-gray-500 text-center">@lang("Donate by credit card")</div>
                                                     </div>
                                                     @endif
@@ -473,6 +477,9 @@
                                                         Donorbox <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                     </button>
                                                 @endif
+                                                    @if($paypalClientId)
+                                                        <div class="w-1/2 m-auto" id="paypal-button-container"></div>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div x-show="tab === 'standing'" class="p-1 mt-2 text-center space-x-1
@@ -573,9 +580,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @if($paypalClientId)
-                                            <div id="paypal-button-container"></div>
-                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -593,46 +597,75 @@
 
 {{-- Conditional loading of PayPal SDK --}}
 @if(isset($paypalClientId))
-    <script src="https://www.paypal.com/sdk/js?client-id={{ $paypalClientId }}"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id={{ $paypalClientId }}&currency=EUR"></script>
 @endif
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var donationInput = document.getElementById("donationsum");
 
+        function renderPayPalButtons(amount) {
+            var amount = donationInput.value || '1'; // Default amount or handle empty value
+
+            // Remove existing PayPal buttons
+            var paypalButtonContainer = document.getElementById("paypal-button-container");
+            while (paypalButtonContainer.firstChild) {
+                paypalButtonContainer.removeChild(paypalButtonContainer.firstChild);
+            }
+
+            // Check if PayPal is loaded and create buttons
+            if (window.paypal && window.paypal.Buttons) {
+                paypal.Buttons({
+                    createOrder: function (data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {value: amount},
+                                description: "{{$detail}}"
+                            }],
+                        });
+                    },
+                    onApprove: function (data, actions) {
+                        return actions.order.capture().then(function (details) {
+                            alert("Donation successful. Thank you for your generosity!");
+                        });
+                    }
+                }).render('#paypal-button-container');
+            }
+        }
+
+        function setDonationAmount(amount) {
+            donationInput.value = amount;
+            donationInput.dispatchEvent(new Event('change'));
+        }
+
+        // Initialize with default amount
+        renderPayPalButtons('1');
+
+        // Update PayPal buttons on amount change
         if (donationInput) {
             donationInput.addEventListener("change", function (e) {
-                const donationAmount = parseFloat(e.target.value);
-
-                // Remove any existing PayPal buttons
-                const paypalButtonContainer = document.getElementById("paypal-button-container");
-                while (paypalButtonContainer.firstChild) {
-                    paypalButtonContainer.removeChild(paypalButtonContainer.firstChild);
-                }
-
-                // Create a new PayPal button with the updated amount
-                if (window.paypal && window.paypal.Buttons) {
-                    paypal.Buttons({
-                        createOrder: function (data, actions) {
-                            console.log("Creating order with amount: " + donationAmount);
-                            return actions.order.create({
-                                purchase_units: [{
-                                    amount: { value: donationAmount },
-                                    currency: "EUR"
-                                }],
-                            });
-                        },
-                        onApprove: function (data, actions) {
-                            return actions.order.capture().then(function (details) {
-                                alert("Donation successful. Thank you for your generosity!");
-                            });
-                        },
-                    }).render("#paypal-button-container");
-                }
+                const donationAmount = parseFloat(e.target.value) || 1;
+                renderPayPalButtons(donationAmount.toString());
             });
         } else {
             console.error("Element with ID 'donationsum' not found.");
         }
+
+        // Event listeners for pre-set amount buttons
+        document.getElementById("preamount1").addEventListener("click", function() {
+            const donationAmount = parseFloat(donationInput.value) || 1;
+            renderPayPalButtons(donationAmount.toString());
+        });
+
+        document.getElementById("preamount2").addEventListener("click", function() {
+            const donationAmount = parseFloat(donationInput.value) || 1;
+            renderPayPalButtons(donationAmount.toString());
+        });
+
+        document.getElementById("preamount3").addEventListener("click", function() {
+            const donationAmount = parseFloat(donationInput.value) || 1;
+            renderPayPalButtons(donationAmount.toString());
+        });
     });
 </script>
 
