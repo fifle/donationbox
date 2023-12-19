@@ -290,11 +290,11 @@
                                         </div>
                                         @endif
 
-                                        @if($tax and env('COUNTRY') == 'ee')
+                                        @if($tax and env('COUNTRY') == 'ee' or $tax and env('COUNTRY') == 'lv')
                                         <div class="flex items-center justify-center">
-                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">3</div>
-                                            <div class="text-xs text-gray-500 text-center">@lang("Apply for a tax return (valid only for Estonian banks)")</div>
+{{--                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100--}}
+{{--                                    text-gray-500 text-xs font-bold">3</div>--}}
+{{--                                            <div class="text-xs text-gray-500 text-center">@lang("Apply for a tax return")</div>--}}
                                         </div>
 
                                         <div x-data="{ show: false }">
@@ -320,14 +320,15 @@
                                         </div>
                                             <div x-show="show" x-transition:enter.duration.500ms>
                                                 <div class="mb-1 text-xs text-gray-500 text-center">
-                                                    @lang("Please type your identity code (isikukood)")
+                                                    @lang("Please type your identity code")
                                                 </div>
                                                 <div class="flex items-center justify-center mt-0 mb-4">
                                                     <input
                                                         form="sumforbank"
-                                                        type="number"
+                                                        type="text"
                                                         name="taxik"
                                                         id="taxik"
+                                                        pattern="[0-9-]+"
                                                         value="{{ $ik }}"
                                                         class="appearance-none rounded-none relative block
                                                                w-1/2 px-2 py-1 border border-gray-300
@@ -335,7 +336,8 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 text-normal
                                                                transition duration-150 ease-in-out text-center"
-                                                        placeholder="eg. 38001085718">
+                                                        placeholder="eg. 38001085718"
+                                                    >
                                                 </div>
                                             </div>
                                     </div>
@@ -349,9 +351,7 @@
                                                         <div class="flex items-center justify-center">
                                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">
-                                                                @if($tax and env('COUNTRY') == 'ee')
-                                                                    4
-                                                                @elseif($s0)
+                                                                @if($s0)
                                                                     2
                                                                 @else
                                                                     3
@@ -603,9 +603,18 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var donationInput = document.getElementById("donationsum");
+        var personalCodeInput = document.getElementById("taxik");
 
-        function renderPayPalButtons(amount) {
-            var amount = donationInput.value || '1'; // Default amount or handle empty value
+        function sanitizePersonalCode(value) {
+            var sanitizedValue = value.replace(/\D/g, ''); // Removes all non-digit characters
+            return sanitizedValue;
+        }
+
+        function renderPayPalButtons(amount, personalCodeValue) {
+            amount = amount || donationInput.value || '1';
+            personalCodeValue = personalCodeValue || personalCodeInput.value || '';
+
+            var sanitizedPersonalCode = sanitizePersonalCode(personalCodeValue);
 
             // Remove existing PayPal buttons
             var paypalButtonContainer = document.getElementById("paypal-button-container");
@@ -620,7 +629,7 @@
                         return actions.order.create({
                             purchase_units: [{
                                 amount: {value: amount},
-                                description: "{{$detail}}"
+                                description: "{{ urldecode($detail) }} " + sanitizedPersonalCode,
                             }],
                         });
                     },
@@ -638,33 +647,44 @@
             donationInput.dispatchEvent(new Event('change'));
         }
 
-        // Initialize with default amount
-        renderPayPalButtons('1');
+        // Initialize with default amount and personal code
+        renderPayPalButtons('1', personalCodeInput.value);
 
         // Update PayPal buttons on amount change
         if (donationInput) {
             donationInput.addEventListener("change", function (e) {
                 const donationAmount = parseFloat(e.target.value) || 1;
-                renderPayPalButtons(donationAmount.toString());
+                renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
             });
         } else {
             console.error("Element with ID 'donationsum' not found.");
         }
 
+        // Update PayPal buttons on personal code change
+        if (personalCodeInput) {
+            personalCodeInput.addEventListener("input", function () {
+                const donationAmount = parseFloat(donationInput.value) || 1;
+                renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+            });
+        } else {
+            console.error("Element with ID 'taxik' not found.");
+        }
+
         // Event listeners for pre-set amount buttons
+        // Add personalCodeValue to these calls as well
         document.getElementById("preamount1").addEventListener("click", function() {
             const donationAmount = parseFloat(donationInput.value) || 1;
-            renderPayPalButtons(donationAmount.toString());
+            renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
         });
 
         document.getElementById("preamount2").addEventListener("click", function() {
             const donationAmount = parseFloat(donationInput.value) || 1;
-            renderPayPalButtons(donationAmount.toString());
+            renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
         });
 
         document.getElementById("preamount3").addEventListener("click", function() {
             const donationAmount = parseFloat(donationInput.value) || 1;
-            renderPayPalButtons(donationAmount.toString());
+            renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
         });
     });
 </script>

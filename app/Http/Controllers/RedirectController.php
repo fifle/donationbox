@@ -124,22 +124,26 @@ class RedirectController extends Controller
             switch ($request->input('action')) {
                 case 'swed':
                     $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.lv/private/d2d/payments2/smartNew?payment.beneficiaryAccountNumber=%s&payment.beneficiaryName=%s&payment.details=%s&payment.amount=%s&language=%s", $iban, $payee, $detail, $amount, $currentLang);
+                    $url = sprintf("https://www.swedbank.lv/private/d2d/payments2/smartNew?payment.beneficiaryAccountNumber=%s&payment.beneficiaryName=%s&payment.details=%s%s&payment.amount=%s&language=%s", $iban, $payee, $detail, $ik, $amount, $currentLang);
+                    error_log($url);
                     return Redirect::to($url);
 
                 case 'swed-standing':
                     $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.lv/private/d2d/payments2/standing_order/new?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s&standingOrder.amount=%s&language=%s", $iban, $payee, $detail, $amount, $currentLang);
+                    $url = sprintf("https://www.swedbank.lv/private/d2d/payments2/standing_order/new?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s%s&standingOrder.amount=%s&language=%s", $iban, $payee, $detail, $ik, $amount, $currentLang);
+                    error_log($url);
                     return Redirect::to($url);
 
                 case 'seb':
                     $bankname = "SEB";
-                    $url = sprintf("https://ibanka.seb.lv/ip/ipank?UID=%s&act=SMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&value11=12345&field5=amount&value5=%s&paymtype=REMSEBEE&field6=currency&value6=EUR", $sebuid, $currentLang, $payee, $iban, $detail, $amount);
+                    $url = sprintf("https://ibanka.seb.lv/ip/ipank?UID=%s&act=SMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s%s&value11=12345&field5=amount&value5=%s&paymtype=REMSEBEE&field6=currency&value6=EUR", $sebuid, $currentLang, $payee, $iban, $detail, $ik, $amount);
+                    error_log($url);
                     return Redirect::to($url);
 
                 case 'seb-standing':
                     $bankname = "SEB";
-                    $url = sprintf("https://ibanka.seb.lv/ip/ipank?UID=%s&act=ADDSOSMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $sebuid_st, $currentLang, $payee, $iban, $detail, $amount);
+                    $url = sprintf("https://ibanka.seb.lv/ip/ipank?UID=%s&act=ADDSOSMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $sebuid_st, $currentLang, $payee, $iban, $detail, $ik, $amount);
+                    error_log($url);
                     return Redirect::to($url);
 
                 case 'paypal':
