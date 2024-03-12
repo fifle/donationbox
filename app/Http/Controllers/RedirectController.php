@@ -28,7 +28,7 @@ class RedirectController extends Controller
             $amount = rawurldecode($request->input('donationsum'));
         }
         $ik = " " . rawurldecode($request->input('taxik'));
-        // paypal hosted button
+        // PayPal hosted button
         $pphb = rawurldecode($request->input('pphb'));
 
         // current language and its conversion from ISO_639_1 to ISO_639_2 for ibanks

@@ -259,6 +259,8 @@
                                         </div>
 
                                         <div class="flex items-center justify-center mt-2 mb-4">
+{{--                                            @if($iban or $db or $s0)--}}
+                                            @if($onetime)
                                             <button
                                                 class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-4 rounded-lg
@@ -272,7 +274,9 @@
                                             >
                                                 @lang("One-time payment")
                                             </button>
-                                            @if($iban or $db or $s0)
+                                            @endif
+{{--                                            @if($iban or $db or $s0)--}}
+                                            @if($recurring)
                                             <button
                                                 class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-4 ml-2 rounded-lg
@@ -346,7 +350,7 @@
                                         <div>
                                             <div x-show="tab === 'onetime'" class="p-1 mt-2 text-center space-x-1
                                                     space-y-2" x-transition:enter.duration.500ms>
-                                                @if($iban)
+                                                @if($onetime)
                                                     <div>
                                                         <div class="flex items-center justify-center">
                                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
@@ -484,7 +488,7 @@
                                             </div>
                                             <div x-show="tab === 'standing'" class="p-1 mt-2 text-center space-x-1
                                             space-y-2" x-transition:enter.duration.500ms>
-                                                @if($iban)
+                                                @if($recurring)
                                                     <div>
                                                     <div class="flex items-center justify-center">
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
