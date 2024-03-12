@@ -192,8 +192,8 @@ class DonationController extends Controller
             $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
         // Use directly without rawurlencode for internal logic
-        $ot = $request->has('ot') ? filter_var($request->input('ot'), FILTER_VALIDATE_BOOLEAN) : true;
-        $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : true;
+        $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
+        $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
 
         // custom sums
             $defsum = 5;
@@ -299,12 +299,12 @@ class DonationController extends Controller
                 $compactData['s0'] = 's0';
             }
 
-            if (isset($ot)) {
-                $compactData['ot'] = 'ot';
+            if (isset($onetime)) {
+                $compactData['onetime'] = 'onetime';
             }
 
-            if (isset($rec)) {
-                $compactData['rec'] = 'rec';
+            if (isset($recurring)) {
+                $compactData['recurring'] = 'recurring';
             }
 
             return view("embed", compact($compactData));
@@ -335,8 +335,8 @@ class DonationController extends Controller
         $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
         // Use directly without rawurlencode for internal logic
-        $ot = $request->has('ot') ? filter_var($request->input('ot'), FILTER_VALIDATE_BOOLEAN) : true;
-        $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : true;
+        $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
+        $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
 
         // custom sums
         $defsum = 5;
@@ -434,12 +434,12 @@ class DonationController extends Controller
             $compactData['s0'] = 's0';
         }
 
-        if (isset($ot)) {
-            $compactData['ot'] = 'ot';
+        if (isset($onetime)) {
+            $compactData['onetime'] = 'onetime';
         }
 
-        if (isset($rec)) {
-            $compactData['rec'] = 'rec';
+        if (isset($recurring)) {
+            $compactData['recurring'] = 'recurring';
         }
 
         return view("cashier", compact($compactData));
@@ -468,8 +468,8 @@ class DonationController extends Controller
         $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
         // Use directly without rawurlencode for internal logic
-        $ot = $request->has('ot') ? filter_var($request->input('ot'), FILTER_VALIDATE_BOOLEAN) : true;
-        $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : true;
+        $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
+        $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
 
         if ($request->input('action') == 'cashier') {
             $fullLink = url()->full();
@@ -494,8 +494,8 @@ class DonationController extends Controller
             'ik',
             'pphb',
             'paypalClientId',
-            'ot',
-            'rec',
+            'onetime',
+            'recurring',
 
             'qrcode',
             'link',
@@ -515,8 +515,8 @@ class DonationController extends Controller
             'ik' => $ik,
             'pphb' => $pphb,
             'paypalClientId' => $paypalClientId,
-            'ot' => $ot,
-            'rec' => $rec,
+            'onetime' => $onetime,
+            'recurring' => $recurring,
 
             'qrcode' => $qrcode,
             'link' => $link,
