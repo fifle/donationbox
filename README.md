@@ -1,9 +1,23 @@
 <p align="center"><a href="https://donationbox.ee/" target="_blank"><img src="https://donationbox.ee/img/db-logo-fl.png" width="300"></a></p>
 
 ## About DonationBox
-This is a web application for generating links to direct or regular donation forms for Estonian, Latvian and Lithuanian and international banks. The app allows you to create your own virtual donation box for donations without having to write code or link your website or app to contracts and integrations with banklink.
+DonationBox is a web application for generating payment links for one-time or recurring donations for Estonian, Latvian and Lithuanian and other international payment systems. This method allows to receive for individuals and companies (all legal forms allowed in EE, LV and LT that are eligible to have bank accounts in these countries). The app allows you to create your own virtual donation box for donations without having to write code or link your website or app to contracts and integrations with banklink.
 
-We provide a convenient interface for donors so that they don't have to enter data manually or copy it. The donor only has to follow a link by scanning a QR-code or going to a direct URL-address, enter the amount of donation, choose the transfer type - one-time or regular payment (single or standing order), and choose your bank, Paypal or credit card payment type.
+We provide a convenient interface for donors so that they don't have to enter data manually or copy it. The donor only has to follow a link by scanning a QR-code or going to a direct URL-address, enter the amount of donation, choose the transfer type - one-time or regular payment (single or standing order), and choose your bank, payment method with credit cards or other payment type.
+
+Supported banks:
+* Estonia: Swedbank, SEB, LHV, Coop Pank
+* Latvia: Swedbank, SEB
+* Lithuania: Swedbank, SEB
+
+Supported payment methods:
+* I-banks
+* Paypal (Paypal.me for individuals, Paypal Hosted Button)
+* Revolut (for individuals only)
+* Donorbox (allows to connect Stripe and Paypal)
+
+Coming soon:
+* Stripe
 
 - [Create your first DonationBox](https://donationbox.ee)
 - [Read our FAQ section](https://donationbox.ee/about)
