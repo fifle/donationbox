@@ -78,12 +78,14 @@ class RedirectController extends Controller
 
                 case 'lhv':
                     $bankname = "LHV";
-                    $url = sprintf("https://www.lhv.ee/portfolio/payment_out.cfm?i_receiver_name=%s&i_receiver_account_no=%s&i_payment_desc=%s%s&i_amount=%s", $payee, $iban, $detail, $ik, $amount);
+                    $url = sprintf("https://www.lhv.ee/ibank/payments?creditorName=%s&creditorAccountNo=%s&description=%s%s&amount=%s", $payee, $iban, $detail, $ik, $amount);
+                    error_log($url);
                     return Redirect::to($url);
 
                 case 'lhv-standing':
                     $bankname = "LHV";
                     $url = sprintf("https://www.lhv.ee/portfolio/payment_standing_add.cfm?i_receiver_name=%s&i_receiver_account_no=%s&i_payment_desc=%s%s&i_amount=%s", $payee, $iban, $detail, $ik, $amount);
+                    error_log($url);
                     return Redirect::to($url);
 
                 // needs fix for MakseSumma
