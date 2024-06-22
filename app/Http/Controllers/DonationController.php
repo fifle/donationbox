@@ -32,6 +32,11 @@ class DonationController extends Controller
             $pphb = rawurlencode($request->input('pphb'));
             // Stripe payment link id
             $strp = rawurlencode($request->input('strp'));
+            $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
+
+            // Use directly without rawurlencode for internal logic
+            $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
+            $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
 
             // Custom sums setup
             $defsum = 5;
@@ -137,6 +142,10 @@ class DonationController extends Controller
                 $compactData['strp'] = 'strp';
             }
 
+            if (isset($paypalClientId)) {
+                $compactData['paypalClientId'] = 'paypalClientId';
+            }
+
             if (isset($s1)) {
                 $compactData['s1'] = 's1';
             }
@@ -151,6 +160,14 @@ class DonationController extends Controller
 
             if (isset($s0)) {
                 $compactData['s0'] = 's0';
+            }
+
+            if (isset($onetime)) {
+                $compactData['onetime'] = 'onetime';
+            }
+
+            if (isset($recurring)) {
+                $compactData['recurring'] = 'recurring';
             }
 
             return view("donation", compact($compactData));
@@ -179,6 +196,11 @@ class DonationController extends Controller
             $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
             $pphb = rawurlencode($request->input('pphb')); // Paypal Hosted Button
             $strp = rawurlencode($request->input('strp')); // Stripe
+            $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
+
+        // Use directly without rawurlencode for internal logic
+        $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
+        $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
 
             // custom sums
             $defsum = 5;
@@ -268,6 +290,10 @@ class DonationController extends Controller
                 $compactData['strp'] = 'strp';
             }
 
+            if (isset($paypalClientId)) {
+                $compactData['paypalClientId'] = 'paypalClientId';
+            }
+
             if (isset($s1)) {
                 $compactData['s1'] = 's1';
             }
@@ -282,6 +308,14 @@ class DonationController extends Controller
 
             if (isset($s0)) {
                 $compactData['s0'] = 's0';
+            }
+
+            if (isset($onetime)) {
+                $compactData['onetime'] = 'onetime';
+            }
+
+            if (isset($recurring)) {
+                $compactData['recurring'] = 'recurring';
             }
 
             return view("embed", compact($compactData));
@@ -311,6 +345,11 @@ class DonationController extends Controller
         $pphb = rawurlencode($request->input('pphb')); // Paypal Hosted Button
         // Stripe payment link id
         $strp = rawurlencode($request->input('strp'));
+        $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
+
+        // Use directly without rawurlencode for internal logic
+        $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
+        $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
 
         // custom sums
         $defsum = 5;
@@ -388,6 +427,14 @@ class DonationController extends Controller
             $compactData['strp'] = 'strp';
         }
 
+        if (isset($paypalClientId)) {
+            $compactData['paypalClientId'] = 'paypalClientId';
+        }
+
+        if (isset($paypalClientId)) {
+            $compactData['paypalClientId'] = 'paypalClientId';
+        }
+
         if (isset($s1)) {
             $compactData['s1'] = 's1';
         }
@@ -402,6 +449,14 @@ class DonationController extends Controller
 
         if (isset($s0)) {
             $compactData['s0'] = 's0';
+        }
+
+        if (isset($onetime)) {
+            $compactData['onetime'] = 'onetime';
+        }
+
+        if (isset($recurring)) {
+            $compactData['recurring'] = 'recurring';
         }
 
         return view("cashier", compact($compactData));
@@ -429,6 +484,11 @@ class DonationController extends Controller
         $pphb = rawurlencode($request->input('pphb'));
         // Stripe payment link id
         $strp = rawurlencode($request->input('strp'));
+        $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
+
+        // Use directly without rawurlencode for internal logic
+        $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
+        $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
 
         if ($request->input('action') == 'cashier') {
             $fullLink = url()->full();
@@ -453,6 +513,9 @@ class DonationController extends Controller
             'ik',
             'pphb',
             'strp',
+            'paypalClientId',
+            'onetime',
+            'recurring',
 
             'qrcode',
             'link',
@@ -471,6 +534,9 @@ class DonationController extends Controller
             'amount' => $amount,
             'ik' => $ik,
             'pphb' => $pphb,
+            'paypalClientId' => $paypalClientId,
+            'onetime' => $onetime,
+            'recurring' => $recurring,
             'strp' => $strp,
 
             'qrcode' => $qrcode,

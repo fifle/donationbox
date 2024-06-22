@@ -1,3 +1,4 @@
+
 <div>
     <h2 class="mt-0 ml-3 mr-3 text-center text-2xl font-semibold text-gray-700">
         {!! urldecode($campaign_title) !!}
@@ -198,7 +199,7 @@
 
                                             <div class="p-1 mt-1 mb-4 text-center space-y-2">
                                                 @if(!$s0)
-                                                <button class="d-font transition duration-150 ease-in-out
+                                                <button id="preamount1" class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
@@ -211,7 +212,7 @@
                                                         {{ $defsum }}€
                                                     @endif
                                                 </button>
-                                                <button class="d-font transition duration-150 ease-in-out
+                                                <button id="preamount2" class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
@@ -227,7 +228,7 @@
                                                         {{ $defsum * 2 }}€
                                                     @endif
                                                 </button>
-                                                <button class="d-font transition duration-150 ease-in-out
+                                                <button id="preamount3" class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-5 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         font-medium border focus:ring-1 focus:ring-offset-1
@@ -258,6 +259,8 @@
                                         </div>
 
                                         <div class="flex items-center justify-center mt-2 mb-4">
+{{--                                            @if($iban or $db or $s0)--}}
+                                            @if($onetime)
                                             <button
                                                 class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-4 rounded-lg
@@ -271,7 +274,9 @@
                                             >
                                                 @lang("One-time payment")
                                             </button>
-                                            @if($iban or $db or $s0)
+                                            @endif
+{{--                                            @if($iban or $db or $s0)--}}
+                                            @if($recurring)
                                             <button
                                                 class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-4 ml-2 rounded-lg
@@ -289,11 +294,11 @@
                                         </div>
                                         @endif
 
-                                        @if($tax and env('COUNTRY') == 'ee')
+                                        @if($tax and env('COUNTRY') == 'ee' or $tax and env('COUNTRY') == 'lv')
                                         <div class="flex items-center justify-center">
-                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">3</div>
-                                            <div class="text-xs text-gray-500 text-center">@lang("Apply for a tax return (valid only for Estonian banks)")</div>
+{{--                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100--}}
+{{--                                    text-gray-500 text-xs font-bold">3</div>--}}
+{{--                                            <div class="text-xs text-gray-500 text-center">@lang("Apply for a tax return")</div>--}}
                                         </div>
 
                                         <div x-data="{ show: false }">
@@ -319,14 +324,15 @@
                                         </div>
                                             <div x-show="show" x-transition:enter.duration.500ms>
                                                 <div class="mb-1 text-xs text-gray-500 text-center">
-                                                    @lang("Please type your identity code (isikukood)")
+                                                    @lang("Please type your identity code")
                                                 </div>
                                                 <div class="flex items-center justify-center mt-0 mb-4">
                                                     <input
                                                         form="sumforbank"
-                                                        type="number"
+                                                        type="text"
                                                         name="taxik"
                                                         id="taxik"
+                                                        pattern="[0-9-]+"
                                                         value="{{ $ik }}"
                                                         class="appearance-none rounded-none relative block
                                                                w-1/2 px-2 py-1 border border-gray-300
@@ -334,7 +340,8 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 text-normal
                                                                transition duration-150 ease-in-out text-center"
-                                                        placeholder="eg. 38001085718">
+                                                        placeholder="eg. 38001085718"
+                                                    >
                                                 </div>
                                             </div>
                                     </div>
@@ -343,14 +350,12 @@
                                         <div>
                                             <div x-show="tab === 'onetime'" class="p-1 mt-2 text-center space-x-1
                                                     space-y-2" x-transition:enter.duration.500ms>
-                                                @if($iban)
+                                                @if($onetime)
                                                     <div>
                                                         <div class="flex items-center justify-center">
                                                             <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">
-                                                                @if($tax and env('COUNTRY') == 'ee')
-                                                                    4
-                                                                @elseif($s0)
+                                                                @if($s0)
                                                                     2
                                                                 @else
                                                                     3
@@ -411,12 +416,16 @@
                                                 @endif
 
                                                 <div>
-                                                @if($rev or $pp or $pphb or $db)
+                                                @if($rev or $pp or $pphb or $db or $paypalClientId)
                                                     <div class="flex items-center justify-center">
                                                         @if(!$iban)
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-bold">3</div>
                                                         @endif
+                                                            @if($iban)
+                                                                <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-bold">4</div>
+                                                            @endif
                                                         <div class="mt-3 mb-2 text-xs text-gray-500 text-center">@lang("Donate by credit card")</div>
                                                     </div>
                                                     @endif
@@ -486,11 +495,14 @@
                                                         Donorbox <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                     </button>
                                                 @endif
+                                                    @if($paypalClientId)
+                                                        <div class="m-auto" id="paypal-button-container"></div>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div x-show="tab === 'standing'" class="p-1 mt-2 text-center space-x-1
                                             space-y-2" x-transition:enter.duration.500ms>
-                                                @if($iban)
+                                                @if($recurring)
                                                     <div>
                                                     <div class="flex items-center justify-center">
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
@@ -570,12 +582,24 @@
                                                         Donorbox <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                     </button>
                                                 @endif
+                                                        @if($pphb)
+                                                            <button
+                                                                form="sumforbank"
+                                                                type="submit"
+                                                                name="action"
+                                                                value="pphb"
+                                                                class="d-font transition duration-150 ease-in-out bg-blue-800 px-5
+                                                py-3 text-sm shadow-sm font-medium
+                                                      border text-blue-100 rounded-full hover:shadow-lg
+                                                     hover:bg-blue-900 mb-2">
+                                                                Paypal <span class="text-xs tracking-tight">(Visa/MC)</span>
+                                                            </button>
+                                                        @endif
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -584,9 +608,104 @@
         </div>
     </div>
 
+
     @include('secure')
 
 </div>
+
+{{-- Conditional loading of PayPal SDK --}}
+@if(isset($paypalClientId))
+    <script src="https://www.paypal.com/sdk/js?client-id={{ $paypalClientId }}&currency=EUR"></script>
+@endif
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var donationInput = document.getElementById("donationsum");
+        var personalCodeInput = document.getElementById("taxik");
+
+        function sanitizePersonalCode(value) {
+            var sanitizedValue = value.replace(/\D/g, ''); // Removes all non-digit characters
+            return sanitizedValue;
+        }
+
+        function renderPayPalButtons(amount, personalCodeValue) {
+            amount = amount || donationInput.value || '1';
+            personalCodeValue = personalCodeValue || personalCodeInput.value || '';
+
+            var sanitizedPersonalCode = sanitizePersonalCode(personalCodeValue);
+
+            // Remove existing PayPal buttons
+            var paypalButtonContainer = document.getElementById("paypal-button-container");
+            while (paypalButtonContainer.firstChild) {
+                paypalButtonContainer.removeChild(paypalButtonContainer.firstChild);
+            }
+
+            // Check if PayPal is loaded and create buttons
+            if (window.paypal && window.paypal.Buttons) {
+                paypal.Buttons({
+                    createOrder: function (data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {value: amount},
+                                description: "{{ urldecode($detail) }} " + sanitizedPersonalCode,
+                            }],
+                        });
+                    },
+                    onApprove: function (data, actions) {
+                        return actions.order.capture().then(function (details) {
+                            alert("Donation successful. Thank you for your generosity!");
+                        });
+                    }
+                }).render('#paypal-button-container');
+            }
+        }
+
+        function setDonationAmount(amount) {
+            donationInput.value = amount;
+            donationInput.dispatchEvent(new Event('change'));
+        }
+
+        // Initialize with default amount and personal code
+        renderPayPalButtons('1', personalCodeInput.value);
+
+        // Update PayPal buttons on amount change
+        if (donationInput) {
+            donationInput.addEventListener("change", function (e) {
+                const donationAmount = parseFloat(e.target.value) || 1;
+                renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+            });
+        } else {
+            console.error("Element with ID 'donationsum' not found.");
+        }
+
+        // Update PayPal buttons on personal code change
+        if (personalCodeInput) {
+            personalCodeInput.addEventListener("input", function () {
+                const donationAmount = parseFloat(donationInput.value) || 1;
+                renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+            });
+        } else {
+            console.error("Element with ID 'taxik' not found.");
+        }
+
+        // Event listeners for pre-set amount buttons
+        // Add personalCodeValue to these calls as well
+        document.getElementById("preamount1").addEventListener("click", function() {
+            const donationAmount = parseFloat(donationInput.value) || 1;
+            renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+        });
+
+        document.getElementById("preamount2").addEventListener("click", function() {
+            const donationAmount = parseFloat(donationInput.value) || 1;
+            renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+        });
+
+        document.getElementById("preamount3").addEventListener("click", function() {
+            const donationAmount = parseFloat(donationInput.value) || 1;
+            renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+        });
+    });
+</script>
 
 {{--Init of ClipboardJS--}}
 <script type="text/javascript">

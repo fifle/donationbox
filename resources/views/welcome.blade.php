@@ -709,6 +709,22 @@
         </div>
         @include('secure')
 
+        @if(env('COUNTRY') == 'lv')
+            <div class="pt-10">
+                <a href="https://yf.donationbox.lv/?db" target="_blank">
+                    <img class="mx-auto rounded-xl hover:opacity-90" src="/img/yf-og-img-main-01.jpg">
+                </a>
+            </div>
+        @endif
+
+        @if(env('COUNTRY') == 'ee')
+            <div class="pt-10">
+                <a href="https://2024.donationbox.ee/?db" target="_blank">
+                    <img class="mx-auto rounded-xl hover:opacity-90" src="/img/df-2024-fb-cover-01.jpg">
+                </a>
+            </div>
+        @endif
+
         @include('footer')
     </div>
 
