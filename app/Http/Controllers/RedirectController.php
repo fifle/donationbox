@@ -35,7 +35,7 @@ class RedirectController extends Controller
         // PayPal hosted button
         $pphb = rawurldecode($request->input('pphb'));
         // Stripe payment link id
-        $strp = urlencode($request->input("strp"));
+        $strp = rawurldecode($request->input("strp"));
 
         // Current logic for presetting the starting donation amount
         $s0 = rawurldecode($request->input('s0'));
@@ -44,7 +44,6 @@ class RedirectController extends Controller
         } else {
             $amount = rawurldecode($request->input('donationsum'));
         }
-
 
         // Setting current language code and its conversion from ISO_639_1 to ISO_639_2 for ibanks
         $currentLang = $request->session()->get('locale');
@@ -154,8 +153,8 @@ class RedirectController extends Controller
                 case 'strp':
                     $bankname = "Stripe";
                     error_log("Stripe ID: " . $strp);
-                    $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s", urlencode($strp), $amount);
-                    error_log("Stripe: " . $url);
+                    $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s%s", $strp, $amount, '00');
+                    error_log("Full request: " . $request);
                     return Redirect::to($url);
             }
 
@@ -216,7 +215,7 @@ class RedirectController extends Controller
 
                 case 'strp':
                     $bankname = "Stripe";
-                    $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s", $strp, $amount);
+                    $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s%s", $strp, $amount, '00');
                     return Redirect::to($url);
 
                 case 'pphb':

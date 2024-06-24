@@ -10,7 +10,7 @@ class DonationController extends Controller
     public function donationLink(Request $request)
     {
         $request->validate([
-//            'campaign_title' => 'required|string|max:250',
+//          'campaign_title' => 'required|string|max:250',
             'detail' => 'required|string|max:250',
             'payee' => 'required|string|max:250',
         ]);
