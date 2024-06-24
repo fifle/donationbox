@@ -10,7 +10,7 @@ class DonationController extends Controller
     public function donationLink(Request $request)
     {
         $request->validate([
-//            'campaign_title' => 'required|string|max:250',
+//          'campaign_title' => 'required|string|max:250',
             'detail' => 'required|string|max:250',
             'payee' => 'required|string|max:250',
         ]);
@@ -21,29 +21,31 @@ class DonationController extends Controller
             $iban = rawurlencode($request->input('iban'));
             $pp = rawurlencode($request->input('pp'));
             $db = rawurlencode($request->input('db'));
-            $sebuid = rawurlencode($request->input('sebuid'));
-            $sebuid_st = rawurlencode($request->input('sebuid_st')); // uid for standing order for SEB LV
+            $sebuid = rawurlencode($request->input('sebuid')); // UID for One-time payments for SEB
+            $sebuid_st = rawurlencode($request->input('sebuid_st')); // UID for Standing orders for SEB
             $rev = rawurlencode($request->input('rev'));
             $tax = rawurlencode($request->boolean('tax'));
             $swt = rawurlencode($request->boolean('swt'));
             $lhvt = rawurlencode($request->boolean('lhvt'));
             $coopt = rawurlencode($request->boolean('coopt'));
-            // paypal hosted button
+            // PayPal hosted button
             $pphb = rawurlencode($request->input('pphb'));
+            // Stripe payment link id
+            $strp = rawurlencode($request->input('strp'));
             $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
             // Use directly without rawurlencode for internal logic
             $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
             $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
 
-            // custom sums
+            // Custom sums setup
             $defsum = 5;
             $s1 = rawurlencode($request->input('s1'));
             $s2 = rawurlencode($request->input('s2'));
             $s3 = rawurlencode($request->input('s3'));
 
-            // a fixed amount expected from the donor
-            // then all preamounts are disabled
+            // Fixed amount expected from the donor
+            // In this case, all pre-defined amount selections will be disabled
             $s0 = rawurlencode($request->input('s0'));
 
             // links
@@ -136,6 +138,10 @@ class DonationController extends Controller
                 $compactData['pphb'] = 'pphb';
             }
 
+            if (isset($strp)) {
+                $compactData['strp'] = 'strp';
+            }
+
             if (isset($paypalClientId)) {
                 $compactData['paypalClientId'] = 'paypalClientId';
             }
@@ -189,13 +195,14 @@ class DonationController extends Controller
             $lhvt = rawurlencode($request->boolean('lhvt')); // LHV turn off
             $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
             $pphb = rawurlencode($request->input('pphb')); // Paypal Hosted Button
+            $strp = rawurlencode($request->input('strp')); // Stripe
             $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
         // Use directly without rawurlencode for internal logic
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
         $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
 
-        // custom sums
+            // custom sums
             $defsum = 5;
             $s1 = rawurlencode($request->input('s1'));
             $s2 = rawurlencode($request->input('s2'));
@@ -279,6 +286,10 @@ class DonationController extends Controller
                 $compactData['pphb'] = 'pphb';
             }
 
+            if (isset($strp)) {
+                $compactData['strp'] = 'strp';
+            }
+
             if (isset($paypalClientId)) {
                 $compactData['paypalClientId'] = 'paypalClientId';
             }
@@ -332,6 +343,8 @@ class DonationController extends Controller
         $lhvt = rawurlencode($request->boolean('lhvt')); // LHV turn off
         $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
         $pphb = rawurlencode($request->input('pphb')); // Paypal Hosted Button
+        // Stripe payment link id
+        $strp = rawurlencode($request->input('strp'));
         $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
         // Use directly without rawurlencode for internal logic
@@ -410,6 +423,10 @@ class DonationController extends Controller
             $compactData['pphb'] = 'pphb';
         }
 
+        if (isset($strp)) {
+            $compactData['strp'] = 'strp';
+        }
+
         if (isset($paypalClientId)) {
             $compactData['paypalClientId'] = 'paypalClientId';
         }
@@ -465,6 +482,8 @@ class DonationController extends Controller
         $ik = " " . rawurlencode($request->input('taxik'));
         // paypal hosted button
         $pphb = rawurlencode($request->input('pphb'));
+        // Stripe payment link id
+        $strp = rawurlencode($request->input('strp'));
         $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
         // Use directly without rawurlencode for internal logic
@@ -493,6 +512,7 @@ class DonationController extends Controller
             'amount',
             'ik',
             'pphb',
+            'strp',
             'paypalClientId',
             'onetime',
             'recurring',
@@ -517,6 +537,7 @@ class DonationController extends Controller
             'paypalClientId' => $paypalClientId,
             'onetime' => $onetime,
             'recurring' => $recurring,
+            'strp' => $strp,
 
             'qrcode' => $qrcode,
             'link' => $link,

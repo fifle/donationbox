@@ -185,6 +185,9 @@
                                                         value="{{ $rev }}"
                                                     >
                                                     @endif
+                                                    @if($strp)
+                                                        <input form="sumforbank" type="hidden" name="strp" id="strp" value="{{ $strp }}">
+                                                    @endif
                                                     @if($s0)
                                                     <input
                                                         form="sumforbank"
@@ -416,7 +419,7 @@
                                                 @endif
 
                                                 <div>
-                                                @if($rev or $pp or $pphb or $db or $paypalClientId)
+                                                @if($rev or $pp or $pphb or $db or $paypalClientId or $strp)
                                                     <div class="flex items-center justify-center">
                                                         @if(!$iban)
                                                         <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
@@ -481,6 +484,19 @@
                                                         Donorbox <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                     </button>
                                                 @endif
+                                                    @if($strp)
+                                                        <button
+                                                            form="sumforbank"
+                                                            type="submit"
+                                                            name="action"
+                                                            value="strp"
+                                                            class="d-font transition duration-150 ease-in-out bg-blue-600 px-5
+                                                py-3 text-sm shadow-sm font-medium
+                                                      border text-white rounded-full hover:shadow-lg
+                                                     hover:bg-blue-700 inline-flex items-center mb-2">
+                                                            Stripe <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
+                                                        </button>
+                                                    @endif
                                                     @if($paypalClientId)
                                                         <div class="m-auto" id="paypal-button-container"></div>
                                                     @endif

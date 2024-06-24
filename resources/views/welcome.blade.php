@@ -41,14 +41,14 @@
             </h2>
 
             @if(env('COUNTRY') == 'ee')
-                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, LHV, Coop, Revolut, Donorbox,
+                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, LHV, Coop, Stripe, Revolut, Donorbox,
                     Paypal)</p>
             @endif
             @if(env('COUNTRY') == 'lv')
-                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, Revolut, Donorbox, Paypal)</p>
+                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal)</p>
             @endif
             @if(env('COUNTRY') == 'lt')
-                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, Revolut, Donorbox, Paypal)</p>
+                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal)</p>
             @endif
         </div>
 
@@ -221,7 +221,7 @@
                                                        bg-red-100 border-red-300 text-red-500 focus:ring-red-200"/>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="tax" class="font-medium text-gray-900
+                                                    <label for="tax" class="d-font text-gray-900
                                                     dark:text-gray-300">
                                                         @lang("Let my donors apply for a tax refund")
                                                     </label>
@@ -286,6 +286,7 @@
                                             <label for="campaign_title" class="d-font font-semibold text-gray-700 mb-2">
                                                 @lang("Choose banking methods")
                                             </label>
+                                            <h3 class="text-sm text-gray-600 leading-5 col-span-12">@lang('For private individuals, non-profits, and businesses. Supports both one-time and recurring payments')</h3>
                                         </div>
                                         {{--Swedbank--}}
                                         <div class="col-span-12" x-data="{swt: false}">
@@ -466,11 +467,227 @@
                                 @csrf
                                 <div class="rounded-md -space-y-px">
                                     <div class="grid gap-6">
+                                        {{--Stripe--}}
+                                        <h3 class="text-sm text-gray-600 leading-3 col-span-12">@lang('For non-profits and businesses')</h3>
+                                        <div class="col-span-12" x-data="{strptoggle: false}">
+                                            <div class="grid grid-cols-4 gap-4">
+                                                <div class="flex items-center col-span-3">
+                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-purple-500 uppercase">Stripe</h2>
+                                                    <p class="text-xs text-gray-600 leading-3 pl-2">One-time payments only</p>
+                                                </div>
+                                                <div>
+                                                    <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
+                                                         :class="[strptoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                        <label
+                                                            for="strptoggle"
+                                                            class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
+                                                    transform bg-gray-100 rounded-full cursor-pointer"
+                                                            :class="[strptoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="strptoggle"
+                                                            name="strptoggle"
+                                                            x-model="strptoggle"
+                                                            class="w-full h-full appearance-none focus:outline-none"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div x-show="strptoggle">
+                                                <div class="col-span-12 mt-3 ml-1 mr-1">
+                                                    <label for="campaign_title" class="font-semibold text-gray-700
+                                                        block mb-2">@lang("Stripe's Payment Link ID")</label>
+                                                    <div class="tracking-normal text-sm text-gray-500 mb-3
+                                                        leading-tight">
+                                                        @lang("If your business or non-profit has a Stripe account, you can generate a Payment Link to accept donations via credit cards. Please insert the Payment Link ID to include this method in your DonationBox. You can find the ID in the Payment Link URL right after the slash. For example: https://donate.stripe.com/[YOUR-ID].")
+                                                        <a href="https://docs.stripe.com/payment-links/create" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">
+                                                            @lang("Read more on how to create new Stripe Payment Link >")</a>
+                                                        </a>
+                                                    </div>
+                                                    <div class="flex flex-wrap items-stretch w-full mb-2 relative">
+                                                        <input
+                                                            form="generator"
+                                                            type="text"
+                                                            name="strp"
+                                                            value="{{ request('strp') }}"
+                                                            class="flex-shrink flex-grow flex-auto flex-auto
+                                                        leading-normal w-px flex-1 border h-10 border-grey-light rounded px-3 relative transition duration-150 ease-in-out"
+                                                            placeholder="Insert Stripe's Payment Link ID"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{--Paypal Business Account--}}
+                                        <div class="col-span-12" x-data="{ppbusinesstoggle: false}">
+                                            <div class="grid grid-cols-4 gap-4">
+                                                <div class="flex items-center col-span-3">
+                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-blue-700 bg-gray-200 uppercase">Paypal Business</h2>
+                                                    <p class="text-xs text-gray-600 leading-3 pl-2">One-time payments only</p>
+                                                </div>
+                                                <div>
+                                                    <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
+                                                         :class="[ppbusinesstoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                        <label
+                                                            for="ppbusinesstoggle"
+                                                            class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
+                                                    transform bg-gray-100 rounded-full cursor-pointer"
+                                                            :class="[ppbusinesstoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="ppbusinesstoggle"
+                                                            name="ppbusinesstoggle"
+                                                            x-model="ppbusinesstoggle"
+                                                            class="w-full h-full appearance-none focus:outline-none"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div x-show="ppbusinesstoggle">
+                                                <div class="col-span-12 mt-3 ml-1 mr-1">
+                                                    <label for="campaign_title" class="font-semibold text-gray-700
+                                                        block mb-2">@lang("PayPal business account's Client ID")</label>
+                                                    <div class="tracking-normal text-sm text-gray-500 mb-3
+                                                        leading-tight">
+                                                        @lang("If you have a Paypal Business account, you can generate Client ID to accept donations by credit cards.")
+                                                        <a href="/about#paypal" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">
+                                                            @lang("How can I create it? >")</a>
+                                                        </a>
+                                                    </div>
+                                                    <div class="flex flex-wrap items-stretch w-full mb-2 relative">
+                                                        <input
+                                                            form="generator"
+                                                            type="text"
+                                                            name="paypalClientId"
+                                                            value="{{ request('paypalClientId') }}"
+                                                            class="flex-shrink flex-grow flex-auto flex-auto
+                                                        leading-normal w-px flex-1 border h-10 border-grey-light rounded px-3 relative transition duration-150 ease-in-out"
+                                                            placeholder="Insert your PayPal Business Account's Client ID"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{--Donorbox--}}
+                                        <div class="col-span-12" x-data="{dbtoggle: false}">
+                                            <div class="grid grid-cols-4 gap-4">
+                                                <div class="flex items-center col-span-3">
+                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase
+                                                     rounded-full text-white bg-red-500 uppercase">Donorbox.org</h2>
+                                                    <p class="text-xs text-gray-600 leading-3 pl-2">One-time and recurring</p>
+                                                </div>
+                                                <div>
+                                                    <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
+                                                         :class="[dbtoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                        <label
+                                                            for="dbtoggle"
+                                                            class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
+                                                    transform bg-gray-100 rounded-full cursor-pointer"
+                                                            :class="[dbtoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="dbtoggle"
+                                                            name="dbtoggle"
+                                                            x-model="dbtoggle"
+                                                            class="w-full h-full appearance-none focus:outline-none"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div x-show="dbtoggle">
+                                                <div class="col-span-12 mt-3 ml-1 mr-1">
+                                                    <label for="campaign_title" class="font-semibold text-gray-700
+                                                        block mb-2">@lang("Donorbox.org campaign slug")</label>
+                                                    <div class="tracking-normal text-sm text-gray-500 mb-3
+                                                        leading-tight">
+                                                        @lang("To start accepting payments for bank cards, you can use the Donorbox service.")
+                                                        <a href="/about#donorbox" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">
+                                                            @lang("How can I create it? >")</a>
+                                                        </a>
+                                                    </div>
+                                                    <div class="flex flex-wrap items-stretch w-full mb-2 relative">
+                                                        <div class="flex -mr-px">
+                                                    <span
+                                                        class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">donorbox.org/</span>
+                                                        </div>
+                                                        <input
+                                                            form="generator"
+                                                            type="text"
+                                                            name="db"
+                                                            value="{{ request('db') }}"
+                                                            class="flex-shrink flex-grow flex-auto flex-auto
+                                                        leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
+                                                            placeholder="your-campaign-slug"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h3 class="text-sm text-gray-600 leading-3 col-span-12">@lang("For private individuals")</h3>
+                                        {{--Paypal.me--}}
+                                        <div class="col-span-12" x-data="{pptoggle: false}">
+                                            <div class="grid grid-cols-4 gap-4">
+                                                <div class="flex items-center col-span-3">
+                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-blue-500 uppercase">Paypal.me</h2>
+                                                    <p class="text-xs text-gray-600 leading-3 pl-2">One-time payments only</p>
+                                                </div>
+                                                <div>
+                                                    <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
+                                                         :class="[pptoggle ? 'bg-pink-500' : 'bg-gray-300']">
+                                                        <label
+                                                            for="pptoggle"
+                                                            class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
+                                                    transform bg-gray-100 rounded-full cursor-pointer"
+                                                            :class="[pptoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="pptoggle"
+                                                            name="pptoggle"
+                                                            x-model="pptoggle"
+                                                            class="w-full h-full appearance-none focus:outline-none"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div x-show="pptoggle">
+                                                <div class="col-span-12 mt-3 ml-1 mr-1">
+                                                    <label for="campaign_title" class="font-semibold text-gray-700
+                                                        block mb-2">@lang("PayPal.me username")</label>
+                                                    <div class="tracking-normal text-sm text-gray-500 mb-3
+                                                        leading-tight">
+                                                        @lang("If you have a Paypal account, you can create your own Paypal.me page to accept donations from other users.")
+                                                        <a href="/about#paypal" class="no-underline hover:underline
+                                                    text-blue-800" target="_blank">
+                                                            @lang("How can I create it? >")</a>
+                                                        </a>
+                                                    </div>
+                                                    <div class="flex flex-wrap items-stretch w-full mb-2 relative">
+                                                        <div class="flex -mr-px">
+                                                    <span
+                                                        class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">paypal.me/</span>
+                                                        </div>
+                                                        <input
+                                                            form="generator"
+                                                            type="text"
+                                                            name="pp"
+                                                            value="{{ request('pp') }}"
+                                                            class="flex-shrink flex-grow flex-auto flex-auto
+                                                        leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
+                                                            placeholder="your-paypal-me-username"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         {{--Revolut.me--}}
                                         <div class="col-span-12" x-data="{revtoggle: false}">
-                                            <div class="grid grid-cols-2 gap-4">
-                                                <div>
+                                            <div class="grid grid-cols-4 gap-4">
+                                                <div class="flex items-center col-span-3">
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-black uppercase">Revolut.me</h2>
+                                                    <p class="text-xs text-gray-600 leading-3 pl-2">One-time payments only</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -521,115 +738,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{--Paypal.me--}}
-                                        <div class="col-span-12" x-data="{pptoggle: false}">
-                                            <div class="grid grid-cols-2 gap-4">
-                                                <div>
-                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-blue-500 uppercase">Paypal.me</h2>
-                                                </div>
-                                                <div>
-                                                    <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                         :class="[pptoggle ? 'bg-pink-500' : 'bg-gray-300']">
-                                                        <label
-                                                            for="pptoggle"
-                                                            class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
-                                                    transform bg-gray-100 rounded-full cursor-pointer"
-                                                            :class="[pptoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
-                                                        <input
-                                                            type="checkbox"
-                                                            id="pptoggle"
-                                                            name="pptoggle"
-                                                            x-model="pptoggle"
-                                                            class="w-full h-full appearance-none focus:outline-none"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div x-show="pptoggle">
-                                                <div class="col-span-12 mt-3 ml-1 mr-1">
-                                                    <label for="campaign_title" class="font-semibold text-gray-700
-                                                        block mb-2">@lang("PayPal.me username")</label>
-                                                    <div class="tracking-normal text-sm text-gray-500 mb-3
-                                                        leading-tight">
-                                                        @lang("If you have a Paypal account, you can create your own Paypal.me page to accept donations from other users.")
-                                                        <a href="/about#paypal" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">
-                                                            @lang("How can I create it? >")</a>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex flex-wrap items-stretch w-full mb-2 relative">
-                                                        <div class="flex -mr-px">
-                                                    <span
-                                                        class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">paypal.me/</span>
-                                                        </div>
-                                                        <input
-                                                            form="generator"
-                                                            type="text"
-                                                            name="pp"
-                                                            value="{{ request('pp') }}"
-                                                            class="flex-shrink flex-grow flex-auto flex-auto
-                                                        leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
-                                                            placeholder="your-paypal-me-username"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{--Donorbox--}}
-                                        <div class="col-span-12" x-data="{dbtoggle: false}">
-                                            <div class="grid grid-cols-2 gap-4">
-                                                <div>
-                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase
-                                                     rounded-full text-white bg-red-500 uppercase">Donorbox.org</h2>
-                                                </div>
-                                                <div>
-                                                    <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                         :class="[dbtoggle ? 'bg-pink-500' : 'bg-gray-300']">
-                                                        <label
-                                                            for="dbtoggle"
-                                                            class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
-                                                    transform bg-gray-100 rounded-full cursor-pointer"
-                                                            :class="[dbtoggle ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
-                                                        <input
-                                                            type="checkbox"
-                                                            id="dbtoggle"
-                                                            name="dbtoggle"
-                                                            x-model="dbtoggle"
-                                                            class="w-full h-full appearance-none focus:outline-none"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div x-show="dbtoggle">
-                                                <div class="col-span-12 mt-3 ml-1 mr-1">
-                                                    <label for="campaign_title" class="font-semibold text-gray-700
-                                                        block mb-2">@lang("Donorbox.org campaign slug")</label>
-                                                    <div class="tracking-normal text-sm text-gray-500 mb-3
-                                                        leading-tight">
-                                                        @lang("To start accepting payments for bank cards, you can use the Donorbox service.")
-                                                        <a href="/about#donorbox" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">
-                                                            @lang("How can I create it? >")</a>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex flex-wrap items-stretch w-full mb-2 relative">
-                                                        <div class="flex -mr-px">
-                                                    <span
-                                                        class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">donorbox.org/</span>
-                                                        </div>
-                                                        <input
-                                                            form="generator"
-                                                            type="text"
-                                                            name="db"
-                                                            value="{{ request('db') }}"
-                                                            class="flex-shrink flex-grow flex-auto flex-auto
-                                                        leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
-                                                            placeholder="your-campaign-slug"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
