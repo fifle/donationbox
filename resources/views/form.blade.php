@@ -632,9 +632,12 @@
 
         function renderPayPalButtons(amount, personalCodeValue) {
             amount = amount || donationInput.value || '1';
-            personalCodeValue = personalCodeValue || personalCodeInput.value || '';
-
-            var sanitizedPersonalCode = sanitizePersonalCode(personalCodeValue);
+            if (personalCodeValue) {
+                personalCodeValue = personalCodeValue || personalCodeInput.value || '';
+                var sanitizedPersonalCode = sanitizePersonalCode(personalCodeValue);
+            } else {
+                var sanitizedPersonalCode = '';
+            }
 
             // Remove existing PayPal buttons
             var paypalButtonContainer = document.getElementById("paypal-button-container");
@@ -668,13 +671,21 @@
         }
 
         // Initialize with default amount and personal code
-        renderPayPalButtons('1', personalCodeInput.value);
+        if (personalCodeInput) {
+            renderPayPalButtons('1', personalCodeInput.value);
+        } else {
+            renderPayPalButtons('1');
+        }
 
         // Update PayPal buttons on amount change
         if (donationInput) {
             donationInput.addEventListener("change", function (e) {
                 const donationAmount = parseFloat(e.target.value) || 1;
-                renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+                if (personalCodeInput) {
+                    renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+                } else {
+                    renderPayPalButtons(donationAmount.toString());
+                }
             });
         } else {
             console.error("Element with ID 'donationsum' not found.");
@@ -684,7 +695,11 @@
         if (personalCodeInput) {
             personalCodeInput.addEventListener("input", function () {
                 const donationAmount = parseFloat(donationInput.value) || 1;
-                renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+                if (personalCodeInput) {
+                    renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+                } else {
+                    renderPayPalButtons(donationAmount.toString());
+                }
             });
         } else {
             console.error("Element with ID 'taxik' not found.");
@@ -694,17 +709,29 @@
         // Add personalCodeValue to these calls as well
         document.getElementById("preamount1").addEventListener("click", function() {
             const donationAmount = parseFloat(donationInput.value) || 1;
-            renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+            if (personalCodeInput) {
+                renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+            } else {
+                renderPayPalButtons(donationAmount.toString());
+            }
         });
 
         document.getElementById("preamount2").addEventListener("click", function() {
             const donationAmount = parseFloat(donationInput.value) || 1;
-            renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+            if (personalCodeInput) {
+                renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+            } else {
+                renderPayPalButtons(donationAmount.toString());
+            }
         });
 
         document.getElementById("preamount3").addEventListener("click", function() {
             const donationAmount = parseFloat(donationInput.value) || 1;
-            renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+            if (personalCodeInput) {
+                renderPayPalButtons(donationAmount.toString(), personalCodeInput.value);
+            } else {
+                renderPayPalButtons(donationAmount.toString());
+            }
         });
     });
 </script>

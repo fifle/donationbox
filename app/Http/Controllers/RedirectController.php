@@ -152,9 +152,7 @@ class RedirectController extends Controller
                 // Stripe payment link for one-time payments (business accounts only)
                 case 'strp':
                     $bankname = "Stripe";
-                    error_log("Stripe ID: " . $strp);
-                    $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s%s", $strp, $amount, '00');
-                    error_log("Full request: " . $request);
+                    $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s%s&client_reference_id=%s", $strp, $amount, '00', $ik);
                     return Redirect::to($url);
             }
 
@@ -276,7 +274,7 @@ class RedirectController extends Controller
 
                 case 'strp':
                     $bankname = "Stripe";
-                    $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s", $strp, $amount);
+                    $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s%s", $strp, $amount, '00');
                     return Redirect::to($url);
 
                 case 'pphb':
