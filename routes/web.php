@@ -72,7 +72,7 @@ if (env('COUNTRY') == 'ee') {
 if (env('COUNTRY') == 'lv') {
     // MTÜ Helihool
     Route::get('/jewnited', function () {
-        $url ='//donationbox.lv/donation?campaign_title=Support+Jewnited.lv&detail=Ziedojums&payee=JEWNITED.LV&iban=LV05RIKO0002930376514&paypalClientId=AfwBKcbnuAWT79QQOzYfGGwVZGtH2b8EmgHHoY6vms-EZbVfTmTSDxP6blH8KqowZLsoqg4IlbJ2w-7L&s1=25&s2=50&s3=100';
+        $url ='//donationbox.lv/donation?campaign_title=Support+Jewnited.lv&detail=Ziedojums&payee=JEWNITED.LV&iban=LV05RIKO0002930376514&paypalClientId=AfwBKcbnuAWT79QQOzYfGGwVZGtH2b8EmgHHoY6vms-EZbVfTmTSDxP6blH8KqowZLsoqg4IlbJ2w-7L&sebuid=7b9882e8-a727-4ca0-8e1c-87825aad67ff&sebuid_st=361c6c70-036a-4da5-aced-751817f27762&s1=25&s2=50&s3=100';
         return Redirect::to($url);
     });
 }
