@@ -51,6 +51,12 @@
         <span class="ml-2 mr-2">
             |
         </span>
+        <a href="https://bit.ly/db_ee_privacypolicy" target="_blank" class="no-underline hover:underline text-blue-800">
+            @lang("Privacy Policy")
+        </a>
+        <span class="ml-2 mr-2">
+            |
+        </span>
         <a href="https://github.com/fifle/donationbox" class="no-underline hover:underline text-blue-800" target="_blank">
             GitHub
         </a>
