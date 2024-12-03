@@ -319,8 +319,21 @@ class RedirectController extends Controller
         );
 
         // return view("redirect", compact($compactData));
-        return Redirect::to($url)
-              ->header('Content-Type', 'text/html; charset=UTF-8')
-              ->header('X-Frame-Options', 'SAMEORIGIN');
+        // 
+        // Special handling for Telegram WebView
+            $userAgent = $request->header('User-Agent');
+            $isTelegramAndroid = strpos(strtolower($userAgent), 'telegram') !== false 
+                && strpos($userAgent, 'Android') !== false;
+        
+            if ($isTelegramAndroid) {
+                return response()->view('redirect', [
+                    'url' => $url,
+                    'bankname' => $bankname ?? null
+                ])->header('Content-Type', 'text/html; charset=UTF-8')
+                  ->header('Cache-Control', 'no-store, no-cache, must-revalidate')
+                  ->header('Pragma', 'no-cache');
+            }
+        
+            return redirect()->away($url);
     }
 }

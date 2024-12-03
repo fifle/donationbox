@@ -3,6 +3,11 @@
 <head>
     <title>@lang("Redirecting to payment page...") | DonationBox.{{ env('COUNTRY') }}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Force WebView to handle redirect properly -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     @include('head')
 </head>
 <body class="antialiased">
@@ -23,10 +28,13 @@
                 </div>
 
                 <div class="text-center mt-4">
-                    <noscript>
-                        <meta http-equiv="refresh" content="0;url={{ $url }}">
-                        @lang("If you are not redirected automatically, please") <a href="{{ $url }}" class="text-blue-600 hover:underline">@lang("click here")</a>.
-                    </noscript>
+                    <a href="{{ $url }}" id="redirectLink" class="d-font btn transition duration-150 ease-in-out
+                       focus:outline-none py-3 px-4 rounded-lg
+                       shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
+                       text-sm border focus:ring-1 focus:ring-offset-1
+                       focus:ring-pink-700 w-auto inline-flex items-center">
+                        @lang("Click here to proceed to payment")
+                    </a>
                 </div>
             </div>
         </div>
@@ -42,10 +50,21 @@
 </div>
 
 <script>
-    // Redirect after a short delay
-    setTimeout(function() {
-        window.location.href = "{{ $url }}";
-    }, 1000);
+    // Detect Telegram WebView
+    function isTelegramWebView() {
+        return navigator.userAgent.toLowerCase().indexOf('telegram') > -1;
+    }
+
+    // Handle redirect based on platform
+    if (isTelegramWebView() && /Android/i.test(navigator.userAgent)) {
+        // For Telegram Android WebView: show manual button and wait for user interaction
+        document.getElementById('redirectLink').style.display = 'inline-flex';
+    } else {
+        // For all other browsers: automatic redirect
+        setTimeout(function() {
+            window.location.href = "{{ $url }}";
+        }, 1000);
+    }
 </script>
 
 </body>
