@@ -318,6 +318,9 @@ class RedirectController extends Controller
             'pphb' => $pphb,
         );
 
-        return view("redirect", compact($compactData));
+        // return view("redirect", compact($compactData));
+        return Redirect::to($url)
+              ->header('Content-Type', 'text/html; charset=UTF-8')
+              ->header('X-Frame-Options', 'SAMEORIGIN');
     }
 }
