@@ -28,7 +28,7 @@ Route::group(["middleware" => ["web", StripEmptyParams::class]], function () {
     ]);
 });
 
-Route::middleware(["web", StripEmptyParams::class, "frame.headers"])->group(
+Route::middleware(["web", StripEmptyParams::class])->group(
     function () {
         // Homepage
         Route::get("/", function () {
