@@ -39,7 +39,7 @@ Route::middleware(["web", StripEmptyParams::class, "frame.headers"])->group(
         Route::get("lang/{locale}", [
             App\Http\Controllers\LocalizationController::class,
             "index",
-        ]);
+        ])->name('lang');
 
         // Default donation page
         Route::get(
