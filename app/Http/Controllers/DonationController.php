@@ -15,6 +15,16 @@ class DonationController extends Controller
             'payee' => 'required|string|max:250',
         ]);
 
+            // Handle locale parameter
+            $locale = $request->input('locale');
+            if ($locale) {
+                $validLocales = ['en', 'ru', 'ee', 'lv', 'lt'];
+                if (in_array($locale, $validLocales)) {
+                    app()->setLocale($locale);
+                    session()->put('locale', $locale);
+                }
+            }
+
             $campaign_title = rawurlencode($request->input('campaign_title'));
             $detail = rawurlencode($request->input('detail'));
             $payee = rawurlencode($request->input('payee'));
@@ -181,6 +191,16 @@ class DonationController extends Controller
             'payee' => 'required|string|max:250',
         ]);
 
+            // Handle locale for widgets
+            $locale = $request->input('locale');
+            if ($locale) {
+                $validLocales = ['en', 'ru', 'ee', 'lv', 'lt'];
+                if (in_array($locale, $validLocales)) {
+                    app()->setLocale($locale);
+                    session()->put('locale', $locale);
+                }
+            }
+
             $campaign_title = rawurlencode($request->input('campaign_title'));
             $detail = rawurlencode($request->input('detail'));
             $payee = rawurlencode($request->input('payee'));
@@ -329,6 +349,16 @@ class DonationController extends Controller
             'payee' => 'required|string|max:250',
         ]);
 
+        // Handle locale parameter
+        $locale = $request->input('locale');
+        if ($locale) {
+            $validLocales = ['en', 'ru', 'ee', 'lv', 'lt'];
+            if (in_array($locale, $validLocales)) {
+                app()->setLocale($locale);
+                session()->put('locale', $locale);
+            }
+        }
+
         $campaign_title = $request->input('campaign_title');
         $detail = $request->input('detail');
         $payee = $request->input('payee');
@@ -468,6 +498,16 @@ class DonationController extends Controller
             'detail' => 'required|string|max:250',
             'payee' => 'required|string|max:250',
         ]);
+
+        // Handle locale parameter
+        $locale = $request->input('locale');
+        if ($locale) {
+            $validLocales = ['en', 'ru', 'ee', 'lv', 'lt'];
+            if (in_array($locale, $validLocales)) {
+                app()->setLocale($locale);
+                session()->put('locale', $locale);
+            }
+        }
 
         $campaign_title = rawurlencode($request->input('campaign_title'));
         $detail = rawurlencode($request->input('detail'));

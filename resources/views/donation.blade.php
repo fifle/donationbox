@@ -93,10 +93,15 @@
             <h3 class="mb-2 text-center text-1xl font-bold text-gray-600">
                 @lang("Embed this donation box to your website")
             </h3>
+            
+            <!-- Widget Language Selector -->
+            <div class="mb-4 px-4">
+                @include('components.widget-lang-selector')
+            </div>
 
             <div class="flex items-center justify-center">
                 <!-- Target -->
-                <input id="foo"
+                <input id="embed-code"
                        class="w-2/3 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight
                        focus:outline-none focus:shadow-outline"
                        value="{{ sprintf("<embed src='%s' width='100%%' height='900' style='border:none;overflow:hidden'></embed>", $embedlink) }}">
@@ -107,10 +112,15 @@
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         text-sm border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto inline-flex items-center ml-2"
-                        data-clipboard-target="#foo">
+                        data-clipboard-target="#embed-code">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
             .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> @lang("Copy code")
                 </a>
+            </div>
+            
+            <div class="mt-4 text-sm text-gray-500 px-4">
+                <p>@lang("The widget will display in the language you select above. You can also change the language by adding a locale parameter to the URL.")</p>
+                <p class="mt-2">@lang("Example: Add '?locale=ru' to display in Russian.")</p>
             </div>
 
         </div>
