@@ -1,5 +1,8 @@
 name: donationbox-lt
-on: [push]
+on:
+  push:
+    branches:
+      - main
 jobs:
   deploy:
     name: Deploy proxy
