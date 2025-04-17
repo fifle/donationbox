@@ -66,12 +66,7 @@ if (env('COUNTRY') == 'ee') {
         $url ='//donationbox.ee/donation/?iban=EE534204278619625400&campaign_title=Help+for+Ukrainian+refugees+in+Estonia+%2F+abi+Ukraina+pagulastele+Eestis&payee=' . rawurlencode("Mittetulundusühing") . '+Mariupoli+Sõbrad&detail=Help+for+Ukrainian+refugees+%2F+abi+Ukraina+pagulastele&db=mariupoli-sobrad&sebuid=7f741bb6-ecb3-4c39-a661-513fe1229fe1&sebuid_st=2fd9407d-b827-4b5b-aae7-9889d5facc74&s1=25&s2=50&s3=100';
         return Redirect::to($url);
     });
-    
-    // Pühtitsa monastery redirect - add IBAN to existing embed URL
-    Route::get('/puhtitsa-monastery', function () {
-        return Redirect::to('//donationbox.ee/embed?campaign_title=СБОР+ПОЖЕРТВОВАНИЙ+на+юридическую+помощь+для+Пюхтицкого+монастыря&detail=Annetus+õigusabikulude+tasumiseks&payee=Pühtitsa+Jumalaema+Uinumise+Stavropigiaalne+Naisklooster&sebuid=e3a869fc-599f-47ea-bd46-e77a8a3ab2b5&sebuid_st=d3ea5837-2b3f-4a4a-8f0d-48c2b8e9385a&iban=EE812200221087546816');
-    });
-    
+
     // GET route for embed with Pühtitsa monastery redirect check
     Route::get('/embed', function () {
         // Check if this is the specific Pühtitsa monastery URL
@@ -80,7 +75,7 @@ if (env('COUNTRY') == 'ee') {
         $payee = request()->input('payee');
         $sebuid = request()->input('sebuid');
         $sebuid_st = request()->input('sebuid_st');
-        
+
         // Only redirect if all these parameters match the Pühtitsa monastery donation
         if ($campaignTitle === 'СБОР ПОЖЕРТВОВАНИЙ на юридическую помощь для Пюхтицкого монастыря' &&
             $detail === 'Annetus õigusabikulude tasumiseks' &&
@@ -88,14 +83,14 @@ if (env('COUNTRY') == 'ee') {
             $sebuid === 'e3a869fc-599f-47ea-bd46-e77a8a3ab2b5' &&
             $sebuid_st === 'd3ea5837-2b3f-4a4a-8f0d-48c2b8e9385a' &&
             !request()->has('iban')) {
-            
+
             // Add the IBAN parameter to the current URL
             $currentUrl = request()->fullUrl();
             $redirectUrl = $currentUrl . '&iban=EE812200221087546816';
-            
+
             return Redirect::to($redirectUrl);
         }
-        
+
         // Continue normal processing for all other embed URLs
         return app()->call('App\Http\Controllers\DonationController@donationEmbed');
     })->name('donationembed')->middleware(StripEmptyParams::class);
