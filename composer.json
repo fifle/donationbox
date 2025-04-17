@@ -6,7 +6,6 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
-        "ext-imagick": "*",
         "alkhwlani/xss-middleware": "^2.0",
         "barryvdh/laravel-dompdf": "^1.0",
         "fideloper/proxy": "^4.4",

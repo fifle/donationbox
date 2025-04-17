@@ -1,6 +1,11 @@
 <!-- Language switcher -->
 <div class="relative items-center text-right">
-    @php $locale = session()->get('locale'); @endphp
+    @php 
+        $locale = session()->get('locale'); 
+        // Get current URL to preserve all parameters
+        $currentUrl = url()->current();
+        $queryParams = request()->query();
+    @endphp
     <button id="dropdownSmallButton" data-dropdown-toggle="dropdownSmall" class="inline-flex items-center text-sm font-medium text-center d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 mr-2 rounded-lg
                                                          text-center text-gray-600
@@ -30,25 +35,25 @@
     <div id="dropdownSmall" class="text-left z-10 hidden bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
         <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSmallButton">
             <li>
-                <a href="lang/en" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">English</a>
+                <a href="{{ route('lang', ['locale' => 'en']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">English</a>
             </li>
             @if(env('COUNTRY') == 'ee')
                 <li>
-                    <a href="lang/ee" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Eesti</a>
+                    <a href="{{ route('lang', ['locale' => 'ee']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Eesti</a>
                 </li>
             @endif
             @if(env('COUNTRY') == 'lv')
                 <li>
-                    <a href="lang/lv" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Latviešu</a>
+                    <a href="{{ route('lang', ['locale' => 'lv']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Latviešu</a>
                 </li>
             @endif
-{{--            @if(env('COUNTRY') == 'lt')--}}
-{{--                <li>--}}
-{{--                    <a href="lang/lt" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lietuvių</a>--}}
-{{--                </li>--}}
-{{--            @endif--}}
+            @if(env('COUNTRY') == 'lt')
+                <li>
+                    <a href="{{ route('lang', ['locale' => 'lt']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lietuvių</a>
+                </li>
+            @endif
             <li>
-                <a href="lang/ru" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Русский</a>
+                <a href="{{ route('lang', ['locale' => 'ru']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Русский</a>
             </li>
         </ul>
     </div>
