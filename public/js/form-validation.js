@@ -333,21 +333,61 @@ function isIbanRequired() {
 
 /**
  * Set IBAN field as required if any internet-bank method is enabled
+ * @returns {boolean} True if IBAN is valid, false if it's required but empty
  */
 function updateIbanRequiredStatus() {
     const ibanField = document.querySelector('input[name="iban"]');
-    if (!ibanField) return;
+    if (!ibanField) return true;
     
     if (isIbanRequired()) {
         // Set IBAN as required
         ibanField.setAttribute('required', 'required');
         ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
         ibanField.dataset.requiredStep = 3;
+        
+        // Check if IBAN is empty
+        if (!ibanField.value.trim()) {
+            // Add error styling
+            ibanField.classList.add('border-red-500');
+            
+            // Show error message if it doesn't exist yet
+            const existingError = ibanField.parentNode.querySelector('.validation-error');
+            if (!existingError) {
+                const errorElement = document.createElement('div');
+                errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                errorElement.textContent = translateErrorMessage('validation.iban_required');
+                ibanField.parentNode.insertBefore(errorElement, ibanField.nextSibling);
+            }
+            
+            return false;
+        } else {
+            // Remove error styling
+            ibanField.classList.remove('border-red-500');
+            
+            // Remove error message if it exists
+            const existingError = ibanField.parentNode.querySelector('.validation-error');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            return true;
+        }
     } else {
         // Remove required attribute
         ibanField.removeAttribute('required');
         delete ibanField.dataset.requiredMessage;
         delete ibanField.dataset.requiredStep;
+        
+        // Remove error styling
+        ibanField.classList.remove('border-red-500');
+        
+        // Remove error message if it exists
+        const existingError = ibanField.parentNode.querySelector('.validation-error');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        return true;
     }
 }
 
@@ -430,8 +470,11 @@ function initValidationListeners() {
     // Add event listener for IBAN validation
     document.addEventListener('iban-check', function() {
         console.log('IBAN check event triggered');
-        updateIbanRequiredStatus();
-        window.validateSebUids();
+        const ibanValid = updateIbanRequiredStatus();
+        const sebValid = window.validateSebUids();
+        
+        console.log('IBAN validation result:', ibanValid);
+        console.log('SEB validation result:', sebValid);
     });
     // Add required attribute to essential fields
     const essentialFields = [
@@ -612,6 +655,29 @@ function runInitialValidation() {
     
     // Update IBAN required status for all bank methods
     updateIbanRequiredStatus();
+    
+    // Check if any bank method is enabled by default
+    const bankMethodsEnabled = ['swt', 'sebt', 'lhvt', 'coopt'].some(id => {
+        const toggle = document.getElementById(id);
+        return toggle && toggle.checked;
+    });
+    
+    // If any bank method is enabled, validate IBAN
+    if (bankMethodsEnabled) {
+        // Validate IBAN field
+        const ibanField = document.querySelector('input[name="iban"]');
+        if (ibanField) {
+            // Mark IBAN as required
+            ibanField.setAttribute('required', 'required');
+            ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
+            ibanField.dataset.requiredStep = 3;
+            
+            // Highlight IBAN field if empty
+            if (!ibanField.value.trim()) {
+                ibanField.classList.add('border-red-500');
+            }
+        }
+    }
     
     // Check which toggles are enabled by default and trigger validation
     paymentMethodToggles.forEach(toggleId => {

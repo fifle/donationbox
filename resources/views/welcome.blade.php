@@ -1128,6 +1128,11 @@
                 // Update IBAN required status
                 updateIbanRequiredStatus();
                 
+                // Validate SEB UIDs if SEB is enabled
+                if (document.getElementById('sebt')?.checked) {
+                    window.validateSebUids();
+                }
+                
                 // Validate IBAN if any internet-bank is enabled
                 if (isIbanRequired()) {
                     const ibanField = document.querySelector('input[name="iban"]');
