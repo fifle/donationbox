@@ -690,17 +690,34 @@ function runInitialValidation() {
         'swt', 'sebt', 'lhvt', 'coopt', 'strptoggle', 'pptoggle', 'pphbtoggle', 'dbtoggle', 'revtoggle'
     ];
     
+    console.log('Running initial validation for all payment methods');
+    
+    // Force check the Swedbank, LHV, and Coop toggles if they're not already checked
+    // This ensures they're properly initialized as enabled by default
+    ['swt', 'lhvt', 'coopt'].forEach(id => {
+        const toggle = document.getElementById(id);
+        if (toggle && !toggle.checked) {
+            console.log(`Setting ${id} toggle to checked`);
+            toggle.checked = true;
+        }
+    });
+    
     // Update IBAN required status for all bank methods
-    updateIbanRequiredStatus();
+    const ibanValid = updateIbanRequiredStatus();
+    console.log('Initial IBAN validation result:', ibanValid);
     
     // Check if any bank method is enabled by default
     const bankMethodsEnabled = ['swt', 'sebt', 'lhvt', 'coopt'].some(id => {
         const toggle = document.getElementById(id);
-        return toggle && toggle.checked;
+        const isChecked = toggle && toggle.checked;
+        console.log(`Bank toggle ${id} is ${isChecked ? 'enabled' : 'disabled'}`);
+        return isChecked;
     });
     
     // If any bank method is enabled, validate IBAN
     if (bankMethodsEnabled) {
+        console.log('Bank methods enabled, validating IBAN');
+        
         // Validate IBAN field
         const ibanField = document.querySelector('input[name="iban"]');
         if (ibanField) {
@@ -711,7 +728,17 @@ function runInitialValidation() {
             
             // Highlight IBAN field if empty
             if (!ibanField.value.trim()) {
+                console.log('IBAN field is empty, adding error styling');
                 ibanField.classList.add('border-red-500');
+                ibanField.classList.add('error-border');
+                
+                // Add error message if it doesn't exist
+                if (!ibanField.parentNode.querySelector('.validation-error')) {
+                    const errorMessage = document.createElement('p');
+                    errorMessage.className = 'validation-error text-red-500 text-xs mt-1';
+                    errorMessage.textContent = translateErrorMessage('validation.iban_required');
+                    ibanField.parentNode.appendChild(errorMessage);
+                }
             }
         }
     }
@@ -720,6 +747,8 @@ function runInitialValidation() {
     paymentMethodToggles.forEach(toggleId => {
         const toggle = document.getElementById(toggleId);
         if (toggle && toggle.checked) {
+            console.log(`Toggle ${toggleId} is enabled, triggering validation`);
+            
             // Validate SEB UIDs if SEB is enabled
             if (toggleId === 'sebt') {
                 window.validateSebUids();

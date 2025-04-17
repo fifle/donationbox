@@ -322,7 +322,7 @@
                                             <h3 class="text-sm text-gray-600 leading-5 col-span-12">@lang('For private individuals, non-profits, and businesses. Supports both one-time and recurring payments')</h3>
                                         </div>
                                         {{--Swedbank--}}
-                                        <div class="col-span-12" x-data="{swt: false}">
+                                        <div class="col-span-12" x-data="{swt: true}">
                                             <div class="grid grid-cols-2 gap-4 space-y-0">
                                             <div>
                                                 <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-yellow-100 bg-yellow-500 uppercase">Swedbank</h2 >
@@ -426,7 +426,7 @@
                                         </div>
                                         @if(env('COUNTRY') == 'ee')
                                         {{--LHV--}}
-                                        <div class="col-span-12" x-data="{lhvt: false}">
+                                        <div class="col-span-12" x-data="{lhvt: true}">
                                             <div class="grid grid-cols-2 gap-4">
                                                 <div>
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-gray-200 bg-gray-700 uppercase">LHV bank</h2>
@@ -457,7 +457,7 @@
                                         @endif
                                         @if(env('COUNTRY') == 'ee')
                                         {{--COOP--}}
-                                        <div class="col-span-12" x-data="{coopt: false}">
+                                        <div class="col-span-12" x-data="{coopt: true}">
                                             <div class="grid grid-cols-2 gap-4">
                                                 <div>
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-blue-100 bg-blue-600 uppercase">Coop bank</h2>
@@ -952,6 +952,15 @@
                         document.dispatchEvent(new CustomEvent('iban-check'));
                     }
                 });
+                
+                // Add a small delay to ensure Alpine.js has fully initialized
+                setTimeout(() => {
+                    // If we're already on step 3, trigger IBAN validation
+                    if (this.step === 3) {
+                        console.log('Already on step 3, triggering initial IBAN validation');
+                        document.dispatchEvent(new CustomEvent('iban-check'));
+                    }
+                }, 100);
             },
             validateAndSubmitForm() {
                 // Clear previous validation errors
