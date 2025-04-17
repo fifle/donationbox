@@ -426,37 +426,22 @@ function initValidationListeners() {
         const checkbox = document.querySelector(`input[name="${method.name}"]`);
         if (checkbox) {
             checkbox.addEventListener('change', function() {
-                // If checkbox is checked, validate its fields
-                if (this.checked) {
-                    method.fields.forEach(field => {
-                        const fieldElement = document.querySelector(`input[name="${field}"]`);
-                        if (fieldElement && !fieldElement.value.trim()) {
-                            // Add error class to the field
-                            fieldElement.classList.add('error-border');
-                            
-                            // Create error message element
-                            const errorElement = document.createElement('div');
-                            errorElement.className = 'validation-error text-red-500 text-xs mt-1';
-                            errorElement.textContent = translateErrorMessage(`validation.${field}_required`);
-                            
-                            // Insert error message after the field
-                            fieldElement.parentNode.insertBefore(errorElement, fieldElement.nextSibling);
+                method.fields.forEach(field => {
+                    const fieldElement = document.querySelector(`input[name="${field}"]`);
+                    if (fieldElement) {
+                        if (this.checked) {
+                            // If checkbox is checked, add required attribute
+                            fieldElement.setAttribute('required', 'required');
+                        } else {
+                            // If checkbox is unchecked, remove required attribute
+                            fieldElement.removeAttribute('required');
                         }
-                    });
-                } else {
-                    // If checkbox is unchecked, remove error messages for its fields
-                    method.fields.forEach(field => {
-                        const fieldElement = document.querySelector(`input[name="${field}"]`);
-                        if (fieldElement) {
-                            fieldElement.classList.remove('error-border');
-                            const errorElement = fieldElement.nextElementSibling;
-                            if (errorElement && errorElement.classList.contains('validation-error')) {
-                                errorElement.remove();
-                            }
-                        }
-                    });
-                }
+                    }
+                });
             });
+            
+            // Trigger change event to initialize fields on page load
+            checkbox.dispatchEvent(new Event('change'));
         }
     });
     
@@ -473,30 +458,18 @@ function initValidationListeners() {
                         document.querySelector(`input[name="${b}"]`)?.checked
                     );
                     
-                    if (anyBankEnabled && !ibanField.value.trim()) {
-                        // Add error class to the field
-                        ibanField.classList.add('error-border');
-                        
-                        // Create error message element if it doesn't exist
-                        let errorElement = ibanField.nextElementSibling;
-                        if (!errorElement || !errorElement.classList.contains('validation-error')) {
-                            errorElement = document.createElement('div');
-                            errorElement.className = 'validation-error text-red-500 text-xs mt-1';
-                            errorElement.textContent = translateErrorMessage('validation.iban_required');
-                            
-                            // Insert error message after the field
-                            ibanField.parentNode.insertBefore(errorElement, ibanField.nextSibling);
-                        }
-                    } else if (!anyBankEnabled) {
-                        // If no bank is enabled, remove error message
-                        ibanField.classList.remove('error-border');
-                        const errorElement = ibanField.nextElementSibling;
-                        if (errorElement && errorElement.classList.contains('validation-error')) {
-                            errorElement.remove();
-                        }
+                    if (anyBankEnabled) {
+                        // Add required attribute
+                        ibanField.setAttribute('required', 'required');
+                    } else {
+                        // If no bank is enabled, remove required attribute
+                        ibanField.removeAttribute('required');
                     }
                 }
             });
+            
+            // Trigger change event to initialize fields on page load
+            checkbox.dispatchEvent(new Event('change'));
         }
     });
 }
