@@ -329,19 +329,19 @@
                                             </div>
                                             <div>
                                                 <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                     :class="[swt ? 'bg-gray-300' : 'bg-pink-500']">
+                                                     :class="[swt ? 'bg-pink-500' : 'bg-gray-300']">
                                                     <label
                                                         for="swt"
                                                         class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
                                                     transform bg-gray-100 rounded-full cursor-pointer"
-                                                        :class="[swt ? 'translate-x-0 border-green-400' : 'translate-x-full border-gray-400' ]"></label>
+                                                        :class="[swt ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
                                                     <input
                                                         form="generator"
                                                         type="checkbox"
                                                         id="swt"
                                                         name="swt"
                                                         x-model="swt"
-                                                        @click="swt = !swt; $dispatch('iban-check')"
+                                                        @click="$dispatch('iban-check')"
                                                         class="w-full h-full appearance-none focus:outline-none"
                                                     />
                                                 </div>
@@ -433,19 +433,19 @@
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                         :class="[lhvt ? 'bg-gray-300' : 'bg-pink-500']">
+                                                         :class="[lhvt ? 'bg-pink-500' : 'bg-gray-300']">
                                                         <label
                                                             for="lhvt"
                                                             class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
                                                     transform bg-gray-100 rounded-full cursor-pointer"
-                                                            :class="[lhvt ? 'translate-x-0 border-green-400' : 'translate-x-full border-gray-400' ]"></label>
+                                                            :class="[lhvt ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
                                                         <input
                                                             form="generator"
                                                             type="checkbox"
                                                             id="lhvt"
                                                             name="lhvt"
                                                             x-model="lhvt"
-                                                            @click="lhvt = !lhvt; $dispatch('iban-check')"
+                                                            @click="$dispatch('iban-check')"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -464,19 +464,19 @@
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                         :class="[coopt ? 'bg-gray-300' : 'bg-pink-500']">
+                                                         :class="[coopt ? 'bg-pink-500' : 'bg-gray-300']">
                                                         <label
                                                             for="coopt"
                                                             class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
                                                     transform bg-gray-100 rounded-full cursor-pointer"
-                                                            :class="[coopt ? 'translate-x-0 border-green-400' : 'translate-x-full border-gray-400' ]"></label>
+                                                            :class="[coopt ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
                                                         <input
                                                             form="generator"
                                                             type="checkbox"
                                                             id="coopt"
                                                             name="coopt"
                                                             x-model="coopt"
-                                                            @click="coopt = !coopt; $dispatch('iban-check')"
+                                                            @click="$dispatch('iban-check')"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>

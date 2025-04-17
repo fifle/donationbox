@@ -416,8 +416,12 @@ function updateIbanRequiredStatus() {
 function validatePaymentMethods() {
     const errors = [];
     
+    // Trigger IBAN validation event
+    document.dispatchEvent(new CustomEvent('iban-check'));
+    
     // Update IBAN required status
-    updateIbanRequiredStatus();
+    const ibanValid = updateIbanRequiredStatus();
+    console.log('IBAN validation in validatePaymentMethods:', ibanValid);
     
     // Validate internet-bank methods (IBAN required)
     // Check for internet-bank methods that require IBAN
@@ -439,6 +443,10 @@ function validatePaymentMethods() {
     
     // Validate SEB method (at least one UID token required)
     if (sebEnabled) {
+        // Explicitly call validateSebUids
+        const sebValid = window.validateSebUids();
+        console.log('SEB validation in validatePaymentMethods:', sebValid);
+        
         const sebuid = document.querySelector('input[name="sebuid"]');
         const sebuid_st = document.querySelector('input[name="sebuid_st"]');
         
