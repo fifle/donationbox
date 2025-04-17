@@ -335,20 +335,31 @@ function isIbanRequired() {
  * Set IBAN field as required if any internet-bank method is enabled
  * @returns {boolean} True if IBAN is valid, false if it's required but empty
  */
+/**
+ * Update the IBAN field required status based on enabled payment methods
+ * @returns {boolean} True if validation passes
+ */
 function updateIbanRequiredStatus() {
     const ibanField = document.querySelector('input[name="iban"]');
     if (!ibanField) return true;
     
-    if (isIbanRequired()) {
+    // Check if any internet-bank payment method is enabled
+    const ibanRequired = isIbanRequired();
+    console.log('IBAN required:', ibanRequired);
+    
+    if (ibanRequired) {
         // Set IBAN as required
         ibanField.setAttribute('required', 'required');
         ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
         ibanField.dataset.requiredStep = 3;
         
         // Check if IBAN is empty
-        if (!ibanField.value.trim()) {
+        if (!ibanField.value || ibanField.value.trim() === '') {
+            console.log('IBAN is empty, showing validation error');
+            
             // Add error styling
             ibanField.classList.add('border-red-500');
+            ibanField.classList.add('error-border');
             
             // Show error message if it doesn't exist yet
             const existingError = ibanField.parentNode.querySelector('.validation-error');
@@ -361,8 +372,11 @@ function updateIbanRequiredStatus() {
             
             return false;
         } else {
+            console.log('IBAN is not empty, validation passed');
+            
             // Remove error styling
             ibanField.classList.remove('border-red-500');
+            ibanField.classList.remove('error-border');
             
             // Remove error message if it exists
             const existingError = ibanField.parentNode.querySelector('.validation-error');
@@ -373,6 +387,8 @@ function updateIbanRequiredStatus() {
             return true;
         }
     } else {
+        console.log('IBAN is not required');
+        
         // Remove required attribute
         ibanField.removeAttribute('required');
         delete ibanField.dataset.requiredMessage;
@@ -380,6 +396,7 @@ function updateIbanRequiredStatus() {
         
         // Remove error styling
         ibanField.classList.remove('border-red-500');
+        ibanField.classList.remove('error-border');
         
         // Remove error message if it exists
         const existingError = ibanField.parentNode.querySelector('.validation-error');
