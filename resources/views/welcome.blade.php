@@ -773,8 +773,28 @@
 
                         <div class="w-1/2 ">
                             <button
-                                x-show="step < 4"
-                                @click="step++"
+                                x-show="step === 1"
+                                @click="validateCampaignDetailsAndContinue()"
+                                class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
+                                    border border-transparent font-medium rounded-md text-white bg-pink-500
+                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                    focus:ring-pink-700 transition duration-150 ease-in-out">
+                                @lang("Next")
+                            </button>
+                            
+                            <button
+                                x-show="step === 2"
+                                @click="validatePersonalDataAndContinue()"
+                                class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
+                                    border border-transparent font-medium rounded-md text-white bg-pink-500
+                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                    focus:ring-pink-700 transition duration-150 ease-in-out">
+                                @lang("Next")
+                            </button>
+                            
+                            <button
+                                x-show="step === 3"
+                                @click="validateBankDetailsAndContinue()"
                                 class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
                                     border border-transparent font-medium rounded-md text-white bg-pink-500
                                     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
@@ -783,10 +803,9 @@
                             </button>
 
                             <button
-                                type="submit"
-                                form="generator"
-                                value="submit"
+                                type="button"
                                 x-show="step === 4"
+                                @click="validateAndSubmitForm()"
                                 class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
                                     border border-transparent font-medium rounded-md text-white bg-pink-500
                                     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
@@ -842,10 +861,63 @@
 
 </div>
 
+<script src="/js/form-validation.js"></script>
 <script>
     function app() {
         return {
             step: 1,
+            validateAndSubmitForm() {
+                // Validate form
+                const errors = validateDonationForm();
+                
+                // If there are errors, display them and return
+                if (errors.length > 0) {
+                    displayValidationErrors(errors, this);
+                    return;
+                }
+                
+                // If no errors, submit the form
+                document.getElementById('generator').submit();
+            },
+            validateCampaignDetailsAndContinue() {
+                // Validate only campaign details
+                const errors = validateDonationForm().filter(error => error.step === 1);
+                
+                // If there are errors, display them and return
+                if (errors.length > 0) {
+                    displayValidationErrors(errors, this);
+                    return;
+                }
+                
+                // If no errors, proceed to next step
+                this.step++;
+            },
+            validatePersonalDataAndContinue() {
+                // Validate only personal data
+                const errors = validateDonationForm().filter(error => error.step === 2);
+                
+                // If there are errors, display them and return
+                if (errors.length > 0) {
+                    displayValidationErrors(errors, this);
+                    return;
+                }
+                
+                // If no errors, proceed to next step
+                this.step++;
+            },
+            validateBankDetailsAndContinue() {
+                // Validate only bank details
+                const errors = validateDonationForm().filter(error => error.step === 3);
+                
+                // If there are errors, display them and return
+                if (errors.length > 0) {
+                    displayValidationErrors(errors, this);
+                    return;
+                }
+                
+                // If no errors, proceed to next step
+                this.step++;
+            }
         }
     }
 </script>
