@@ -327,9 +327,10 @@ function validatePaymentMethods() {
     
     // Validate internet-bank methods (IBAN required)
     const internetBanks = ['swed', 'lhv', 'coop', 'seb'];
-    const anyInternetBankEnabled = internetBanks.some(bank => 
-        document.querySelector(`input[name="${bank}"]`)?.checked
-    );
+    const anyInternetBankEnabled = internetBanks.some(bank => {
+        const checkbox = document.querySelector(`input[name="${bank}"]`);
+        return checkbox && checkbox.checked;
+    });
     
     if (anyInternetBankEnabled) {
         const ibanField = document.querySelector('input[name="iban"]');
@@ -339,6 +340,13 @@ function validatePaymentMethods() {
                 message: translateErrorMessage('validation.iban_required'),
                 step: 3
             });
+        }
+        
+        // Also set the required attribute on the IBAN field
+        if (ibanField) {
+            ibanField.setAttribute('required', 'required');
+            ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
+            ibanField.dataset.requiredStep = 3;
         }
     }
     
@@ -427,7 +435,8 @@ function initValidationListeners() {
     paymentMethods.forEach(method => {
         const checkbox = document.querySelector(`input[name="${method.name}"]`);
         if (checkbox) {
-            checkbox.addEventListener('change', function() {
+            // Define the change handler function
+            const handleChange = function() {
                 method.fields.forEach(field => {
                     const fieldElement = document.querySelector(`input[name="${field}"]`);
                     if (fieldElement) {
@@ -446,25 +455,53 @@ function initValidationListeners() {
                         }
                     }
                 });
-            });
+            };
             
-            // Trigger change event to initialize fields on page load
-            checkbox.dispatchEvent(new Event('change'));
+            // Add the event listener
+            checkbox.addEventListener('change', handleChange);
+            
+            // Immediately apply the required attributes based on current state
+            if (checkbox.checked) {
+                method.fields.forEach(field => {
+                    const fieldElement = document.querySelector(`input[name="${field}"]`);
+                    if (fieldElement) {
+                        fieldElement.setAttribute('required', 'required');
+                        fieldElement.dataset.requiredMessage = translateErrorMessage(`validation.${field}_required`);
+                        fieldElement.dataset.requiredStep = method.step;
+                    }
+                });
+            }
         }
     });
     
-    // Add event listeners to internet-bank checkboxes
+    // Handle internet-bank checkboxes and IBAN field
     const internetBanks = ['swed', 'lhv', 'coop', 'seb'];
+    const ibanField = document.querySelector('input[name="iban"]');
+    
+    // Check if any internet-bank is enabled by default
+    const anyBankEnabledByDefault = internetBanks.some(bank => {
+        const checkbox = document.querySelector(`input[name="${bank}"]`);
+        return checkbox && checkbox.checked;
+    });
+    
+    // Set IBAN as required if any bank is enabled by default
+    if (anyBankEnabledByDefault && ibanField) {
+        ibanField.setAttribute('required', 'required');
+        ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
+        ibanField.dataset.requiredStep = 3; // Bank details step
+    }
+    
+    // Add event listeners to internet-bank checkboxes
     internetBanks.forEach(bank => {
         const checkbox = document.querySelector(`input[name="${bank}"]`);
         if (checkbox) {
             checkbox.addEventListener('change', function() {
-                const ibanField = document.querySelector('input[name="iban"]');
                 if (ibanField) {
                     // Check if any internet-bank is enabled
-                    const anyBankEnabled = internetBanks.some(b => 
-                        document.querySelector(`input[name="${b}"]`)?.checked
-                    );
+                    const anyBankEnabled = internetBanks.some(b => {
+                        const bankCheckbox = document.querySelector(`input[name="${b}"]`);
+                        return bankCheckbox && bankCheckbox.checked;
+                    });
                     
                     if (anyBankEnabled) {
                         // Add required attribute
@@ -479,11 +516,11 @@ function initValidationListeners() {
                     }
                 }
             });
-            
-            // Trigger change event to initialize fields on page load
-            checkbox.dispatchEvent(new Event('change'));
         }
     });
+    
+    // Run validation on page load to catch any pre-checked methods
+    validatePaymentMethods();
 }
 
 // Initialize validation listeners when DOM is loaded

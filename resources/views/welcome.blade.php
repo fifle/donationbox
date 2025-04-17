@@ -882,6 +882,23 @@
                 // Clear previous validation errors
                 clearValidationErrors();
                 
+                // Check if any internet-bank is enabled
+                const internetBanks = ['swed', 'lhv', 'coop', 'seb'];
+                const anyBankEnabled = internetBanks.some(bank => {
+                    const checkbox = document.querySelector(`input[name="${bank}"]`);
+                    return checkbox && checkbox.checked;
+                });
+                
+                // If any bank is enabled, make sure IBAN is required
+                if (anyBankEnabled) {
+                    const ibanField = document.querySelector('input[name="iban"]');
+                    if (ibanField) {
+                        ibanField.setAttribute('required', 'required');
+                        ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
+                        ibanField.dataset.requiredStep = 3;
+                    }
+                }
+                
                 // Validate form with our custom validation
                 const errors = validateDonationForm();
                 
@@ -1038,6 +1055,23 @@
             validateBankDetailsAndContinue() {
                 // Clear previous validation errors
                 clearValidationErrors();
+                
+                // Check if any internet-bank is enabled
+                const internetBanks = ['swed', 'lhv', 'coop', 'seb'];
+                const anyBankEnabled = internetBanks.some(bank => {
+                    const checkbox = document.querySelector(`input[name="${bank}"]`);
+                    return checkbox && checkbox.checked;
+                });
+                
+                // If any bank is enabled, make sure IBAN is required
+                if (anyBankEnabled) {
+                    const ibanField = document.querySelector('input[name="iban"]');
+                    if (ibanField) {
+                        ibanField.setAttribute('required', 'required');
+                        ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
+                        ibanField.dataset.requiredStep = 3;
+                    }
+                }
                 
                 // Validate only bank details with our custom validation
                 const errors = validateDonationForm().filter(error => error.step === 3);
