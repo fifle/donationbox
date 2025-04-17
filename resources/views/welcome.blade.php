@@ -77,7 +77,7 @@
 
                                 <div class="mb-5">
                                     <form class="space-y-4" action="{{ route('donation') }}" method="get"
-                                          id="generator"></form>
+                                          id="generator" onsubmit="return validateFormBeforeSubmit()"></form>
                                     <div class="rounded-md -space-y-px">
                                         <div class="grid gap-6">
                                             <div class="col-span-12">
@@ -256,13 +256,41 @@
                                 @csrf
                                 <div class="rounded-md -space-y-px">
                                     <div class="grid gap-6">
-                                        <div class="col-span-12">
-                                            <label for="campaign_title" class="d-font font-semibold text-gray-700
-                                                        block mb-2">@lang("Payee's bank account (IBAN) number")</label>
+                                        <div class="col-span-12" x-data="{ 
+                                            checkIbanRequired() {
+                                                const swedEnabled = document.getElementById('swt')?.checked || false;
+                                                const sebEnabled = document.getElementById('sebt')?.checked || false;
+                                                const lhvEnabled = document.getElementById('lhvt')?.checked || false;
+                                                const coopEnabled = document.getElementById('coopt')?.checked || false;
+                                                
+                                                return swedEnabled || sebEnabled || lhvEnabled || coopEnabled;
+                                            },
+                                            validateIban() {
+                                                const ibanField = document.getElementById('iban-field');
+                                                const errorMsg = document.getElementById('iban-error');
+                                                
+                                                if (this.checkIbanRequired() && (!ibanField.value || ibanField.value.trim() === '')) {
+                                                    // Show error
+                                                    ibanField.classList.add('border-red-500');
+                                                    errorMsg.classList.remove('hidden');
+                                                } else {
+                                                    // Hide error
+                                                    ibanField.classList.remove('border-red-500');
+                                                    errorMsg.classList.add('hidden');
+                                                }
+                                            }
+                                        }"
+                                        @iban-check="validateIban()"
+                                        >
+                                            <label for="iban-field" class="d-font font-semibold text-gray-700 block mb-2">
+                                                @lang("Payee's bank account (IBAN) number")
+                                                <span x-show="checkIbanRequired()" class="font-normal text-red-500"><sup>*</sup></span>
+                                            </label>
                                             <input
                                                 form="generator"
                                                 type="text"
                                                 name="iban"
+                                                id="iban-field"
                                                 value="{{ request('iban') }}"
                                                 pattern="^(?:(?:IT|SM)\d{2}[A-Z]\d{22}|CY\d{2}[A-Z]\d{23}|NL\d{2}[A-Z]{4}\d{10}|LV\d{2}[A-Z]{4}\d{13}|(?:BG|BH|GB|IE)\d{2}[A-Z]{4}\d{14}|GI\d{2}[A-Z]{4}\d{15}|RO\d{2}[A-Z]{4}\d{16}|KW\d{2}[A-Z]{4}\d{22}|MT\d{2}[A-Z]{4}\d{23}|NO\d{13}|(?:DK|FI|GL|FO)\d{16}|MK\d{17}|(?:AT|EE|KZ|LU|XK)\d{18}|(?:BA|HR|LI|CH|CR)\d{19}|(?:GE|DE|LT|ME|RS)\d{20}|IL\d{21}|(?:AD|CZ|ES|MD|SA)\d{22}|PT\d{23}|(?:BE|IS)\d{24}|(?:FR|MR|MC)\d{25}|(?:AL|DO|LB|PL)\d{26}|(?:AZ|HU)\d{27}|(?:GR|MU)\d{28})$"
                                                 class="appearance-none rounded-none relative block
@@ -279,7 +307,12 @@
                                                 @if(env('COUNTRY') == 'lt')
                                                 placeholder="eg. LT121000011101001000"
                                                 @endif
+                                                @blur="validateIban()"
+                                                x-bind:required="checkIbanRequired()"
                                             />
+                                            <div id="iban-error" class="text-red-500 text-xs mt-1 hidden">
+                                                @lang("IBAN is required when any internet-bank method is enabled")
+                                            </div>
                                         </div>
 
                                         <div class="col-span-12">
@@ -308,7 +341,7 @@
                                                         id="swt"
                                                         name="swt"
                                                         x-model="swt"
-                                                        @click="swt = !swt"
+                                                        @click="swt = !swt; $dispatch('iban-check')"
                                                         class="w-full h-full appearance-none focus:outline-none"
                                                     />
                                                 </div>
@@ -316,7 +349,28 @@
                                             </div>
                                         </div>
                                         {{--SEB--}}
-                                        <div class="col-span-12" x-data="{sebt: false}">
+                                        <div class="col-span-12" x-data="{
+                                            sebt: false,
+                                            validateSebUids() {
+                                                if (!this.sebt) return true;
+                                                
+                                                const sebuid = document.querySelector('input[name="sebuid"]');
+                                                const sebuid_st = document.querySelector('input[name="sebuid_st"]');
+                                                const errorMsg = document.getElementById('seb-uid-error');
+                                                
+                                                if (!sebuid.value && !sebuid_st.value) {
+                                                    errorMsg.classList.remove('hidden');
+                                                    sebuid.classList.add('border-red-500');
+                                                    sebuid_st.classList.add('border-red-500');
+                                                    return false;
+                                                } else {
+                                                    errorMsg.classList.add('hidden');
+                                                    sebuid.classList.remove('border-red-500');
+                                                    sebuid_st.classList.remove('border-red-500');
+                                                    return true;
+                                                }
+                                            }
+                                        }">
                                             <div class="grid grid-cols-2 gap-4">
                                             <div>
                                                 <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-green-100 bg-green-500 uppercase">SEB bank</h2>
@@ -334,12 +388,16 @@
                                                         id="sebt"
                                                         name="sebt"
                                                         x-model="sebt"
+                                                        @click="$dispatch('iban-check'); validateSebUids()"
                                                         class="w-full h-full appearance-none focus:outline-none"
                                                     />
                                                 </div>
                                             </div>
                                             </div>
                                             <div x-show="sebt">
+                                                <div id="seb-uid-error" class="text-red-500 text-sm mt-2 hidden">
+                                                    @lang("At least one SEB UID token is required when SEB bank is enabled")
+                                                </div>
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="d-font font-semibold text-gray-700
                                                         block mb-2">@lang("SEB UID token")</label>
@@ -364,6 +422,7 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                         placeholder="eg. f0233a8a-2c62-414d-a8e0-868d5ca345cb"
+                                                        @blur="validateSebUids()"
                                                     />
                                                         <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
                                                         leading-tight">
@@ -379,6 +438,7 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                             placeholder="eg. 7d28392a-771e-4128-95ee-a9cc1de7f25e"
+                                                            @blur="validateSebUids()"
                                                         />
                                                 </div>
                                             </div>
@@ -404,7 +464,7 @@
                                                             id="lhvt"
                                                             name="lhvt"
                                                             x-model="lhvt"
-                                                            @click="lhvt = !lhvt"
+                                                            @click="lhvt = !lhvt; $dispatch('iban-check')"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -435,7 +495,7 @@
                                                             id="coopt"
                                                             name="coopt"
                                                             x-model="coopt"
-                                                            @click="coopt = !coopt"
+                                                            @click="coopt = !coopt; $dispatch('iban-check')"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -469,7 +529,25 @@
                                     <div class="grid gap-6">
                                         {{--Stripe--}}
                                         <h3 class="text-sm text-gray-600 leading-3 col-span-12">@lang('For non-profits and businesses')</h3>
-                                        <div class="col-span-12" x-data="{strptoggle: false}">
+                                        <div class="col-span-12" x-data="{
+                                            strptoggle: false,
+                                            validateStripe() {
+                                                if (!this.strptoggle) return true;
+                                                
+                                                const stripeField = document.querySelector('input[name="strp"]');
+                                                const errorMsg = document.getElementById('stripe-error');
+                                                
+                                                if (!stripeField.value || stripeField.value.trim() === '') {
+                                                    errorMsg.classList.remove('hidden');
+                                                    stripeField.classList.add('border-red-500');
+                                                    return false;
+                                                } else {
+                                                    errorMsg.classList.add('hidden');
+                                                    stripeField.classList.remove('border-red-500');
+                                                    return true;
+                                                }
+                                            }
+                                        }">
                                             <div class="grid grid-cols-4 gap-4">
                                                 <div class="flex items-center col-span-3">
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-purple-500 uppercase">Stripe</h2>
@@ -488,12 +566,16 @@
                                                             id="strptoggle"
                                                             name="strptoggle"
                                                             x-model="strptoggle"
+                                                            @click="validateStripe()"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div x-show="strptoggle">
+                                                <div id="stripe-error" class="text-red-500 text-sm mt-2 hidden">
+                                                    @lang("Stripe Payment Link ID is required when Stripe is enabled")
+                                                </div>
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="font-semibold text-gray-700
                                                         block mb-2">@lang("Stripe's Payment Link ID")</label>
@@ -514,6 +596,7 @@
                                                             class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded px-3 relative transition duration-150 ease-in-out"
                                                             placeholder="Insert Stripe's Payment Link ID"
+                                                            @blur="validateStripe()"
                                                         />
                                                     </div>
                                                 </div>
@@ -1116,7 +1199,7 @@
                 }
                 
                 // Perform specific validation for internet-bank methods and SEB
-                const internetBankErrors = validatePaymentMethods().filter(error => error.step === 3);
+                const internetBankErrors = validatePaymentMethods();
                 if (internetBankErrors.length > 0) {
                     displayValidationErrors(internetBankErrors, this);
                     return;
@@ -1126,6 +1209,134 @@
                 this.step++;
             }
         }
+    }
+
+    function validateFormBeforeSubmit() {
+        // Validate required fields
+        const campaignTitle = document.querySelector('input[name="campaign_title"]');
+        const payeeName = document.querySelector('input[name="payee_name"]');
+        const bankName = document.querySelector('input[name="bank_name"]');
+        const iban = document.querySelector('input[name="iban"]');
+        
+        let isValid = true;
+        let errorMessage = '';
+        let errorStep = 0;
+        
+        // Check campaign details (step 1)
+        if (!campaignTitle.value || campaignTitle.value.trim() === '') {
+            isValid = false;
+            errorMessage = '@lang("Campaign title is required")';
+            errorStep = 1;
+        }
+        
+        // Check bank details (step 3)
+        if (!payeeName.value || payeeName.value.trim() === '') {
+            isValid = false;
+            errorMessage = '@lang("Payee\'s name is required")';
+            errorStep = 3;
+        }
+        
+        if (!bankName.value || bankName.value.trim() === '') {
+            isValid = false;
+            errorMessage = '@lang("Bank name is required")';
+            errorStep = 3;
+        }
+        
+        // Check if any internet-bank methods are enabled
+        const swedEnabled = document.getElementById('swt')?.checked || false;
+        const sebEnabled = document.getElementById('sebt')?.checked || false;
+        const lhvEnabled = document.getElementById('lhvt')?.checked || false;
+        const coopEnabled = document.getElementById('coopt')?.checked || false;
+        
+        // If any internet-bank methods are enabled, IBAN is required
+        if ((swedEnabled || sebEnabled || lhvEnabled || coopEnabled) && 
+            (!iban.value || iban.value.trim() === '')) {
+            isValid = false;
+            errorMessage = '@lang("IBAN is required when internet-bank methods are enabled")';
+            errorStep = 3;
+        }
+        
+        // Check SEB UID tokens if SEB is enabled
+        if (sebEnabled) {
+            const sebuid = document.querySelector('input[name="sebuid"]');
+            const sebuid_st = document.querySelector('input[name="sebuid_st"]');
+            
+            if (!sebuid.value && !sebuid_st.value) {
+                isValid = false;
+                errorMessage = '@lang("At least one SEB UID token is required when SEB bank is enabled")';
+                errorStep = 3;
+            }
+        }
+        
+        // Check Stripe if enabled
+        const stripeEnabled = document.getElementById('strptoggle')?.checked || false;
+        if (stripeEnabled) {
+            const stripeField = document.querySelector('input[name="strp"]');
+            
+            if (!stripeField.value || stripeField.value.trim() === '') {
+                isValid = false;
+                errorMessage = '@lang("Stripe Payment Link ID is required when Stripe is enabled")';
+                errorStep = 4;
+            }
+        }
+        
+        if (!isValid) {
+            alert(errorMessage + ' (@lang("Step") ' + errorStep + ')');
+            return false;
+        }
+        
+        return true;
+    }
+    
+    function validatePaymentMethods() {
+        const errors = [];
+        
+        // Check if any internet-bank methods are enabled
+        const swedEnabled = document.getElementById('swt')?.checked || false;
+        const sebEnabled = document.getElementById('sebt')?.checked || false;
+        const lhvEnabled = document.getElementById('lhvt')?.checked || false;
+        const coopEnabled = document.getElementById('coopt')?.checked || false;
+        
+        // If any internet-bank methods are enabled, IBAN is required
+        const iban = document.querySelector('input[name="iban"]');
+        if ((swedEnabled || sebEnabled || lhvEnabled || coopEnabled) && 
+            (!iban.value || iban.value.trim() === '')) {
+            errors.push({
+                field: 'iban',
+                message: '@lang("IBAN is required when internet-bank methods are enabled")',
+                step: 3
+            });
+        }
+        
+        // Check SEB UID tokens if SEB is enabled
+        if (sebEnabled) {
+            const sebuid = document.querySelector('input[name="sebuid"]');
+            const sebuid_st = document.querySelector('input[name="sebuid_st"]');
+            
+            if (!sebuid.value && !sebuid_st.value) {
+                errors.push({
+                    field: 'sebuid',
+                    message: '@lang("At least one SEB UID token is required when SEB bank is enabled")',
+                    step: 3
+                });
+            }
+        }
+        
+        // Check Stripe if enabled
+        const stripeEnabled = document.getElementById('strptoggle')?.checked || false;
+        if (stripeEnabled) {
+            const stripeField = document.querySelector('input[name="strp"]');
+            
+            if (!stripeField.value || stripeField.value.trim() === '') {
+                errors.push({
+                    field: 'strp',
+                    message: '@lang("Stripe Payment Link ID is required when Stripe is enabled")',
+                    step: 4
+                });
+            }
+        }
+        
+        return errors;
     }
 </script>
 </body>
