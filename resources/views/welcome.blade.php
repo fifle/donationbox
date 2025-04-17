@@ -403,7 +403,7 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                         placeholder="eg. f0233a8a-2c62-414d-a8e0-868d5ca345cb"
-                                                        @blur="window.validateSebUids()"
+                                                        @blur="$dispatch('iban-check'); window.validateSebUids()"
                                                     />
                                                         <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
                                                         leading-tight">
@@ -419,7 +419,7 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                             placeholder="eg. 7d28392a-771e-4128-95ee-a9cc1de7f25e"
-                                                            @blur="window.validateSebUids()"
+                                                            @blur="$dispatch('iban-check'); window.validateSebUids()"
                                                         />
                                                 </div>
                                             </div>

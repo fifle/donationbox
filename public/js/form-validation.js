@@ -427,6 +427,12 @@ function validatePaymentMethods() {
  * This function is called when the DOM is loaded
  */
 function initValidationListeners() {
+    // Add event listener for IBAN validation
+    document.addEventListener('iban-check', function() {
+        console.log('IBAN check event triggered');
+        updateIbanRequiredStatus();
+        window.validateSebUids();
+    });
     // Add required attribute to essential fields
     const essentialFields = [
         { name: 'campaign_title_field', step: 1 },
@@ -552,8 +558,14 @@ function initValidationListeners() {
  * This function is called when the SEB checkbox is toggled or when the UID fields lose focus
  * @returns {boolean} True if validation passes
  */
-function validateSebUids() {
-    const sebEnabled = document.getElementById('sebt')?.checked || false;
+window.validateSebUids = function() {
+    // Get the SEB toggle element
+    const sebToggle = document.getElementById('sebt');
+    
+    // Check if SEB is enabled (either through the checkbox or Alpine.js model)
+    const sebEnabled = sebToggle?.checked || false;
+    
+    // If SEB is not enabled, no validation needed
     if (!sebEnabled) return true;
 
     const sebuid = document.querySelector('input[name="sebuid"]');
@@ -579,22 +591,39 @@ function validateSebUids() {
 document.addEventListener('DOMContentLoaded', function() {
     initValidationListeners();
     
+    // Add a custom event listener for Alpine.js initialization
+    document.addEventListener('alpine:initialized', function() {
+        console.log('Alpine.js initialized, running initial validation');
+        runInitialValidation();
+    });
+    
+    // Run initial validation after a short delay to ensure Alpine.js has initialized
+    setTimeout(runInitialValidation, 500);
+});
+
+/**
+ * Run initial validation for all enabled payment methods
+ */
+function runInitialValidation() {
     // Run initial validation for all enabled payment methods
     const paymentMethodToggles = [
         'swt', 'sebt', 'lhvt', 'coopt', 'strptoggle', 'pptoggle', 'pphbtoggle', 'dbtoggle', 'revtoggle'
     ];
     
+    // Update IBAN required status for all bank methods
+    updateIbanRequiredStatus();
+    
     // Check which toggles are enabled by default and trigger validation
     paymentMethodToggles.forEach(toggleId => {
         const toggle = document.getElementById(toggleId);
         if (toggle && toggle.checked) {
-            // Update IBAN required status for bank methods
-            updateIbanRequiredStatus();
-            
             // Validate SEB UIDs if SEB is enabled
             if (toggleId === 'sebt') {
-                validateSebUids();
+                window.validateSebUids();
             }
+            
+            // Dispatch iban-check event to trigger IBAN validation
+            document.dispatchEvent(new CustomEvent('iban-check'));
         }
     });
-});
+}
