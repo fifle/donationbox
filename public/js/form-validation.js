@@ -547,5 +547,54 @@ function initValidationListeners() {
     }
 }
 
+/**
+ * Validate SEB UID tokens
+ * This function is called when the SEB checkbox is toggled or when the UID fields lose focus
+ * @returns {boolean} True if validation passes
+ */
+function validateSebUids() {
+    const sebEnabled = document.getElementById('sebt')?.checked || false;
+    if (!sebEnabled) return true;
+
+    const sebuid = document.querySelector('input[name="sebuid"]');
+    const sebuid_st = document.querySelector('input[name="sebuid_st"]');
+    const errorMsg = document.getElementById('seb-uid-error');
+
+    if (!sebuid || !sebuid_st || !errorMsg) return true;
+
+    if (!sebuid.value && !sebuid_st.value) {
+        errorMsg.classList.remove('hidden');
+        sebuid.classList.add('border-red-500');
+        sebuid_st.classList.add('border-red-500');
+        return false;
+    } else {
+        errorMsg.classList.add('hidden');
+        sebuid.classList.remove('border-red-500');
+        sebuid_st.classList.remove('border-red-500');
+        return true;
+    }
+}
+
 // Initialize validation listeners when DOM is loaded
-document.addEventListener('DOMContentLoaded', initValidationListeners);
+document.addEventListener('DOMContentLoaded', function() {
+    initValidationListeners();
+    
+    // Run initial validation for all enabled payment methods
+    const paymentMethodToggles = [
+        'swt', 'sebt', 'lhvt', 'coopt', 'strptoggle', 'pptoggle', 'pphbtoggle', 'dbtoggle', 'revtoggle'
+    ];
+    
+    // Check which toggles are enabled by default and trigger validation
+    paymentMethodToggles.forEach(toggleId => {
+        const toggle = document.getElementById(toggleId);
+        if (toggle && toggle.checked) {
+            // Update IBAN required status for bank methods
+            updateIbanRequiredStatus();
+            
+            // Validate SEB UIDs if SEB is enabled
+            if (toggleId === 'sebt') {
+                validateSebUids();
+            }
+        }
+    });
+});

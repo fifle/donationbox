@@ -350,26 +350,7 @@
                                         </div>
                                         {{--SEB--}}
                                         <div class="col-span-12" x-data="{
-                                            sebt: false,
-                                            validateSebUids() {
-                                                if (!this.sebt) return true;
-                                                
-                                                const sebuid = document.querySelector('input[name="sebuid"]');
-                                                const sebuid_st = document.querySelector('input[name="sebuid_st"]');
-                                                const errorMsg = document.getElementById('seb-uid-error');
-                                                
-                                                if (!sebuid.value && !sebuid_st.value) {
-                                                    errorMsg.classList.remove('hidden');
-                                                    sebuid.classList.add('border-red-500');
-                                                    sebuid_st.classList.add('border-red-500');
-                                                    return false;
-                                                } else {
-                                                    errorMsg.classList.add('hidden');
-                                                    sebuid.classList.remove('border-red-500');
-                                                    sebuid_st.classList.remove('border-red-500');
-                                                    return true;
-                                                }
-                                            }
+                                            sebt: false
                                         }">
                                             <div class="grid grid-cols-2 gap-4">
                                             <div>
@@ -388,7 +369,7 @@
                                                         id="sebt"
                                                         name="sebt"
                                                         x-model="sebt"
-                                                        @click="$dispatch('iban-check'); validateSebUids()"
+                                                        @click="$dispatch('iban-check'); window.validateSebUids()"
                                                         class="w-full h-full appearance-none focus:outline-none"
                                                     />
                                                 </div>
@@ -422,7 +403,7 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                         placeholder="eg. f0233a8a-2c62-414d-a8e0-868d5ca345cb"
-                                                        @blur="validateSebUids()"
+                                                        @blur="window.validateSebUids()"
                                                     />
                                                         <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
                                                         leading-tight">
@@ -438,7 +419,7 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                             placeholder="eg. 7d28392a-771e-4128-95ee-a9cc1de7f25e"
-                                                            @blur="validateSebUids()"
+                                                            @blur="window.validateSebUids()"
                                                         />
                                                 </div>
                                             </div>
