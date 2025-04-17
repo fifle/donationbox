@@ -8,29 +8,6 @@ function validateDonationForm() {
     const campaignTitle = document.getElementById('campaign_title_field')?.value?.trim();
     const payeeName = document.querySelector('input[name="payee"]')?.value?.trim();
     const detail = document.querySelector('input[name="detail"]')?.value?.trim();
-    const iban = document.querySelector('input[name="iban"]')?.value?.trim();
-    
-    // Get payment method elements
-    const sebEnabled = document.querySelector('input[name="seb"]')?.checked;
-    const sebUid = document.querySelector('input[name="sebuid"]')?.value?.trim();
-    const sebUidSt = document.querySelector('input[name="sebuid_st"]')?.value?.trim();
-    
-    // Get internet-bank methods
-    const swedEnabled = document.querySelector('input[name="swed"]')?.checked;
-    const lhvEnabled = document.querySelector('input[name="lhv"]')?.checked;
-    const coopEnabled = document.querySelector('input[name="coop"]')?.checked;
-    
-    // Get credit card methods
-    const stripeEnabled = document.querySelector('input[name="stripe"]')?.checked;
-    const stripeValue = document.querySelector('input[name="strp"]')?.value?.trim();
-    const paypalEnabled = document.querySelector('input[name="paypal"]')?.checked;
-    const paypalValue = document.querySelector('input[name="pp"]')?.value?.trim();
-    const paypalHostedEnabled = document.querySelector('input[name="paypal_hosted"]')?.checked;
-    const paypalHostedValue = document.querySelector('input[name="pphb"]')?.value?.trim();
-    const donorboxEnabled = document.querySelector('input[name="donorbox"]')?.checked;
-    const donorboxValue = document.querySelector('input[name="db"]')?.value?.trim();
-    const revolutEnabled = document.querySelector('input[name="revolut"]')?.checked;
-    const revolutValue = document.querySelector('input[name="rev"]')?.value?.trim();
     
     // Clear previous error messages
     clearValidationErrors();
@@ -71,77 +48,11 @@ function validateDonationForm() {
         });
     }
     
-    // Validate internet-bank methods
-    const internetBankEnabled = swedEnabled || lhvEnabled || coopEnabled || sebEnabled;
-    if (internetBankEnabled && !iban) {
-        errors.push({
-            message: "validation.iban_required",
-            field: 'iban',
-            step: steps.bankDetails
-        });
-    }
+    // Get payment method validation errors
+    const paymentMethodErrors = validatePaymentMethods();
     
-    // Validate SEB method
-    if (sebEnabled) {
-        if (!sebUid) {
-            errors.push({
-                message: "validation.seb_uid_required",
-                field: 'sebuid',
-                step: steps.bankDetails
-            });
-        }
-        
-        if (!sebUidSt) {
-            errors.push({
-                message: "validation.seb_uid_st_required",
-                field: 'sebuid_st',
-                step: steps.bankDetails
-            });
-        }
-    }
-    
-    // Validate credit card methods
-    if (stripeEnabled && !stripeValue) {
-        errors.push({
-            message: "validation.stripe_id_required",
-            field: 'strp',
-            step: steps.creditCardDetails
-        });
-    }
-    
-    if (paypalEnabled && !paypalValue) {
-        errors.push({
-            message: "validation.paypal_email_required",
-            field: 'pp',
-            step: steps.creditCardDetails
-        });
-    }
-    
-    if (paypalHostedEnabled && !paypalHostedValue) {
-        errors.push({
-            message: "validation.paypal_hosted_id_required",
-            field: 'pphb',
-            step: steps.creditCardDetails
-        });
-    }
-    
-    if (donorboxEnabled && !donorboxValue) {
-        errors.push({
-            message: "validation.donorbox_name_required",
-            field: 'db',
-            step: steps.creditCardDetails
-        });
-    }
-    
-    if (revolutEnabled && !revolutValue) {
-        errors.push({
-            message: "validation.revolut_username_required",
-            field: 'rev',
-            step: steps.creditCardDetails
-        });
-    }
-    
-    return errors;
+    // Combine all errors
+    return [...errors, ...paymentMethodErrors];
 }
 
 /**
@@ -407,6 +318,80 @@ function getStepName(step) {
 }
 
 /**
+ * Validate donation form based on payment methods
+ * This function is called when the form is submitted
+ * @returns {Array} Array of validation errors
+ */
+function validatePaymentMethods() {
+    const errors = [];
+    
+    // Validate internet-bank methods (IBAN required)
+    const internetBanks = ['swed', 'lhv', 'coop', 'seb'];
+    const anyInternetBankEnabled = internetBanks.some(bank => 
+        document.querySelector(`input[name="${bank}"]`)?.checked
+    );
+    
+    if (anyInternetBankEnabled) {
+        const ibanField = document.querySelector('input[name="iban"]');
+        if (ibanField && !ibanField.value.trim()) {
+            errors.push({
+                field: 'iban',
+                message: translateErrorMessage('validation.iban_required'),
+                step: 3
+            });
+        }
+    }
+    
+    // Validate SEB method (both UID tokens required)
+    const sebEnabled = document.querySelector('input[name="seb"]')?.checked;
+    if (sebEnabled) {
+        const sebuid = document.querySelector('input[name="sebuid"]');
+        const sebuid_st = document.querySelector('input[name="sebuid_st"]');
+        
+        if (sebuid && !sebuid.value.trim()) {
+            errors.push({
+                field: 'sebuid',
+                message: translateErrorMessage('validation.sebuid_required'),
+                step: 3
+            });
+        }
+        
+        if (sebuid_st && !sebuid_st.value.trim()) {
+            errors.push({
+                field: 'sebuid_st',
+                message: translateErrorMessage('validation.sebuid_st_required'),
+                step: 3
+            });
+        }
+    }
+    
+    // Validate credit card methods
+    const creditCardMethods = [
+        { name: 'stripe', field: 'strp' },
+        { name: 'paypal', field: 'pp' },
+        { name: 'paypal_hosted', field: 'pphb' },
+        { name: 'donorbox', field: 'db' },
+        { name: 'revolut', field: 'rev' }
+    ];
+    
+    creditCardMethods.forEach(method => {
+        const methodEnabled = document.querySelector(`input[name="${method.name}"]`)?.checked;
+        if (methodEnabled) {
+            const fieldElement = document.querySelector(`input[name="${method.field}"]`);
+            if (fieldElement && !fieldElement.value.trim()) {
+                errors.push({
+                    field: method.field,
+                    message: translateErrorMessage(`validation.${method.field}_required`),
+                    step: 4
+                });
+            }
+        }
+    });
+    
+    return errors;
+}
+
+/**
  * Initialize validation event listeners
  * This function is called when the DOM is loaded
  */
@@ -423,6 +408,8 @@ function initValidationListeners() {
         const element = document.getElementById(field.name) || document.querySelector(`input[name="${field.name}"]`);
         if (element) {
             element.setAttribute('required', 'required');
+            element.dataset.requiredMessage = translateErrorMessage(`validation.${field.name}_required`);
+            element.dataset.requiredStep = field.step;
         }
     });
     

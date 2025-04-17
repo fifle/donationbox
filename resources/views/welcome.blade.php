@@ -935,6 +935,21 @@
                     return;
                 }
                 
+                // Perform one final validation for payment methods
+                const paymentMethodErrors = validatePaymentMethods();
+                if (paymentMethodErrors.length > 0) {
+                    displayValidationErrors(paymentMethodErrors, this);
+                    
+                    // Navigate to the step with the first error
+                    if (paymentMethodErrors.length > 0) {
+                        const firstErrorStep = paymentMethodErrors[0].step;
+                        if (firstErrorStep !== this.step) {
+                            this.step = firstErrorStep;
+                        }
+                    }
+                    return;
+                }
+                
                 // If no errors, submit the form
                 form.submit();
             },
@@ -1034,7 +1049,7 @@
                 }
                 
                 // Check HTML5 validation for required fields in this step
-                const requiredFields = document.querySelectorAll('[x-show="step === 3"] [required]');
+                const requiredFields = document.querySelectorAll('[x-show="step === 3"] [required], [data-required-step="3"][required]');
                 let isValid = true;
                 
                 requiredFields.forEach(field => {
@@ -1055,6 +1070,13 @@
                 });
                 
                 if (!isValid) {
+                    return;
+                }
+                
+                // Perform specific validation for internet-bank methods and SEB
+                const internetBankErrors = validatePaymentMethods().filter(error => error.step === 3);
+                if (internetBankErrors.length > 0) {
+                    displayValidationErrors(internetBankErrors, this);
                     return;
                 }
                 
