@@ -1,7 +1,7 @@
 <!-- Widget Language Selector Component -->
 <div class="mb-4">
     <label for="widget-language" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Widget Language') }}</label>
-    <select id="widget-language" name="widget-language" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm rounded-md hover:border-pink-300" onchange="updateEmbedCode()">
+    <select id="widget-language" name="widget-language" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-pink-700 focus:ring-offset-1 focus:border-pink-500 sm:text-sm rounded-lg hover:border-pink-300 transition duration-150 ease-in-out" onchange="updateEmbedCode()">
         <option value="en">English</option>
         <option value="ru">Русский</option>
         @if(env('COUNTRY') == 'ee')
