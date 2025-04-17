@@ -411,14 +411,29 @@ function getStepName(step) {
  * This function is called when the DOM is loaded
  */
 function initValidationListeners() {
+    // Add required attribute to essential fields
+    const essentialFields = [
+        { name: 'campaign_title_field', step: 1 },
+        { name: 'detail', step: 1 },
+        { name: 'payee', step: 2 }
+    ];
+    
+    // Set required attribute for essential fields
+    essentialFields.forEach(field => {
+        const element = document.getElementById(field.name) || document.querySelector(`input[name="${field.name}"]`);
+        if (element) {
+            element.setAttribute('required', 'required');
+        }
+    });
+    
     // Add event listeners to payment method checkboxes
     const paymentMethods = [
-        { name: 'seb', fields: ['sebuid', 'sebuid_st'] },
-        { name: 'stripe', fields: ['strp'] },
-        { name: 'paypal', fields: ['pp'] },
-        { name: 'paypal_hosted', fields: ['pphb'] },
-        { name: 'donorbox', fields: ['db'] },
-        { name: 'revolut', fields: ['rev'] }
+        { name: 'seb', fields: ['sebuid', 'sebuid_st'], step: 3 },
+        { name: 'stripe', fields: ['strp'], step: 4 },
+        { name: 'paypal', fields: ['pp'], step: 4 },
+        { name: 'paypal_hosted', fields: ['pphb'], step: 4 },
+        { name: 'donorbox', fields: ['db'], step: 4 },
+        { name: 'revolut', fields: ['rev'], step: 4 }
     ];
     
     // Add event listeners to all payment method checkboxes
@@ -432,9 +447,15 @@ function initValidationListeners() {
                         if (this.checked) {
                             // If checkbox is checked, add required attribute
                             fieldElement.setAttribute('required', 'required');
+                            
+                            // Add data attributes for error messages
+                            fieldElement.dataset.requiredMessage = translateErrorMessage(`validation.${field}_required`);
+                            fieldElement.dataset.requiredStep = method.step;
                         } else {
                             // If checkbox is unchecked, remove required attribute
                             fieldElement.removeAttribute('required');
+                            delete fieldElement.dataset.requiredMessage;
+                            delete fieldElement.dataset.requiredStep;
                         }
                     }
                 });
@@ -461,9 +482,13 @@ function initValidationListeners() {
                     if (anyBankEnabled) {
                         // Add required attribute
                         ibanField.setAttribute('required', 'required');
+                        ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
+                        ibanField.dataset.requiredStep = 3; // Bank details step
                     } else {
                         // If no bank is enabled, remove required attribute
                         ibanField.removeAttribute('required');
+                        delete ibanField.dataset.requiredMessage;
+                        delete ibanField.dataset.requiredStep;
                     }
                 }
             });

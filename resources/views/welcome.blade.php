@@ -879,20 +879,70 @@
         return {
             step: 1,
             validateAndSubmitForm() {
-                // Validate form
+                // Clear previous validation errors
+                clearValidationErrors();
+                
+                // Validate form with our custom validation
                 const errors = validateDonationForm();
                 
                 // If there are errors, display them and return
                 if (errors.length > 0) {
                     displayValidationErrors(errors, this);
+                    
+                    // Navigate to the step with the first error
+                    if (errors.length > 0) {
+                        const firstErrorStep = errors[0].step;
+                        if (firstErrorStep !== this.step) {
+                            this.step = firstErrorStep;
+                        }
+                    }
+                    return;
+                }
+                
+                // Check HTML5 validation for all required fields
+                const form = document.getElementById('generator');
+                const requiredFields = form.querySelectorAll('[required]');
+                let hasInvalidFields = false;
+                let firstInvalidStep = null;
+                
+                requiredFields.forEach(field => {
+                    if (!field.checkValidity()) {
+                        hasInvalidFields = true;
+                        
+                        // Add error styling
+                        field.classList.add('error-border');
+                        
+                        // Create error message if it has a data-required-message
+                        if (field.dataset.requiredMessage) {
+                            const errorElement = document.createElement('div');
+                            errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                            errorElement.textContent = field.dataset.requiredMessage;
+                            field.parentNode.insertBefore(errorElement, field.nextSibling);
+                            
+                            // Track the step of the first invalid field
+                            if (!firstInvalidStep && field.dataset.requiredStep) {
+                                firstInvalidStep = parseInt(field.dataset.requiredStep);
+                            }
+                        }
+                    }
+                });
+                
+                if (hasInvalidFields) {
+                    // Navigate to the step with the first invalid field
+                    if (firstInvalidStep && firstInvalidStep !== this.step) {
+                        this.step = firstInvalidStep;
+                    }
                     return;
                 }
                 
                 // If no errors, submit the form
-                document.getElementById('generator').submit();
+                form.submit();
             },
             validateCampaignDetailsAndContinue() {
-                // Validate only campaign details
+                // Clear previous validation errors
+                clearValidationErrors();
+                
+                // Validate only campaign details with our custom validation
                 const errors = validateDonationForm().filter(error => error.step === 1);
                 
                 // If there are errors, display them and return
@@ -901,11 +951,39 @@
                     return;
                 }
                 
+                // Check HTML5 validation for required fields in this step
+                const requiredFields = document.querySelectorAll('[x-show="step === 1"] [required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.checkValidity()) {
+                        isValid = false;
+                        
+                        // Add error styling
+                        field.classList.add('error-border');
+                        
+                        // Create error message if it has a data-required-message
+                        if (field.dataset.requiredMessage) {
+                            const errorElement = document.createElement('div');
+                            errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                            errorElement.textContent = field.dataset.requiredMessage;
+                            field.parentNode.insertBefore(errorElement, field.nextSibling);
+                        }
+                    }
+                });
+                
+                if (!isValid) {
+                    return;
+                }
+                
                 // If no errors, proceed to next step
                 this.step++;
             },
             validatePersonalDataAndContinue() {
-                // Validate only personal data
+                // Clear previous validation errors
+                clearValidationErrors();
+                
+                // Validate only personal data with our custom validation
                 const errors = validateDonationForm().filter(error => error.step === 2);
                 
                 // If there are errors, display them and return
@@ -914,16 +992,69 @@
                     return;
                 }
                 
+                // Check HTML5 validation for required fields in this step
+                const requiredFields = document.querySelectorAll('[x-show="step === 2"] [required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.checkValidity()) {
+                        isValid = false;
+                        
+                        // Add error styling
+                        field.classList.add('error-border');
+                        
+                        // Create error message if it has a data-required-message
+                        if (field.dataset.requiredMessage) {
+                            const errorElement = document.createElement('div');
+                            errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                            errorElement.textContent = field.dataset.requiredMessage;
+                            field.parentNode.insertBefore(errorElement, field.nextSibling);
+                        }
+                    }
+                });
+                
+                if (!isValid) {
+                    return;
+                }
+                
                 // If no errors, proceed to next step
                 this.step++;
             },
             validateBankDetailsAndContinue() {
-                // Validate only bank details
+                // Clear previous validation errors
+                clearValidationErrors();
+                
+                // Validate only bank details with our custom validation
                 const errors = validateDonationForm().filter(error => error.step === 3);
                 
                 // If there are errors, display them and return
                 if (errors.length > 0) {
                     displayValidationErrors(errors, this);
+                    return;
+                }
+                
+                // Check HTML5 validation for required fields in this step
+                const requiredFields = document.querySelectorAll('[x-show="step === 3"] [required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.checkValidity()) {
+                        isValid = false;
+                        
+                        // Add error styling
+                        field.classList.add('error-border');
+                        
+                        // Create error message if it has a data-required-message
+                        if (field.dataset.requiredMessage) {
+                            const errorElement = document.createElement('div');
+                            errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                            errorElement.textContent = field.dataset.requiredMessage;
+                            field.parentNode.insertBefore(errorElement, field.nextSibling);
+                        }
+                    }
+                });
+                
+                if (!isValid) {
                     return;
                 }
                 
