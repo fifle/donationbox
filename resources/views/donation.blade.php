@@ -93,7 +93,7 @@
             <h3 class="mb-2 text-center text-1xl font-bold text-gray-600">
                 @lang("Embed this donation box to your website")
             </h3>
-            
+
             <!-- Widget Language Selector -->
             <div class="mb-4 px-4">
                 @include('components.widget-lang-selector')
@@ -117,10 +117,10 @@
             .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> @lang("Copy code")
                 </a>
             </div>
-            
+
             <div class="mt-4 text-sm text-gray-500 px-4">
                 <p>@lang("The widget will display in the language you select above. You can also change the language by adding a locale parameter to the URL.")</p>
-                <p class="mt-2">@lang("Example: Add '?locale=ru' to display in Russian.")</p>
+                <p class="mt-2">@lang("Example: Add '?locale=en' to display in English.")</p>
             </div>
 
         </div>
