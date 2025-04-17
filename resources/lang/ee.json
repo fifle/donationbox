@@ -83,5 +83,9 @@
     "I'd like to edit payment description": "Soovin muuta makse kirjeldust",
     "Please type new payment description": "Palun sisestage uus makse kirjeldus",
     "Generate payment link & QR-code": "Loo makselink & QR-kood",
-    "Privacy Policy": "Privaatsuspoliitika"
+    "Privacy Policy": "Privaatsuspoliitika",
+    "Widget Language": "Vidina keel",
+    "Select the language for your embedded widget.": "Vali oma sisseehitatud vidina keel.",
+    "The widget will display in the language you select above. You can also change the language by adding a locale parameter to the URL.": "Vidin kuvatakse ülal valitud keeles. Saate keelt muuta ka URL-ile locale parameetri lisamisega.",
+    "Example: Add '?locale=ru' to display in Russian.": "Näide: Lisage '?locale=ee' eesti keeles kuvamiseks."
 }

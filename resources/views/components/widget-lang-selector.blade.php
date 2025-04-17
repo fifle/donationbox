@@ -1,7 +1,7 @@
 <!-- Widget Language Selector Component -->
 <div class="mb-4">
     <label for="widget-language" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Widget Language') }}</label>
-    <select id="widget-language" name="widget-language" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" onchange="updateEmbedCode()">
+    <select id="widget-language" name="widget-language" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm rounded-md hover:border-pink-300" onchange="updateEmbedCode()">
         <option value="en">English</option>
         <option value="ru">Русский</option>
         @if(env('COUNTRY') == 'ee')
@@ -27,16 +27,24 @@
         const widgetLanguage = document.getElementById('widget-language').value;
         let embedCode = embedCodeElement.value;
         
+        // Extract the URL from the embed code
+        const urlMatch = embedCode.match(/src=['"]([^'"]+)['"]/);
+        if (!urlMatch || urlMatch.length < 2) return;
+        
+        let url = urlMatch[1];
+        
         // Remove any existing locale parameter
-        embedCode = embedCode.replace(/(&|\?)locale=[^&]+/g, '');
+        url = url.replace(/(&|\?)locale=[^&]+/g, '');
         
         // Add the new locale parameter
-        if (embedCode.includes('?')) {
-            embedCode = embedCode.replace('?', `?locale=${widgetLanguage}&`);
+        if (url.includes('?')) {
+            url = url + `&locale=${widgetLanguage}`;
         } else {
-            // If there's no query string yet, add one
-            embedCode = embedCode.replace('src="', `src="?locale=${widgetLanguage}`);
+            url = url + `?locale=${widgetLanguage}`;
         }
+        
+        // Replace the URL in the embed code
+        embedCode = embedCode.replace(/src=['"][^'"]+['"]/, `src='${url}'`);
         
         embedCodeElement.value = embedCode;
     }
