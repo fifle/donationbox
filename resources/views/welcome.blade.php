@@ -957,8 +957,24 @@
                 // Clear previous validation errors
                 clearValidationErrors();
                 
-                // Update IBAN required status
-                updateIbanRequiredStatus();
+                console.log('Validating form before submission');
+                
+                // Trigger IBAN validation
+                document.dispatchEvent(new CustomEvent('iban-check'));
+                
+                // Update IBAN required status and get validation result
+                const ibanValid = updateIbanRequiredStatus();
+                console.log('IBAN validation result:', ibanValid);
+                
+                // Validate SEB UIDs if SEB is enabled
+                const sebToggle = document.getElementById('sebt');
+                const sebEnabled = sebToggle?.checked || false;
+                let sebValid = true;
+                
+                if (sebEnabled) {
+                    sebValid = window.validateSebUids();
+                    console.log('SEB validation result:', sebValid);
+                }
                 
                 // Validate IBAN if any internet-bank is enabled
                 if (isIbanRequired()) {
@@ -977,6 +993,13 @@
                         this.step = 3;
                         return; // Stop validation if IBAN is required but empty
                     }
+                }
+                
+                // If either IBAN or SEB validation failed, navigate to bank details step
+                if (!ibanValid || !sebValid) {
+                    console.log('Validation failed, navigating to bank details step');
+                    this.step = 3;
+                    return;
                 }
                 
                 // Validate form with our custom validation
