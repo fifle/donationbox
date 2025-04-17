@@ -942,6 +942,17 @@
     function app() {
         return {
             step: 1,
+            init() {
+                // Watch for step changes
+                this.$watch('step', (value) => {
+                    // If step is 3 (bank details), trigger IBAN validation
+                    if (value === 3) {
+                        console.log('Step changed to 3, triggering IBAN validation');
+                        // Dispatch the iban-check event
+                        document.dispatchEvent(new CustomEvent('iban-check'));
+                    }
+                });
+            },
             validateAndSubmitForm() {
                 // Clear previous validation errors
                 clearValidationErrors();
@@ -1125,29 +1136,21 @@
                 // Clear previous validation errors
                 clearValidationErrors();
                 
-                // Update IBAN required status
-                updateIbanRequiredStatus();
+                // Trigger IBAN validation event
+                document.dispatchEvent(new CustomEvent('iban-check'));
+                
+                // Update IBAN required status and get validation result
+                const ibanValid = updateIbanRequiredStatus();
                 
                 // Validate SEB UIDs if SEB is enabled
+                let sebValid = true;
                 if (document.getElementById('sebt')?.checked) {
-                    window.validateSebUids();
+                    sebValid = window.validateSebUids();
                 }
                 
-                // Validate IBAN if any internet-bank is enabled
-                if (isIbanRequired()) {
-                    const ibanField = document.querySelector('input[name="iban"]');
-                    if (ibanField && !ibanField.value.trim()) {
-                        // Add error styling
-                        ibanField.classList.add('error-border');
-                        
-                        // Create error message
-                        const errorElement = document.createElement('div');
-                        errorElement.className = 'validation-error text-red-500 text-xs mt-1';
-                        errorElement.textContent = translateErrorMessage('validation.iban_required');
-                        ibanField.parentNode.insertBefore(errorElement, ibanField.nextSibling);
-                        
-                        return; // Stop validation if IBAN is required but empty
-                    }
+                // If either validation failed, stop here
+                if (!ibanValid || !sebValid) {
+                    return;
                 }
                 
                 // Validate only bank details with our custom validation

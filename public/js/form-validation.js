@@ -617,15 +617,27 @@ window.validateSebUids = function() {
 
     if (!sebuid || !sebuid_st || !errorMsg) return true;
 
-    if (!sebuid.value && !sebuid_st.value) {
+    // Check if both UID tokens are missing
+    if ((!sebuid.value || sebuid.value.trim() === '') && 
+        (!sebuid_st.value || sebuid_st.value.trim() === '')) {
+        // Show error message
         errorMsg.classList.remove('hidden');
+        
+        // Add error styling
         sebuid.classList.add('border-red-500');
         sebuid_st.classList.add('border-red-500');
+        
+        console.log('SEB validation failed: both UID tokens are missing');
         return false;
     } else {
+        // Hide error message
         errorMsg.classList.add('hidden');
+        
+        // Remove error styling
         sebuid.classList.remove('border-red-500');
         sebuid_st.classList.remove('border-red-500');
+        
+        console.log('SEB validation passed');
         return true;
     }
 }
