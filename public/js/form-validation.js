@@ -318,6 +318,38 @@ function getStepName(step) {
 }
 
 /**
+ * Check if IBAN is required based on selected payment methods
+ * @returns {boolean} True if IBAN is required
+ */
+function isIbanRequired() {
+    const internetBanks = ['swed', 'lhv', 'coop', 'seb'];
+    return internetBanks.some(bank => {
+        const checkbox = document.querySelector(`input[name="${bank}"]`);
+        return checkbox && checkbox.checked;
+    });
+}
+
+/**
+ * Set IBAN field as required if any internet-bank method is enabled
+ */
+function updateIbanRequiredStatus() {
+    const ibanField = document.querySelector('input[name="iban"]');
+    if (!ibanField) return;
+    
+    if (isIbanRequired()) {
+        // Set IBAN as required
+        ibanField.setAttribute('required', 'required');
+        ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
+        ibanField.dataset.requiredStep = 3;
+    } else {
+        // Remove required attribute
+        ibanField.removeAttribute('required');
+        delete ibanField.dataset.requiredMessage;
+        delete ibanField.dataset.requiredStep;
+    }
+}
+
+/**
  * Validate donation form based on payment methods
  * This function is called when the form is submitted
  * @returns {Array} Array of validation errors
@@ -325,14 +357,11 @@ function getStepName(step) {
 function validatePaymentMethods() {
     const errors = [];
     
-    // Validate internet-bank methods (IBAN required)
-    const internetBanks = ['swed', 'lhv', 'coop', 'seb'];
-    const anyInternetBankEnabled = internetBanks.some(bank => {
-        const checkbox = document.querySelector(`input[name="${bank}"]`);
-        return checkbox && checkbox.checked;
-    });
+    // Update IBAN required status
+    updateIbanRequiredStatus();
     
-    if (anyInternetBankEnabled) {
+    // Validate internet-bank methods (IBAN required)
+    if (isIbanRequired()) {
         const ibanField = document.querySelector('input[name="iban"]');
         if (ibanField && !ibanField.value.trim()) {
             errors.push({
@@ -340,13 +369,6 @@ function validatePaymentMethods() {
                 message: translateErrorMessage('validation.iban_required'),
                 step: 3
             });
-        }
-        
-        // Also set the required attribute on the IBAN field
-        if (ibanField) {
-            ibanField.setAttribute('required', 'required');
-            ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
-            ibanField.dataset.requiredStep = 3;
         }
     }
     
@@ -476,51 +498,52 @@ function initValidationListeners() {
     
     // Handle internet-bank checkboxes and IBAN field
     const internetBanks = ['swed', 'lhv', 'coop', 'seb'];
-    const ibanField = document.querySelector('input[name="iban"]');
     
-    // Check if any internet-bank is enabled by default
-    const anyBankEnabledByDefault = internetBanks.some(bank => {
-        const checkbox = document.querySelector(`input[name="${bank}"]`);
-        return checkbox && checkbox.checked;
-    });
-    
-    // Set IBAN as required if any bank is enabled by default
-    if (anyBankEnabledByDefault && ibanField) {
-        ibanField.setAttribute('required', 'required');
-        ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
-        ibanField.dataset.requiredStep = 3; // Bank details step
-    }
+    // Set initial IBAN required status
+    updateIbanRequiredStatus();
     
     // Add event listeners to internet-bank checkboxes
     internetBanks.forEach(bank => {
         const checkbox = document.querySelector(`input[name="${bank}"]`);
         if (checkbox) {
             checkbox.addEventListener('change', function() {
-                if (ibanField) {
-                    // Check if any internet-bank is enabled
-                    const anyBankEnabled = internetBanks.some(b => {
-                        const bankCheckbox = document.querySelector(`input[name="${b}"]`);
-                        return bankCheckbox && bankCheckbox.checked;
-                    });
-                    
-                    if (anyBankEnabled) {
-                        // Add required attribute
-                        ibanField.setAttribute('required', 'required');
-                        ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
-                        ibanField.dataset.requiredStep = 3; // Bank details step
-                    } else {
-                        // If no bank is enabled, remove required attribute
-                        ibanField.removeAttribute('required');
-                        delete ibanField.dataset.requiredMessage;
-                        delete ibanField.dataset.requiredStep;
-                    }
-                }
+                // Update IBAN required status whenever a bank checkbox changes
+                updateIbanRequiredStatus();
             });
         }
     });
     
-    // Run validation on page load to catch any pre-checked methods
-    validatePaymentMethods();
+    // Add a special event listener to the IBAN field to validate it on blur
+    const ibanField = document.querySelector('input[name="iban"]');
+    if (ibanField) {
+        ibanField.addEventListener('blur', function() {
+            // If IBAN is required but empty, show error
+            if (isIbanRequired() && !this.value.trim()) {
+                this.classList.add('error-border');
+                
+                // Remove any existing error message
+                const existingError = this.parentNode.querySelector('.validation-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+                
+                // Add error message
+                const errorElement = document.createElement('div');
+                errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                errorElement.textContent = translateErrorMessage('validation.iban_required');
+                this.parentNode.insertBefore(errorElement, this.nextSibling);
+            } else {
+                // Remove error styling if field is valid
+                this.classList.remove('error-border');
+                
+                // Remove any existing error message
+                const existingError = this.parentNode.querySelector('.validation-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+            }
+        });
+    }
 }
 
 // Initialize validation listeners when DOM is loaded

@@ -882,20 +882,25 @@
                 // Clear previous validation errors
                 clearValidationErrors();
                 
-                // Check if any internet-bank is enabled
-                const internetBanks = ['swed', 'lhv', 'coop', 'seb'];
-                const anyBankEnabled = internetBanks.some(bank => {
-                    const checkbox = document.querySelector(`input[name="${bank}"]`);
-                    return checkbox && checkbox.checked;
-                });
+                // Update IBAN required status
+                updateIbanRequiredStatus();
                 
-                // If any bank is enabled, make sure IBAN is required
-                if (anyBankEnabled) {
+                // Validate IBAN if any internet-bank is enabled
+                if (isIbanRequired()) {
                     const ibanField = document.querySelector('input[name="iban"]');
-                    if (ibanField) {
-                        ibanField.setAttribute('required', 'required');
-                        ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
-                        ibanField.dataset.requiredStep = 3;
+                    if (ibanField && !ibanField.value.trim()) {
+                        // Add error styling
+                        ibanField.classList.add('error-border');
+                        
+                        // Create error message
+                        const errorElement = document.createElement('div');
+                        errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                        errorElement.textContent = translateErrorMessage('validation.iban_required');
+                        ibanField.parentNode.insertBefore(errorElement, ibanField.nextSibling);
+                        
+                        // Navigate to bank details step
+                        this.step = 3;
+                        return; // Stop validation if IBAN is required but empty
                     }
                 }
                 
@@ -1056,20 +1061,23 @@
                 // Clear previous validation errors
                 clearValidationErrors();
                 
-                // Check if any internet-bank is enabled
-                const internetBanks = ['swed', 'lhv', 'coop', 'seb'];
-                const anyBankEnabled = internetBanks.some(bank => {
-                    const checkbox = document.querySelector(`input[name="${bank}"]`);
-                    return checkbox && checkbox.checked;
-                });
+                // Update IBAN required status
+                updateIbanRequiredStatus();
                 
-                // If any bank is enabled, make sure IBAN is required
-                if (anyBankEnabled) {
+                // Validate IBAN if any internet-bank is enabled
+                if (isIbanRequired()) {
                     const ibanField = document.querySelector('input[name="iban"]');
-                    if (ibanField) {
-                        ibanField.setAttribute('required', 'required');
-                        ibanField.dataset.requiredMessage = translateErrorMessage('validation.iban_required');
-                        ibanField.dataset.requiredStep = 3;
+                    if (ibanField && !ibanField.value.trim()) {
+                        // Add error styling
+                        ibanField.classList.add('error-border');
+                        
+                        // Create error message
+                        const errorElement = document.createElement('div');
+                        errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                        errorElement.textContent = translateErrorMessage('validation.iban_required');
+                        ibanField.parentNode.insertBefore(errorElement, ibanField.nextSibling);
+                        
+                        return; // Stop validation if IBAN is required but empty
                     }
                 }
                 
