@@ -322,11 +322,13 @@ function getStepName(step) {
  * @returns {boolean} True if IBAN is required
  */
 function isIbanRequired() {
-    const internetBanks = ['swed', 'lhv', 'coop', 'seb'];
-    return internetBanks.some(bank => {
-        const checkbox = document.querySelector(`input[name="${bank}"]`);
-        return checkbox && checkbox.checked;
-    });
+    // Check for internet-bank methods that require IBAN
+    const swedEnabled = document.getElementById('swt')?.checked || false;
+    const sebEnabled = document.getElementById('sebt')?.checked || false;
+    const lhvEnabled = document.getElementById('lhvt')?.checked || false;
+    const coopEnabled = document.getElementById('coopt')?.checked || false;
+    
+    return swedEnabled || sebEnabled || lhvEnabled || coopEnabled;
 }
 
 /**
@@ -361,9 +363,15 @@ function validatePaymentMethods() {
     updateIbanRequiredStatus();
     
     // Validate internet-bank methods (IBAN required)
-    if (isIbanRequired()) {
+    // Check for internet-bank methods that require IBAN
+    const swedEnabled = document.getElementById('swt')?.checked || false;
+    const sebEnabled = document.getElementById('sebt')?.checked || false;
+    const lhvEnabled = document.getElementById('lhvt')?.checked || false;
+    const coopEnabled = document.getElementById('coopt')?.checked || false;
+    
+    if (swedEnabled || sebEnabled || lhvEnabled || coopEnabled) {
         const ibanField = document.querySelector('input[name="iban"]');
-        if (ibanField && !ibanField.value.trim()) {
+        if (ibanField && (!ibanField.value || ibanField.value.trim() === '')) {
             errors.push({
                 field: 'iban',
                 message: translateErrorMessage('validation.iban_required'),
@@ -372,46 +380,39 @@ function validatePaymentMethods() {
         }
     }
     
-    // Validate SEB method (both UID tokens required)
-    const sebEnabled = document.querySelector('input[name="seb"]')?.checked;
+    // Validate SEB method (at least one UID token required)
     if (sebEnabled) {
         const sebuid = document.querySelector('input[name="sebuid"]');
         const sebuid_st = document.querySelector('input[name="sebuid_st"]');
         
-        if (sebuid && !sebuid.value.trim()) {
+        // Check if both UID tokens are missing
+        if ((!sebuid || !sebuid.value.trim()) && (!sebuid_st || !sebuid_st.value.trim())) {
             errors.push({
                 field: 'sebuid',
-                message: translateErrorMessage('validation.sebuid_required'),
-                step: 3
-            });
-        }
-        
-        if (sebuid_st && !sebuid_st.value.trim()) {
-            errors.push({
-                field: 'sebuid_st',
-                message: translateErrorMessage('validation.sebuid_st_required'),
+                message: translateErrorMessage('validation.seb_uid_required'),
                 step: 3
             });
         }
     }
     
     // Validate credit card methods
+    // Map of credit card method IDs to their corresponding field names
     const creditCardMethods = [
-        { name: 'stripe', field: 'strp' },
-        { name: 'paypal', field: 'pp' },
-        { name: 'paypal_hosted', field: 'pphb' },
-        { name: 'donorbox', field: 'db' },
-        { name: 'revolut', field: 'rev' }
+        { id: 'strptoggle', field: 'strp', message: 'validation.stripe_id_required' },
+        { id: 'pptoggle', field: 'pp', message: 'validation.paypal_email_required' },
+        { id: 'pphbtoggle', field: 'pphb', message: 'validation.paypal_hosted_id_required' },
+        { id: 'dbtoggle', field: 'db', message: 'validation.donorbox_name_required' },
+        { id: 'revtoggle', field: 'rev', message: 'validation.revolut_username_required' }
     ];
     
     creditCardMethods.forEach(method => {
-        const methodEnabled = document.querySelector(`input[name="${method.name}"]`)?.checked;
+        const methodEnabled = document.getElementById(method.id)?.checked || false;
         if (methodEnabled) {
             const fieldElement = document.querySelector(`input[name="${method.field}"]`);
-            if (fieldElement && !fieldElement.value.trim()) {
+            if (fieldElement && (!fieldElement.value || fieldElement.value.trim() === '')) {
                 errors.push({
                     field: method.field,
-                    message: translateErrorMessage(`validation.${method.field}_required`),
+                    message: translateErrorMessage(method.message),
                     step: 4
                 });
             }

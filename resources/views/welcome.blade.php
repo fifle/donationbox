@@ -1211,77 +1211,141 @@
         }
     }
 
+    function clearValidationErrors() {
+        // Remove all error messages
+        document.querySelectorAll('.validation-error').forEach(el => el.remove());
+        
+        // Remove error classes from input fields
+        document.querySelectorAll('.error-border').forEach(el => {
+            el.classList.remove('error-border');
+        });
+    }
+    
+    function displayValidationErrors(errors, app) {
+        if (errors.length === 0) {
+            return true;
+        }
+        
+        // Group errors by step
+        const errorsByStep = {};
+        errors.forEach(error => {
+            if (!errorsByStep[error.step]) {
+                errorsByStep[error.step] = [];
+            }
+            errorsByStep[error.step].push(error);
+        });
+        
+        // Display errors in the UI
+        errors.forEach(error => {
+            const field = document.querySelector(`[name="${error.field}"]`) || 
+                         document.getElementById(error.field);
+            
+            if (field) {
+                // Add error class to the field
+                field.classList.add('error-border');
+                
+                // Create error message element
+                const errorElement = document.createElement('div');
+                errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                errorElement.textContent = error.message;
+                
+                // Insert error message after the field
+                field.parentNode.insertBefore(errorElement, field.nextSibling);
+            }
+        });
+        
+        // Create summary error message at the top of the current step
+        const currentStep = app.step;
+        if (errorsByStep[currentStep] && errorsByStep[currentStep].length > 0) {
+            const stepContainer = document.querySelector(`[x-show="step === ${currentStep}"]`);
+            if (stepContainer) {
+                const summaryElement = document.createElement('div');
+                summaryElement.className = 'validation-error bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4';
+                
+                const summaryTitle = document.createElement('strong');
+                summaryTitle.className = 'font-bold';
+                summaryTitle.textContent = '@lang("Please fix the following errors:")';
+                
+                const summaryList = document.createElement('ul');
+                summaryList.className = 'mt-2 list-disc list-inside';
+                
+                errorsByStep[currentStep].forEach(error => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = error.message;
+                    summaryList.appendChild(listItem);
+                });
+                
+                summaryElement.appendChild(summaryTitle);
+                summaryElement.appendChild(summaryList);
+                
+                // Insert at the beginning of the step container
+                stepContainer.insertBefore(summaryElement, stepContainer.firstChild);
+            }
+        }
+        
+        return false;
+    }
+    
     function validateFormBeforeSubmit() {
+        // Clear previous validation errors
+        clearValidationErrors();
+        
         // Validate required fields
         const campaignTitle = document.querySelector('input[name="campaign_title"]');
         const payeeName = document.querySelector('input[name="payee_name"]');
         const bankName = document.querySelector('input[name="bank_name"]');
-        const iban = document.querySelector('input[name="iban"]');
         
-        let isValid = true;
-        let errorMessage = '';
-        let errorStep = 0;
+        const errors = [];
         
         // Check campaign details (step 1)
-        if (!campaignTitle.value || campaignTitle.value.trim() === '') {
-            isValid = false;
-            errorMessage = '@lang("Campaign title is required")';
-            errorStep = 1;
+        if (!campaignTitle || !campaignTitle.value || campaignTitle.value.trim() === '') {
+            errors.push({
+                field: 'campaign_title',
+                message: '@lang("Campaign title is required")',
+                step: 1
+            });
         }
         
         // Check bank details (step 3)
-        if (!payeeName.value || payeeName.value.trim() === '') {
-            isValid = false;
-            errorMessage = '@lang("Payee\'s name is required")';
-            errorStep = 3;
+        if (!payeeName || !payeeName.value || payeeName.value.trim() === '') {
+            errors.push({
+                field: 'payee_name',
+                message: '@lang("Payee\'s name is required")',
+                step: 3
+            });
         }
         
-        if (!bankName.value || bankName.value.trim() === '') {
-            isValid = false;
-            errorMessage = '@lang("Bank name is required")';
-            errorStep = 3;
+        if (!bankName || !bankName.value || bankName.value.trim() === '') {
+            errors.push({
+                field: 'bank_name',
+                message: '@lang("Bank name is required")',
+                step: 3
+            });
         }
         
-        // Check if any internet-bank methods are enabled
-        const swedEnabled = document.getElementById('swt')?.checked || false;
-        const sebEnabled = document.getElementById('sebt')?.checked || false;
-        const lhvEnabled = document.getElementById('lhvt')?.checked || false;
-        const coopEnabled = document.getElementById('coopt')?.checked || false;
+        // Get payment method validation errors
+        const paymentMethodErrors = validatePaymentMethods();
         
-        // If any internet-bank methods are enabled, IBAN is required
-        if ((swedEnabled || sebEnabled || lhvEnabled || coopEnabled) && 
-            (!iban.value || iban.value.trim() === '')) {
-            isValid = false;
-            errorMessage = '@lang("IBAN is required when internet-bank methods are enabled")';
-            errorStep = 3;
-        }
+        // Combine all errors
+        const allErrors = [...errors, ...paymentMethodErrors];
         
-        // Check SEB UID tokens if SEB is enabled
-        if (sebEnabled) {
-            const sebuid = document.querySelector('input[name="sebuid"]');
-            const sebuid_st = document.querySelector('input[name="sebuid_st"]');
+        if (allErrors.length > 0) {
+            // Display validation errors
+            displayValidationErrors(allErrors, { step: 1 }); // Start at step 1
             
-            if (!sebuid.value && !sebuid_st.value) {
-                isValid = false;
-                errorMessage = '@lang("At least one SEB UID token is required when SEB bank is enabled")';
-                errorStep = 3;
+            // Navigate to the first step with errors
+            const firstErrorStep = Math.min(...allErrors.map(error => error.step));
+            const stepElement = document.querySelector(`[data-step="${firstErrorStep}"]`);
+            if (stepElement) {
+                // Show the step with the first error
+                const stepButtons = document.querySelectorAll('.step-button');
+                stepButtons.forEach(button => {
+                    if (parseInt(button.getAttribute('data-step')) === firstErrorStep) {
+                        button.click();
+                    }
+                });
             }
-        }
-        
-        // Check Stripe if enabled
-        const stripeEnabled = document.getElementById('strptoggle')?.checked || false;
-        if (stripeEnabled) {
-            const stripeField = document.querySelector('input[name="strp"]');
             
-            if (!stripeField.value || stripeField.value.trim() === '') {
-                isValid = false;
-                errorMessage = '@lang("Stripe Payment Link ID is required when Stripe is enabled")';
-                errorStep = 4;
-            }
-        }
-        
-        if (!isValid) {
-            alert(errorMessage + ' (@lang("Step") ' + errorStep + ')');
             return false;
         }
         
