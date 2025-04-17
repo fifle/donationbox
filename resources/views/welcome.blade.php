@@ -861,6 +861,18 @@
 
 </div>
 
+<style>
+    .error-border {
+        border-color: #f56565 !important;
+    }
+    .validation-error {
+        animation: fadeIn 0.3s;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
 <script src="/js/form-validation.js"></script>
 <script>
     function app() {
