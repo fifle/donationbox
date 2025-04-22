@@ -3,6 +3,58 @@
  * Validates payment methods and required fields
  */
 
+// Global translations object
+window.translations = {};
+
+/**
+ * Load translations from the server
+ * This function fetches the translations for the current locale
+ */
+function loadTranslations() {
+    // Get current locale from HTML lang attribute
+    let locale = document.documentElement.lang || 'en';
+    
+    // Clean up locale if it contains region (e.g., 'en-US' -> 'en')
+    locale = locale.split('-')[0];
+    
+    // Check if we have a data-locale attribute on the body as a fallback
+    const dataLocale = document.body.getAttribute('data-locale');
+    if (dataLocale) {
+        locale = dataLocale;
+    }
+    
+    console.log('Loading translations for locale:', locale);
+    
+    // Fetch translations from the server
+    fetch(`/js/translations/${locale}.json`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to load translations for ${locale}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            window.translations = data;
+            console.log('Translations loaded successfully');
+        })
+        .catch(error => {
+            console.error('Error loading translations:', error);
+            // Try to load English translations as fallback
+            if (locale !== 'en') {
+                fetch('/js/translations/en.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        window.translations = data;
+                        console.log('Fallback translations loaded');
+                    })
+                    .catch(err => console.error('Failed to load fallback translations:', err));
+            }
+        });
+}
+
+// Load translations when the page loads
+document.addEventListener('DOMContentLoaded', loadTranslations);
+
 function validateDonationForm() {
     // Get form elements
     const campaignTitle = document.getElementById('campaign_title_field')?.value?.trim();
@@ -150,8 +202,20 @@ function displayValidationErrors(errors, app) {
  * @returns {String} - Translated message
  */
 function translateErrorMessage(key) {
-    // Get current locale
-    const locale = document.documentElement.lang || 'en';
+    // Get current locale from HTML lang attribute or data attribute
+    let locale = document.documentElement.lang || 'en';
+    
+    // Clean up locale if it contains region (e.g., 'en-US' -> 'en')
+    locale = locale.split('-')[0];
+    
+    // Check if we have a data-locale attribute on the body as a fallback
+    const dataLocale = document.body.getAttribute('data-locale');
+    if (dataLocale) {
+        locale = dataLocale;
+    }
+    
+    // For debugging
+    console.log('Current locale for translations:', locale);
     
     // Translation object
     const translations = {
@@ -263,9 +327,19 @@ function translateErrorMessage(key) {
     };
     
     // Return translated message or fallback to English or key itself
-    return (translations[locale] && translations[locale][key]) || 
-           translations['en'][key] || 
-           key;
+    if (translations[locale] && translations[locale][key]) {
+        return translations[locale][key];
+    } else if (translations['en'] && translations['en'][key]) {
+        console.log(`Translation not found for key "${key}" in locale "${locale}", falling back to English`);
+        return translations['en'][key];
+    } else {
+        console.log(`Translation not found for key "${key}" in any locale`);
+        // Try to load from the JSON translations if available
+        if (window.translations && window.translations[key]) {
+            return window.translations[key];
+        }
+        return key;
+    }
 }
 
 /**

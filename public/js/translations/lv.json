@@ -1,0 +1,21 @@
+{
+    "validation.please_fix_errors": "Lūdzu, izlabojiet šādas kļūdas:",
+    "validation.campaign_title_required": "Kampaņas nosaukums ir obligāts",
+    "validation.bank_transfer_detail_required": "Bankas pārskaitījuma informācija ir obligāta",
+    "validation.payee_name_required": "Saņēmēja vārds ir obligāts",
+    "validation.iban_required": "IBAN ir obligāts, ja ir iespējota kāda internetbankas maksājumu metode",
+    "validation.seb_uid_required": "SEB UID tokens ir obligāts, ja ir iespējota SEB maksājumu metode",
+    "validation.seb_uid_st_required": "SEB UID ST tokens ir obligāts, ja ir iespējota SEB maksājumu metode",
+    "validation.stripe_id_required": "Stripe maksājuma saites ID ir obligāts, ja ir iespējota Stripe maksājumu metode",
+    "validation.paypal_email_required": "PayPal e-pasts ir obligāts, ja ir iespējota PayPal maksājumu metode",
+    "validation.paypal_hosted_id_required": "PayPal viesotās pogas ID ir obligāts, ja ir iespējota PayPal viesotās pogas maksājumu metode",
+    "validation.donorbox_name_required": "Donorbox kampaņas nosaukums ir obligāts, ja ir iespējota Donorbox maksājumu metode",
+    "validation.revolut_username_required": "Revolut lietotājvārds ir obligāts, ja ir iespējota Revolut maksājumu metode",
+    "validation.sebuid_required": "SEB UID tokens ir obligāts, ja ir iespējota SEB maksājumu metode",
+    "validation.sebuid_st_required": "SEB UID ST tokens ir obligāts, ja ir iespējota SEB maksājumu metode",
+    "validation.strp_required": "Stripe maksājuma saites ID ir obligāts, ja ir iespējota Stripe maksājumu metode",
+    "validation.pp_required": "PayPal e-pasts ir obligāts, ja ir iespējota PayPal maksājumu metode",
+    "validation.pphb_required": "PayPal viesotās pogas ID ir obligāts, ja ir iespējota PayPal viesotās pogas maksājumu metode",
+    "validation.db_required": "Donorbox kampaņas nosaukums ir obligāts, ja ir iespējota Donorbox maksājumu metode",
+    "validation.rev_required": "Revolut lietotājvārds ir obligāts, ja ir iespējota Revolut maksājumu metode"
+}
