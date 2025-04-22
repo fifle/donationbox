@@ -23,6 +23,12 @@ function loadTranslations() {
         locale = dataLocale;
     }
     
+    // Check for country code in URL or environment
+    const countryFromUrl = window.location.hostname.split('.').pop();
+    if (countryFromUrl === 'ee' || countryFromUrl === 'lv' || countryFromUrl === 'lt') {
+        locale = countryFromUrl;
+    }
+    
     console.log('Loading translations for locale:', locale);
     
     // Fetch translations from the server
@@ -35,17 +41,38 @@ function loadTranslations() {
         })
         .then(data => {
             window.translations = data;
-            console.log('Translations loaded successfully');
+            console.log('Translations loaded successfully:', data);
+            
+            // Force refresh any existing error messages
+            document.querySelectorAll('.validation-error').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (key && data[key]) {
+                    el.textContent = data[key];
+                }
+            });
         })
         .catch(error => {
             console.error('Error loading translations:', error);
             // Try to load English translations as fallback
             if (locale !== 'en') {
                 fetch('/js/translations/en.json')
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Failed to load English translations`);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         window.translations = data;
-                        console.log('Fallback translations loaded');
+                        console.log('Fallback translations loaded:', data);
+                        
+                        // Force refresh any existing error messages
+                        document.querySelectorAll('.validation-error').forEach(el => {
+                            const key = el.getAttribute('data-key');
+                            if (key && data[key]) {
+                                el.textContent = data[key];
+                            }
+                        });
                     })
                     .catch(err => console.error('Failed to load fallback translations:', err));
             }
@@ -151,6 +178,7 @@ function displayValidationErrors(errors, app) {
             // Create error message element
             const errorElement = document.createElement('div');
             errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+            errorElement.setAttribute('data-key', error.message);
             errorElement.textContent = translateErrorMessage(error.message);
             
             // Insert error message after the field
@@ -168,6 +196,7 @@ function displayValidationErrors(errors, app) {
             
             const summaryTitle = document.createElement('strong');
             summaryTitle.className = 'font-bold';
+            summaryTitle.setAttribute('data-key', 'validation.please_fix_errors');
             summaryTitle.textContent = translateErrorMessage('validation.please_fix_errors');
             
             const summaryList = document.createElement('ul');
@@ -175,6 +204,7 @@ function displayValidationErrors(errors, app) {
             
             errorsByStep[currentStep].forEach(error => {
                 const listItem = document.createElement('li');
+                listItem.setAttribute('data-key', error.message);
                 listItem.textContent = translateErrorMessage(error.message);
                 summaryList.appendChild(listItem);
             });
@@ -326,18 +356,21 @@ function translateErrorMessage(key) {
         }
     };
     
+    // First try to get translation from loaded JSON files
+    if (window.translations && window.translations[key]) {
+        console.log('Found translation in window.translations:', window.translations[key]);
+        return window.translations[key];
+    }
+    
     // Return translated message or fallback to English or key itself
     if (translations[locale] && translations[locale][key]) {
+        console.log('Found translation in hardcoded translations:', translations[locale][key]);
         return translations[locale][key];
     } else if (translations['en'] && translations['en'][key]) {
         console.log(`Translation not found for key "${key}" in locale "${locale}", falling back to English`);
         return translations['en'][key];
     } else {
-        console.log(`Translation not found for key "${key}" in any locale`);
-        // Try to load from the JSON translations if available
-        if (window.translations && window.translations[key]) {
-            return window.translations[key];
-        }
+        console.log(`Translation not found for key "${key}" in any locale or JSON files`);
         return key;
     }
 }
