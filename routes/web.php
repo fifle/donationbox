@@ -102,9 +102,15 @@ if (env('COUNTRY') == 'ee') {
 }
 
 if (env('COUNTRY') == 'lv') {
-    // MTÜ Helihool
+    // Jewnited.lv
     Route::get('/jewnited', function () {
         $url ='//donationbox.lv/donation?campaign_title=Support+Jewnited.lv&detail=Ziedojums&payee=JEWNITED.LV&iban=LV05RIKO0002930376514&paypalClientId=AfwBKcbnuAWT79QQOzYfGGwVZGtH2b8EmgHHoY6vms-EZbVfTmTSDxP6blH8KqowZLsoqg4IlbJ2w-7L&sebuid=7b9882e8-a727-4ca0-8e1c-87825aad67ff&sebuid_st=361c6c70-036a-4da5-aced-751817f27762&s1=25&s2=50&s3=100';
+        return Redirect::to($url);
+    });
+
+    // Chabad.lv
+    Route::get('/chabad', function () {
+        $url ='//donationbox.lv/donation?campaign_title=Support%20Chabad%20of%20Latvia&detail=Ziedojums&iban=LV81PARX0001041501018&payee=Habad%20Lubavic%20Draudze&sebuid=4b663218-c93e-4c21-8855-a0396534f14c&sebuid_st=08311845-996c-42d3-ad3c-2f024deb31bf&strp=8x26oH0gvaX66GNfALeAg00&s1=25&s2=50&s3=100';
         return Redirect::to($url);
     });
 }
