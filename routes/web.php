@@ -110,7 +110,7 @@ if (env('COUNTRY') == 'lv') {
 
     // Chabad.lv
     Route::get('/chabad', function () {
-        $url ='//donationbox.lv/donation?campaign_title=Support%20Chabad%20of%20Latvia&detail=Ziedojums&iban=LV81PARX0001041501018&payee=Habad%20Lubavic%20Draudze&sebuid=4b663218-c93e-4c21-8855-a0396534f14c&sebuid_st=08311845-996c-42d3-ad3c-2f024deb31bf&strp=8x26oH0gvaX66GNfALeAg00&s1=25&s2=50&s3=100';
+        $url ='//donationbox.lv/donation?campaign_title=Support%20Chabad%20of%20Latvia&detail=Ziedojums%20DB&iban=LV81PARX0001041501018&payee=Habad%20Lubavic%20Draudze&sebuid=4b663218-c93e-4c21-8855-a0396534f14c&sebuid_st=08311845-996c-42d3-ad3c-2f024deb31bf&strp=8x26oH0gvaX66GNfALeAg00&s1=25&s2=50&s3=100';
         return Redirect::to($url);
     });
 }
