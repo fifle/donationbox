@@ -77,7 +77,7 @@
 
                                 <div class="mb-5">
                                     <form class="space-y-4" action="{{ route('donation') }}" method="get"
-                                          id="generator"></form>
+                                          id="generator" onsubmit="return validateFormBeforeSubmit()"></form>
                                     <div class="rounded-md -space-y-px">
                                         <div class="grid gap-6">
                                             <div class="col-span-12">
@@ -256,13 +256,41 @@
                                 @csrf
                                 <div class="rounded-md -space-y-px">
                                     <div class="grid gap-6">
-                                        <div class="col-span-12">
-                                            <label for="campaign_title" class="d-font font-semibold text-gray-700
-                                                        block mb-2">@lang("Payee's bank account (IBAN) number")</label>
+                                        <div class="col-span-12" x-data="{ 
+                                            checkIbanRequired() {
+                                                const swedEnabled = document.getElementById('swt')?.checked || false;
+                                                const sebEnabled = document.getElementById('sebt')?.checked || false;
+                                                const lhvEnabled = document.getElementById('lhvt')?.checked || false;
+                                                const coopEnabled = document.getElementById('coopt')?.checked || false;
+                                                
+                                                return swedEnabled || sebEnabled || lhvEnabled || coopEnabled;
+                                            },
+                                            validateIban() {
+                                                const ibanField = document.getElementById('iban-field');
+                                                const errorMsg = document.getElementById('iban-error');
+                                                
+                                                if (this.checkIbanRequired() && (!ibanField.value || ibanField.value.trim() === '')) {
+                                                    // Show error
+                                                    ibanField.classList.add('border-red-500');
+                                                    errorMsg.classList.remove('hidden');
+                                                } else {
+                                                    // Hide error
+                                                    ibanField.classList.remove('border-red-500');
+                                                    errorMsg.classList.add('hidden');
+                                                }
+                                            }
+                                        }"
+                                        @iban-check="validateIban()"
+                                        >
+                                            <label for="iban-field" class="d-font font-semibold text-gray-700 block mb-2">
+                                                @lang("Payee's bank account (IBAN) number")
+                                                <span x-show="checkIbanRequired()" class="font-normal text-red-500"><sup>*</sup></span>
+                                            </label>
                                             <input
                                                 form="generator"
                                                 type="text"
                                                 name="iban"
+                                                id="iban-field"
                                                 value="{{ request('iban') }}"
                                                 pattern="^(?:(?:IT|SM)\d{2}[A-Z]\d{22}|CY\d{2}[A-Z]\d{23}|NL\d{2}[A-Z]{4}\d{10}|LV\d{2}[A-Z]{4}\d{13}|(?:BG|BH|GB|IE)\d{2}[A-Z]{4}\d{14}|GI\d{2}[A-Z]{4}\d{15}|RO\d{2}[A-Z]{4}\d{16}|KW\d{2}[A-Z]{4}\d{22}|MT\d{2}[A-Z]{4}\d{23}|NO\d{13}|(?:DK|FI|GL|FO)\d{16}|MK\d{17}|(?:AT|EE|KZ|LU|XK)\d{18}|(?:BA|HR|LI|CH|CR)\d{19}|(?:GE|DE|LT|ME|RS)\d{20}|IL\d{21}|(?:AD|CZ|ES|MD|SA)\d{22}|PT\d{23}|(?:BE|IS)\d{24}|(?:FR|MR|MC)\d{25}|(?:AL|DO|LB|PL)\d{26}|(?:AZ|HU)\d{27}|(?:GR|MU)\d{28})$"
                                                 class="appearance-none rounded-none relative block
@@ -279,7 +307,12 @@
                                                 @if(env('COUNTRY') == 'lt')
                                                 placeholder="eg. LT121000011101001000"
                                                 @endif
+                                                @blur="validateIban()"
+                                                x-bind:required="checkIbanRequired()"
                                             />
+                                            <div id="iban-error" class="text-red-500 text-xs mt-1 hidden">
+                                                @lang("IBAN is required when any internet-bank method is enabled")
+                                            </div>
                                         </div>
 
                                         <div class="col-span-12">
@@ -289,26 +322,26 @@
                                             <h3 class="text-sm text-gray-600 leading-5 col-span-12">@lang('For private individuals, non-profits, and businesses. Supports both one-time and recurring payments')</h3>
                                         </div>
                                         {{--Swedbank--}}
-                                        <div class="col-span-12" x-data="{swt: false}">
+                                        <div class="col-span-12" x-data="{swt: true}">
                                             <div class="grid grid-cols-2 gap-4 space-y-0">
                                             <div>
                                                 <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-yellow-100 bg-yellow-500 uppercase">Swedbank</h2 >
                                             </div>
                                             <div>
                                                 <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                     :class="[swt ? 'bg-gray-300' : 'bg-pink-500']">
+                                                     :class="[swt ? 'bg-pink-500' : 'bg-gray-300']">
                                                     <label
                                                         for="swt"
                                                         class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
                                                     transform bg-gray-100 rounded-full cursor-pointer"
-                                                        :class="[swt ? 'translate-x-0 border-green-400' : 'translate-x-full border-gray-400' ]"></label>
+                                                        :class="[swt ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
                                                     <input
                                                         form="generator"
                                                         type="checkbox"
                                                         id="swt"
                                                         name="swt"
                                                         x-model="swt"
-                                                        @click="swt = !swt"
+                                                        @click="$dispatch('iban-check')"
                                                         class="w-full h-full appearance-none focus:outline-none"
                                                     />
                                                 </div>
@@ -316,7 +349,9 @@
                                             </div>
                                         </div>
                                         {{--SEB--}}
-                                        <div class="col-span-12" x-data="{sebt: false}">
+                                        <div class="col-span-12" x-data="{
+                                            sebt: false
+                                        }">
                                             <div class="grid grid-cols-2 gap-4">
                                             <div>
                                                 <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-green-100 bg-green-500 uppercase">SEB bank</h2>
@@ -334,12 +369,16 @@
                                                         id="sebt"
                                                         name="sebt"
                                                         x-model="sebt"
+                                                        @click="$dispatch('iban-check'); window.validateSebUids()"
                                                         class="w-full h-full appearance-none focus:outline-none"
                                                     />
                                                 </div>
                                             </div>
                                             </div>
                                             <div x-show="sebt">
+                                                <div id="seb-uid-error" class="text-red-500 text-sm mt-2 hidden">
+                                                    @lang("At least one SEB UID token is required when SEB bank is enabled")
+                                                </div>
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="d-font font-semibold text-gray-700
                                                         block mb-2">@lang("SEB UID token")</label>
@@ -364,6 +403,7 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                         placeholder="eg. f0233a8a-2c62-414d-a8e0-868d5ca345cb"
+                                                        @blur="$dispatch('iban-check'); window.validateSebUids()"
                                                     />
                                                         <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
                                                         leading-tight">
@@ -379,32 +419,33 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                             placeholder="eg. 7d28392a-771e-4128-95ee-a9cc1de7f25e"
+                                                            @blur="$dispatch('iban-check'); window.validateSebUids()"
                                                         />
                                                 </div>
                                             </div>
                                         </div>
                                         @if(env('COUNTRY') == 'ee')
                                         {{--LHV--}}
-                                        <div class="col-span-12" x-data="{lhvt: false}">
+                                        <div class="col-span-12" x-data="{lhvt: true}">
                                             <div class="grid grid-cols-2 gap-4">
                                                 <div>
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-gray-200 bg-gray-700 uppercase">LHV bank</h2>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                         :class="[lhvt ? 'bg-gray-300' : 'bg-pink-500']">
+                                                         :class="[lhvt ? 'bg-pink-500' : 'bg-gray-300']">
                                                         <label
                                                             for="lhvt"
                                                             class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
                                                     transform bg-gray-100 rounded-full cursor-pointer"
-                                                            :class="[lhvt ? 'translate-x-0 border-green-400' : 'translate-x-full border-gray-400' ]"></label>
+                                                            :class="[lhvt ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
                                                         <input
                                                             form="generator"
                                                             type="checkbox"
                                                             id="lhvt"
                                                             name="lhvt"
                                                             x-model="lhvt"
-                                                            @click="lhvt = !lhvt"
+                                                            @click="$dispatch('iban-check')"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -416,26 +457,26 @@
                                         @endif
                                         @if(env('COUNTRY') == 'ee')
                                         {{--COOP--}}
-                                        <div class="col-span-12" x-data="{coopt: false}">
+                                        <div class="col-span-12" x-data="{coopt: true}">
                                             <div class="grid grid-cols-2 gap-4">
                                                 <div>
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-blue-100 bg-blue-600 uppercase">Coop bank</h2>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
-                                                         :class="[coopt ? 'bg-gray-300' : 'bg-pink-500']">
+                                                         :class="[coopt ? 'bg-pink-500' : 'bg-gray-300']">
                                                         <label
                                                             for="coopt"
                                                             class="absolute left-0 w-8 h-8 transition duration-100 ease-linear
                                                     transform bg-gray-100 rounded-full cursor-pointer"
-                                                            :class="[coopt ? 'translate-x-0 border-green-400' : 'translate-x-full border-gray-400' ]"></label>
+                                                            :class="[coopt ? 'translate-x-full border-gray-400' : 'translate-x-0 border-green-400']"></label>
                                                         <input
                                                             form="generator"
                                                             type="checkbox"
                                                             id="coopt"
                                                             name="coopt"
                                                             x-model="coopt"
-                                                            @click="coopt = !coopt"
+                                                            @click="$dispatch('iban-check')"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -469,7 +510,25 @@
                                     <div class="grid gap-6">
                                         {{--Stripe--}}
                                         <h3 class="text-sm text-gray-600 leading-3 col-span-12">@lang('For non-profits and businesses')</h3>
-                                        <div class="col-span-12" x-data="{strptoggle: false}">
+                                        <div class="col-span-12" x-data="{
+                                            strptoggle: false,
+                                            validateStripe() {
+                                                if (!this.strptoggle) return true;
+                                                
+                                                const stripeField = document.querySelector('input[name="strp"]');
+                                                const errorMsg = document.getElementById('stripe-error');
+                                                
+                                                if (!stripeField.value || stripeField.value.trim() === '') {
+                                                    errorMsg.classList.remove('hidden');
+                                                    stripeField.classList.add('border-red-500');
+                                                    return false;
+                                                } else {
+                                                    errorMsg.classList.add('hidden');
+                                                    stripeField.classList.remove('border-red-500');
+                                                    return true;
+                                                }
+                                            }
+                                        }">
                                             <div class="grid grid-cols-4 gap-4">
                                                 <div class="flex items-center col-span-3">
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-purple-500 uppercase">Stripe</h2>
@@ -488,12 +547,16 @@
                                                             id="strptoggle"
                                                             name="strptoggle"
                                                             x-model="strptoggle"
+                                                            @click="validateStripe()"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div x-show="strptoggle">
+                                                <div id="stripe-error" class="text-red-500 text-sm mt-2 hidden">
+                                                    @lang("Stripe Payment Link ID is required when Stripe is enabled")
+                                                </div>
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <label for="campaign_title" class="font-semibold text-gray-700
                                                         block mb-2">@lang("Stripe's Payment Link ID")</label>
@@ -514,6 +577,7 @@
                                                             class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded px-3 relative transition duration-150 ease-in-out"
                                                             placeholder="Insert Stripe's Payment Link ID"
+                                                            @blur="validateStripe()"
                                                         />
                                                     </div>
                                                 </div>
@@ -773,8 +837,28 @@
 
                         <div class="w-1/2 ">
                             <button
-                                x-show="step < 4"
-                                @click="step++"
+                                x-show="step === 1"
+                                @click="validateCampaignDetailsAndContinue()"
+                                class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
+                                    border border-transparent font-medium rounded-md text-white bg-pink-500
+                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                    focus:ring-pink-700 transition duration-150 ease-in-out">
+                                @lang("Next")
+                            </button>
+                            
+                            <button
+                                x-show="step === 2"
+                                @click="validatePersonalDataAndContinue()"
+                                class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
+                                    border border-transparent font-medium rounded-md text-white bg-pink-500
+                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                    focus:ring-pink-700 transition duration-150 ease-in-out">
+                                @lang("Next")
+                            </button>
+                            
+                            <button
+                                x-show="step === 3"
+                                @click="validateBankDetailsAndContinue()"
                                 class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
                                     border border-transparent font-medium rounded-md text-white bg-pink-500
                                     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
@@ -783,10 +867,9 @@
                             </button>
 
                             <button
-                                type="submit"
-                                form="generator"
-                                value="submit"
+                                type="button"
                                 x-show="step === 4"
+                                @click="validateAndSubmitForm()"
                                 class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
                                     border border-transparent font-medium rounded-md text-white bg-pink-500
                                     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
@@ -842,11 +925,503 @@
 
 </div>
 
+<style>
+    .error-border {
+        border-color: #f56565 !important;
+    }
+    .validation-error {
+        animation: fadeIn 0.3s;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
+<script src="/js/form-validation.js"></script>
 <script>
     function app() {
         return {
             step: 1,
+            init() {
+                // Watch for step changes
+                this.$watch('step', (value) => {
+                    // If step is 3 (bank details), trigger IBAN validation
+                    if (value === 3) {
+                        console.log('Step changed to 3, triggering IBAN validation');
+                        // Dispatch the iban-check event
+                        document.dispatchEvent(new CustomEvent('iban-check'));
+                    }
+                });
+                
+                // Add a small delay to ensure Alpine.js has fully initialized
+                setTimeout(() => {
+                    // If we're already on step 3, trigger IBAN validation
+                    if (this.step === 3) {
+                        console.log('Already on step 3, triggering initial IBAN validation');
+                        document.dispatchEvent(new CustomEvent('iban-check'));
+                    }
+                }, 100);
+            },
+            validateAndSubmitForm() {
+                // Clear previous validation errors
+                clearValidationErrors();
+                
+                console.log('Validating form before submission');
+                
+                // Trigger IBAN validation
+                document.dispatchEvent(new CustomEvent('iban-check'));
+                
+                // Update IBAN required status and get validation result
+                const ibanValid = updateIbanRequiredStatus();
+                console.log('IBAN validation result:', ibanValid);
+                
+                // Validate SEB UIDs if SEB is enabled
+                const sebToggle = document.getElementById('sebt');
+                const sebEnabled = sebToggle?.checked || false;
+                let sebValid = true;
+                
+                if (sebEnabled) {
+                    sebValid = window.validateSebUids();
+                    console.log('SEB validation result:', sebValid);
+                }
+                
+                // Validate IBAN if any internet-bank is enabled
+                if (isIbanRequired()) {
+                    const ibanField = document.querySelector('input[name="iban"]');
+                    if (ibanField && !ibanField.value.trim()) {
+                        // Add error styling
+                        ibanField.classList.add('error-border');
+                        
+                        // Create error message
+                        const errorElement = document.createElement('div');
+                        errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                        errorElement.textContent = translateErrorMessage('validation.iban_required');
+                        ibanField.parentNode.insertBefore(errorElement, ibanField.nextSibling);
+                        
+                        // Navigate to bank details step
+                        this.step = 3;
+                        return; // Stop validation if IBAN is required but empty
+                    }
+                }
+                
+                // If either IBAN or SEB validation failed, navigate to bank details step
+                if (!ibanValid || !sebValid) {
+                    console.log('Validation failed, navigating to bank details step');
+                    this.step = 3;
+                    return;
+                }
+                
+                // Validate form with our custom validation
+                const errors = validateDonationForm();
+                
+                // If there are errors, display them and return
+                if (errors.length > 0) {
+                    displayValidationErrors(errors, this);
+                    
+                    // Navigate to the step with the first error
+                    if (errors.length > 0) {
+                        const firstErrorStep = errors[0].step;
+                        if (firstErrorStep !== this.step) {
+                            this.step = firstErrorStep;
+                        }
+                    }
+                    return;
+                }
+                
+                // Check HTML5 validation for all required fields
+                const form = document.getElementById('generator');
+                const requiredFields = form.querySelectorAll('[required]');
+                let hasInvalidFields = false;
+                let firstInvalidStep = null;
+                
+                requiredFields.forEach(field => {
+                    if (!field.checkValidity()) {
+                        hasInvalidFields = true;
+                        
+                        // Add error styling
+                        field.classList.add('error-border');
+                        
+                        // Create error message if it has a data-required-message
+                        if (field.dataset.requiredMessage) {
+                            const errorElement = document.createElement('div');
+                            errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                            errorElement.textContent = field.dataset.requiredMessage;
+                            field.parentNode.insertBefore(errorElement, field.nextSibling);
+                            
+                            // Track the step of the first invalid field
+                            if (!firstInvalidStep && field.dataset.requiredStep) {
+                                firstInvalidStep = parseInt(field.dataset.requiredStep);
+                            }
+                        }
+                    }
+                });
+                
+                if (hasInvalidFields) {
+                    // Navigate to the step with the first invalid field
+                    if (firstInvalidStep && firstInvalidStep !== this.step) {
+                        this.step = firstInvalidStep;
+                    }
+                    return;
+                }
+                
+                // Perform one final validation for payment methods
+                const paymentMethodErrors = validatePaymentMethods();
+                if (paymentMethodErrors.length > 0) {
+                    displayValidationErrors(paymentMethodErrors, this);
+                    
+                    // Navigate to the step with the first error
+                    if (paymentMethodErrors.length > 0) {
+                        const firstErrorStep = paymentMethodErrors[0].step;
+                        if (firstErrorStep !== this.step) {
+                            this.step = firstErrorStep;
+                        }
+                    }
+                    return;
+                }
+                
+                // If no errors, submit the form
+                form.submit();
+            },
+            validateCampaignDetailsAndContinue() {
+                // Clear previous validation errors
+                clearValidationErrors();
+                
+                // Validate only campaign details with our custom validation
+                const errors = validateDonationForm().filter(error => error.step === 1);
+                
+                // If there are errors, display them and return
+                if (errors.length > 0) {
+                    displayValidationErrors(errors, this);
+                    return;
+                }
+                
+                // Check HTML5 validation for required fields in this step
+                const requiredFields = document.querySelectorAll('[x-show="step === 1"] [required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.checkValidity()) {
+                        isValid = false;
+                        
+                        // Add error styling
+                        field.classList.add('error-border');
+                        
+                        // Create error message if it has a data-required-message
+                        if (field.dataset.requiredMessage) {
+                            const errorElement = document.createElement('div');
+                            errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                            errorElement.textContent = field.dataset.requiredMessage;
+                            field.parentNode.insertBefore(errorElement, field.nextSibling);
+                        }
+                    }
+                });
+                
+                if (!isValid) {
+                    return;
+                }
+                
+                // If no errors, proceed to next step
+                this.step++;
+            },
+            validatePersonalDataAndContinue() {
+                // Clear previous validation errors
+                clearValidationErrors();
+                
+                // Validate only personal data with our custom validation
+                const errors = validateDonationForm().filter(error => error.step === 2);
+                
+                // If there are errors, display them and return
+                if (errors.length > 0) {
+                    displayValidationErrors(errors, this);
+                    return;
+                }
+                
+                // Check HTML5 validation for required fields in this step
+                const requiredFields = document.querySelectorAll('[x-show="step === 2"] [required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.checkValidity()) {
+                        isValid = false;
+                        
+                        // Add error styling
+                        field.classList.add('error-border');
+                        
+                        // Create error message if it has a data-required-message
+                        if (field.dataset.requiredMessage) {
+                            const errorElement = document.createElement('div');
+                            errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                            errorElement.textContent = field.dataset.requiredMessage;
+                            field.parentNode.insertBefore(errorElement, field.nextSibling);
+                        }
+                    }
+                });
+                
+                if (!isValid) {
+                    return;
+                }
+                
+                // If no errors, proceed to next step
+                this.step++;
+            },
+            validateBankDetailsAndContinue() {
+                // Clear previous validation errors
+                clearValidationErrors();
+                
+                // Trigger IBAN validation event
+                document.dispatchEvent(new CustomEvent('iban-check'));
+                
+                // Update IBAN required status and get validation result
+                const ibanValid = updateIbanRequiredStatus();
+                
+                // Validate SEB UIDs if SEB is enabled
+                let sebValid = true;
+                if (document.getElementById('sebt')?.checked) {
+                    sebValid = window.validateSebUids();
+                }
+                
+                // If either validation failed, stop here
+                if (!ibanValid || !sebValid) {
+                    return;
+                }
+                
+                // Validate only bank details with our custom validation
+                const errors = validateDonationForm().filter(error => error.step === 3);
+                
+                // If there are errors, display them and return
+                if (errors.length > 0) {
+                    displayValidationErrors(errors, this);
+                    return;
+                }
+                
+                // Check HTML5 validation for required fields in this step
+                const requiredFields = document.querySelectorAll('[x-show="step === 3"] [required], [data-required-step="3"][required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.checkValidity()) {
+                        isValid = false;
+                        
+                        // Add error styling
+                        field.classList.add('error-border');
+                        
+                        // Create error message if it has a data-required-message
+                        if (field.dataset.requiredMessage) {
+                            const errorElement = document.createElement('div');
+                            errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                            errorElement.textContent = field.dataset.requiredMessage;
+                            field.parentNode.insertBefore(errorElement, field.nextSibling);
+                        }
+                    }
+                });
+                
+                if (!isValid) {
+                    return;
+                }
+                
+                // Perform specific validation for internet-bank methods and SEB
+                const internetBankErrors = validatePaymentMethods();
+                if (internetBankErrors.length > 0) {
+                    displayValidationErrors(internetBankErrors, this);
+                    return;
+                }
+                
+                // If no errors, proceed to next step
+                this.step++;
+            }
         }
+    }
+
+    function clearValidationErrors() {
+        // Remove all error messages
+        document.querySelectorAll('.validation-error').forEach(el => el.remove());
+        
+        // Remove error classes from input fields
+        document.querySelectorAll('.error-border').forEach(el => {
+            el.classList.remove('error-border');
+        });
+    }
+    
+    function displayValidationErrors(errors, app) {
+        if (errors.length === 0) {
+            return true;
+        }
+        
+        // Group errors by step
+        const errorsByStep = {};
+        errors.forEach(error => {
+            if (!errorsByStep[error.step]) {
+                errorsByStep[error.step] = [];
+            }
+            errorsByStep[error.step].push(error);
+        });
+        
+        // Display errors in the UI
+        errors.forEach(error => {
+            const field = document.querySelector(`[name="${error.field}"]`) || 
+                         document.getElementById(error.field);
+            
+            if (field) {
+                // Add error class to the field
+                field.classList.add('error-border');
+                
+                // Create error message element
+                const errorElement = document.createElement('div');
+                errorElement.className = 'validation-error text-red-500 text-xs mt-1';
+                errorElement.textContent = error.message;
+                
+                // Insert error message after the field
+                field.parentNode.insertBefore(errorElement, field.nextSibling);
+            }
+        });
+        
+        // Create summary error message at the top of the current step
+        const currentStep = app.step;
+        if (errorsByStep[currentStep] && errorsByStep[currentStep].length > 0) {
+            const stepContainer = document.querySelector(`[x-show="step === ${currentStep}"]`);
+            if (stepContainer) {
+                const summaryElement = document.createElement('div');
+                summaryElement.className = 'validation-error bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4';
+                
+                const summaryTitle = document.createElement('strong');
+                summaryTitle.className = 'font-bold';
+                summaryTitle.textContent = '@lang("Please fix the following errors:")';
+                
+                const summaryList = document.createElement('ul');
+                summaryList.className = 'mt-2 list-disc list-inside';
+                
+                errorsByStep[currentStep].forEach(error => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = error.message;
+                    summaryList.appendChild(listItem);
+                });
+                
+                summaryElement.appendChild(summaryTitle);
+                summaryElement.appendChild(summaryList);
+                
+                // Insert at the beginning of the step container
+                stepContainer.insertBefore(summaryElement, stepContainer.firstChild);
+            }
+        }
+        
+        return false;
+    }
+    
+    function validateFormBeforeSubmit() {
+        // Clear previous validation errors
+        clearValidationErrors();
+        
+        // Validate required fields
+        const campaignTitle = document.querySelector('input[name="campaign_title"]');
+        const payeeName = document.querySelector('input[name="payee_name"]');
+        const bankName = document.querySelector('input[name="bank_name"]');
+        
+        const errors = [];
+        
+        // Check campaign details (step 1)
+        if (!campaignTitle || !campaignTitle.value || campaignTitle.value.trim() === '') {
+            errors.push({
+                field: 'campaign_title',
+                message: '@lang("Campaign title is required")',
+                step: 1
+            });
+        }
+        
+        // Check bank details (step 3)
+        if (!payeeName || !payeeName.value || payeeName.value.trim() === '') {
+            errors.push({
+                field: 'payee_name',
+                message: '@lang("Payee\'s name is required")',
+                step: 3
+            });
+        }
+        
+        if (!bankName || !bankName.value || bankName.value.trim() === '') {
+            errors.push({
+                field: 'bank_name',
+                message: '@lang("Bank name is required")',
+                step: 3
+            });
+        }
+        
+        // Get payment method validation errors
+        const paymentMethodErrors = validatePaymentMethods();
+        
+        // Combine all errors
+        const allErrors = [...errors, ...paymentMethodErrors];
+        
+        if (allErrors.length > 0) {
+            // Display validation errors
+            displayValidationErrors(allErrors, { step: 1 }); // Start at step 1
+            
+            // Navigate to the first step with errors
+            const firstErrorStep = Math.min(...allErrors.map(error => error.step));
+            const stepElement = document.querySelector(`[data-step="${firstErrorStep}"]`);
+            if (stepElement) {
+                // Show the step with the first error
+                const stepButtons = document.querySelectorAll('.step-button');
+                stepButtons.forEach(button => {
+                    if (parseInt(button.getAttribute('data-step')) === firstErrorStep) {
+                        button.click();
+                    }
+                });
+            }
+            
+            return false;
+        }
+        
+        return true;
+    }
+    
+    function validatePaymentMethods() {
+        const errors = [];
+        
+        // Check if any internet-bank methods are enabled
+        const swedEnabled = document.getElementById('swt')?.checked || false;
+        const sebEnabled = document.getElementById('sebt')?.checked || false;
+        const lhvEnabled = document.getElementById('lhvt')?.checked || false;
+        const coopEnabled = document.getElementById('coopt')?.checked || false;
+        
+        // If any internet-bank methods are enabled, IBAN is required
+        const iban = document.querySelector('input[name="iban"]');
+        if ((swedEnabled || sebEnabled || lhvEnabled || coopEnabled) && 
+            (!iban.value || iban.value.trim() === '')) {
+            errors.push({
+                field: 'iban',
+                message: '@lang("IBAN is required when internet-bank methods are enabled")',
+                step: 3
+            });
+        }
+        
+        // Check SEB UID tokens if SEB is enabled
+        if (sebEnabled) {
+            const sebuid = document.querySelector('input[name="sebuid"]');
+            const sebuid_st = document.querySelector('input[name="sebuid_st"]');
+            
+            if (!sebuid.value && !sebuid_st.value) {
+                errors.push({
+                    field: 'sebuid',
+                    message: '@lang("At least one SEB UID token is required when SEB bank is enabled")',
+                    step: 3
+                });
+            }
+        }
+        
+        // Check Stripe if enabled
+        const stripeEnabled = document.getElementById('strptoggle')?.checked || false;
+        if (stripeEnabled) {
+            const stripeField = document.querySelector('input[name="strp"]');
+            
+            if (!stripeField.value || stripeField.value.trim() === '') {
+                errors.push({
+                    field: 'strp',
+                    message: '@lang("Stripe Payment Link ID is required when Stripe is enabled")',
+                    step: 4
+                });
+            }
+        }
+        
+        return errors;
     }
 </script>
 </body>

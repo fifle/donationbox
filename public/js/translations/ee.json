@@ -1,0 +1,21 @@
+{
+    "validation.please_fix_errors": "Palun parandage järgmised vead:",
+    "validation.campaign_title_required": "Kampaania pealkiri on kohustuslik",
+    "validation.bank_transfer_detail_required": "Pangaülekande selgitus on kohustuslik",
+    "validation.payee_name_required": "Makse saaja nimi on kohustuslik",
+    "validation.iban_required": "IBAN on kohustuslik, kui mõni internetipanga makseviis on lubatud",
+    "validation.seb_uid_required": "SEB UID token on kohustuslik, kui SEB makseviis on lubatud",
+    "validation.seb_uid_st_required": "SEB UID ST token on kohustuslik, kui SEB makseviis on lubatud",
+    "validation.stripe_id_required": "Stripe makse lingi ID on kohustuslik, kui Stripe makseviis on lubatud",
+    "validation.paypal_email_required": "PayPal e-post on kohustuslik, kui PayPal makseviis on lubatud",
+    "validation.paypal_hosted_id_required": "PayPal hostitud nupu ID on kohustuslik, kui PayPal hostitud nupu makseviis on lubatud",
+    "validation.donorbox_name_required": "Donorbox kampaania nimi on kohustuslik, kui Donorbox makseviis on lubatud",
+    "validation.revolut_username_required": "Revolut kasutajanimi on kohustuslik, kui Revolut makseviis on lubatud",
+    "validation.sebuid_required": "SEB UID token on kohustuslik, kui SEB makseviis on lubatud",
+    "validation.sebuid_st_required": "SEB UID ST token on kohustuslik, kui SEB makseviis on lubatud",
+    "validation.strp_required": "Stripe makse lingi ID on kohustuslik, kui Stripe makseviis on lubatud",
+    "validation.pp_required": "PayPal e-post on kohustuslik, kui PayPal makseviis on lubatud",
+    "validation.pphb_required": "PayPal hostitud nupu ID on kohustuslik, kui PayPal hostitud nupu makseviis on lubatud",
+    "validation.db_required": "Donorbox kampaania nimi on kohustuslik, kui Donorbox makseviis on lubatud",
+    "validation.rev_required": "Revolut kasutajanimi on kohustuslik, kui Revolut makseviis on lubatud"
+}

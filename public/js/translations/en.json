@@ -1,0 +1,21 @@
+{
+    "validation.please_fix_errors": "Please fix the following errors:",
+    "validation.campaign_title_required": "Campaign title is required",
+    "validation.bank_transfer_detail_required": "Bank transfer detail is required",
+    "validation.payee_name_required": "Payee's name is required",
+    "validation.iban_required": "IBAN is required when any internet-bank payment method is enabled",
+    "validation.seb_uid_required": "SEB UID token is required when SEB payment method is enabled",
+    "validation.seb_uid_st_required": "SEB UID ST token is required when SEB payment method is enabled",
+    "validation.stripe_id_required": "Stripe payment link ID is required when Stripe payment method is enabled",
+    "validation.paypal_email_required": "PayPal email is required when PayPal payment method is enabled",
+    "validation.paypal_hosted_id_required": "PayPal hosted button ID is required when PayPal hosted button payment method is enabled",
+    "validation.donorbox_name_required": "Donorbox campaign name is required when Donorbox payment method is enabled",
+    "validation.revolut_username_required": "Revolut username is required when Revolut payment method is enabled",
+    "validation.sebuid_required": "SEB UID token is required when SEB payment method is enabled",
+    "validation.sebuid_st_required": "SEB UID ST token is required when SEB payment method is enabled",
+    "validation.strp_required": "Stripe payment link ID is required when Stripe payment method is enabled",
+    "validation.pp_required": "PayPal email is required when PayPal payment method is enabled",
+    "validation.pphb_required": "PayPal hosted button ID is required when PayPal hosted button payment method is enabled",
+    "validation.db_required": "Donorbox campaign name is required when Donorbox payment method is enabled",
+    "validation.rev_required": "Revolut username is required when Revolut payment method is enabled"
+}
