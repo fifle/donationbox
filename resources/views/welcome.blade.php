@@ -60,25 +60,64 @@
 
             <!-- Action Selection Step -->
             <div x-show="step === 0" x-transition:enter.duration.500ms>
-                <div class="bg-white rounded-lg p-5 shadow justify-between mb-6">
-                    <div class="text-center mb-6">
-                        <h3 class="text-lg font-semibold text-gray-700 mb-4">@lang("What would you like to do?")</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button
-                                @click="step = 1"
-                                class="d-font focus:outline-none py-4 px-6 rounded-lg shadow-sm text-center text-gray-700 bg-white hover:bg-gray-50 font-medium border-2 border-pink-500 hover:border-pink-600 transition duration-150 ease-in-out">
-                                <div class="text-2xl mb-2">✨</div>
-                                <div class="font-semibold">@lang("Create New Donationbox")</div>
-                                <div class="text-sm text-gray-500 mt-1">@lang("Start from scratch")</div>
-                            </button>
-                            <button
-                                @click="step = 'edit'"
-                                class="d-font focus:outline-none py-4 px-6 rounded-lg shadow-sm text-center text-gray-700 bg-white hover:bg-gray-50 font-medium border-2 border-blue-500 hover:border-blue-600 transition duration-150 ease-in-out">
-                                <div class="text-2xl mb-2">✏️</div>
-                                <div class="font-semibold">@lang("Modify Existing Donationbox")</div>
-                                <div class="text-sm text-gray-500 mt-1">@lang("Edit an existing link")</div>
-                            </button>
-                        </div>
+                <style>
+                    @keyframes gradient-mesh {
+                        0% {
+                            background-position: 0% 50%;
+                        }
+                        25% {
+                            background-position: 50% 100%;
+                        }
+                        50% {
+                            background-position: 100% 50%;
+                        }
+                        75% {
+                            background-position: 50% 0%;
+                        }
+                        100% {
+                            background-position: 0% 50%;
+                        }
+                    }
+                    .btn-create-animated {
+                        background: linear-gradient(
+                            135deg,
+                            #ec4899 0%,
+                            #db2777 25%,
+                            #f97316 50%,
+                            #ea580c 75%,
+                            #c026d3 100%
+                        );
+                        background-size: 400% 400%;
+                        animation: gradient-mesh 8s ease infinite;
+                        box-shadow: 0 4px 20px 0 rgba(236, 72, 153, 0.3);
+                        transition: all 0.3s ease;
+                        position: relative;
+                    }
+                    .btn-create-animated:hover {
+                        box-shadow: 0 6px 25px 0 rgba(236, 72, 153, 0.5);
+                        transform: translateY(-2px);
+                    }
+                    .btn-create-animated > * {
+                        position: relative;
+                        z-index: 1;
+                    }
+                </style>
+                <div class="text-center mb-6">
+                    <div class="grid grid-cols-1 gap-4 max-w-2xl mx-auto">
+                        <button
+                            @click="step = 1"
+                            class="d-font focus:outline-none py-4 px-6 rounded-lg text-center text-white font-medium transition duration-150 ease-in-out btn-create-animated">
+                            <div class="text-2xl mb-2">✨</div>
+                            <div class="font-semibold">@lang("Create New Donationbox")</div>
+                            <div class="text-sm text-white opacity-90 mt-1">@lang("Start from scratch")</div>
+                        </button>
+                        <button
+                            @click="step = 'edit'"
+                            class="d-font focus:outline-none py-4 px-6 rounded-lg shadow-md text-center text-gray-700 bg-white hover:bg-gray-50 hover:shadow-lg font-medium transition duration-150 ease-in-out">
+                            <div class="text-2xl mb-2">✏️</div>
+                            <div class="font-semibold">@lang("Modify Existing Donationbox")</div>
+                            <div class="text-sm text-gray-500 mt-1">@lang("Edit an existing link")</div>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -124,13 +163,15 @@
                                 <button
                                     type="button"
                                     @click="step = 0"
-                                    class="d-font w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out">
+                                    class="d-font w-32 focus:outline-none text-sm/6 py-2 px-2 mr-2 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out">
                                     @lang("Back")
                                 </button>
                                 <button
                                     type="submit"
-                                    class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg border border-transparent font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 transition duration-150 ease-in-out">
-                                    @lang("Load & Edit")
+                                    class="d-font w-32 text-sm/6 focus:outline-none border border-transparent py-2 px-2 ml-2 rounded-lg border border-transparent font-medium text-white rounded-md bg-pink-500
+                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                    focus:ring-pink-700 transition duration-150 ease-in-out">
+                                    @lang("Start editing")
                                 </button>
                             </div>
                         </form>
