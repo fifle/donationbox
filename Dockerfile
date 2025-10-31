@@ -3,7 +3,7 @@
 # Default to PHP 8.1, but we attempt to match
 # the PHP version from the user (wherever `flyctl launch` is run)
 # Valid version values are PHP 7.4+
-ARG PHP_VERSION=8.0
+ARG PHP_VERSION=8.1
 ARG NODE_VERSION=14
 FROM serversideup/php:${PHP_VERSION}-fpm-nginx-v1.5.0 as base
 
@@ -16,9 +16,16 @@ LABEL fly_launch_runtime="laravel"
 RUN apt-get update && apt-get install -y \
     git curl zip unzip rsync ca-certificates vim htop cron \
     php${PHP_VERSION}-pgsql php${PHP_VERSION}-bcmath \
-    php${PHP_VERSION}-swoole php${PHP_VERSION}-xml php${PHP_VERSION}-mbstring \
+    php${PHP_VERSION}-xml php${PHP_VERSION}-mbstring \
+    build-essential php${PHP_VERSION}-dev php-pear libssl-dev \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && pecl install swoole || true \
+    && if command -v docker-php-ext-enable >/dev/null 2>&1; then \
+         docker-php-ext-enable swoole || true; \
+    elif php -m | grep -q swoole; then \
+         true; \
+    fi
 
 WORKDIR /var/www/html
 # copy application code, skipping files based on .dockerignore
@@ -28,7 +35,7 @@ RUN composer install --optimize-autoloader --no-dev --ignore-platform-reqs \
     && mkdir -p storage/logs \
     && php artisan optimize:clear \
     && chown -R webuser:webgroup /var/www/html \
-    && sed -i 's/protected \$proxies/protected \$proxies = "*"/g' app/Http/Middleware/TrustProxies.php \
+    && sed -i 's/protected $proxies/protected $proxies = "*"/g' app/Http/Middleware/TrustProxies.php \
     && echo "MAILTO=\"\"\n* * * * * webuser /usr/bin/php /var/www/html/artisan schedule:run" > /etc/cron.d/laravel \
     && rm -rf /etc/cont-init.d/* \
     && cp .fly/nginx-websockets.conf /etc/nginx/conf.d/websockets.conf \
