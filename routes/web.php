@@ -20,6 +20,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Edit existing donationbox link
+Route::get('/edit', 'App\Http\Controllers\DonationController@editLink')->name('edit');
+
 // Language switcher
 Route::get('lang/{locale}', [App\Http\Controllers\LocalizationController::class, 'index'])->name('lang');
 
