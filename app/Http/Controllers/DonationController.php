@@ -592,4 +592,81 @@ class DonationController extends Controller
     {
 
     }
+
+    // Edit existing donationbox link
+    public function editLink(Request $request)
+    {
+        $url = $request->input('url');
+        
+        if (!$url) {
+            return redirect('/')->with('error', 'Please provide a valid donationbox URL');
+        }
+
+        // Parse the URL to extract query parameters
+        $parsedUrl = parse_url($url);
+        
+        if (!isset($parsedUrl['query'])) {
+            return redirect('/')->with('error', 'Invalid donationbox URL format');
+        }
+
+        parse_str($parsedUrl['query'], $params);
+
+        // Handle locale parameter
+        $locale = isset($params['locale']) ? $params['locale'] : null;
+        if ($locale) {
+            $validLocales = ['en', 'ru', 'ee', 'lv', 'lt'];
+            if (in_array($locale, $validLocales)) {
+                app()->setLocale($locale);
+                session()->put('locale', $locale);
+            }
+        }
+
+        // Decode URL-encoded values for form display
+        $campaign_title = isset($params['campaign_title']) ? urldecode($params['campaign_title']) : '';
+        $detail = isset($params['detail']) ? urldecode($params['detail']) : '';
+        $payee = isset($params['payee']) ? urldecode($params['payee']) : '';
+        $iban = isset($params['iban']) ? urldecode($params['iban']) : '';
+        $pp = isset($params['pp']) ? urldecode($params['pp']) : '';
+        $db = isset($params['db']) ? urldecode($params['db']) : '';
+        $sebuid = isset($params['sebuid']) ? urldecode($params['sebuid']) : '';
+        $sebuid_st = isset($params['sebuid_st']) ? urldecode($params['sebuid_st']) : '';
+        $rev = isset($params['rev']) ? urldecode($params['rev']) : '';
+        $strp = isset($params['strp']) ? urldecode($params['strp']) : '';
+        $paypalClientId = isset($params['paypalClientId']) ? urldecode($params['paypalClientId']) : '';
+        $pphb = isset($params['pphb']) ? urldecode($params['pphb']) : '';
+        $s1 = isset($params['s1']) ? urldecode($params['s1']) : '';
+        $s2 = isset($params['s2']) ? urldecode($params['s2']) : '';
+        $s3 = isset($params['s3']) ? urldecode($params['s3']) : '';
+        $s0 = isset($params['s0']) ? urldecode($params['s0']) : '';
+        
+        // Boolean values
+        $tax = isset($params['tax']) && filter_var($params['tax'], FILTER_VALIDATE_BOOLEAN);
+        $swt = isset($params['swt']) && filter_var($params['swt'], FILTER_VALIDATE_BOOLEAN);
+        $lhvt = isset($params['lhvt']) && filter_var($params['lhvt'], FILTER_VALIDATE_BOOLEAN);
+        $coopt = isset($params['coopt']) && filter_var($params['coopt'], FILTER_VALIDATE_BOOLEAN);
+        
+        // Determine which payment methods are enabled based on parameters
+        $hasSwedbank = !$swt;
+        $hasSEB = !empty($sebuid) || !empty($sebuid_st);
+        $hasLHV = !$lhvt && env('COUNTRY') == 'ee';
+        $hasCoop = !$coopt && env('COUNTRY') == 'ee';
+        $hasStripe = !empty($strp);
+        $hasPaypalBusiness = !empty($paypalClientId);
+        $hasDonorbox = !empty($db);
+        $hasPaypalMe = !empty($pp);
+        $hasRevolut = !empty($rev);
+        $hasPaypalHostedButton = !empty($pphb);
+
+        // Store original URL for reference
+        $originalUrl = $url;
+
+        return view('edit', compact(
+            'campaign_title', 'detail', 'payee', 'iban', 'pp', 'db', 
+            'sebuid', 'sebuid_st', 'rev', 'strp', 'paypalClientId', 'pphb',
+            's1', 's2', 's3', 's0', 'tax', 'swt', 'lhvt', 'coopt',
+            'hasSwedbank', 'hasSEB', 'hasLHV', 'hasCoop', 'hasStripe',
+            'hasPaypalBusiness', 'hasDonorbox', 'hasPaypalMe', 'hasRevolut',
+            'hasPaypalHostedButton', 'originalUrl'
+        ));
+    }
 }

@@ -2,13 +2,13 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
         @if(env('COUNTRY') == 'ee')
-                <title>@lang("Create your virtual donation box for Estonian banks for free - DonationBox.ee")</title>
+                <title>@lang("Edit your virtual donation box - DonationBox.ee")</title>
         @endif
         @if(env('COUNTRY') == 'lv')
-                <title>@lang("Create your virtual donation box for Latvian banks for free - DonationBox.lv")</title>
+                <title>@lang("Edit your virtual donation box - DonationBox.lv")</title>
         @endif
         @if(env('COUNTRY') == 'lt')
-                <title>@lang("Create your virtual donation box for Lithuanian banks for free - DonationBox.lt")</title>
+                <title>@lang("Edit your virtual donation box - DonationBox.lt")</title>
         @endif
     @include('head')
 </head>
@@ -27,29 +27,27 @@
             </div>
 
             <h2 class="text-center text-xl text-gray-700">
-                @lang("Start your virtual donation box")
-                 <br>
-                @if(env('COUNTRY') == 'ee')
-                    @lang("for 🇪🇪 Estonian banks for free")
-                @endif
-                @if(env('COUNTRY') == 'lv')
-                    @lang("for 🇱🇻 Latvian banks for free")
-                @endif
-                @if(env('COUNTRY') == 'lt')
-                    @lang("for 🇱🇹 Lithuanian banks for free")
-                @endif
+                @lang("Edit your virtual donation box")
             </h2>
+        </div>
 
-            @if(env('COUNTRY') == 'ee')
-                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, LHV, Coop, Stripe, Revolut, Donorbox,
-                    Paypal)</p>
-            @endif
-            @if(env('COUNTRY') == 'lv')
-                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal)</p>
-            @endif
-            @if(env('COUNTRY') == 'lt')
-                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal)</p>
-            @endif
+        <!-- Important Warning -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-yellow-700">
+                        <strong>@lang("Important:")</strong> @lang("Modifying the values below will create a new URL. The original URL will remain unchanged. If you've already shared the link or embedded it as a widget on your website, you'll need to update it with the new URL.")
+                    </p>
+                    <p class="text-xs text-yellow-600 mt-2">
+                        <strong>@lang("Original URL:")</strong> <span class="break-all">{{ $originalUrl }}</span>
+                    </p>
+                </div>
+            </div>
         </div>
 
         <div x-data="app()" x-cloak>
@@ -58,128 +56,7 @@
                 <!-- /Top Navigation -->
             </div>
 
-            <!-- Action Selection Step -->
-            <div x-show="step === 0" x-transition:enter.duration.500ms>
-                <style>
-                    @keyframes gradient-mesh {
-                        0% {
-                            background-position: 0% 50%;
-                        }
-                        25% {
-                            background-position: 50% 100%;
-                        }
-                        50% {
-                            background-position: 100% 50%;
-                        }
-                        75% {
-                            background-position: 50% 0%;
-                        }
-                        100% {
-                            background-position: 0% 50%;
-                        }
-                    }
-                    .btn-create-animated {
-                        background: linear-gradient(
-                            135deg,
-                            #ec4899 0%,
-                            #db2777 25%,
-                            #f97316 50%,
-                            #ea580c 75%,
-                            #c026d3 100%
-                        );
-                        background-size: 400% 400%;
-                        animation: gradient-mesh 8s ease infinite;
-                        box-shadow: 0 4px 20px 0 rgba(236, 72, 153, 0.3);
-                        transition: all 0.3s ease;
-                        position: relative;
-                    }
-                    .btn-create-animated:hover {
-                        box-shadow: 0 6px 25px 0 rgba(236, 72, 153, 0.5);
-                        transform: translateY(-2px);
-                    }
-                    .btn-create-animated > * {
-                        position: relative;
-                        z-index: 1;
-                    }
-                </style>
-                <div class="text-center mb-6">
-                    <div class="grid grid-cols-1 gap-4 max-w-2xl mx-auto">
-                        <button
-                            @click="step = 1"
-                            class="d-font focus:outline-none py-4 px-6 rounded-lg text-center text-white font-medium transition duration-150 ease-in-out btn-create-animated">
-                            <div class="text-2xl mb-2">✨</div>
-                            <div class="font-semibold">@lang("Create New Donationbox")</div>
-                            <div class="text-sm text-white opacity-90 mt-1">@lang("Start from scratch")</div>
-                        </button>
-                        <button
-                            @click="step = 'edit'"
-                            class="d-font focus:outline-none py-4 px-6 rounded-lg shadow-md text-center text-gray-700 bg-white hover:bg-gray-50 hover:shadow-lg font-medium transition duration-150 ease-in-out">
-                            <div class="text-2xl mb-2">✏️</div>
-                            <div class="font-semibold">@lang("Modify Existing Donationbox")</div>
-                            <div class="text-sm text-gray-500 mt-1">@lang("Edit an existing link")</div>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Edit Existing Link Form -->
-            <div x-show="step === 'edit'" x-transition:enter.duration.500ms>
-                <div class="bg-white rounded-lg p-5 shadow justify-between mb-6">
-                    <div class="mb-4">
-                        <h3 class="text-lg font-semibold text-gray-700 mb-2">@lang("Modify Existing Donationbox")</h3>
-                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
-                            <div class="flex">
-                                <div class="flex-shrink-0">
-                                    <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                                <div class="ml-3">
-                                    <p class="text-sm text-yellow-700">
-                                        <strong>@lang("Important:")</strong> @lang("Modifying the values will create a new URL. The original URL will remain unchanged. If you've already shared the link or embedded it as a widget on your website, you'll need to update it with the new URL.")
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <form action="{{ route('edit') }}" method="get" id="edit-form">
-                            <div class="mb-4">
-                                <label for="edit_url" class="d-font font-semibold text-gray-700 block mb-1">
-                                    @lang("Paste your existing Donationbox URL")
-                                    <span class="font-normal text-red-500"><sup>*</sup></span>
-                                </label>
-                                <div class="tracking-normal text-sm text-gray-500 mb-3 leading-tight">
-                                    @lang("Paste the full URL of your existing donationbox link to load its values for editing.")
-                                </div>
-                                <input
-                                    type="url"
-                                    name="url"
-                                    id="edit_url"
-                                    value="{{ request('url') }}"
-                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                    placeholder="https://donationbox.ee/donation?campaign_title=..."
-                                    required>
-                            </div>
-                            <div class="flex justify-between">
-                                <button
-                                    type="button"
-                                    @click="step = 0"
-                                    class="d-font w-32 focus:outline-none text-sm/6 py-2 px-2 mr-2 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out">
-                                    @lang("Back")
-                                </button>
-                                <button
-                                    type="submit"
-                                    class="d-font w-32 text-sm/6 focus:outline-none border border-transparent py-2 px-2 ml-2 rounded-lg border border-transparent font-medium text-white rounded-md bg-pink-500
-                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
-                                    focus:ring-pink-700 transition duration-150 ease-in-out">
-                                    @lang("Start editing")
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-lg p-5 shadow justify-between" x-show="step !== 0 && step !== 'edit'">
+            <div class="bg-white rounded-lg p-5 shadow justify-between">
                 <div class="">
                     <div x-show.transition="step != 'complete'">
 
@@ -216,7 +93,7 @@
                                                     type="text"
                                                     name="campaign_title"
                                                     id="campaign_title_field"
-                                                    value="{{ request('campaign_title') }}"
+                                                    value="{{ $campaign_title }}"
                                                     class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
                                                                text-gray-900 rounded-md
@@ -246,16 +123,7 @@
                                                     form="generator"
                                                     type="text"
                                                     name="detail"
-                                                    @if(env('COUNTRY') == 'ee')
-                                                    value="Annetus"
-                                                    @endif
-                                                    @if(env('COUNTRY') == 'lv')
-                                                    value="Ziedojums"
-                                                    @endif
-                                                    @if(env('COUNTRY') == 'lt')
-                                                    value="Donorystė"
-                                                    @endif
-                                                    {{--                                                            value="{{ request('detail') }}"--}}
+                                                    value="{{ $detail }}"
                                                     class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
                                                                text-gray-900 rounded-md
@@ -264,6 +132,79 @@
                                                     placeholder="eg. Annetus"
                                                     required/>
                                             </div>
+                                            
+                                            @if($s1 || $s2 || $s3)
+                                            <div class="col-span-12">
+                                                <label class="d-font font-semibold text-gray-700 block mb-1">
+                                                    @lang("Preset donation amounts (optional)")
+                                                </label>
+                                                <div class="tracking-normal text-sm text-gray-500 mb-3 leading-tight">
+                                                    @lang("These amounts will appear as quick-select buttons on the donation page.")
+                                                </div>
+                                                <div class="grid grid-cols-3 gap-4">
+                                                    <div>
+                                                        <label for="s1" class="text-xs text-gray-600 mb-1 block">@lang("Amount 1")</label>
+                                                        <input
+                                                            form="generator"
+                                                            type="number"
+                                                            name="s1"
+                                                            id="s1"
+                                                            value="{{ $s1 }}"
+                                                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-sm transition duration-150 ease-in-out"
+                                                            placeholder="25"
+                                                            step="0.01"
+                                                            min="0">
+                                                    </div>
+                                                    <div>
+                                                        <label for="s2" class="text-xs text-gray-600 mb-1 block">@lang("Amount 2")</label>
+                                                        <input
+                                                            form="generator"
+                                                            type="number"
+                                                            name="s2"
+                                                            id="s2"
+                                                            value="{{ $s2 }}"
+                                                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-sm transition duration-150 ease-in-out"
+                                                            placeholder="50"
+                                                            step="0.01"
+                                                            min="0">
+                                                    </div>
+                                                    <div>
+                                                        <label for="s3" class="text-xs text-gray-600 mb-1 block">@lang("Amount 3")</label>
+                                                        <input
+                                                            form="generator"
+                                                            type="number"
+                                                            name="s3"
+                                                            id="s3"
+                                                            value="{{ $s3 }}"
+                                                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-sm transition duration-150 ease-in-out"
+                                                            placeholder="100"
+                                                            step="0.01"
+                                                            min="0">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            
+                                            @if($s0)
+                                            <div class="col-span-12">
+                                                <label for="s0" class="d-font font-semibold text-gray-700 block mb-1">
+                                                    @lang("Fixed donation amount")
+                                                </label>
+                                                <div class="tracking-normal text-sm text-gray-500 mb-3 leading-tight">
+                                                    @lang("If set, donors can only donate this specific amount.")
+                                                </div>
+                                                <input
+                                                    form="generator"
+                                                    type="number"
+                                                    name="s0"
+                                                    id="s0"
+                                                    value="{{ $s0 }}"
+                                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
+                                                    placeholder="0.00"
+                                                    step="0.01"
+                                                    min="0">
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -295,7 +236,7 @@
                                                 form="generator"
                                                 type="text"
                                                 name="payee"
-                                                value="{{ request('payee') }}"
+                                                value="{{ $payee }}"
                                                 class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
                                                                text-gray-900 rounded-md
@@ -327,8 +268,6 @@
                                             <div class="tracking-normal text-sm text-gray-500 mb-3
                                                         leading-tight">
                                                 @lang("If you'll turn on this checkbox, your donors will be able to request an income tax refund on their donation. NB! Your organization must be on the register of associations eligible for tax incentives.")
-{{--                                                <a href="/about#taxfree-ee" class="no-underline hover:underline--}}
-{{--                                                    text-blue-800" target="_blank">Learn more ></a>--}}
                                             </div>
                                             <div class="flex items-start mb-2">
                                                 <div class="flex items-center h-5">
@@ -338,6 +277,7 @@
                                                         id="tax"
                                                         name="tax"
                                                         value="1"
+                                                        {{ $tax ? 'checked' : '' }}
                                                         class="w-5 h-5
                                                        bg-red-100 border-red-300 text-red-500 focus:ring-red-200"/>
                                                 </div>
@@ -384,7 +324,7 @@
                                                 form="generator"
                                                 type="text"
                                                 name="iban"
-                                                value="{{ request('iban') }}"
+                                                value="{{ $iban }}"
                                                 pattern="^(?:(?:IT|SM)\d{2}[A-Z]\d{22}|CY\d{2}[A-Z]\d{23}|NL\d{2}[A-Z]{4}\d{10}|LV\d{2}[A-Z]{4}\d{13}|(?:BG|BH|GB|IE)\d{2}[A-Z]{4}\d{14}|GI\d{2}[A-Z]{4}\d{15}|RO\d{2}[A-Z]{4}\d{16}|KW\d{2}[A-Z]{4}\d{22}|MT\d{2}[A-Z]{4}\d{23}|NO\d{13}|(?:DK|FI|GL|FO)\d{16}|MK\d{17}|(?:AT|EE|KZ|LU|XK)\d{18}|(?:BA|HR|LI|CH|CR)\d{19}|(?:GE|DE|LT|ME|RS)\d{20}|IL\d{21}|(?:AD|CZ|ES|MD|SA)\d{22}|PT\d{23}|(?:BE|IS)\d{24}|(?:FR|MR|MC)\d{25}|(?:AL|DO|LB|PL)\d{26}|(?:AZ|HU)\d{27}|(?:GR|MU)\d{28})$"
                                                 class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
@@ -410,7 +350,7 @@
                                             <h3 class="text-sm text-gray-600 leading-5 col-span-12">@lang('For private individuals, non-profits, and businesses. Supports both one-time and recurring payments')</h3>
                                         </div>
                                         {{--Swedbank--}}
-                                        <div class="col-span-12" x-data="{swt: false}">
+                                        <div class="col-span-12" x-data="{swt: {{ $swt ? 'true' : 'false' }}}">
                                             <div class="grid grid-cols-2 gap-4 space-y-0">
                                             <div>
                                                 <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-yellow-100 bg-yellow-500 uppercase">Swedbank</h2 >
@@ -430,6 +370,7 @@
                                                         name="swt"
                                                         x-model="swt"
                                                         @click="swt = !swt"
+                                                        {{ $swt ? 'checked' : '' }}
                                                         class="w-full h-full appearance-none focus:outline-none"
                                                     />
                                                 </div>
@@ -437,7 +378,7 @@
                                             </div>
                                         </div>
                                         {{--SEB--}}
-                                        <div class="col-span-12" x-data="{sebt: false}">
+                                        <div class="col-span-12" x-data="{sebt: {{ $hasSEB ? 'true' : 'false' }}}">
                                             <div class="grid grid-cols-2 gap-4">
                                             <div>
                                                 <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-green-100 bg-green-500 uppercase">SEB bank</h2>
@@ -478,7 +419,7 @@
                                                         form="generator"
                                                         type="text"
                                                         name="sebuid"
-                                                        value="{{ request('sebuid') }}"
+                                                        value="{{ $sebuid }}"
                                                         class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
                                                                text-gray-900 rounded-md
@@ -493,7 +434,7 @@
                                                             form="generator"
                                                             type="text"
                                                             name="sebuid_st"
-                                                            value="{{ request('sebuid_st') }}"
+                                                            value="{{ $sebuid_st }}"
                                                             class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
                                                                text-gray-900 rounded-md
@@ -506,7 +447,7 @@
                                         </div>
                                         @if(env('COUNTRY') == 'ee')
                                         {{--LHV--}}
-                                        <div class="col-span-12" x-data="{lhvt: false}">
+                                        <div class="col-span-12" x-data="{lhvt: {{ $lhvt ? 'true' : 'false' }}}">
                                             <div class="grid grid-cols-2 gap-4">
                                                 <div>
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-gray-200 bg-gray-700 uppercase">LHV bank</h2>
@@ -526,6 +467,7 @@
                                                             name="lhvt"
                                                             x-model="lhvt"
                                                             @click="lhvt = !lhvt"
+                                                            {{ $lhvt ? 'checked' : '' }}
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -537,7 +479,7 @@
                                         @endif
                                         @if(env('COUNTRY') == 'ee')
                                         {{--COOP--}}
-                                        <div class="col-span-12" x-data="{coopt: false}">
+                                        <div class="col-span-12" x-data="{coopt: {{ $coopt ? 'true' : 'false' }}}">
                                             <div class="grid grid-cols-2 gap-4">
                                                 <div>
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-blue-100 bg-blue-600 uppercase">Coop bank</h2>
@@ -557,6 +499,7 @@
                                                             name="coopt"
                                                             x-model="coopt"
                                                             @click="coopt = !coopt"
+                                                            {{ $coopt ? 'checked' : '' }}
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -590,7 +533,7 @@
                                     <div class="grid gap-6">
                                         {{--Stripe--}}
                                         <h3 class="text-sm text-gray-600 leading-3 col-span-12">@lang('For non-profits and businesses')</h3>
-                                        <div class="col-span-12" x-data="{strptoggle: false}">
+                                        <div class="col-span-12" x-data="{strptoggle: {{ $hasStripe ? 'true' : 'false' }}}">
                                             <div class="grid grid-cols-4 gap-4">
                                                 <div class="flex items-center col-span-3">
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-purple-500 uppercase">Stripe</h2>
@@ -631,7 +574,7 @@
                                                             form="generator"
                                                             type="text"
                                                             name="strp"
-                                                            value="{{ request('strp') }}"
+                                                            value="{{ $strp }}"
                                                             class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded px-3 relative transition duration-150 ease-in-out"
                                                             placeholder="Insert Stripe's Payment Link ID"
@@ -641,7 +584,7 @@
                                             </div>
                                         </div>
                                         {{--Paypal Business Account--}}
-                                        <div class="col-span-12" x-data="{ppbusinesstoggle: false}">
+                                        <div class="col-span-12" x-data="{ppbusinesstoggle: {{ $hasPaypalBusiness ? 'true' : 'false' }}}">
                                             <div class="grid grid-cols-4 gap-4">
                                                 <div class="flex items-center col-span-3">
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-blue-700 bg-gray-200 uppercase">Paypal Business</h2>
@@ -682,7 +625,7 @@
                                                             form="generator"
                                                             type="text"
                                                             name="paypalClientId"
-                                                            value="{{ request('paypalClientId') }}"
+                                                            value="{{ $paypalClientId }}"
                                                             class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded px-3 relative transition duration-150 ease-in-out"
                                                             placeholder="Insert your PayPal Business Account's Client ID"
@@ -692,7 +635,7 @@
                                             </div>
                                         </div>
                                         {{--Donorbox--}}
-                                        <div class="col-span-12" x-data="{dbtoggle: false}">
+                                        <div class="col-span-12" x-data="{dbtoggle: {{ $hasDonorbox ? 'true' : 'false' }}}">
                                             <div class="grid grid-cols-4 gap-4">
                                                 <div class="flex items-center col-span-3">
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase
@@ -738,7 +681,7 @@
                                                             form="generator"
                                                             type="text"
                                                             name="db"
-                                                            value="{{ request('db') }}"
+                                                            value="{{ $db }}"
                                                             class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
                                                             placeholder="your-campaign-slug"
@@ -749,7 +692,7 @@
                                         </div>
                                         <h3 class="text-sm text-gray-600 leading-3 col-span-12">@lang("For private individuals")</h3>
                                         {{--Paypal.me--}}
-                                        <div class="col-span-12" x-data="{pptoggle: false}">
+                                        <div class="col-span-12" x-data="{pptoggle: {{ $hasPaypalMe ? 'true' : 'false' }}}">
                                             <div class="grid grid-cols-4 gap-4">
                                                 <div class="flex items-center col-span-3">
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-blue-500 uppercase">Paypal.me</h2>
@@ -794,7 +737,7 @@
                                                             form="generator"
                                                             type="text"
                                                             name="pp"
-                                                            value="{{ request('pp') }}"
+                                                            value="{{ $pp }}"
                                                             class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
                                                             placeholder="your-paypal-me-username"
@@ -804,7 +747,7 @@
                                             </div>
                                         </div>
                                         {{--Revolut.me--}}
-                                        <div class="col-span-12" x-data="{revtoggle: false}">
+                                        <div class="col-span-12" x-data="{revtoggle: {{ $hasRevolut ? 'true' : 'false' }}}">
                                             <div class="grid grid-cols-4 gap-4">
                                                 <div class="flex items-center col-span-3">
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-black uppercase">Revolut.me</h2>
@@ -850,7 +793,7 @@
                                                             form="generator"
                                                             type="text"
                                                             name="rev"
-                                                            value="{{ request('rev') }}"
+                                                            value="{{ $rev }}"
                                                             class="flex-shrink flex-grow flex-auto flex-auto
                                                         leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative transition duration-150 ease-in-out"
                                                             placeholder="your-revolut-me-username"
@@ -871,7 +814,7 @@
 
             <!-- Bottom Navigation -->
             <div class="fixed bottom-0 left-0 right-0 py-5 bg-white bg-opacity-90 shadow-md z-10" x-show="step !=
-            'complete' && step !== 0 && step !== 'edit'">
+            'complete'">
                 <div class="max-w-3xl mx-auto px-4">
                     <div class="flex justify-between">
                         <div class="w-1/2 text-right">
@@ -918,7 +861,7 @@
                     </div>
                 </div>
             </div>
-            <div class="py-4" x-show="step !== 0 && step !== 'edit'">
+            <div class="py-4">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                     <div class="flex-1">
                         <div class="uppercase tracking-normal text-xs font-normal text-gray-400 mb-4 leading-tight"
@@ -939,22 +882,6 @@
         </div>
         @include('secure')
 
-        @if(env('COUNTRY') == 'lv')
-            <div class="pt-10">
-                <a href="https://yf.donationbox.lv/?db" target="_blank">
-                    <img class="mx-auto rounded-xl hover:opacity-90" src="/img/yf-og-img-main-01.jpg">
-                </a>
-            </div>
-        @endif
-
-        @if(env('COUNTRY') == 'ee')
-            <div class="pt-10">
-                <a href="https://2024.donationbox.ee/?db" target="_blank">
-                    <img class="mx-auto rounded-xl hover:opacity-90" src="/img/df-2024-fb-cover-01.jpg">
-                </a>
-            </div>
-        @endif
-
         @include('footer')
     </div>
 
@@ -966,7 +893,7 @@
 <script>
     function app() {
         return {
-            step: 0, // Start with action selection
+            step: 1,
         }
     }
 </script>
