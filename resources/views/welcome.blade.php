@@ -947,13 +947,13 @@
             </div>
         @endif
 
-        @if(env('COUNTRY') == 'ee')
+        <!-- @if(env('COUNTRY') == 'ee')
             <div class="pt-10">
                 <a href="https://2024.donationbox.ee/?db" target="_blank">
                     <img class="mx-auto rounded-xl hover:opacity-90" src="/img/df-2024-fb-cover-01.jpg">
                 </a>
             </div>
-        @endif
+        @endif -->
 
         @include('footer')
     </div>
