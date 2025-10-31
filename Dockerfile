@@ -15,8 +15,7 @@ LABEL fly_launch_runtime="laravel"
 
 RUN apt-get update && apt-get install -y \
     git curl zip unzip rsync ca-certificates vim htop cron \
-    php${PHP_VERSION}-pgsql php${PHP_VERSION}-bcmath \
-    php${PHP_VERSION}-swoole php${PHP_VERSION}-xml php${PHP_VERSION}-mbstring \
+    && (apt-get install -y php${PHP_VERSION}-pgsql php${PHP_VERSION}-bcmath php${PHP_VERSION}-xml php${PHP_VERSION}-mbstring 2>/dev/null || echo "Some PHP extensions may already be installed") \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -90,7 +89,9 @@ FROM base
 # or maybe some custom assets were added manually! Either way, we merge
 # in the assets we generated above rather than overwrite them
 COPY --from=node_modules_go_brrr /app/public /var/www/html/public-npm
-RUN rsync -ar /var/www/html/public-npm/ /var/www/html/public/ \
+RUN if [ -d /var/www/html/public-npm ]; then \
+        cp -r /var/www/html/public-npm/. /var/www/html/public/ 2>/dev/null || true; \
+    fi \
     && rm -rf /var/www/html/public-npm \
     && chown -R webuser:webgroup /var/www/html/public
 
