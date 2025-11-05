@@ -70,6 +70,12 @@ if (env('COUNTRY') == 'ee') {
         return Redirect::to($url);
     });
 
+    // MTÜ Mustvee Heaks
+    Route::get('/mtumustveeheaks', function () {
+        $url ='//donationbox.ee/embed?campaign_title=%F0%9F%8C%8A%20Teeme%20Mustvee%20ranna%20korda%20-%20koos%21%20%F0%9F%8C%9E&detail=Annetus&iban=EE792200221093278097&payee=MT%C3%9C%20Mustvee%20Heaks&strp=28EeVf2Bn73A0Qy41We3e02';
+        return Redirect::to($url);
+    });
+
     // GET route for embed with Pühtitsa monastery redirect check
     Route::get('/embed', function () {
         // Check if this is the specific Pühtitsa monastery URL
