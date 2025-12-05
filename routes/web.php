@@ -26,48 +26,7 @@ Route::get('/edit', 'App\Http\Controllers\DonationController@editLink')->name('e
 // Language switcher
 Route::get('lang/{locale}', [App\Http\Controllers\LocalizationController::class, 'index'])->name('lang');
 
-// Default donation page
-if (env('COUNTRY') == 'ee') {
-    // GET route for donation with Kommijagamise tuur redirect check
-    Route::get('/donation', function () {
-        // Decode parameters to handle encoding variations
-        $campaignTitle = rawurldecode(request()->input('campaign_title', ''));
-        $detail = rawurldecode(request()->input('detail', ''));
-        $payee = rawurldecode(request()->input('payee', ''));
-        $iban = request()->input('iban', '');
-        $tax = request()->input('tax', '');
-
-        // Check if this matches the Kommijagamise tuur donation pattern
-        // Compare decoded values to handle %20, +, and other encoding variations
-        if (strcasecmp($campaignTitle, 'Kommijagamise tuur') === 0 &&
-            $detail === 'Annetus' &&
-            strcasecmp($payee, 'KOMMIJAGAMISE TUUR MTÜ') === 0 &&
-            $iban === 'EE852200221080277564' &&
-            $tax === '1' &&
-            !request()->has('sebuid')) {
-
-            // Build the redirect URL with the new parameters
-            // Pass decoded values and let http_build_query encode them (uses + for spaces by default)
-            $redirectUrl = '//donationbox.ee/donation?' . http_build_query([
-                'campaign_title' => 'Kommijagamise tuur',
-                'detail' => 'Annetus',
-                'payee' => 'KOMMIJAGAMISE TUUR MTÜ',
-                'tax' => '1',
-                'iban' => 'EE852200221080277564',
-                'sebuid' => 'dde0f52b-41e3-464d-8b10-ce1e48767065',
-                'sebuid_st' => '217366f5-0d53-4d20-80cb-139cecc4cc29'
-            ]);
-
-            return Redirect::to($redirectUrl);
-        }
-
-        // Continue normal processing for all other donation URLs
-        return app()->call('App\Http\Controllers\DonationController@donationLink');
-    })->name('donation')->middleware(StripEmptyParams::class);
-} else {
-    // Standard donation route for non-EE countries
-    Route::get('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation')->middleware(StripEmptyParams::class);
-}
+// Default donation page - POST route (same for all countries)
 Route::post('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation.show')->middleware(StripEmptyParams::class);
 
 // Widgets - POST route defined here, GET route defined conditionally below
@@ -116,6 +75,43 @@ if (env('COUNTRY') == 'ee') {
         return Redirect::to($url);
     });
 
+    // GET route for donation with Kommijagamise tuur redirect check
+    Route::get('/donation', function () {
+        // Decode parameters to handle encoding variations
+        $campaignTitle = rawurldecode(request()->input('campaign_title', ''));
+        $detail = rawurldecode(request()->input('detail', ''));
+        $payee = rawurldecode(request()->input('payee', ''));
+        $iban = request()->input('iban', '');
+        $tax = request()->input('tax', '');
+
+        // Check if this matches the Kommijagamise tuur donation pattern
+        // Compare decoded values to handle %20, +, and other encoding variations
+        if (strcasecmp($campaignTitle, 'Kommijagamise tuur') === 0 &&
+            $detail === 'Annetus' &&
+            strcasecmp($payee, 'KOMMIJAGAMISE TUUR MTÜ') === 0 &&
+            $iban === 'EE852200221080277564' &&
+            $tax === '1' &&
+            !request()->has('sebuid')) {
+
+            // Build the redirect URL with the new parameters
+            // Pass decoded values and let http_build_query encode them (uses + for spaces by default)
+            $redirectUrl = '//donationbox.ee/donation?' . http_build_query([
+                'campaign_title' => 'Kommijagamise tuur',
+                'detail' => 'Annetus',
+                'payee' => 'KOMMIJAGAMISE TUUR MTÜ',
+                'tax' => '1',
+                'iban' => 'EE852200221080277564',
+                'sebuid' => 'dde0f52b-41e3-464d-8b10-ce1e48767065',
+                'sebuid_st' => '217366f5-0d53-4d20-80cb-139cecc4cc29'
+            ]);
+
+            return Redirect::to($redirectUrl);
+        }
+
+        // Continue normal processing for all other donation URLs
+        return app()->call('App\Http\Controllers\DonationController@donationLink');
+    })->name('donation')->middleware(StripEmptyParams::class);
+
     // GET route for embed with Pühtitsa monastery redirect check
     Route::get('/embed', function () {
         // Check if this is the specific Pühtitsa monastery URL
@@ -148,6 +144,9 @@ if (env('COUNTRY') == 'ee') {
     Route::get('/embed', 'App\Http\Controllers\DonationController@donationEmbed')
         ->name('donationembed')
         ->middleware(StripEmptyParams::class);
+    
+    // Standard donation route for non-EE countries
+    Route::get('/donation', 'App\Http\Controllers\DonationController@donationLink')->name('donation')->middleware(StripEmptyParams::class);
 }
 
 if (env('COUNTRY') == 'lv') {
