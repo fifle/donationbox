@@ -968,13 +968,13 @@
             </div>
         @endif
 
-        @if(env('COUNTRY') == 'ee')
+        <!-- @if(env('COUNTRY') == 'ee')
             <div class="pt-10">
                 <a href="https://2024.donationbox.ee/?db" target="_blank" aria-label="@lang('Visit DonationBox 2024')">
                     <img class="mx-auto rounded-xl hover:opacity-90" src="/img/df-2024-fb-cover-01.jpg" alt="@lang('DonationBox 2024 promotional image')">
                 </a>
             </div>
-        @endif
+        @endif -->
 
         @include('footer')
     </div>
