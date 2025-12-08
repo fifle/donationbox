@@ -48,7 +48,7 @@
 <script src="{{ asset('js/app.js') }}" defer></script>
 {{--<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>--}}
 <script defer src="{{ asset('js/alpine.js') }}"></script>
-{{--<script src="//kit.fontawesome.com/6940ba20ce.js" crossorigin="anonymous"></script>--}}
+<script src="//kit.fontawesome.com/6940ba20ce.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
 
 @if(env('COUNTRY') == 'ee' and env('APP_ENV') != 'local')

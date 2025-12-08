@@ -1,4 +1,4 @@
-<div class="pt-8 pb-14 text-center text-gray-600">
+<footer role="contentinfo" class="pt-8 pb-14 text-center text-gray-600">
 
     @if(Route::currentRouteName() === 'donation')
     <a href="mailto:donationbox.ee@gmail.com?subject=Report%20Alert%20from%20Donationbox.ee&body=Your%20name%3A%0D%0AYour%20email%3A%0D%0AReason%20for%20reporting%3A%0D%0AReported%20URL%3A%20{{
@@ -7,10 +7,11 @@
        class="d-font transition duration-150 ease-in-out bg-white px-5
                                                 py-3 mb-4 text-sm shadow-sm font-medium
                                                      border text-red-400 rounded-lg hover:shadow-lg
-                                                     hover:bg-gray-50 inline-flex items-center">
+                                                     hover:bg-gray-50 inline-flex items-center"
+       aria-label="@lang('Report fraud or suspicious activity')">
 
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
-        .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+        .org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
         @lang("Report fraud")
     </a>
     @endif
@@ -73,7 +74,7 @@
                  hover:underline text-blue-800" target="_blank">
         <div class="inline-flex items-center">@lang("Pavel")<svg class="w-3 h-3 ml-1" fill="none"
                                                         stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
-                .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0
+                .org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0
                  00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
         </div>
     </a>
@@ -90,8 +91,8 @@
 
         <div class="inline-flex items-center mt-2">
             @lang("Support the project") <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                     xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </div>
     </a>
     </div>
-</div>
+</footer>

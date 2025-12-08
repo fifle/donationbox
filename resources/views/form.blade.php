@@ -1,8 +1,8 @@
 
 <div>
-    <h2 class="mt-0 ml-3 mr-3 text-center text-2xl font-semibold text-gray-700">
+    <h1 class="mt-0 ml-3 mr-3 text-center text-2xl font-semibold text-gray-700">
         {!! urldecode($campaign_title) !!}
-    </h2>
+    </h1>
     <div class="mt-2 mb-4 ml-3 mr-3 text-center text-sm text-gray-500 align-middle">
         {!! urldecode($payee) !!}
         @if($iban)
@@ -19,7 +19,7 @@
                 }} / {{ urldecode($iban) }} / @lang('Payment description:') {{ urldecode($detail) }}">
             <div class="inline-flex items-center text-xs text-gray-500">
             (<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
-            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>@lang("Copy"))</div>
+            .org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>@lang("Copy"))</div>
         </button>
         <div id="tooltip-click" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
             Copied!
@@ -31,7 +31,7 @@
                 @lang("Check payee's background")
                 <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                      xmlns="http://www.w3
-                .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0
+                .org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0
                  00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
             </div>
         </a><br>
@@ -103,6 +103,8 @@
                                                         focus:outline-none focus:ring-1 focus:ring-offset-0
                                                         focus:ring-pink-700 focus:z-10 text-5xl text-center"
                                                         placeholder="0.00" min="0" step="any" maxlength="4"
+                                                        aria-label="@lang('Enter donation amount')"
+                                                        aria-required="true"
                                                         @if($s0)
                                                             x-model="preamount = '{{ $s0 }}'"
                                                             disabled
@@ -315,6 +317,7 @@
                                                         name="ikcheckbox"
                                                         value="true"
                                                         x-model="show"
+                                                        aria-label="@lang("I'd like to have a tax return")"
                                                         class="w-4 h-4
                                                      bg-red-100 border-red-300 text-red-500 focus:ring-red-200 "
                                                         >

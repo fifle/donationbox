@@ -6,20 +6,22 @@
     @include('head')
 </head>
 <body class="antialiased">
+<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:p-2 focus:bg-white focus:text-gray-900 focus:underline">@lang("Skip to main content")</a>
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-2">
 
-        <div class="grid grid-cols-2 items-center mb-4">
+        <header role="banner" class="grid grid-cols-2 items-center mb-4">
             <div class="w-32">
-                <a href="/" target="_blank">
-                    <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png" alt="Donationbox.{{ env('COUNTRY') }}">
+                <a href="/" target="_blank" aria-label="@lang('Return to homepage')">
+                    <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png" alt="@lang('DonationBox') logo - @lang('Return to homepage')">
                 </a>
             </div>
             <div class="">
                 @include('components.lang-switcher')
             </div>
-        </div>
+        </header>
 
+        <main id="main-content" role="main">
         @include('form')
 
     <!-- COPY LINK -->
@@ -34,15 +36,16 @@
                 ->linkedin()
                 ->whatsapp() !!}
                 <!-- Trigger -->
-                    <a href="#_" class="d-font btn transition duration-150 ease-in-out
+                    <button type="button" class="d-font btn transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-3 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         text-sm border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto inline-flex items-center ml-2"
-                            data-clipboard-text="{{ $link }}" >
+                            data-clipboard-text="{{ $link }}"
+                            aria-label="@lang('Copy donation link to clipboard')">
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
-            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> @lang("Copy link")
-                    </a>
+            .org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> @lang("Copy link")
+                    </button>
                 </div>
             </div>
         </div>
@@ -107,15 +110,16 @@
                        value="{{ sprintf("<embed src='%s' width='100%%' height='900' style='border:none;overflow:hidden'></embed>", $embedlink) }}">
 
                 <!-- Trigger -->
-                <a href="#_" class="d-font btn transition duration-150 ease-in-out
+                <button type="button" class="d-font btn transition duration-150 ease-in-out
                                                         focus:outline-none py-2 px-3 rounded-lg
                                                         shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
                                                         text-sm border focus:ring-1 focus:ring-offset-1
                                                         focus:ring-pink-700 w-auto inline-flex items-center ml-2"
-                        data-clipboard-target="#embed-code">
+                        data-clipboard-target="#embed-code"
+                        aria-label="@lang('Copy embed code to clipboard')">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
-            .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> @lang("Copy code")
-                </a>
+            .org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> @lang("Copy code")
+                </button>
             </div>
 
             <div class="mt-4 text-sm text-gray-500 px-4">
@@ -126,6 +130,7 @@
         </div>
         @endif
 
+        </main>
         @include('footer')
     </div>
 </div>

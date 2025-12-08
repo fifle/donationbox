@@ -13,20 +13,23 @@
     @include('head')
 </head>
 <body class="antialiased">
+<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:p-2 focus:bg-white focus:text-gray-900 focus:underline">@lang("Skip to main content")</a>
 
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-2">
 
+        <header role="banner">
         @include('components.lang-switcher')
+        </header>
 
         <div class="items-center justify-center mt-8 mb-6">
             <div class="w-1/2 mx-auto mb-4">
-                <a href="/">
-                    <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png">
+                <a href="/" aria-label="@lang('Return to homepage')">
+                    <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png" alt="@lang('DonationBox') logo - @lang('Return to homepage')">
                 </a>
             </div>
 
-            <h2 class="text-center text-xl text-gray-700">
+            <h1 class="text-center text-xl text-gray-700">
                 @lang("Start your virtual donation box")
                  <br>
                 @if(env('COUNTRY') == 'ee')
@@ -38,7 +41,7 @@
                 @if(env('COUNTRY') == 'lt')
                     @lang("for 🇱🇹 Lithuanian banks for free")
                 @endif
-            </h2>
+            </h1>
 
             @if(env('COUNTRY') == 'ee')
                 <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, LHV, Coop, Stripe, Revolut, Donorbox,
@@ -52,7 +55,7 @@
             @endif
         </div>
 
-        <div x-data="app()" x-cloak>
+        <main id="main-content" role="main" x-data="app()" x-cloak>
             <div x-show.transition="step != 'complete'">
                 <!-- Top Navigation -->
                 <!-- /Top Navigation -->
@@ -223,6 +226,7 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                     placeholder="@lang("eg. 'Support our community'")"
+                                                    aria-required="true"
                                                     required>
                                             </div>
 
@@ -246,6 +250,7 @@
                                                     form="generator"
                                                     type="text"
                                                     name="detail"
+                                                    id="detail_field"
                                                     @if(env('COUNTRY') == 'ee')
                                                     value="Annetus"
                                                     @endif
@@ -262,6 +267,7 @@
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
                                                     placeholder="eg. Annetus"
+                                                    aria-required="true"
                                                     required/>
                                             </div>
                                         </div>
@@ -295,6 +301,7 @@
                                                 form="generator"
                                                 type="text"
                                                 name="payee"
+                                                id="payee_field"
                                                 value="{{ request('payee') }}"
                                                 class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
@@ -310,6 +317,7 @@
                                                 @if(env('COUNTRY') == 'lt')
                                                 placeholder="@lang("eg. 'Vardenis Pavardenis' or 'VšĮ'")"
                                                 @endif
+                                                aria-required="true"
                                                 required/>
                                         </div>
                                     </div>
@@ -338,6 +346,7 @@
                                                         id="tax"
                                                         name="tax"
                                                         value="1"
+                                                        aria-label="@lang("Let my donors apply for a tax refund")"
                                                         class="w-5 h-5
                                                        bg-red-100 border-red-300 text-red-500 focus:ring-red-200"/>
                                                 </div>
@@ -384,6 +393,7 @@
                                                 form="generator"
                                                 type="text"
                                                 name="iban"
+                                                        id="iban_field"
                                                 value="{{ request('iban') }}"
                                                 pattern="^(?:(?:IT|SM)\d{2}[A-Z]\d{22}|CY\d{2}[A-Z]\d{23}|NL\d{2}[A-Z]{4}\d{10}|LV\d{2}[A-Z]{4}\d{13}|(?:BG|BH|GB|IE)\d{2}[A-Z]{4}\d{14}|GI\d{2}[A-Z]{4}\d{15}|RO\d{2}[A-Z]{4}\d{16}|KW\d{2}[A-Z]{4}\d{22}|MT\d{2}[A-Z]{4}\d{23}|NO\d{13}|(?:DK|FI|GL|FO)\d{16}|MK\d{17}|(?:AT|EE|KZ|LU|XK)\d{18}|(?:BA|HR|LI|CH|CR)\d{19}|(?:GE|DE|LT|ME|RS)\d{20}|IL\d{21}|(?:AD|CZ|ES|MD|SA)\d{22}|PT\d{23}|(?:BE|IS)\d{24}|(?:FR|MR|MC)\d{25}|(?:AL|DO|LB|PL)\d{26}|(?:AZ|HU)\d{27}|(?:GR|MU)\d{28})$"
                                                 class="appearance-none rounded-none relative block
@@ -400,6 +410,7 @@
                                                 @if(env('COUNTRY') == 'lt')
                                                 placeholder="eg. LT121000011101001000"
                                                 @endif
+                                                        aria-label="@lang("Payee's bank account (IBAN) number")"
                                             />
                                         </div>
 
@@ -430,6 +441,7 @@
                                                         name="swt"
                                                         x-model="swt"
                                                         @click="swt = !swt"
+                                                        aria-label="@lang("Enable Swedbank payment method")"
                                                         class="w-full h-full appearance-none focus:outline-none"
                                                     />
                                                 </div>
@@ -455,6 +467,7 @@
                                                         id="sebt"
                                                         name="sebt"
                                                         x-model="sebt"
+                                                        aria-label="@lang("Enable SEB bank payment method")"
                                                         class="w-full h-full appearance-none focus:outline-none"
                                                     />
                                                 </div>
@@ -526,6 +539,7 @@
                                                             name="lhvt"
                                                             x-model="lhvt"
                                                             @click="lhvt = !lhvt"
+                                                            aria-label="@lang("Enable LHV bank payment method")"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -557,6 +571,7 @@
                                                             name="coopt"
                                                             x-model="coopt"
                                                             @click="coopt = !coopt"
+                                                            aria-label="@lang("Enable Coop bank payment method")"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -609,6 +624,7 @@
                                                             id="strptoggle"
                                                             name="strptoggle"
                                                             x-model="strptoggle"
+                                                            aria-label="@lang("Enable Stripe payment method")"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -660,6 +676,7 @@
                                                             id="ppbusinesstoggle"
                                                             name="ppbusinesstoggle"
                                                             x-model="ppbusinesstoggle"
+                                                            aria-label="@lang("Enable PayPal Business payment method")"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -712,6 +729,7 @@
                                                             id="dbtoggle"
                                                             name="dbtoggle"
                                                             x-model="dbtoggle"
+                                                            aria-label="@lang("Enable Donorbox payment method")"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -768,6 +786,7 @@
                                                             id="pptoggle"
                                                             name="pptoggle"
                                                             x-model="pptoggle"
+                                                            aria-label="@lang("Enable PayPal.me payment method")"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -823,6 +842,7 @@
                                                             id="revtoggle"
                                                             name="revtoggle"
                                                             x-model="revtoggle"
+                                                            aria-label="@lang("Enable Revolut.me payment method")"
                                                             class="w-full h-full appearance-none focus:outline-none"
                                                         />
                                                     </div>
@@ -937,29 +957,27 @@
             </div>
 
         </div>
+        </main>
         @include('secure')
 
         @if(env('COUNTRY') == 'lv')
             <div class="pt-10">
-                <a href="https://yf.donationbox.lv/?db" target="_blank">
-                    <img class="mx-auto rounded-xl hover:opacity-90" src="/img/yf-og-img-main-01.jpg">
+                <a href="https://yf.donationbox.lv/?db" target="_blank" aria-label="@lang('Visit Youth Fund Latvia')">
+                    <img class="mx-auto rounded-xl hover:opacity-90" src="/img/yf-og-img-main-01.jpg" alt="@lang('Youth Fund Latvia promotional image')">
                 </a>
             </div>
         @endif
 
         @if(env('COUNTRY') == 'ee')
             <div class="pt-10">
-                <a href="https://2024.donationbox.ee/?db" target="_blank">
-                    <img class="mx-auto rounded-xl hover:opacity-90" src="/img/df-2024-fb-cover-01.jpg">
+                <a href="https://2024.donationbox.ee/?db" target="_blank" aria-label="@lang('Visit DonationBox 2024')">
+                    <img class="mx-auto rounded-xl hover:opacity-90" src="/img/df-2024-fb-cover-01.jpg" alt="@lang('DonationBox 2024 promotional image')">
                 </a>
             </div>
         @endif
 
         @include('footer')
     </div>
-
-</div>
-</div>
 
 </div>
 
