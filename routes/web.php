@@ -161,6 +161,18 @@ if (env('COUNTRY') == 'lv') {
         $url ='//donationbox.lv/donation?campaign_title=Support%20Chabad%20of%20Latvia&detail=Ziedojums%20DB&iban=LV81PARX0001041501018&payee=Habad%20Lubavic%20Draudze&sebuid=4b663218-c93e-4c21-8855-a0396534f14c&sebuid_st=08311845-996c-42d3-ad3c-2f024deb31bf&strp=8x26oH0gvaX66GNfALeAg00&s1=25&s2=50&s3=100';
         return Redirect::to($url);
     });
+
+    // Chabad School Riga
+    Route::get('/habadskola', function () {
+        $url ='//donationbox.lv/donation?campaign_title=Support+Chabad+School+Riga&detail=Ziedojums+Habad+Skola&payee=Habad+Lubavic+Draudze&iban=LV81PARX0001041501018&sebuid=https%3A%2F%2Fibanka.seb.lv%2Fib%2Flogin%3FUID%3D4b663218-c93e-4c21-8855-a0396534f14c&sebuid_st=https%3A%2F%2Fibanka.seb.lv%2Fib%2Flogin%3FUID%3D08311845-996c-42d3-ad3c-2f024deb31bf&strp=8x26oH0gvaX66GNfALeAg00&s1=25&s2=50&s3=100';
+        return Redirect::to($url);
+    });
+
+    // Kosher Store
+    Route::get('/kosherstore', function () {
+        $url ='//donationbox.lv/donation?campaign_title=Payment+to+Kosher+Store&detail=Apmaksa+par+pirkumu&payee=IUDAIKA+SIA&iban=LV26PARX0013206990002&sebuid=https%3A%2F%2Fibanka.seb.lv%2Fib%2Flogin%3FUID%3Dfe1da91f-3d8c-4255-9a01-e9a123c40435&sebuid_st=https%3A%2F%2Fibanka.seb.lv%2Fib%2Flogin%3FUID%3D55e7e7fb-e822-46cf-9915-36b1d8239fe8&strp=5kQ14nfhq86BcGI71q1Fe00&s1=25&s2=50&s3=100';
+        return Redirect::to($url);
+    });
 }
 
 
