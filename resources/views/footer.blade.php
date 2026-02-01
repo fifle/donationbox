@@ -1,98 +1,38 @@
-<footer role="contentinfo" class="pt-8 pb-14 text-center text-gray-600">
+<footer role="contentinfo" class="pt-10 pb-16 text-center">
 
     @if(Route::currentRouteName() === 'donation')
-    <a href="mailto:donationbox.ee@gmail.com?subject=Report%20Alert%20from%20Donationbox.ee&body=Your%20name%3A%0D%0AYour%20email%3A%0D%0AReason%20for%20reporting%3A%0D%0AReported%20URL%3A%20{{
-    urlencode(url()->full()) }}"
+    <a href="mailto:donationbox.ee@gmail.com?subject=Report%20Alert%20from%20Donationbox.ee&body=Your%20name%3A%0D%0AYour%20email%3A%0D%0AReason%20for%20reporting%3A%0D%0AReported%20URL%3A%20{{ urlencode(url()->full()) }}"
        target="_blank"
-       class="d-font transition duration-150 ease-in-out bg-white px-5
-                                                py-3 mb-4 text-sm shadow-sm font-medium
-                                                     border text-red-400 rounded-lg hover:shadow-lg
-                                                     hover:bg-gray-50 inline-flex items-center"
+       class="d-font glass-footer-link inline-flex items-center gap-2 mb-6 text-red-500 border-red-200"
        aria-label="@lang('Report fraud or suspicious activity')">
-
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
-        .org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
         @lang("Report fraud")
     </a>
     @endif
 
-    <div class="flex justify-center mb-4 text-xs">
-        <a href="https://donationbox.ee" class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-3 mr-2 rounded-lg
-                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
-                                                        font-medium border focus:ring-1 focus:ring-offset-1
-                                                        focus:ring-pink-700 w-auto" target="_blank">
-            <span class="">🇪🇪</span> EE
-        </a>
-        <a href="https://donationbox.lv" class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-3 mr-2 rounded-lg
-                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
-                                                        font-medium border focus:ring-1 focus:ring-offset-1
-                                                        focus:ring-pink-700 w-auto" target="_blank">
-            <span class="">🇱🇻</span> LV
-        </a>
-        <a href="https://donationbox.lt" class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-3 rounded-lg
-                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
-                                                        font-medium border focus:ring-1 focus:ring-offset-1
-                                                        focus:ring-pink-700 w-auto" target="_blank">
-            <span class="">🇱🇹</span> LT
-        </a>
+    <div class="flex justify-center gap-2 mb-6">
+        <a href="https://donationbox.ee" class="d-font glass-footer-link" target="_blank">EE</a>
+        <a href="https://donationbox.lv" class="d-font glass-footer-link" target="_blank">LV</a>
+        <a href="https://donationbox.lt" class="d-font glass-footer-link" target="_blank">LT</a>
     </div>
-    <div class="flex justify-center mb-2 text-xs">
-        <a href="/about" class="no-underline hover:underline text-blue-800">
-            @lang("FAQ")
-        </a>
-        <span class="ml-2 mr-2">
-            |
-        </span>
-        <a href="/about" class="no-underline hover:underline text-blue-800">
-            @lang("About us")
-        </a>
-        <span class="ml-2 mr-2">
-            |
-        </span>
-        <a href="https://bit.ly/db_ee_privacypolicy" target="_blank" class="no-underline hover:underline text-blue-800">
-            @lang("Privacy Policy")
-        </a>
-        <span class="ml-2 mr-2">
-            |
-        </span>
-        <a href="https://github.com/fifle/donationbox" class="no-underline hover:underline text-blue-800" target="_blank">
-            GitHub
-        </a>
-        <span class="ml-2 mr-2">
-            |
-        </span>
-        <a href="mailto:donationbox.ee@gmail.com" class="no-underline hover:underline text-blue-800" target="_blank">
-            @lang("Contact us")
-        </a>
+    
+    <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 mb-4 text-xs text-gray-500">
+        <a href="/about" class="hover:text-gray-700 transition-colors">@lang("FAQ")</a>
+        <a href="/about" class="hover:text-gray-700 transition-colors">@lang("About us")</a>
+        <a href="https://bit.ly/db_ee_privacypolicy" target="_blank" class="hover:text-gray-700 transition-colors">@lang("Privacy Policy")</a>
+        <a href="https://github.com/fifle/donationbox" class="hover:text-gray-700 transition-colors" target="_blank">GitHub</a>
+        <a href="mailto:donationbox.ee@gmail.com" class="hover:text-gray-700 transition-colors" target="_blank">@lang("Contact us")</a>
     </div>
 
-    <div class="text-xs">
-        @lang("Made with") <span class="">❤</span> @lang("by") <a href="//fleisher.ee" class="no-underline
-                 hover:underline text-blue-800" target="_blank">
-        <div class="inline-flex items-center">@lang("Pavel")<svg class="w-3 h-3 ml-1" fill="none"
-                                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
-                .org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0
-                 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-        </div>
-    </a>
-    @lang("and inspired by Sheila")
-    <br>
+    <div class="text-xs text-gray-400 space-y-1">
+        <p>@lang("Made with") <span class="text-pink-400">&#9829;</span> @lang("by") <a href="//fleisher.ee" class="text-gray-500 hover:text-gray-700 transition-colors" target="_blank">@lang("Pavel")</a> @lang("and inspired by Sheila")</p>
         @if (env('COUNTRY') == 'ee')
-            <a href="/donation?campaign_title=Support+Donationbox.ee&detail=Annetus+donationbox.ee&payee=Pavel+Flei%C5%A1er&iban=EE614204278622417401&pp=pfleiser&rev=pavelvtd" class="no-underline
-                 hover:underline text-xs text-blue-800 mt-4" target="_blank">
+            <a href="/donation?campaign_title=Support+Donationbox.ee&detail=Annetus+donationbox.ee&payee=Pavel+Flei%C5%A1er&iban=EE614204278622417401&pp=pfleiser&rev=pavelvtd" class="inline-flex items-center gap-1 text-pink-500 hover:text-pink-600 transition-colors" target="_blank">
         @else
-            <a href="/donation?campaign_title=Support+Donationbox.ee&detail=Donation+donationbox.ee&payee=Pavel+Flei%C5%A1er&pp=pfleiser&rev=pavelvtd" class="no-underline
-                 hover:underline text-xs text-blue-800 mt-4" target="_blank">
+            <a href="/donation?campaign_title=Support+Donationbox.ee&detail=Donation+donationbox.ee&payee=Pavel+Flei%C5%A1er&pp=pfleiser&rev=pavelvtd" class="inline-flex items-center gap-1 text-pink-500 hover:text-pink-600 transition-colors" target="_blank">
         @endif
-
-
-        <div class="inline-flex items-center mt-2">
-            @lang("Support the project") <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-        </div>
-    </a>
+            @lang("Support the project")
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </a>
     </div>
 </footer>

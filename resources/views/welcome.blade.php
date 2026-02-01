@@ -13,45 +13,54 @@
     @include('head')
 </head>
 <body class="antialiased">
+<!-- Stripe-style animated background -->
+<div class="stripe-bg" aria-hidden="true">
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+</div>
+
 <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:p-2 focus:bg-white focus:text-gray-900 focus:underline">@lang("Skip to main content")</a>
 
-<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-2">
+<div class="homepage-container">
+    <div class="max-w-md w-full space-y-6">
 
-        <header role="banner">
-        @include('components.lang-switcher')
+        <header role="banner" class="flex justify-center">
+            @include('components.lang-switcher')
         </header>
 
-        <div class="items-center justify-center mt-8 mb-6">
-            <div class="w-1/2 mx-auto mb-4">
+        <div class="text-center space-y-4">
+            <div class="logo-glass mx-auto w-fit">
                 <a href="/" aria-label="@lang('Return to homepage')">
-                    <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png" alt="@lang('DonationBox') logo - @lang('Return to homepage')">
+                    <img class="h-12 w-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png" alt="@lang('DonationBox') logo - @lang('Return to homepage')">
                 </a>
             </div>
 
-            <h1 class="text-center text-xl text-gray-700">
-                @lang("Start your virtual donation box")
-                 <br>
-                @if(env('COUNTRY') == 'ee')
-                    @lang("for 🇪🇪 Estonian banks for free")
-                @endif
-                @if(env('COUNTRY') == 'lv')
-                    @lang("for 🇱🇻 Latvian banks for free")
-                @endif
-                @if(env('COUNTRY') == 'lt')
-                    @lang("for 🇱🇹 Lithuanian banks for free")
-                @endif
-            </h1>
+            <div class="space-y-2">
+                <h1 class="headline-minimal text-center">
+                    @lang("Start your virtual donation box")
+                </h1>
+                <p class="subheadline-minimal">
+                    @if(env('COUNTRY') == 'ee')
+                        @lang("for Estonian banks for free")
+                    @endif
+                    @if(env('COUNTRY') == 'lv')
+                        @lang("for Latvian banks for free")
+                    @endif
+                    @if(env('COUNTRY') == 'lt')
+                        @lang("for Lithuanian banks for free")
+                    @endif
+                </p>
+            </div>
 
             @if(env('COUNTRY') == 'ee')
-                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, LHV, Coop, Stripe, Revolut, Donorbox,
-                    Paypal)</p>
+                <p class="text-center text-xs text-gray-500">(Swedbank, SEB, LHV, Coop, Stripe, Revolut, Donorbox, Paypal)</p>
             @endif
             @if(env('COUNTRY') == 'lv')
-                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal)</p>
+                <p class="text-center text-xs text-gray-500">(Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal)</p>
             @endif
             @if(env('COUNTRY') == 'lt')
-                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal)</p>
+                <p class="text-center text-xs text-gray-500">(Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal)</p>
             @endif
         </div>
 
@@ -63,214 +72,137 @@
 
             <!-- Action Selection Step -->
             <div x-show="step === 0" x-transition:enter.duration.500ms>
-                <style>
-                    @keyframes gradient-mesh {
-                        0% {
-                            background-position: 0% 50%;
-                        }
-                        25% {
-                            background-position: 50% 100%;
-                        }
-                        50% {
-                            background-position: 100% 50%;
-                        }
-                        75% {
-                            background-position: 50% 0%;
-                        }
-                        100% {
-                            background-position: 0% 50%;
-                        }
-                    }
-                    .btn-create-animated {
-                        background: linear-gradient(
-                            135deg,
-                            #ec4899 0%,
-                            #db2777 25%,
-                            #f97316 50%,
-                            #ea580c 75%,
-                            #c026d3 100%
-                        );
-                        background-size: 400% 400%;
-                        animation: gradient-mesh 8s ease infinite;
-                        box-shadow: 0 4px 20px 0 rgba(236, 72, 153, 0.3);
-                        transition: all 0.3s ease;
-                        position: relative;
-                    }
-                    .btn-create-animated:hover {
-                        box-shadow: 0 6px 25px 0 rgba(236, 72, 153, 0.5);
-                        transform: translateY(-2px);
-                    }
-                    .btn-create-animated > * {
-                        position: relative;
-                        z-index: 1;
-                    }
-                </style>
-                <div class="text-center mb-6">
-                    <div class="grid grid-cols-1 gap-4 max-w-2xl mx-auto">
-                        <button
-                            @click="step = 1"
-                            class="d-font focus:outline-none py-4 px-6 rounded-lg text-center text-white font-medium transition duration-150 ease-in-out btn-create-animated">
-                            <div class="text-2xl mb-2">✨</div>
-                            <div class="font-semibold">@lang("Create New Donationbox")</div>
-                            <div class="text-sm text-white opacity-90 mt-1">@lang("Start from scratch")</div>
-                        </button>
-                        <button
-                            @click="step = 'edit'"
-                            class="d-font focus:outline-none py-4 px-6 rounded-lg shadow-md text-center text-gray-700 bg-white hover:bg-gray-50 hover:shadow-lg font-medium transition duration-150 ease-in-out">
-                            <div class="text-2xl mb-2">✏️</div>
-                            <div class="font-semibold">@lang("Modify Existing Donationbox")</div>
-                            <div class="text-sm text-gray-500 mt-1">@lang("Edit an existing link")</div>
-                        </button>
-                    </div>
+                <div class="space-y-4">
+                    <button
+                        @click="step = 1"
+                        class="d-font w-full glass-btn-primary text-center">
+                        <div class="font-semibold text-lg">@lang("Create New Donationbox")</div>
+                        <div class="text-sm text-white text-opacity-80 mt-1">@lang("Start from scratch")</div>
+                    </button>
+                    <button
+                        @click="step = 'edit'"
+                        class="d-font w-full glass-btn-secondary text-center">
+                        <div class="font-semibold">@lang("Modify Existing Donationbox")</div>
+                        <div class="text-sm text-gray-500 mt-1">@lang("Edit an existing link")</div>
+                    </button>
                 </div>
             </div>
 
             <!-- Edit Existing Link Form -->
             <div x-show="step === 'edit'" x-transition:enter.duration.500ms>
-                <div class="bg-white rounded-lg p-5 shadow justify-between mb-6">
-                    <div class="mb-4">
-                        <h3 class="text-lg font-semibold text-gray-700 mb-2">@lang("Modify Existing Donationbox")</h3>
-                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
-                            <div class="flex">
-                                <div class="flex-shrink-0">
-                                    <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                                <div class="ml-3">
-                                    <p class="text-sm text-yellow-700">
-                                        <strong>@lang("Important:")</strong> @lang("Modifying the values will create a new URL. The original URL will remain unchanged. If you've already shared the link or embedded it as a widget on your website, you'll need to update it with the new URL.")
-                                    </p>
-                                </div>
-                            </div>
+                <div class="glass-card p-6 space-y-4">
+                    <h3 class="text-lg font-semibold text-gray-800">@lang("Modify Existing Donationbox")</h3>
+                    <div class="warning-glass p-4">
+                        <div class="flex gap-3">
+                            <svg class="h-5 w-5 text-amber-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                            <p class="text-sm text-amber-800">
+                                <strong>@lang("Important:")</strong> @lang("Modifying the values will create a new URL. The original URL will remain unchanged. If you've already shared the link or embedded it as a widget on your website, you'll need to update it with the new URL.")
+                            </p>
                         </div>
-                        <form action="{{ route('edit') }}" method="get" id="edit-form">
-                            <div class="mb-4">
-                                <label for="edit_url" class="d-font font-semibold text-gray-700 block mb-1">
-                                    @lang("Paste your existing Donationbox URL")
-                                    <span class="font-normal text-red-500"><sup>*</sup></span>
-                                </label>
-                                <div class="tracking-normal text-sm text-gray-500 mb-3 leading-tight">
-                                    @lang("Paste the full URL of your existing donationbox link to load its values for editing.")
-                                </div>
-                                <input
-                                    type="url"
-                                    name="url"
-                                    id="edit_url"
-                                    value="{{ request('url') }}"
-                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                    placeholder="https://donationbox.ee/donation?campaign_title=..."
-                                    required>
-                            </div>
-                            <div class="flex justify-between">
-                                <button
-                                    type="button"
-                                    @click="step = 0"
-                                    class="d-font w-32 focus:outline-none text-sm/6 py-2 px-2 mr-2 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out">
-                                    @lang("Back")
-                                </button>
-                                <button
-                                    type="submit"
-                                    class="d-font w-32 text-sm/6 focus:outline-none border border-transparent py-2 px-2 ml-2 rounded-lg border border-transparent font-medium text-white rounded-md bg-pink-500
-                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
-                                    focus:ring-pink-700 transition duration-150 ease-in-out">
-                                    @lang("Start editing")
-                                </button>
-                            </div>
-                        </form>
                     </div>
+                    <form action="{{ route('edit') }}" method="get" id="edit-form" class="space-y-4">
+                        <div>
+                            <label for="edit_url" class="d-font font-medium text-gray-700 block mb-1">
+                                @lang("Paste your existing Donationbox URL")
+                                <span class="text-pink-500">*</span>
+                            </label>
+                            <p class="text-sm text-gray-500 mb-2">
+                                @lang("Paste the full URL of your existing donationbox link to load its values for editing.")
+                            </p>
+                            <input
+                                type="url"
+                                name="url"
+                                id="edit_url"
+                                value="{{ request('url') }}"
+                                class="glass-input w-full text-gray-900 lg:text-lg"
+                                placeholder="https://donationbox.ee/donation?campaign_title=..."
+                                required>
+                        </div>
+                        <div class="flex gap-3 pt-2">
+                            <button
+                                type="button"
+                                @click="step = 0"
+                                class="d-font flex-1 glass-btn-secondary text-sm py-3">
+                                @lang("Back")
+                            </button>
+                            <button
+                                type="submit"
+                                class="d-font flex-1 glass-btn-primary text-sm py-3">
+                                @lang("Start editing")
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg p-5 shadow justify-between" x-show="step !== 0 && step !== 'edit'">
-                <div class="">
+            <div class="glass-card p-6" x-show="step !== 0 && step !== 'edit'">
+                <div>
                     <div x-show.transition="step != 'complete'">
 
                         <!-- Step Content -->
-                        <div class="py-1">
+                        <div>
                             <!-- Step 1 -->
                             <div x-show="step === 1"
                                  x-transition:enter.duration.500ms>
 
-                                <div class="mb-4 flex items-center">
-                                    <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-semibold">1
-                                    </div>
-                                    <div class="ml-2 text-gray-500">@lang("Your campaign page details")</div>
+                                <div class="mb-5 flex items-center gap-3">
+                                    <div class="rounded-full h-7 w-7 flex items-center justify-center step-indicator-glass text-gray-600 text-xs font-semibold">1</div>
+                                    <div class="text-gray-600 font-medium">@lang("Your campaign page details")</div>
                                 </div>
 
-                                <div class="mb-5">
+                                <div class="space-y-5">
                                     <form class="space-y-4" action="{{ route('donation') }}" method="get"
                                           id="generator"></form>
-                                    <div class="rounded-md -space-y-px">
-                                        <div class="grid gap-6">
-                                            <div class="col-span-12">
-                                                <label for="campaign_title" class="d-font font-semibold text-gray-700
-                                                        block mb-1">
-                                                    @lang("Name your donation box")
-                                                    <span class="font-normal text-red-500"><sup>*</sup></span>
-                                                </label>
-                                                <div class="tracking-normal text-sm text-gray-500 mb-3
-                                                        leading-tight">
-                                                    @lang("This text will be used as the title of your donation box page.")
-                                                </div>
-                                                <input
-                                                    form="generator"
-                                                    type="text"
-                                                    name="campaign_title"
-                                                    id="campaign_title_field"
-                                                    value="{{ request('campaign_title') }}"
-                                                    class="appearance-none rounded-none relative block
-                                                               w-full px-3 py-2 border border-gray-300
-                                                               text-gray-900 rounded-md
-                                                               focus:outline-none focus:ring-indigo-500
-                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                    placeholder="@lang("eg. 'Support our community'")"
-                                                    aria-required="true"
-                                                    required>
-                                            </div>
+                                    <div>
+                                        <label for="campaign_title" class="d-font font-medium text-gray-700 block mb-1">
+                                            @lang("Name your donation box")
+                                            <span class="text-pink-500">*</span>
+                                        </label>
+                                        <p class="text-sm text-gray-500 mb-2">
+                                            @lang("This text will be used as the title of your donation box page.")
+                                        </p>
+                                        <input
+                                            form="generator"
+                                            type="text"
+                                            name="campaign_title"
+                                            id="campaign_title_field"
+                                            value="{{ request('campaign_title') }}"
+                                            class="glass-input w-full text-gray-900 lg:text-lg"
+                                            placeholder="@lang("eg. 'Support our community'")"
+                                            aria-required="true"
+                                            required>
+                                    </div>
 
-                                            <div class="col-span-12">
-
-                                                <label for="detail" class="d-font font-semibold text-gray-700
-                                                        block mb-1">
-                                                    @lang("Bank transfer detail") <span
-                                                        class="font-normal text-red-500"><sup>*</sup></span>
-                                                </label>
-                                                <div class="tracking-normal text-sm text-gray-500 mb-3
-                                                        leading-tight">
-                                                    @lang("This will be used as a requisite for the money transfer.")
-
-                                                    <a href="/about#bankDetails" class="no-underline hover:underline
-                                                    text-blue-800" target="_blank">
-                                                        @lang("Learn more about why it's important to keep details serious and straightforward.")
-                                                    </a>
-                                                </div>
-                                                <input
-                                                    form="generator"
-                                                    type="text"
-                                                    name="detail"
-                                                    id="detail_field"
-                                                    @if(env('COUNTRY') == 'ee')
-                                                    value="Annetus"
-                                                    @endif
-                                                    @if(env('COUNTRY') == 'lv')
-                                                    value="Ziedojums"
-                                                    @endif
-                                                    @if(env('COUNTRY') == 'lt')
-                                                    value="Donorystė"
-                                                    @endif
-                                                    {{--                                                            value="{{ request('detail') }}"--}}
-                                                    class="appearance-none rounded-none relative block
-                                                               w-full px-3 py-2 border border-gray-300
-                                                               text-gray-900 rounded-md
-                                                               focus:outline-none focus:ring-indigo-500
-                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                    placeholder="eg. Annetus"
-                                                    aria-required="true"
-                                                    required/>
-                                            </div>
-                                        </div>
+                                    <div>
+                                        <label for="detail" class="d-font font-medium text-gray-700 block mb-1">
+                                            @lang("Bank transfer detail") <span class="text-pink-500">*</span>
+                                        </label>
+                                        <p class="text-sm text-gray-500 mb-2">
+                                            @lang("This will be used as a requisite for the money transfer.")
+                                            <a href="/about#bankDetails" class="text-pink-600 hover:text-pink-700" target="_blank">
+                                                @lang("Learn more about why it's important to keep details serious and straightforward.")
+                                            </a>
+                                        </p>
+                                        <input
+                                            form="generator"
+                                            type="text"
+                                            name="detail"
+                                            id="detail_field"
+                                            @if(env('COUNTRY') == 'ee')
+                                            value="Annetus"
+                                            @endif
+                                            @if(env('COUNTRY') == 'lv')
+                                            value="Ziedojums"
+                                            @endif
+                                            @if(env('COUNTRY') == 'lt')
+                                            value="Donorystė"
+                                            @endif
+                                            class="glass-input w-full text-gray-900 lg:text-lg"
+                                            placeholder="eg. Annetus"
+                                            aria-required="true"
+                                            required/>
                                     </div>
                                 </div>
                             </div>
@@ -278,49 +210,37 @@
                         <!-- Step 2 -->
                         <div x-show="step === 2"
                              x-transition:enter.duration.500ms>
-                            <div class="mb-4 flex items-center">
-                                <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-semibold">2
-                                </div>
-                                <div class="ml-2 text-gray-500">@lang("Your personal data")</div>
+                            <div class="mb-5 flex items-center gap-3">
+                                <div class="rounded-full h-7 w-7 flex items-center justify-center step-indicator-glass text-gray-600 text-xs font-semibold">2</div>
+                                <div class="text-gray-600 font-medium">@lang("Your personal data")</div>
                             </div>
-                            <div class="mb-5">
+                            <div class="space-y-5">
                                 @csrf
-                                <div class="rounded-md -space-y-px">
-                                    <div class="grid gap-6">
-                                        <div class="col-span-12">
-                                            <label for="campaign_title" class="d-font font-semibold text-gray-700
-                                                        block mb-2">@lang("Payee's name")
-                                                <span class="font-normal text-red-500"><sup>*</sup></span>
-                                            </label>
-                                            <div class="tracking-normal text-sm text-gray-500 mb-3
-                                                        leading-tight">
-                                                @lang("Insert the name of the person or company on whose behalf you want to open a fundraiser. Please make sure that the name is spelled correctly in Latin letters.")
-                                            </div>
-                                            <input
-                                                form="generator"
-                                                type="text"
-                                                name="payee"
-                                                id="payee_field"
-                                                value="{{ request('payee') }}"
-                                                class="appearance-none rounded-none relative block
-                                                               w-full px-3 py-2 border border-gray-300
-                                                               text-gray-900 rounded-md
-                                                               focus:outline-none focus:ring-indigo-500
-                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                @if(env('COUNTRY') == 'ee')
-                                                placeholder="@lang("eg. 'Tädi Maali' or 'Tavai MTÜ'")"
-                                                @endif
-                                                @if(env('COUNTRY') == 'lv')
-                                                placeholder="@lang("eg. 'Jānis Bērziņš' or 'Biedrība'")"
-                                                @endif
-                                                @if(env('COUNTRY') == 'lt')
-                                                placeholder="@lang("eg. 'Vardenis Pavardenis' or 'VšĮ'")"
-                                                @endif
-                                                aria-required="true"
-                                                required/>
-                                        </div>
-                                    </div>
+                                <div>
+                                    <label for="campaign_title" class="d-font font-medium text-gray-700 block mb-1">
+                                        @lang("Payee's name") <span class="text-pink-500">*</span>
+                                    </label>
+                                    <p class="text-sm text-gray-500 mb-2">
+                                        @lang("Insert the name of the person or company on whose behalf you want to open a fundraiser. Please make sure that the name is spelled correctly in Latin letters.")
+                                    </p>
+                                    <input
+                                        form="generator"
+                                        type="text"
+                                        name="payee"
+                                        id="payee_field"
+                                        value="{{ request('payee') }}"
+                                        class="glass-input w-full text-gray-900 lg:text-lg"
+                                        @if(env('COUNTRY') == 'ee')
+                                        placeholder="@lang("eg. 'Tädi Maali' or 'Tavai MTÜ'")"
+                                        @endif
+                                        @if(env('COUNTRY') == 'lv')
+                                        placeholder="@lang("eg. 'Jānis Bērziņš' or 'Biedrība'")"
+                                        @endif
+                                        @if(env('COUNTRY') == 'lt')
+                                        placeholder="@lang("eg. 'Vardenis Pavardenis' or 'VšĮ'")"
+                                        @endif
+                                        aria-required="true"
+                                        required/>
                                 </div>
                             </div>
 
@@ -366,11 +286,9 @@
                         <!-- Step 3 -->
                         <div x-show="step === 3"
                              x-transition:enter.duration.500ms>
-                            <div class="mb-4 flex items-center">
-                                <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-semibold">3
-                                </div>
-                                <div class="ml-2 text-gray-500">@lang("Details for")
+                            <div class="mb-5 flex items-center gap-3">
+                                <div class="rounded-full h-7 w-7 flex items-center justify-center step-indicator-glass text-gray-600 text-xs font-semibold">3</div>
+                                <div class="text-gray-600 font-medium">@lang("Details for")
                                     @if(env('COUNTRY') == 'ee')
                                         @lang("Estonian internet-banks")
                                     @endif
@@ -382,44 +300,37 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="mb-5">
+                            <div class="space-y-5">
                                 @csrf
-                                <div class="rounded-md -space-y-px">
-                                    <div class="grid gap-6">
-                                        <div class="col-span-12">
-                                            <label for="campaign_title" class="d-font font-semibold text-gray-700
-                                                        block mb-2">@lang("Payee's bank account (IBAN) number")</label>
-                                            <input
-                                                form="generator"
-                                                type="text"
-                                                name="iban"
-                                                        id="iban_field"
-                                                value="{{ request('iban') }}"
-                                                pattern="^(?:(?:IT|SM)\d{2}[A-Z]\d{22}|CY\d{2}[A-Z]\d{23}|NL\d{2}[A-Z]{4}\d{10}|LV\d{2}[A-Z]{4}\d{13}|(?:BG|BH|GB|IE)\d{2}[A-Z]{4}\d{14}|GI\d{2}[A-Z]{4}\d{15}|RO\d{2}[A-Z]{4}\d{16}|KW\d{2}[A-Z]{4}\d{22}|MT\d{2}[A-Z]{4}\d{23}|NO\d{13}|(?:DK|FI|GL|FO)\d{16}|MK\d{17}|(?:AT|EE|KZ|LU|XK)\d{18}|(?:BA|HR|LI|CH|CR)\d{19}|(?:GE|DE|LT|ME|RS)\d{20}|IL\d{21}|(?:AD|CZ|ES|MD|SA)\d{22}|PT\d{23}|(?:BE|IS)\d{24}|(?:FR|MR|MC)\d{25}|(?:AL|DO|LB|PL)\d{26}|(?:AZ|HU)\d{27}|(?:GR|MU)\d{28})$"
-                                                class="appearance-none rounded-none relative block
-                                                               w-full px-3 py-2 border border-gray-300
-                                                               text-gray-900 rounded-md
-                                                               focus:outline-none focus:ring-indigo-500
-                                                               focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
-                                                @if(env('COUNTRY') == 'ee')
-                                                placeholder="eg. EE382200221020145685"
-                                                @endif
-                                                @if(env('COUNTRY') == 'lv')
-                                                placeholder="eg. LV80BANK0000435195001"
-                                                @endif
-                                                @if(env('COUNTRY') == 'lt')
-                                                placeholder="eg. LT121000011101001000"
-                                                @endif
-                                                        aria-label="@lang("Payee's bank account (IBAN) number")"
-                                            />
-                                        </div>
+                                <div>
+                                    <label for="iban_field" class="d-font font-medium text-gray-700 block mb-2">@lang("Payee's bank account (IBAN) number")</label>
+                                    <input
+                                        form="generator"
+                                        type="text"
+                                        name="iban"
+                                        id="iban_field"
+                                        value="{{ request('iban') }}"
+                                        pattern="^(?:(?:IT|SM)\d{2}[A-Z]\d{22}|CY\d{2}[A-Z]\d{23}|NL\d{2}[A-Z]{4}\d{10}|LV\d{2}[A-Z]{4}\d{13}|(?:BG|BH|GB|IE)\d{2}[A-Z]{4}\d{14}|GI\d{2}[A-Z]{4}\d{15}|RO\d{2}[A-Z]{4}\d{16}|KW\d{2}[A-Z]{4}\d{22}|MT\d{2}[A-Z]{4}\d{23}|NO\d{13}|(?:DK|FI|GL|FO)\d{16}|MK\d{17}|(?:AT|EE|KZ|LU|XK)\d{18}|(?:BA|HR|LI|CH|CR)\d{19}|(?:GE|DE|LT|ME|RS)\d{20}|IL\d{21}|(?:AD|CZ|ES|MD|SA)\d{22}|PT\d{23}|(?:BE|IS)\d{24}|(?:FR|MR|MC)\d{25}|(?:AL|DO|LB|PL)\d{26}|(?:AZ|HU)\d{27}|(?:GR|MU)\d{28})$"
+                                        class="glass-input w-full text-gray-900 lg:text-lg"
+                                        @if(env('COUNTRY') == 'ee')
+                                        placeholder="eg. EE382200221020145685"
+                                        @endif
+                                        @if(env('COUNTRY') == 'lv')
+                                        placeholder="eg. LV80BANK0000435195001"
+                                        @endif
+                                        @if(env('COUNTRY') == 'lt')
+                                        placeholder="eg. LT121000011101001000"
+                                        @endif
+                                        aria-label="@lang("Payee's bank account (IBAN) number")"
+                                    />
+                                </div>
 
-                                        <div class="col-span-12">
-                                            <label for="campaign_title" class="d-font font-semibold text-gray-700 mb-2">
-                                                @lang("Choose banking methods")
-                                            </label>
-                                            <h3 class="text-sm text-gray-600 leading-5 col-span-12">@lang('For private individuals, non-profits, and businesses. Supports both one-time and recurring payments')</h3>
-                                        </div>
+                                <div>
+                                    <label class="d-font font-medium text-gray-700 block mb-1">
+                                        @lang("Choose banking methods")
+                                    </label>
+                                    <p class="text-sm text-gray-500">@lang('For private individuals, non-profits, and businesses. Supports both one-time and recurring payments')</p>
+                                </div>
                                         {{--Swedbank--}}
                                         <div class="col-span-12" x-data="{swt: false}">
                                             <div class="grid grid-cols-2 gap-4 space-y-0">
@@ -588,11 +499,9 @@
                         <!-- Step 4 -->
                         <div x-show="step === 4"
                              x-transition:enter.duration.500ms>
-                            <div class="mb-4 flex items-center">
-                                <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-semibold">4
-                                </div>
-                                <div class="ml-2 text-gray-500">@lang("Credit cards")</div>
+                            <div class="mb-5 flex items-center gap-3">
+                                <div class="rounded-full h-7 w-7 flex items-center justify-center step-indicator-glass text-gray-600 text-xs font-semibold">4</div>
+                                <div class="text-gray-600 font-medium">@lang("Credit cards")</div>
                             </div>
                             <div class="mb-5">
                                 <div class="col-span-12 mb-3">
@@ -890,68 +799,47 @@
             </div>
 
             <!-- Bottom Navigation -->
-            <div class="fixed bottom-0 left-0 right-0 py-5 bg-white bg-opacity-90 shadow-md z-10" x-show="step !=
-            'complete' && step !== 0 && step !== 'edit'">
+            <div class="fixed bottom-0 left-0 right-0 py-4 bottom-nav-glass z-10" x-show="step != 'complete' && step !== 0 && step !== 'edit'">
                 <div class="max-w-3xl mx-auto px-4">
-                    <div class="flex justify-between">
-                        <div class="w-1/2 text-right">
-                            <button
-                                x-show="step == 1"
-                                class="d-font w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
-                                    text-gray-600 bg-white hover:bg-gray-100 font-medium border transition
-                                    duration-150 ease-in-out cursor-not-allowed opacity-50"
-                                disabled
-                            >@lang("Previous")
-                            </button>
-                            <button
-                                x-show="step > 1"
-                                @click="step--"
-                                class="d-font w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
-                                    text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out"
-                            >@lang("Previous")
-                            </button>
-                        </div>
+                    <div class="flex justify-center gap-3">
+                        <button
+                            x-show="step == 1"
+                            class="d-font w-28 glass-btn-secondary py-2 text-sm cursor-not-allowed opacity-50"
+                            disabled
+                        >@lang("Previous")</button>
+                        <button
+                            x-show="step > 1"
+                            @click="step--"
+                            class="d-font w-28 glass-btn-secondary py-2 text-sm"
+                        >@lang("Previous")</button>
 
-                        <div class="w-1/2 ">
-                            <button
-                                x-show="step < 4"
-                                @click="step++"
-                                class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
-                                    border border-transparent font-medium rounded-md text-white bg-pink-500
-                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
-                                    focus:ring-pink-700 transition duration-150 ease-in-out">
-                                @lang("Next")
-                            </button>
+                        <button
+                            x-show="step < 4"
+                            @click="step++"
+                            class="d-font w-28 glass-btn-primary py-2 text-sm">
+                            @lang("Next")
+                        </button>
 
-                            <button
-                                type="submit"
-                                form="generator"
-                                value="submit"
-                                x-show="step === 4"
-                                class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
-                                    border border-transparent font-medium rounded-md text-white bg-pink-500
-                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
-                                    focus:ring-pink-700 transition duration-150 ease-in-out">
-                                @lang("Complete")
-                            </button>
-                        </div>
+                        <button
+                            type="submit"
+                            form="generator"
+                            value="submit"
+                            x-show="step === 4"
+                            class="d-font w-28 glass-btn-primary py-2 text-sm">
+                            @lang("Complete")
+                        </button>
                     </div>
                 </div>
             </div>
             <div class="py-4" x-show="step !== 0 && step !== 'edit'">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                    <div class="flex-1">
-                        <div class="uppercase tracking-normal text-xs font-normal text-gray-400 mb-4 leading-tight"
-                             x-text="`@lang("Step:") ${step} @lang("of") 4`"></div>
-                    </div>
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                    <div class="text-xs text-gray-500" x-text="`@lang("Step:") ${step} @lang("of") 4`"></div>
 
-                    <div class="flex items-center md:w-64">
-                        <div class="w-full bg-white rounded-full mr-2">
-                            <div class="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white"
-                                 :style="'width: '+ parseInt(step / 4 * 100) +'%'"></div>
+                    <div class="flex items-center gap-2 md:w-48">
+                        <div class="flex-1 progress-bar-glass h-1.5">
+                            <div class="progress-bar-fill h-full" :style="'width: '+ parseInt(step / 4 * 100) +'%'"></div>
                         </div>
-                        <div class="text-xs w-10 text-gray-600 transition duration-150 ease-in-out" x-text="parseInt
-                        (step / 4 * 100) +'%'"></div>
+                        <div class="text-xs text-gray-500 w-8" x-text="parseInt(step / 4 * 100) +'%'"></div>
                     </div>
                 </div>
             </div>
