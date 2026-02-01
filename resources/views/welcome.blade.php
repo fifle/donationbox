@@ -15,43 +15,121 @@
 <body class="antialiased">
 <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:p-2 focus:bg-white focus:text-gray-900 focus:underline">@lang("Skip to main content")</a>
 
-<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-2">
+<style>
+/* Homepage: Stripe-style soft background animation */
+.home-page {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.home-page-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(165deg, #fffffe 0%, #fffef9 25%, #fefdf7 50%, #fffef9 75%, #fffffe 100%);
+    background-size: 400% 400%;
+    animation: stripe-bg 18s ease-in-out infinite;
+}
+.home-page-bg::before,
+.home-page-bg::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.25;
+    animation: stripe-orb 22s ease-in-out infinite;
+}
+.home-page-bg::before {
+    width: 60vmax;
+    height: 60vmax;
+    top: -20%;
+    left: -10%;
+    background: radial-gradient(circle, rgba(255, 253, 231, 0.35) 0%, transparent 70%);
+    animation-delay: -5s;
+}
+.home-page-bg::after {
+    width: 50vmax;
+    height: 50vmax;
+    bottom: -15%;
+    right: -10%;
+    background: radial-gradient(circle, rgba(254, 252, 232, 0.3) 0%, transparent 70%);
+    animation-delay: -11s;
+}
+@keyframes stripe-bg {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+@keyframes stripe-orb {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(3%, -4%) scale(1.05); }
+    66% { transform: translate(-2%, 2%) scale(0.98); }
+}
+/* Liquid Glass */
+.glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+.glass-strong {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+/* Ensure footer is always visible and above any stacking-context / backdrop-filter quirks */
+.home-page .home-page-footer {
+    position: relative;
+    z-index: 20;
+    isolation: isolate;
+    color: #4b5563;
+    transform: translateZ(0); /* force own layer so backdrop-filter above doesn’t hide it */
+}
+.home-page .home-page-footer footer {
+    color: inherit;
+}
+.home-page .home-page-footer a {
+    color: #1e40af; /* blue-800 for links */
+}
+</style>
 
-        <header role="banner">
-        @include('components.lang-switcher')
+<div class="home-page flex flex-col min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="home-page-bg" aria-hidden="true"></div>
+
+    <div class="max-w-2xl w-full mx-auto flex-1 flex flex-col space-y-6 relative z-10 pb-28 min-h-[calc(100vh-6rem)]">
+        <header role="banner" class="absolute top-4 right-4 sm:top-6 sm:right-6 z-20">
+            <div class="glass rounded-xl px-3 py-2">
+                @include('components.lang-switcher')
+            </div>
         </header>
 
-        <div class="items-center justify-center mt-8 mb-6">
-            <div class="w-1/2 mx-auto mb-4">
-                <a href="/" aria-label="@lang('Return to homepage')">
-                    <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png" alt="@lang('DonationBox') logo - @lang('Return to homepage')">
-                </a>
-            </div>
-
-            <h1 class="text-center text-xl text-gray-700">
+        <div class="items-center justify-center mt-14 mb-8 text-center">
+            <a href="/" aria-label="@lang('Return to homepage')" class="inline-block">
+                <img class="mx-auto h-10 sm:h-12 w-auto object-contain" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png" alt="@lang('DonationBox') logo - @lang('Return to homepage')">
+            </a>
+            <h1 class="mt-6 text-lg font-medium text-gray-600 tracking-tight">
                 @lang("Start your virtual donation box")
-                 <br>
                 @if(env('COUNTRY') == 'ee')
-                    @lang("for 🇪🇪 Estonian banks for free")
+                    <span class="block text-base font-normal text-gray-500 mt-1">@lang("for 🇪🇪 Estonian banks for free")</span>
                 @endif
                 @if(env('COUNTRY') == 'lv')
-                    @lang("for 🇱🇻 Latvian banks for free")
+                    <span class="block text-base font-normal text-gray-500 mt-1">@lang("for 🇱🇻 Latvian banks for free")</span>
                 @endif
                 @if(env('COUNTRY') == 'lt')
-                    @lang("for 🇱🇹 Lithuanian banks for free")
+                    <span class="block text-base font-normal text-gray-500 mt-1">@lang("for 🇱🇹 Lithuanian banks for free")</span>
                 @endif
             </h1>
-
             @if(env('COUNTRY') == 'ee')
-                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, LHV, Coop, Stripe, Revolut, Donorbox,
-                    Paypal)</p>
+                <p class="text-center text-xs mt-2 text-gray-400">Swedbank, SEB, LHV, Coop, Stripe, Revolut, Donorbox, Paypal</p>
             @endif
             @if(env('COUNTRY') == 'lv')
-                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal)</p>
+                <p class="text-center text-xs mt-2 text-gray-400">Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal</p>
             @endif
             @if(env('COUNTRY') == 'lt')
-                <p class="text-center text-xs mt-2 text-gray-600 mb-6">(Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal)</p>
+                <p class="text-center text-xs mt-2 text-gray-400">Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal</p>
             @endif
         </div>
 
@@ -63,63 +141,21 @@
 
             <!-- Action Selection Step -->
             <div x-show="step === 0" x-transition:enter.duration.500ms>
-                <style>
-                    @keyframes gradient-mesh {
-                        0% {
-                            background-position: 0% 50%;
-                        }
-                        25% {
-                            background-position: 50% 100%;
-                        }
-                        50% {
-                            background-position: 100% 50%;
-                        }
-                        75% {
-                            background-position: 50% 0%;
-                        }
-                        100% {
-                            background-position: 0% 50%;
-                        }
-                    }
-                    .btn-create-animated {
-                        background: linear-gradient(
-                            135deg,
-                            #ec4899 0%,
-                            #db2777 25%,
-                            #f97316 50%,
-                            #ea580c 75%,
-                            #c026d3 100%
-                        );
-                        background-size: 400% 400%;
-                        animation: gradient-mesh 8s ease infinite;
-                        box-shadow: 0 4px 20px 0 rgba(236, 72, 153, 0.3);
-                        transition: all 0.3s ease;
-                        position: relative;
-                    }
-                    .btn-create-animated:hover {
-                        box-shadow: 0 6px 25px 0 rgba(236, 72, 153, 0.5);
-                        transform: translateY(-2px);
-                    }
-                    .btn-create-animated > * {
-                        position: relative;
-                        z-index: 1;
-                    }
-                </style>
-                <div class="text-center mb-6">
-                    <div class="grid grid-cols-1 gap-4 max-w-2xl mx-auto">
+                <div class="glass rounded-2xl p-6 mb-6">
+                    <div class="grid grid-cols-1 gap-3">
                         <button
                             @click="step = 1"
-                            class="d-font focus:outline-none py-4 px-6 rounded-lg text-center text-white font-medium transition duration-150 ease-in-out btn-create-animated">
-                            <div class="text-2xl mb-2">✨</div>
-                            <div class="font-semibold">@lang("Create New Donationbox")</div>
-                            <div class="text-sm text-white opacity-90 mt-1">@lang("Start from scratch")</div>
+                            class="d-font w-full focus:outline-none py-4 px-6 rounded-xl text-center font-medium transition duration-200 ease-out bg-pink-500 hover:bg-pink-600 text-white shadow-lg shadow-pink-500/25 hover:shadow-pink-500/30 hover:-translate-y-0.5">
+                            <span class="text-xl" aria-hidden="true">✨</span>
+                            <div class="font-semibold mt-1">@lang("Create New Donationbox")</div>
+                            <div class="text-sm opacity-90 mt-0.5">@lang("Start from scratch")</div>
                         </button>
                         <button
                             @click="step = 'edit'"
-                            class="d-font focus:outline-none py-4 px-6 rounded-lg shadow-md text-center text-gray-700 bg-white hover:bg-gray-50 hover:shadow-lg font-medium transition duration-150 ease-in-out">
-                            <div class="text-2xl mb-2">✏️</div>
-                            <div class="font-semibold">@lang("Modify Existing Donationbox")</div>
-                            <div class="text-sm text-gray-500 mt-1">@lang("Edit an existing link")</div>
+                            class="d-font w-full focus:outline-none py-4 px-6 rounded-xl text-center font-medium transition duration-200 ease-out glass hover:bg-white/90 border border-gray-200/60 text-gray-700">
+                            <span class="text-xl" aria-hidden="true">✏️</span>
+                            <div class="font-semibold mt-1">@lang("Modify Existing Donationbox")</div>
+                            <div class="text-sm text-gray-500 mt-0.5">@lang("Edit an existing link")</div>
                         </button>
                     </div>
                 </div>
@@ -127,7 +163,7 @@
 
             <!-- Edit Existing Link Form -->
             <div x-show="step === 'edit'" x-transition:enter.duration.500ms>
-                <div class="bg-white rounded-lg p-5 shadow justify-between mb-6">
+                <div class="glass-strong rounded-2xl p-6 mb-6">
                     <div class="mb-4">
                         <h3 class="text-lg font-semibold text-gray-700 mb-2">@lang("Modify Existing Donationbox")</h3>
                         <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
@@ -182,7 +218,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg p-5 shadow justify-between" x-show="step !== 0 && step !== 'edit'">
+            <div class="glass-strong rounded-2xl p-6" x-show="step !== 0 && step !== 'edit'">
                 <div class="">
                     <div x-show.transition="step != 'complete'">
 
@@ -890,9 +926,10 @@
             </div>
 
             <!-- Bottom Navigation -->
-            <div class="fixed bottom-0 left-0 right-0 py-5 bg-white bg-opacity-90 shadow-md z-10" x-show="step !=
+            <div class="fixed bottom-0 left-0 right-0 py-4 z-20" x-show="step !=
             'complete' && step !== 0 && step !== 'edit'">
-                <div class="max-w-3xl mx-auto px-4">
+                <div class="max-w-2xl mx-auto px-4">
+                    <div class="glass rounded-2xl py-4 px-6 shadow-lg">
                     <div class="flex justify-between">
                         <div class="w-1/2 text-right">
                             <button
@@ -936,22 +973,19 @@
                             </button>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
             <div class="py-4" x-show="step !== 0 && step !== 'edit'">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                    <div class="flex-1">
-                        <div class="uppercase tracking-normal text-xs font-normal text-gray-400 mb-4 leading-tight"
-                             x-text="`@lang("Step:") ${step} @lang("of") 4`"></div>
-                    </div>
-
-                    <div class="flex items-center md:w-64">
-                        <div class="w-full bg-white rounded-full mr-2">
-                            <div class="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white"
+                <div class="glass rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div class="text-xs font-medium text-gray-500 uppercase tracking-wide"
+                         x-text="`@lang("Step:") ${step} @lang("of") 4`"></div>
+                    <div class="flex items-center gap-3 flex-1 sm:max-w-xs">
+                        <div class="flex-1 h-1.5 rounded-full overflow-hidden bg-white/60">
+                            <div class="h-full rounded-full bg-emerald-500/90 transition-all duration-300"
                                  :style="'width: '+ parseInt(step / 4 * 100) +'%'"></div>
                         </div>
-                        <div class="text-xs w-10 text-gray-600 transition duration-150 ease-in-out" x-text="parseInt
-                        (step / 4 * 100) +'%'"></div>
+                        <span class="text-xs text-gray-500 tabular-nums" x-text="parseInt(step / 4 * 100) +'%'"></span>
                     </div>
                 </div>
             </div>
@@ -976,7 +1010,9 @@
             </div>
         @endif -->
 
-        @include('footer')
+        <div class="home-page-footer mt-auto flex-shrink-0 pt-10">
+            @include('footer')
+        </div>
     </div>
 
 </div>

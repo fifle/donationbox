@@ -1,5 +1,5 @@
 <!-- Language switcher -->
-<div class="relative items-center text-right">
+<div class="relative items-center">
     @php 
         $locale = session()->get('locale'); 
         // Get current URL to preserve all parameters
