@@ -55,9 +55,17 @@
 .donation-page .home-page-footer a { color: #1e40af; }
 /* Donation page banner: scrollable bank tags */
 .donation-page .bank-tags-scroll {
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
     mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.donation-page .bank-tags-scroll::-webkit-scrollbar {
+    display: none;
 }
 .donation-page .bank-tags-scroll-inner {
     display: flex;
@@ -65,7 +73,9 @@
     width: max-content;
     animation: bank-tags-scroll 35s linear infinite;
 }
-.donation-page .bank-tags-scroll:hover .bank-tags-scroll-inner {
+.donation-page .bank-tags-scroll:hover .bank-tags-scroll-inner,
+.donation-page .bank-tags-scroll:focus-within .bank-tags-scroll-inner,
+.donation-page .bank-tags-scroll:active .bank-tags-scroll-inner {
     animation-play-state: paused;
 }
 @keyframes bank-tags-scroll {
