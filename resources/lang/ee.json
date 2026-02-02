@@ -78,6 +78,8 @@
     "Please type your identity code (isikukood)": "Sisesta oma isikukoodi",
     "One-time payment": "Ühekordne annetus",
     "Recurring payment": "Püsiannetus",
+    "One-time payments only": "Ainult ühekordsed maksed",
+    "One-time and recurring": "Ühekordsed ja korduvad maksed",
     "Share this donation box with your friends!": "Jaga seda annetuskasti oma sõpradega!",
     "Download your QR-code": "Lae alla kampaania QR-koodi",
     "Embed this donation box to your website": "Paigalda kampaania vidinat oma veebisaidile",

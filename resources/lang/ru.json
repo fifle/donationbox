@@ -78,6 +78,8 @@
     "Please type your identity code (isikukood)": "Введите ваш личный код (isikukood)",
     "One-time payment": "Единоразовый платеж",
     "Recurring payment": "Регулярный платеж",
+    "One-time payments only": "Только разовые платежи",
+    "One-time and recurring": "Разовые и регулярные платежи",
     "Share this donation box with your friends!": "Поделитесь этой страницей со своими друзьями!",
     "Download your QR-code": "Поделитесь QR-кодом для легкого доступа к странице",
     "Embed this donation box to your website": "Установите виджет для пожертвований на ваш сайт",
