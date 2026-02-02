@@ -78,6 +78,8 @@
     "Please type your identity code (isikukood)": "Lūdzu, ierakstiet savu identitātes kodu (isikukood)",
     "One-time payment": "Vienreizējs maksājums",
     "Recurring payment": "Atkārtots maksājums",
+    "One-time payments only": "Tikai vienreizēji maksājumi",
+    "One-time and recurring": "Vienreizēji un atkārtoti maksājumi",
     "Share this donation box with your friends!": "Dalieties ar šo ziedojumu kasti ar saviem draugiem!",
     "Download your QR-code": "Lejupielādējiet savu QR kodu",
     "Embed this donation box to your website": "Ievietojiet šo ziedojumu kasti savā tīmekļa vietnē",

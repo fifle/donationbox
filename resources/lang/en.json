@@ -13,5 +13,7 @@
     "Under your own name you will see blue text indicating your Revolut username (@username).": "Under your own name you will see blue text indicating your Revolut username (@username).",
     "Under your own name you will see blue text indicating your Revolut username (@@username).": "Under your own name you will see blue text indicating your Revolut username (@username).",
     "Currently the service works only with local IBAN accounts. In the near future the logic for European payments through :country_adj banks will be finalized.": "Currently the service works only with local IBAN accounts. In the near future the logic for European payments through :country_adj banks will be finalized.",
-    "Yes, it is possible. Just leave the IBAN field blank and the selection with :country_adj banks will not appear on the donation form.": "Yes, it is possible. Just leave the IBAN field blank and the selection with :country_adj banks will not appear on the donation form."
+    "Yes, it is possible. Just leave the IBAN field blank and the selection with :country_adj banks will not appear on the donation form.": "Yes, it is possible. Just leave the IBAN field blank and the selection with :country_adj banks will not appear on the donation form.",
+    "One-time payments only": "One-time payments only",
+    "One-time and recurring": "One-time and recurring"
 }

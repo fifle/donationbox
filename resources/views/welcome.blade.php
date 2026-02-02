@@ -755,7 +755,7 @@
                                             <div class="grid grid-cols-4 gap-4 items-center">
                                                 <div class="flex flex-col col-span-3 items-start">
                                                     <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase rounded-full text-white bg-purple-500 uppercase">Stripe</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 mt-1">One-time payments only</p>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-1">@lang('One-time payments only')</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -807,7 +807,7 @@
                                             <div class="grid grid-cols-4 gap-4 items-center">
                                                 <div class="flex flex-col col-span-3 items-start">
                                                     <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase rounded-full text-blue-700 bg-gray-200 uppercase">Paypal Business</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 mt-1">One-time payments only</p>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-1">@lang('One-time payments only')</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -860,7 +860,7 @@
                                                 <div class="flex flex-col col-span-3 items-start">
                                                     <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase
                                                      rounded-full text-white bg-red-500 uppercase">Donorbox.org</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 mt-1">One-time and recurring</p>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-1">@lang('One-time and recurring')</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -917,7 +917,7 @@
                                             <div class="grid grid-cols-4 gap-4 items-center">
                                                 <div class="flex flex-col col-span-3 items-start">
                                                     <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase rounded-full text-white bg-blue-500 uppercase">Paypal.me</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 mt-1">One-time payments only</p>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-1">@lang('One-time payments only')</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -973,7 +973,7 @@
                                             <div class="grid grid-cols-4 gap-4 items-center">
                                                 <div class="flex flex-col col-span-3 items-start">
                                                     <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase rounded-full text-white bg-black uppercase">Revolut.me</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 mt-1">One-time payments only</p>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-1">@lang('One-time payments only')</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
