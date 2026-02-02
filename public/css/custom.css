@@ -79,3 +79,15 @@ textarea:focus {
     outline: 2px solid #ec4899;
     outline-offset: 2px;
 }
+
+/* Donation / embed: tighter spacing between form, secure line, and footer on desktop */
+.donation-page .secure-block {
+    margin-top: 0;
+}
+.donation-page footer[role="contentinfo"] {
+    padding-top: 1.5rem;
+}
+.embed-page .secure-block {
+    margin-top: 0;
+    margin-bottom: 0;
+}

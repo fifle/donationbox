@@ -12,3 +12,7 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .idea
+.cursor/debug.log
+.idea/php.xml
+.idea/phpunit.xml
+storage/debugbar/.gitignore
