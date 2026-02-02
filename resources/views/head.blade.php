@@ -98,6 +98,79 @@
     <!-- End Matomo Code -->
 @endif
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const scrollContainers = document.querySelectorAll('[data-bank-scroll]');
+        scrollContainers.forEach((container) => {
+            const inner = container.querySelector('.bank-tags-scroll-inner');
+            if (!inner) {
+                return;
+            }
+
+            const groups = inner.querySelectorAll('.bank-tags-scroll-group');
+            if (!groups.length) {
+                return;
+            }
+
+            const focusTag = inner.querySelector('[data-bank-focus]');
+            const groupCount = groups.length;
+
+            const getGroupWidth = () => inner.scrollWidth / groupCount;
+            const setInitial = () => {
+                if (focusTag) {
+                    const targetCenter = focusTag.offsetLeft + focusTag.offsetWidth / 2;
+                    container.scrollLeft = Math.max(0, targetCenter - container.clientWidth / 2);
+                    return;
+                }
+
+                if (groupCount >= 3) {
+                    container.scrollLeft = getGroupWidth();
+                }
+            };
+
+            const loopScroll = () => {
+                if (groupCount < 3) {
+                    return;
+                }
+
+                const groupWidth = getGroupWidth();
+                if (!groupWidth) {
+                    return;
+                }
+
+                const current = container.scrollLeft;
+                const leftEdge = groupWidth * 0.5;
+                const rightEdge = groupWidth * (groupCount - 1.5);
+
+                if (current < leftEdge) {
+                    container.scrollLeft = current + groupWidth;
+                } else if (current > rightEdge) {
+                    container.scrollLeft = current - groupWidth;
+                }
+            };
+
+            let rafId = 0;
+            const onScroll = () => {
+                if (rafId) {
+                    return;
+                }
+
+                rafId = window.requestAnimationFrame(() => {
+                    loopScroll();
+                    rafId = 0;
+                });
+            };
+
+            window.requestAnimationFrame(() => {
+                setInitial();
+                loopScroll();
+            });
+
+            container.addEventListener('scroll', onScroll, { passive: true });
+        });
+    });
+</script>
+
 <style>
     /* Fonts */
     h1, h2, h3, h4, h5, h6 {

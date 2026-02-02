@@ -31,6 +31,14 @@
             @endif
 
             @php($cc_domain = env('COUNTRY'))
+            @php
+                $countryAdjective = match (env('COUNTRY')) {
+                    'ee' => __('Estonian'),
+                    'lv' => __('Latvian'),
+                    'lt' => __('Lithuanian'),
+                    default => __('Estonian'),
+                };
+            @endphp
 
             @component('components.faq-card')
                 @slot('cardName')
@@ -40,7 +48,7 @@
                     @lang("What is a DonationBox?")
                 @endslot
                 @slot('cardContent')
-                    <p>@lang("This is a web application for generating links to direct or regular donation forms for {{$cc}}n and international payment methods. The app allows you to create your own virtual donation box for donations without having to write code or link your website or app to contracts and integrations with banklink.")</p> <br> <p>
+                    <p>@lang("This is a web application for generating links to direct or regular donation forms for :country and international payment methods. The app allows you to create your own virtual donation box for donations without having to write code or link your website or app to contracts and integrations with banklink.", ['country' => $countryAdjective])</p> <br> <p>
                         @lang("We provide a convenient interface for donors so that they don't have to enter data manually or copy it. The donor only has to follow a link by scanning a QR-code or going to a direct URL-address, enter the amount of donation, choose the transfer type - one-time or regular payment (single or standing order), and choose your bank, Paypal or credit card payment type.")</p>
                 @endslot
             @endcomponent
