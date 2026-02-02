@@ -32,12 +32,12 @@
 
             @php($cc_domain = env('COUNTRY'))
             @php
-                $countryAdjective = match (env('COUNTRY')) {
-                    'ee' => __('Estonian'),
-                    'lv' => __('Latvian'),
-                    'lt' => __('Lithuanian'),
-                    default => __('Estonian'),
-                };
+                $countryAdjective = __('Estonian');
+                if (env('COUNTRY') === 'lv') {
+                    $countryAdjective = __('Latvian');
+                } elseif (env('COUNTRY') === 'lt') {
+                    $countryAdjective = __('Lithuanian');
+                }
             @endphp
 
             @component('components.faq-card')
