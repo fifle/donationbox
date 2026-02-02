@@ -81,9 +81,17 @@
 }
 /* Bank tags: endless horizontal scroll */
 .bank-tags-scroll {
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
     mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.bank-tags-scroll::-webkit-scrollbar {
+    display: none;
 }
 .bank-tags-scroll-inner {
     display: flex;
@@ -91,7 +99,9 @@
     width: max-content;
     animation: bank-tags-scroll 35s linear infinite;
 }
-.bank-tags-scroll:hover .bank-tags-scroll-inner {
+.bank-tags-scroll:hover .bank-tags-scroll-inner,
+.bank-tags-scroll:focus-within .bank-tags-scroll-inner,
+.bank-tags-scroll:active .bank-tags-scroll-inner {
     animation-play-state: paused;
 }
 @keyframes bank-tags-scroll {
@@ -156,7 +166,21 @@
                         <span class="bank-tag text-white bg-red-500">Donorbox</span>
                         <span class="bank-tag text-white bg-blue-500">Paypal</span>
                     @endif
-                    @if(env('COUNTRY') == 'lv') || (env('COUNTRY') == 'lt')
+                    @if(env('COUNTRY') == 'lv')
+                        <span class="bank-tag text-yellow-100 bg-yellow-500">Swedbank</span>
+                        <span class="bank-tag text-green-100 bg-green-500">SEB</span>
+                        <span class="bank-tag text-white bg-purple-500">Stripe</span>
+                        <span class="bank-tag text-white bg-black">Revolut</span>
+                        <span class="bank-tag text-white bg-red-500">Donorbox</span>
+                        <span class="bank-tag text-white bg-blue-500">Paypal</span>
+                        <span class="bank-tag text-yellow-100 bg-yellow-500">Swedbank</span>
+                        <span class="bank-tag text-green-100 bg-green-500">SEB</span>
+                        <span class="bank-tag text-white bg-purple-500">Stripe</span>
+                        <span class="bank-tag text-white bg-black">Revolut</span>
+                        <span class="bank-tag text-white bg-red-500">Donorbox</span>
+                        <span class="bank-tag text-white bg-blue-500">Paypal</span>
+                    @endif
+                    @if(env('COUNTRY') == 'lt')
                         <span class="bank-tag text-yellow-100 bg-yellow-500">Swedbank</span>
                         <span class="bank-tag text-green-100 bg-green-500">SEB</span>
                         <span class="bank-tag text-white bg-purple-500">Stripe</span>

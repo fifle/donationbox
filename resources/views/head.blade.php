@@ -38,31 +38,6 @@
 <!-- Styles -->
 <link href="{{ asset('css/app.css') }}?v={{ time() }}" rel="stylesheet">
 <link href="{{ asset('css/custom.css') }}?v={{ time() }}" rel="stylesheet">
-<script>
-// #region agent log
-(function() {
-    const logData = {
-        location: 'head.blade.php:42',
-        message: 'CSS files loaded',
-        data: {
-            appCss: '{{ asset("css/app.css") }}',
-            customCss: '{{ asset("css/custom.css") }}',
-            timestamp: Date.now()
-        },
-        timestamp: Date.now(),
-        sessionId: 'debug-session',
-        runId: 'run1',
-        hypothesisId: 'B'
-    };
-    fetch('http://127.0.0.1:7245/ingest/cbb2d726-84f8-44ce-a87b-1dd0a453eccc', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(logData)
-    }).catch(() => {});
-})();
-// #endregion
-</script>
-
 <!-- Favicon -->
 <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}">
 
