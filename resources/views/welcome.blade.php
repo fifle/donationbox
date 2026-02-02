@@ -29,11 +29,11 @@
     z-index: 0;
     background:
         radial-gradient(ellipse 80% 60% at 20% 30%, rgba(253, 242, 248, 0.95) 0%, transparent 55%),
-        radial-gradient(ellipse 70% 50% at 80% 20%, rgba(255, 251, 235, 0.5) 0%, transparent 50%),
+        radial-gradient(ellipse 70% 50% at 80% 20%, rgba(255, 251, 235, 0.7) 0%, transparent 50%),
         radial-gradient(ellipse 60% 70% at 60% 70%, rgba(251, 207, 232, 0.7) 0%, transparent 50%),
-        radial-gradient(ellipse 50% 60% at 10% 80%, rgba(254, 249, 215, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 60% at 10% 80%, rgba(254, 249, 215, 0.6) 0%, transparent 50%),
         radial-gradient(ellipse 40% 50% at 50% 50%, rgba(253, 242, 248, 0.5) 0%, transparent 55%),
-        linear-gradient(165deg, #fffffe 0%, #fffefb 50%, #fffffe 100%);
+        linear-gradient(165deg, #fffffe 0%, #fffef5 50%, #fffffe 100%);
     background-size: 100% 100%;
     background-attachment: fixed;
 }
@@ -312,12 +312,12 @@
                                 <button
                                     type="button"
                                     @click="step = 0"
-                                    class="d-font w-32 focus:outline-none text-sm/6 py-2 px-2 mr-2 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out">
+                                    class="d-font min-w-32 inline-flex items-center justify-center text-sm/6 py-2 px-2 mr-2 rounded-lg shadow-sm text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out">
                                     @lang("Back")
                                 </button>
                                 <button
                                     type="submit"
-                                    class="d-font w-32 text-sm/6 focus:outline-none border border-transparent py-2 px-2 ml-2 rounded-lg border border-transparent font-medium text-white rounded-md bg-pink-500
+                                    class="d-font min-w-32 inline-flex items-center justify-center text-sm/6 focus:outline-none border border-transparent py-2 px-2 ml-2 rounded-lg font-medium text-white rounded-md bg-pink-500
                                     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                                     focus:ring-pink-700 transition duration-150 ease-in-out">
                                     @lang("Start editing")
@@ -753,9 +753,9 @@
                                         <h3 class="text-sm text-gray-600 leading-3 col-span-12">@lang('For non-profits and businesses')</h3>
                                         <div class="col-span-12" x-data="{strptoggle: false}">
                                             <div class="grid grid-cols-4 gap-4">
-                                                <div class="flex items-center col-span-3">
+                                                <div class="flex flex-col col-span-3">
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-purple-500 uppercase">Stripe</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 pl-2">One-time payments only</p>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-0.5">One-time payments only</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -805,9 +805,9 @@
                                         {{--Paypal Business Account--}}
                                         <div class="col-span-12" x-data="{ppbusinesstoggle: false}">
                                             <div class="grid grid-cols-4 gap-4">
-                                                <div class="flex items-center col-span-3">
+                                                <div class="flex flex-col col-span-3">
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-blue-700 bg-gray-200 uppercase">Paypal Business</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 pl-2">One-time payments only</p>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-0.5">One-time payments only</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -857,10 +857,10 @@
                                         {{--Donorbox--}}
                                         <div class="col-span-12" x-data="{dbtoggle: false}">
                                             <div class="grid grid-cols-4 gap-4">
-                                                <div class="flex items-center col-span-3">
+                                                <div class="flex flex-col col-span-3">
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase
                                                      rounded-full text-white bg-red-500 uppercase">Donorbox.org</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 pl-2">One-time and recurring</p>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-0.5">One-time and recurring</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -915,9 +915,9 @@
                                         {{--Paypal.me--}}
                                         <div class="col-span-12" x-data="{pptoggle: false}">
                                             <div class="grid grid-cols-4 gap-4">
-                                                <div class="flex items-center col-span-3">
+                                                <div class="flex flex-col col-span-3">
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-blue-500 uppercase">Paypal.me</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 pl-2">One-time payments only</p>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-0.5">One-time payments only</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -971,9 +971,9 @@
                                         {{--Revolut.me--}}
                                         <div class="col-span-12" x-data="{revtoggle: false}">
                                             <div class="grid grid-cols-4 gap-4">
-                                                <div class="flex items-center col-span-3">
+                                                <div class="flex flex-col col-span-3">
                                                     <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-black uppercase">Revolut.me</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 pl-2">One-time payments only</p>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-0.5">One-time payments only</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -1040,11 +1040,11 @@
                 <div class="glass rounded-2xl px-6 py-5 shadow-lg space-y-4">
                     <!-- Navigation buttons -->
                     <div class="flex justify-between">
-                        <div class="w-1/2 text-right">
+                        <div class="w-1/2 flex justify-start">
                             <button
                                 x-show="step === 1"
                                 type="button"
-                                class="d-font w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
+                                class="d-font min-w-32 inline-flex items-center justify-center py-2 px-5 mr-2 rounded-lg shadow-sm
                                     text-gray-600 bg-white hover:bg-gray-100 font-medium border transition
                                     duration-150 ease-in-out cursor-not-allowed opacity-50"
                                 disabled
@@ -1054,19 +1054,19 @@
                                 x-show="step > 1"
                                 type="button"
                                 @click="step--"
-                                class="d-font w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
+                                class="d-font min-w-32 inline-flex items-center justify-center py-2 px-5 mr-2 rounded-lg shadow-sm
                                     text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out"
                             >@lang("Previous")
                             </button>
                         </div>
 
-                        <div class="w-1/2">
+                        <div class="w-1/2 flex justify-end">
                             <button
                                 x-show="step < 4"
                                 type="button"
                                 @click="step++"
-                                class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
-                                    border border-transparent font-medium rounded-md text-white bg-pink-500
+                                class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg
+                                    font-medium rounded-md text-white bg-pink-500
                                     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                                     focus:ring-pink-700 transition duration-150 ease-in-out">
                                 @lang("Next")
@@ -1077,8 +1077,8 @@
                                 form="generator"
                                 value="submit"
                                 x-show="step === 4"
-                                class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
-                                    border border-transparent font-medium rounded-md text-white bg-pink-500
+                                class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg
+                                    font-medium rounded-md text-white bg-pink-500
                                     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                                     focus:ring-pink-700 transition duration-150 ease-in-out">
                                 @lang("Complete")
@@ -1089,12 +1089,13 @@
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-4 border-t border-gray-200/40">
                         <div class="text-xs font-medium text-gray-500 uppercase tracking-wide"
                              x-text="`@lang("Step:") ${step} @lang("of") 4`"></div>
-                        <div class="flex items-center gap-3 flex-1 sm:max-w-xs">
-                            <div class="flex-1 h-1.5 rounded-full overflow-hidden bg-white/60">
-                                <div class="h-full rounded-full bg-emerald-500/90 transition-all duration-300"
-                                     :style="'width: '+ parseInt(step / 4 * 100) +'%'"></div>
+                        <div class="flex items-center gap-3 flex-1 min-w-0 sm:max-w-xs w-full">
+                            <div class="flex-1 min-w-[4rem] min-h-[6px] h-1.5 rounded-full overflow-hidden bg-gray-300">
+                                <div class="h-full min-h-[6px] rounded-full transition-all duration-300"
+                                     style="background-color: #ec4899; min-width: 2%;"
+                                     :style="{ width: (step / 4 * 100) + '%' }"></div>
                             </div>
-                            <span class="text-xs text-gray-500 tabular-nums" x-text="parseInt(step / 4 * 100) +'%'"></span>
+                            <span class="text-xs text-gray-500 tabular-nums shrink-0" x-text="(step / 4 * 100).toFixed(0) +'%'"></span>
                         </div>
                     </div>
                 </div>

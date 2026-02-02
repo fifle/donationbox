@@ -13,7 +13,7 @@
         <main id="main-content" role="main">
             @include('form')
         </main>
-        <div class="mt-4 pt-4 border-t border-gray-200/60 flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 sm:gap-6">
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 sm:gap-6">
             <a href="/" target="_blank" aria-label="@lang('Return to homepage')" class="flex justify-center flex-shrink-0">
                 <img class="h-6 w-auto sm:h-7" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png" alt="@lang('DonationBox')">
             </a>

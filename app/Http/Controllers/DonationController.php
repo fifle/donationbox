@@ -48,11 +48,11 @@ class DonationController extends Controller
             $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
             $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
 
-            // Custom sums setup
-            $defsum = 5;
-            $s1 = rawurlencode($request->input('s1'));
-            $s2 = rawurlencode($request->input('s2'));
-            $s3 = rawurlencode($request->input('s3'));
+            // Custom sums setup (default: 10, 25, 50)
+            $defsum = 10;
+            $s1 = $request->filled('s1') ? rawurlencode($request->input('s1')) : '10';
+            $s2 = $request->filled('s2') ? rawurlencode($request->input('s2')) : '25';
+            $s3 = $request->filled('s3') ? rawurlencode($request->input('s3')) : '50';
 
             // Fixed amount expected from the donor
             // In this case, all pre-defined amount selections will be disabled
@@ -222,11 +222,11 @@ class DonationController extends Controller
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
         $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
 
-            // custom sums
-            $defsum = 5;
-            $s1 = rawurlencode($request->input('s1'));
-            $s2 = rawurlencode($request->input('s2'));
-            $s3 = rawurlencode($request->input('s3'));
+            // custom sums (default: 10, 25, 50)
+            $defsum = 10;
+            $s1 = $request->filled('s1') ? rawurlencode($request->input('s1')) : '10';
+            $s2 = $request->filled('s2') ? rawurlencode($request->input('s2')) : '25';
+            $s3 = $request->filled('s3') ? rawurlencode($request->input('s3')) : '50';
 
             // a fixed amount expected from the donor
             // then all preamounts are disabled
@@ -381,11 +381,11 @@ class DonationController extends Controller
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
         $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
 
-        // custom sums
-        $defsum = 5;
-        $s1 = rawurlencode($request->input('s1'));
-        $s2 = rawurlencode($request->input('s2'));
-        $s3 = rawurlencode($request->input('s3'));
+        // custom sums (default: 10, 25, 50)
+        $defsum = 10;
+        $s1 = $request->filled('s1') ? rawurlencode($request->input('s1')) : '10';
+        $s2 = $request->filled('s2') ? rawurlencode($request->input('s2')) : '25';
+        $s3 = $request->filled('s3') ? rawurlencode($request->input('s3')) : '50';
 
         // a fixed amount expected from the donor
         // then all preamounts are disabled

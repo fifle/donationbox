@@ -22,11 +22,11 @@
     z-index: 0;
     background:
         radial-gradient(ellipse 80% 60% at 20% 30%, rgba(253, 242, 248, 0.95) 0%, transparent 55%),
-        radial-gradient(ellipse 70% 50% at 80% 20%, rgba(255, 251, 235, 0.5) 0%, transparent 50%),
+        radial-gradient(ellipse 70% 50% at 80% 20%, rgba(255, 251, 235, 0.7) 0%, transparent 50%),
         radial-gradient(ellipse 60% 70% at 60% 70%, rgba(251, 207, 232, 0.7) 0%, transparent 50%),
-        radial-gradient(ellipse 50% 60% at 10% 80%, rgba(254, 249, 215, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 60% at 10% 80%, rgba(254, 249, 215, 0.6) 0%, transparent 50%),
         radial-gradient(ellipse 40% 50% at 50% 50%, rgba(253, 242, 248, 0.5) 0%, transparent 55%),
-        linear-gradient(165deg, #fffffe 0%, #fffefb 50%, #fffffe 100%);
+        linear-gradient(165deg, #fffffe 0%, #fffef5 50%, #fffffe 100%);
     background-size: 100% 100%;
     background-attachment: fixed;
 }

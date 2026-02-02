@@ -57,7 +57,7 @@ Route::get('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('p
 Route::post('/pdf', 'App\Http\Controllers\DonationController@createPDF')->name('pdf.show')->middleware(StripEmptyParams::class);
 
 // About/FAQ page
-Route::get('/about', function () {return view('pages.about');})->middleware(StripEmptyParams::class);
+Route::get('/about', [App\Http\Controllers\AboutController::class, 'show'])->middleware(StripEmptyParams::class);
 
 /*
  * Custom redirects for our partners.

@@ -91,3 +91,22 @@ textarea:focus {
     margin-top: 0;
     margin-bottom: 0;
 }
+
+/* Form card: glass + shadow on both donation page and embed */
+.embed-page .donation-form-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* Footer links: horizontal scroll on non-English (longer labels) */
+.footer-links-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+}
+.footer-links-scroll::-webkit-scrollbar {
+    display: none;
+}

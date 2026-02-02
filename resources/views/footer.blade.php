@@ -1,7 +1,7 @@
 <footer role="contentinfo" class="pt-8 pb-14 text-center text-gray-600">
 
     @if(Route::currentRouteName() === 'donation')
-    <a href="mailto:donationbox.ee@gmail.com?subject=Report%20Alert%20from%20Donationbox.ee&body=Your%20name%3A%0D%0AYour%20email%3A%0D%0AReason%20for%20reporting%3A%0D%0AReported%20URL%3A%20{{
+    <a href="mailto:donationbox.ee@@gmail.com?subject=Report%20Alert%20from%20Donationbox.ee&body=Your%20name%3A%0D%0AYour%20email%3A%0D%0AReason%20for%20reporting%3A%0D%0AReported%20URL%3A%20{{
     urlencode(url()->full()) }}"
        target="_blank"
        class="d-font transition duration-150 ease-in-out bg-white px-5
@@ -39,34 +39,29 @@
             <span class="">🇱🇹</span> LT
         </a>
     </div>
-    <div class="flex justify-center mb-2 text-xs">
-        <a href="/about" class="no-underline hover:underline text-blue-800">
+    @php $footerLinksScroll = app()->getLocale() !== 'en'; @endphp
+    <div class="flex justify-center mb-2 text-xs {{ $footerLinksScroll ? 'overflow-x-auto overflow-y-hidden -mx-2 px-2 footer-links-scroll' : '' }}">
+        <div class="flex {{ $footerLinksScroll ? 'flex-nowrap shrink-0' : 'flex-wrap justify-center' }} items-center gap-x-2 {{ !$footerLinksScroll ? 'gap-y-1' : '' }}">
+        <a href="/about" class="no-underline hover:underline text-blue-800 whitespace-nowrap">
             @lang("FAQ")
         </a>
-        <span class="ml-2 mr-2">
-            |
-        </span>
-        <a href="/about" class="no-underline hover:underline text-blue-800">
+        <span class="shrink-0">|</span>
+        <a href="/about" class="no-underline hover:underline text-blue-800 whitespace-nowrap">
             @lang("About us")
         </a>
-        <span class="ml-2 mr-2">
-            |
-        </span>
-        <a href="https://bit.ly/db_ee_privacypolicy" target="_blank" class="no-underline hover:underline text-blue-800">
+        <span class="shrink-0">|</span>
+        <a href="https://bit.ly/db_ee_privacypolicy" target="_blank" class="no-underline hover:underline text-blue-800 whitespace-nowrap">
             @lang("Privacy Policy")
         </a>
-        <span class="ml-2 mr-2">
-            |
-        </span>
-        <a href="https://github.com/fifle/donationbox" class="no-underline hover:underline text-blue-800" target="_blank">
+        <span class="shrink-0">|</span>
+        <a href="https://github.com/fifle/donationbox" class="no-underline hover:underline text-blue-800 whitespace-nowrap" target="_blank">
             GitHub
         </a>
-        <span class="ml-2 mr-2">
-            |
-        </span>
-        <a href="mailto:donationbox.ee@gmail.com" class="no-underline hover:underline text-blue-800" target="_blank">
+        <span class="shrink-0">|</span>
+        <a href="mailto:donationbox.ee@@gmail.com" class="no-underline hover:underline text-blue-800 whitespace-nowrap" target="_blank">
             @lang("Contact us")
         </a>
+        </div>
     </div>
 
     <div class="text-xs">

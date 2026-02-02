@@ -1,9 +1,9 @@
 
-<div>
-    <h1 class="mt-0 ml-3 mr-3 text-center text-2xl font-semibold text-gray-700">
+<div class="pb-6">
+    <h1 class="mt-0 text-center text-2xl font-semibold text-gray-700">
         {!! urldecode($campaign_title) !!}
     </h1>
-    <div class="mt-2 mb-4 ml-3 mr-3 text-center text-sm text-gray-500 align-middle">
+    <div class="mt-3 text-center text-sm text-gray-500 align-middle">
         {!! urldecode($payee) !!}
         @if($iban)
             / {!! urldecode($iban) !!}
@@ -13,11 +13,11 @@
         @endif<br>
         {!! urldecode($detail) !!}
         <!-- Trigger -->
-        <button data-tooltip-target="tooltip-click" data-tooltip-trigger="click" type="button" class="btn "
+        <button data-tooltip-target="tooltip-click" data-tooltip-trigger="click" type="button" class="btn inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs text-gray-500 hover:bg-gray-100/80 hover:text-gray-700 transition-colors"
         data-clipboard-text="{{
                 urldecode($payee)
                 }} / {{ urldecode($iban) }} / @lang('Payment description:') {{ urldecode($detail) }}">
-            <div class="inline-flex items-center text-xs text-gray-500">
+            <div class="inline-flex items-center">
             (<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3
             .org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>@lang("Copy"))</div>
         </button>
@@ -25,8 +25,7 @@
             Copied!
             <div class="tooltip-arrow" data-popper-arrow></div>
         </div><br>
-        <a href="{{ $bg_check }}" class="no-underline
-                 hover:underline text-xs text-blue-800" target="_blank">
+        <a href="{{ $bg_check }}" class="no-underline hover:underline text-xs text-blue-700 hover:text-blue-800 transition-colors" target="_blank">
             <div class="inline-flex items-center mt-2">
                 @lang("Check payee's background")
                 <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -49,7 +48,7 @@
         <!-- /Top Navigation -->
     </div>
 
-    <div class="bg-white rounded-lg p-3 pt-0 shadow justify-between mb-6">
+    <div class="donation-form-card glass-strong rounded-2xl p-4 justify-between mb-6">
         <div x-show.transition="step != 'complete'">
 
             <!-- Step Content -->
@@ -61,9 +60,9 @@
                             <div class="grid gap-6">
                                 <div class="col-span-12">
                                     <div x-data="{ tab: 'onetime' }">
-                                        <div class="flex items-center justify-center mt-8 mb-2">
-                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">1</div>
+                                        <div class="flex items-center justify-center mt-6 mb-2">
+                                            <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-600 text-xs font-semibold">1</div>
                                             <div class="text-xs text-gray-500 text-center">
                                                 @if($s0)
                                                     @lang("The amount of your payment")
@@ -98,10 +97,10 @@
                                                             value="{{ $amount }}"
                                                         @endif
                                                         class="transition duration-150 ease-in-out w-full
-                                                                pl-7 pr-7 px-3 py-3 border border-gray-300
-                                                        placeholder-gray-500 text-gray-900 rounded-md
-                                                        focus:outline-none focus:ring-1 focus:ring-offset-0
-                                                        focus:ring-pink-700 focus:z-10 text-5xl text-center"
+                                                                pl-7 pr-7 px-3 py-4 border border-gray-200
+                                                        placeholder-gray-400 text-gray-900 rounded-xl
+                                                        focus:outline-none focus:ring-2 focus:ring-offset-0
+                                                        focus:ring-pink-500 focus:border-pink-400 focus:z-10 text-5xl text-center bg-white/50"
                                                         placeholder="0.00" min="0" step="any" maxlength="4"
                                                         aria-label="@lang('Enter donation amount')"
                                                         aria-required="true"
@@ -202,13 +201,13 @@
                                                 </div>
                                             </div>
 
-                                            <div class="p-1 mt-1 mb-4 text-center space-y-2">
+                                            <div class="flex flex-wrap justify-center gap-2 mt-3 mb-4">
                                                 @if(!$s0)
                                                 <button id="preamount1" class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-5 rounded-lg
-                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
-                                                        font-medium border focus:ring-1 focus:ring-offset-1
-                                                        focus:ring-pink-700 w-auto"
+                                                        focus:outline-none py-2.5 px-5 rounded-xl
+                                                        text-center text-gray-600 font-medium
+                                                        focus:ring-2 focus:ring-offset-0 focus:ring-pink-500 w-auto
+                                                        border border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm"
                                                         @if($s1)
                                                         @click="preamount = '{{ $s1 }}'">
                                                     {{ $s1 }}€
@@ -218,10 +217,10 @@
                                                     @endif
                                                 </button>
                                                 <button id="preamount2" class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-5 rounded-lg
-                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
-                                                        font-medium border focus:ring-1 focus:ring-offset-1
-                                                        focus:ring-pink-700 w-auto"
+                                                        focus:outline-none py-2.5 px-5 rounded-xl
+                                                        text-center text-gray-600 font-medium
+                                                        focus:ring-2 focus:ring-offset-0 focus:ring-pink-500 w-auto
+                                                        border border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm"
                                                     @if($s2)
                                                         @click="preamount = '{{ $s2 }}'">
                                                         {{ $s2 }}€
@@ -234,10 +233,10 @@
                                                     @endif
                                                 </button>
                                                 <button id="preamount3" class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-5 rounded-lg
-                                                        shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100
-                                                        font-medium border focus:ring-1 focus:ring-offset-1
-                                                        focus:ring-pink-700 w-auto"
+                                                        focus:outline-none py-2.5 px-5 rounded-xl
+                                                        text-center text-gray-600 font-medium
+                                                        focus:ring-2 focus:ring-offset-0 focus:ring-pink-500 w-auto
+                                                        border border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm"
                                                         @if($s3)
                                                         @click="preamount = '{{ $s3 }}'">
                                                     {{ $s3 }}€
@@ -256,42 +255,32 @@
 
                                         @if(!$s0)
                                         <div class="flex items-center justify-center">
-                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">2</div>
+                                            <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-600 text-xs font-semibold">2</div>
                                             <div class="text-xs text-gray-500 text-center">
                                                 @lang("Select payment type")
                                             </div>
                                         </div>
 
-                                        <div class="flex items-center justify-center mt-2 mb-4">
-{{--                                            @if($iban or $db or $s0)--}}
+                                        <div class="flex flex-wrap justify-center gap-2 mt-2 mb-4">
                                             @if($onetime)
                                             <button
                                                 class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-4 rounded-lg
-                                                        shadow-sm text-center text-sm text-gray-600 bg-white
-                                                        hover:bg-gray-100
-                                                        font-medium border focus:ring-1 focus:ring-offset-1
-                                                        focus:ring-pink-700 w-auto"
+                                                        focus:outline-none py-2.5 px-5 rounded-xl text-center text-sm font-medium
+                                                        focus:ring-2 focus:ring-offset-0 focus:ring-pink-500"
                                                 @click="tab = 'onetime'"
-                                                :class="{'bg-gray-100' : tab === 'onetime', 'font-normal' :
-                                                !tab === 'onetime'}"
+                                                :class="tab === 'onetime' ? 'bg-pink-100/80 text-pink-800 border border-pink-200/80 shadow-sm' : 'text-gray-600 border border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm'"
                                             >
                                                 @lang("One-time payment")
                                             </button>
                                             @endif
-{{--                                            @if($iban or $db or $s0)--}}
                                             @if($recurring)
                                             <button
                                                 class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2 px-4 ml-2 rounded-lg
-                                                        shadow-sm text-center text-sm text-gray-600 bg-white
-                                                        hover:bg-gray-100
-                                                        font-medium border focus:ring-1 focus:ring-offset-1
-                                                        focus:ring-pink-700 w-auto"
+                                                        focus:outline-none py-2.5 px-5 rounded-xl text-center text-sm font-medium
+                                                        focus:ring-2 focus:ring-offset-0 focus:ring-pink-500"
                                                 @click="tab = 'standing'"
-                                                :class="{'bg-gray-100' : tab === 'standing', 'font-normal' :
-                                                !tab === 'standing'}"
+                                                :class="tab === 'standing' ? 'bg-pink-100/80 text-pink-800 border border-pink-200/80 shadow-sm' : 'text-gray-600 border border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm'"
                                             >
                                                 @lang("Recurring payment")
                                             </button>
@@ -340,11 +329,10 @@
                                                         id="taxik"
                                                         pattern="[0-9-]+"
                                                         value="{{ $ik }}"
-                                                        class="appearance-none rounded-none relative block
-                                                               w-1/2 px-2 py-1 border border-gray-300
-                                                               text-gray-900 rounded-md
-                                                               focus:outline-none focus:ring-indigo-500
-                                                               focus:border-indigo-500 focus:z-10 text-normal
+                                                        class="appearance-none relative block w-1/2 px-3 py-2
+                                                               border border-gray-200 text-gray-900 rounded-xl
+                                                               focus:outline-none focus:ring-2 focus:ring-pink-500
+                                                               focus:border-pink-400 focus:z-10 text-normal
                                                                transition duration-150 ease-in-out text-center"
                                                         placeholder="eg. 38001085718"
                                                     >
@@ -354,21 +342,21 @@
                                         @endif
 
                                         <div>
-                                            <div x-show="tab === 'onetime'" class="p-1 mt-2 text-center space-x-1
-                                                    space-y-2" x-transition:enter.duration.500ms>
+                                            <div x-show="tab === 'onetime'" class="mt-2 flex flex-col items-center gap-4" x-transition:enter.duration.500ms>
                                                 @if($onetime)
-                                                    <div>
-                                                        <div class="flex items-center justify-center">
-                                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">
+                                                    <div class="w-full">
+                                                        <div class="flex items-center justify-center mb-2">
+                                                            <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-600 text-xs font-semibold">
                                                                 @if($s0)
                                                                     2
                                                                 @else
                                                                     3
                                                                 @endif
                                                             </div>
-                                                            <div class="mt-3 mb-2 text-xs text-gray-500 text-center">@lang("Donate via internet-bank")</div>
+                                                            <div class="text-xs text-gray-500 text-center">@lang("Donate via internet-bank")</div>
                                                         </div>
+                                                        <div class="flex flex-wrap justify-center gap-2">
                                                         @if(!$swt)
                                                         <button
                                                             form="sumforbank"
@@ -376,10 +364,9 @@
                                                             name="action"
                                                             value="swed"
                                                             class="d-font transition duration-150 ease-in-out
-                                                            bg-yellow-500 px-5 py-3
-                                                            text-sm shadow-sm font-medium
-                                                                border text-yellow-100 rounded-full
-                                                                hover:shadow-lg hover:bg-yellow-600">Swedbank
+                                                            bg-yellow-500 px-5 py-3 text-sm font-medium
+                                                            text-white rounded-xl shadow-md
+                                                            hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                         </button>
                                                         @endif
                                                     @if($sebuid)
@@ -389,8 +376,7 @@
                                                             name="action"
                                                             value="seb"
                                                             class="d-font transition duration-150 ease-in-out bg-green-500 px-5 py-3
-                                                         text-sm shadow-sm
-                                                        font-medium  border text-green-100 rounded-full
+                                                         text-sm font-medium text-white rounded-xl shadow-md
                                                         hover:shadow-lg hover:bg-green-600">SEB
                                                         </button>
                                                     @endif
@@ -401,8 +387,7 @@
                                                         name="action"
                                                         value="lhv"
                                                         class="d-font transition duration-150 ease-in-out bg-gray-700 px-5 py-3
-                                                        text-sm shadow-sm
-                                                        font-medium  border text-gray-100 rounded-full
+                                                        text-sm font-medium text-white rounded-xl shadow-md
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
                                                         @endif
@@ -412,40 +397,38 @@
                                                         type="submit"
                                                         name="action"
                                                         value="coop"
-                                                        class="d-font transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
-                                                        text-sm shadow-sm
-                                                        font-medium  border text-blue-100 rounded-full
+                                                        class="d-font transition duration-150 ease-in-out bg-blue-600 px-5 py-3
+                                                        text-sm font-medium text-white rounded-xl shadow-md
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
                                                         @endif
+                                                        </div>
                                                     </div>
                                                 @endif
 
-                                                <div>
                                                 @if($rev or $pp or $pphb or $db or $paypalClientId or $strp)
-                                                    <div class="flex items-center justify-center">
+                                                <div class="w-full">
+                                                    <div class="flex items-center justify-center mb-2">
                                                         @if(!$iban)
-                                                        <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">3</div>
+                                                        <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-600 text-xs font-semibold">3</div>
                                                         @endif
                                                             @if($iban)
-                                                                <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">4</div>
+                                                                <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-600 text-xs font-semibold">4</div>
                                                             @endif
-                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">@lang("Donate by credit card")</div>
+                                                        <div class="text-xs text-gray-500 text-center">@lang("Donate by credit card")</div>
                                                     </div>
-                                                    @endif
+                                                    <div class="flex flex-wrap justify-center gap-2">
                                                     @if($rev)
                                                         <button
                                                             form="sumforbank"
                                                             type="submit"
                                                             name="action"
                                                             value="rev"
-                                                            class="d-font transition duration-150 ease-in-out bg-white px-5
-                                                             py-3
-                                                        text-sm shadow-sm
-                                                        font-medium  border text-blue-500 rounded-full
-                                                        hover:shadow-lg hover:bg-gray-100 mb-2">
+                                                            class="d-font transition duration-150 ease-in-out bg-white px-5 py-3
+                                                        text-sm font-medium border border-gray-200 text-blue-600 rounded-xl shadow-md
+                                                        hover:shadow-lg hover:bg-gray-50 mb-2">
                                                             Revolut <span class="text-xs tracking-tight">(Visa/MC)</span>
                                                         </button>
                                                     @endif
@@ -455,10 +438,9 @@
                                                         type="submit"
                                                         name="action"
                                                         value="paypal"
-                                                        class="d-font transition duration-150 ease-in-out bg-blue-800 px-5
-                                                py-3 text-sm shadow-sm font-medium
-                                                      border text-blue-100 rounded-full hover:shadow-lg
-                                                     hover:bg-blue-900 mb-2">Paypal
+                                                        class="d-font transition duration-150 ease-in-out bg-blue-800 px-5 py-3
+                                                text-sm font-medium text-white rounded-xl shadow-md
+                                                hover:shadow-lg hover:bg-blue-900 mb-2">Paypal
                                                     </button>
                                                 @endif
                                                     @if($pphb)
@@ -467,10 +449,9 @@
                                                             type="submit"
                                                             name="action"
                                                             value="pphb"
-                                                            class="d-font transition duration-150 ease-in-out bg-blue-800 px-5
-                                                py-3 text-sm shadow-sm font-medium
-                                                      border text-blue-100 rounded-full hover:shadow-lg
-                                                     hover:bg-blue-900 mb-2">
+                                                            class="d-font transition duration-150 ease-in-out bg-blue-800 px-5 py-3
+                                                text-sm font-medium text-white rounded-xl shadow-md
+                                                hover:shadow-lg hover:bg-blue-900 mb-2">
                                                             Paypal <span class="text-xs tracking-tight">(Visa/MC)</span>
                                                         </button>
                                                     @endif
@@ -480,10 +461,9 @@
                                                         type="submit"
                                                         name="action"
                                                         value="donorbox"
-                                                        class="d-font transition duration-150 ease-in-out bg-red-600 px-5
-                                                py-3 text-sm shadow-sm font-medium
-                                                      border text-white rounded-full hover:shadow-lg
-                                                     hover:bg-red-700 inline-flex items-center mb-2">
+                                                        class="d-font transition duration-150 ease-in-out bg-red-600 px-5 py-3
+                                                text-sm font-medium text-white rounded-xl shadow-md
+                                                hover:shadow-lg hover:bg-red-700 inline-flex items-center mb-2">
                                                         Donorbox <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                     </button>
                                                 @endif
@@ -493,27 +473,28 @@
                                                             type="submit"
                                                             name="action"
                                                             value="strp"
-                                                            class="d-font transition duration-150 ease-in-out bg-blue-600 px-5
-                                                py-3 text-sm shadow-sm font-medium
-                                                      border text-white rounded-full hover:shadow-lg
-                                                     hover:bg-blue-700 inline-flex items-center mb-2">
+                                                            class="d-font transition duration-150 ease-in-out bg-blue-600 px-5 py-3
+                                                text-sm font-medium text-white rounded-xl shadow-md
+                                                hover:shadow-lg hover:bg-blue-700 inline-flex items-center mb-2">
                                                             Stripe <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                         </button>
                                                     @endif
                                                     @if($paypalClientId)
                                                         <div class="m-auto" id="paypal-button-container"></div>
                                                     @endif
-                                                </div>
-                                            </div>
-                                            <div x-show="tab === 'standing'" class="p-1 mt-2 text-center space-x-1
-                                            space-y-2" x-transition:enter.duration.500ms>
-                                                @if($recurring)
-                                                    <div>
-                                                    <div class="flex items-center justify-center">
-                                                        <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">3</div>
-                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">@lang("Donate via internet-bank")</div>
                                                     </div>
+                                                </div>
+                                                @endif
+                                            </div>
+                                            <div x-show="tab === 'standing'" class="mt-2 flex flex-col items-center gap-4" x-transition:enter.duration.500ms>
+                                                @if($recurring)
+                                                    <div class="w-full">
+                                                        <div class="flex items-center justify-center mb-2">
+                                                            <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-600 text-xs font-semibold">3</div>
+                                                            <div class="text-xs text-gray-500 text-center">@lang("Donate via internet-bank")</div>
+                                                        </div>
+                                                        <div class="flex flex-wrap justify-center gap-2">
                                                         @if(!$swt)
                                                     <button
                                                         form="sumforbank"
@@ -521,9 +502,8 @@
                                                         name="action"
                                                         value="swed-standing"
                                                         class="d-font transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
-                                                        text-sm shadow-sm font-medium
-                                                             border text-yellow-100 rounded-full
-                                                            hover:shadow-lg hover:bg-yellow-600">Swedbank
+                                                        text-sm font-medium text-white rounded-xl shadow-md
+                                                        hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                     </button>
                                                         @endif
                                                     @if($sebuid_st)
@@ -533,8 +513,7 @@
                                                             name="action"
                                                             value="seb-standing"
                                                             class="d-font transition duration-150 ease-in-out bg-green-500 px-5 py-3
-                                                         text-sm shadow-sm
-                                                        font-medium  border text-green-100 rounded-full
+                                                         text-sm font-medium text-white rounded-xl shadow-md
                                                         hover:shadow-lg hover:bg-green-600">SEB
                                                         </button>
                                                     @endif
@@ -545,8 +524,7 @@
                                                         name="action"
                                                         value="lhv-standing"
                                                         class="d-font transition duration-150 ease-in-out bg-gray-700 px-5 py-3
-                                                        text-sm shadow-sm
-                                                        font-medium  border text-gray-100 rounded-full
+                                                        text-sm font-medium text-white rounded-xl shadow-md
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
                                                         @endif
@@ -556,36 +534,35 @@
                                                         type="submit"
                                                         name="action"
                                                         value="coop-standing"
-                                                        class="d-font transition duration-150 ease-in-out  bg-blue-600 px-5 py-3
-                                                        text-sm shadow-sm
-                                                        font-medium  border text-blue-100 rounded-full
+                                                        class="d-font transition duration-150 ease-in-out bg-blue-600 px-5 py-3
+                                                        text-sm font-medium text-white rounded-xl shadow-md
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
                                                         @endif
+                                                        </div>
                                                     </div>
                                                 @endif
-                                                <div>
-                                                    @if($db)
-                                                    <div class="flex items-center justify-center">
+                                                @if($db)
+                                                <div class="w-full">
+                                                    <div class="flex items-center justify-center mb-2">
                                                         @if(!$iban)
-                                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">3</div>
+                                                            <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-600 text-xs font-semibold">3</div>
                                                         @endif
-                                                        <div class="mt-3 mb-2 text-xs text-gray-500 text-center">@lang("Donate by credit card")</div>
+                                                        <div class="text-xs text-gray-500 text-center">@lang("Donate by credit card")</div>
                                                     </div>
-                                                    @endif
+                                                    <div class="flex flex-wrap justify-center gap-2">
                                                 @if($db)
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
                                                         name="action"
                                                         value="donorbox-standing"
-                                                        class="d-font transition duration-150 ease-in-out bg-red-600 px-5
-                                                py-3 text-sm shadow-sm font-medium
-                                                      border text-white rounded-full hover:shadow-lg
-                                                     hover:bg-red-700 inline-flex items-center">
+                                                        class="d-font transition duration-150 ease-in-out bg-red-600 px-5 py-3
+                                                text-sm font-medium text-white rounded-xl shadow-md
+                                                hover:shadow-lg hover:bg-red-700 inline-flex items-center">
                                                         Donorbox <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
-                                                    </button>
+                                                        </button>
                                                 @endif
                                                         @if($pphb)
                                                             <button
@@ -593,14 +570,15 @@
                                                                 type="submit"
                                                                 name="action"
                                                                 value="pphb"
-                                                                class="d-font transition duration-150 ease-in-out bg-blue-800 px-5
-                                                py-3 text-sm shadow-sm font-medium
-                                                      border text-blue-100 rounded-full hover:shadow-lg
-                                                     hover:bg-blue-900 mb-2">
-                                                                Paypal <span class="text-xs tracking-tight">(Visa/MC)</span>
+                                                                class="d-font transition duration-150 ease-in-out bg-blue-800 px-5 py-3
+                                                text-sm font-medium text-white rounded-xl shadow-md
+                                                hover:shadow-lg hover:bg-blue-900 mb-2">
+                                                            Paypal <span class="text-xs tracking-tight">(Visa/MC)</span>
                                                             </button>
                                                         @endif
+                                                    </div>
                                                 </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
