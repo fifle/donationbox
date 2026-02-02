@@ -16,7 +16,7 @@
 <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:p-2 focus:bg-white focus:text-gray-900 focus:underline">@lang("Skip to main content")</a>
 
 <style>
-/* Homepage: Stripe-style soft background animation */
+/* Homepage: pink and yellow gradient mesh */
 .home-page {
     position: relative;
     min-height: 100vh;
@@ -27,43 +27,15 @@
     position: fixed;
     inset: 0;
     z-index: 0;
-    background: linear-gradient(165deg, #fffffe 0%, #fffef9 25%, #fefdf7 50%, #fffef9 75%, #fffffe 100%);
-    background-size: 400% 400%;
-    animation: stripe-bg 18s ease-in-out infinite;
-}
-.home-page-bg::before,
-.home-page-bg::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.25;
-    animation: stripe-orb 22s ease-in-out infinite;
-}
-.home-page-bg::before {
-    width: 60vmax;
-    height: 60vmax;
-    top: -20%;
-    left: -10%;
-    background: radial-gradient(circle, rgba(255, 253, 231, 0.35) 0%, transparent 70%);
-    animation-delay: -5s;
-}
-.home-page-bg::after {
-    width: 50vmax;
-    height: 50vmax;
-    bottom: -15%;
-    right: -10%;
-    background: radial-gradient(circle, rgba(254, 252, 232, 0.3) 0%, transparent 70%);
-    animation-delay: -11s;
-}
-@keyframes stripe-bg {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-}
-@keyframes stripe-orb {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(3%, -4%) scale(1.05); }
-    66% { transform: translate(-2%, 2%) scale(0.98); }
+    background:
+        radial-gradient(ellipse 80% 60% at 20% 30%, rgba(253, 242, 248, 0.95) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 50% at 80% 20%, rgba(255, 251, 235, 0.5) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 70% at 60% 70%, rgba(251, 207, 232, 0.7) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 60% at 10% 80%, rgba(254, 249, 215, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 50% at 50% 50%, rgba(253, 242, 248, 0.5) 0%, transparent 55%),
+        linear-gradient(165deg, #fffffe 0%, #fffefb 50%, #fffffe 100%);
+    background-size: 100% 100%;
+    background-attachment: fixed;
 }
 /* Liquid Glass */
 .glass {
@@ -80,10 +52,10 @@
     border: 1px solid rgba(255, 255, 255, 0.6);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
-/* Ensure footer is always visible and above any stacking-context / backdrop-filter quirks */
+/* Ensure footer is always visible and above fixed bottom nav when they overlap */
 .home-page .home-page-footer {
     position: relative;
-    z-index: 20;
+    z-index: 60;
     isolation: isolate;
     color: #4b5563;
     transform: translateZ(0); /* force own layer so backdrop-filter above doesn’t hide it */
@@ -94,43 +66,112 @@
 .home-page .home-page-footer a {
     color: #1e40af; /* blue-800 for links */
 }
+/* Security block: own layer so it isn’t obscured by glass elements above */
+.home-page .secure-block {
+    position: relative;
+    z-index: 15;
+    isolation: isolate;
+}
+.home-page .main-form-card {
+    position: relative;
+    z-index: 0;
+}
+.home-page .bottom-nav-bar {
+    z-index: 50;
+}
+/* Bank tags: endless horizontal scroll */
+.bank-tags-scroll {
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+.bank-tags-scroll-inner {
+    display: flex;
+    gap: 0.5rem;
+    width: max-content;
+    animation: bank-tags-scroll 35s linear infinite;
+}
+.bank-tags-scroll:hover .bank-tags-scroll-inner {
+    animation-play-state: paused;
+}
+@keyframes bank-tags-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.bank-tag {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
 </style>
 
 <div class="home-page flex flex-col min-h-screen py-12 px-4 sm:px-6 lg:px-8">
     <div class="home-page-bg" aria-hidden="true"></div>
 
-    <div class="max-w-2xl w-full mx-auto flex-1 flex flex-col space-y-6 relative z-10 pb-28 min-h-[calc(100vh-6rem)]">
-        <header role="banner" class="absolute top-4 right-4 sm:top-6 sm:right-6 z-20">
+    <div class="max-w-lg w-full mx-auto flex-1 flex flex-col space-y-4 relative z-10 min-h-[calc(100vh-6rem)]">
+        <header role="banner" class="fixed top-4 right-4 sm:top-6 sm:right-6 left-auto">
             <div class="glass rounded-xl px-3 py-2">
                 @include('components.lang-switcher')
             </div>
         </header>
 
-        <div class="items-center justify-center mt-14 mb-8 text-center">
+        <div class="items-center justify-center mt-36 mb-8 text-center">
             <a href="/" aria-label="@lang('Return to homepage')" class="inline-block">
                 <img class="mx-auto h-10 sm:h-12 w-auto object-contain" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png" alt="@lang('DonationBox') logo - @lang('Return to homepage')">
             </a>
-            <h1 class="mt-6 text-lg font-medium text-gray-600 tracking-tight">
-                @lang("Start your virtual donation box")
+            <h1 class="mt-6 text-lg sm:text-xl font-medium text-gray-600 tracking-tight">
+                @lang("Start your virtual donation box")<br>
                 @if(env('COUNTRY') == 'ee')
-                    <span class="block text-base font-normal text-gray-500 mt-1">@lang("for 🇪🇪 Estonian banks for free")</span>
+                    @lang("for 🇪🇪 Estonian banks for free")
                 @endif
                 @if(env('COUNTRY') == 'lv')
-                    <span class="block text-base font-normal text-gray-500 mt-1">@lang("for 🇱🇻 Latvian banks for free")</span>
+                    @lang("for 🇱🇻 Latvian banks for free")
                 @endif
                 @if(env('COUNTRY') == 'lt')
-                    <span class="block text-base font-normal text-gray-500 mt-1">@lang("for 🇱🇹 Lithuanian banks for free")</span>
+                    @lang("for 🇱🇹 Lithuanian banks for free")
                 @endif
             </h1>
-            @if(env('COUNTRY') == 'ee')
-                <p class="text-center text-xs mt-2 text-gray-400">Swedbank, SEB, LHV, Coop, Stripe, Revolut, Donorbox, Paypal</p>
-            @endif
-            @if(env('COUNTRY') == 'lv')
-                <p class="text-center text-xs mt-2 text-gray-400">Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal</p>
-            @endif
-            @if(env('COUNTRY') == 'lt')
-                <p class="text-center text-xs mt-2 text-gray-400">Swedbank, SEB, Stripe, Revolut, Donorbox, Paypal</p>
-            @endif
+            <div class="bank-tags-scroll mt-4 w-full max-w-lg mx-auto" aria-hidden="true">
+                <div class="bank-tags-scroll-inner">
+                    @if(env('COUNTRY') == 'ee')
+                        <span class="bank-tag text-yellow-100 bg-yellow-500">Swedbank</span>
+                        <span class="bank-tag text-green-100 bg-green-500">SEB</span>
+                        <span class="bank-tag text-gray-200 bg-gray-700">LHV</span>
+                        <span class="bank-tag text-blue-100 bg-blue-600">Coop</span>
+                        <span class="bank-tag text-white bg-purple-500">Stripe</span>
+                        <span class="bank-tag text-white bg-black">Revolut</span>
+                        <span class="bank-tag text-white bg-red-500">Donorbox</span>
+                        <span class="bank-tag text-white bg-blue-500">Paypal</span>
+                        <span class="bank-tag text-yellow-100 bg-yellow-500">Swedbank</span>
+                        <span class="bank-tag text-green-100 bg-green-500">SEB</span>
+                        <span class="bank-tag text-gray-200 bg-gray-700">LHV</span>
+                        <span class="bank-tag text-blue-100 bg-blue-600">Coop</span>
+                        <span class="bank-tag text-white bg-purple-500">Stripe</span>
+                        <span class="bank-tag text-white bg-black">Revolut</span>
+                        <span class="bank-tag text-white bg-red-500">Donorbox</span>
+                        <span class="bank-tag text-white bg-blue-500">Paypal</span>
+                    @endif
+                    @if(env('COUNTRY') == 'lv') || (env('COUNTRY') == 'lt')
+                        <span class="bank-tag text-yellow-100 bg-yellow-500">Swedbank</span>
+                        <span class="bank-tag text-green-100 bg-green-500">SEB</span>
+                        <span class="bank-tag text-white bg-purple-500">Stripe</span>
+                        <span class="bank-tag text-white bg-black">Revolut</span>
+                        <span class="bank-tag text-white bg-red-500">Donorbox</span>
+                        <span class="bank-tag text-white bg-blue-500">Paypal</span>
+                        <span class="bank-tag text-yellow-100 bg-yellow-500">Swedbank</span>
+                        <span class="bank-tag text-green-100 bg-green-500">SEB</span>
+                        <span class="bank-tag text-white bg-purple-500">Stripe</span>
+                        <span class="bank-tag text-white bg-black">Revolut</span>
+                        <span class="bank-tag text-white bg-red-500">Donorbox</span>
+                        <span class="bank-tag text-white bg-blue-500">Paypal</span>
+                    @endif
+                </div>
+            </div>
         </div>
 
         <main id="main-content" role="main" x-data="app()" x-cloak>
@@ -141,7 +182,7 @@
 
             <!-- Action Selection Step -->
             <div x-show="step === 0" x-transition:enter.duration.500ms>
-                <div class="glass rounded-2xl p-6 mb-6">
+                <div class="glass rounded-2xl p-6 mb-2">
                     <div class="grid grid-cols-1 gap-3">
                         <button
                             @click="step = 1"
@@ -218,7 +259,7 @@
                 </div>
             </div>
 
-            <div class="glass-strong rounded-2xl p-6" x-show="step !== 0 && step !== 'edit'">
+            <div class="main-form-card glass-strong rounded-2xl p-6" x-show="step !== 0 && step !== 'edit'">
                 <div class="">
                     <div x-show.transition="step != 'complete'">
 
@@ -925,15 +966,15 @@
                 </div>
             </div>
 
-            <!-- Bottom Navigation -->
-            <div class="fixed bottom-0 left-0 right-0 py-4 z-20" x-show="step !=
-            'complete' && step !== 0 && step !== 'edit'">
-                <div class="max-w-2xl mx-auto px-4">
-                    <div class="glass rounded-2xl py-4 px-6 shadow-lg">
+            <!-- Navigation with progress bar (static, right after form) -->
+            <div class="mt-4" x-show="step !== 0 && step !== 'edit' && step !== 'complete'">
+                <div class="glass rounded-2xl px-6 py-5 shadow-lg space-y-4">
+                    <!-- Navigation buttons -->
                     <div class="flex justify-between">
                         <div class="w-1/2 text-right">
                             <button
-                                x-show="step == 1"
+                                x-show="step === 1"
+                                type="button"
                                 class="d-font w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
                                     text-gray-600 bg-white hover:bg-gray-100 font-medium border transition
                                     duration-150 ease-in-out cursor-not-allowed opacity-50"
@@ -942,6 +983,7 @@
                             </button>
                             <button
                                 x-show="step > 1"
+                                type="button"
                                 @click="step--"
                                 class="d-font w-32 focus:outline-none py-2 px-5 mr-2 rounded-lg shadow-sm text-center
                                     text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out"
@@ -949,9 +991,10 @@
                             </button>
                         </div>
 
-                        <div class="w-1/2 ">
+                        <div class="w-1/2">
                             <button
                                 x-show="step < 4"
+                                type="button"
                                 @click="step++"
                                 class="d-font w-32 focus:outline-none border border-transparent py-2 px-5 ml-2 rounded-lg
                                     border border-transparent font-medium rounded-md text-white bg-pink-500
@@ -973,25 +1016,24 @@
                             </button>
                         </div>
                     </div>
-                    </div>
-                </div>
-            </div>
-            <div class="py-4" x-show="step !== 0 && step !== 'edit'">
-                <div class="glass rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                    <div class="text-xs font-medium text-gray-500 uppercase tracking-wide"
-                         x-text="`@lang("Step:") ${step} @lang("of") 4`"></div>
-                    <div class="flex items-center gap-3 flex-1 sm:max-w-xs">
-                        <div class="flex-1 h-1.5 rounded-full overflow-hidden bg-white/60">
-                            <div class="h-full rounded-full bg-emerald-500/90 transition-all duration-300"
-                                 :style="'width: '+ parseInt(step / 4 * 100) +'%'"></div>
+                    <!-- Progress bar -->
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-4 border-t border-gray-200/40">
+                        <div class="text-xs font-medium text-gray-500 uppercase tracking-wide"
+                             x-text="`@lang("Step:") ${step} @lang("of") 4`"></div>
+                        <div class="flex items-center gap-3 flex-1 sm:max-w-xs">
+                            <div class="flex-1 h-1.5 rounded-full overflow-hidden bg-white/60">
+                                <div class="h-full rounded-full bg-emerald-500/90 transition-all duration-300"
+                                     :style="'width: '+ parseInt(step / 4 * 100) +'%'"></div>
+                            </div>
+                            <span class="text-xs text-gray-500 tabular-nums" x-text="parseInt(step / 4 * 100) +'%'"></span>
                         </div>
-                        <span class="text-xs text-gray-500 tabular-nums" x-text="parseInt(step / 4 * 100) +'%'"></span>
                     </div>
                 </div>
             </div>
 
         </div>
         </main>
+
         @include('secure')
 
         @if(env('COUNTRY') == 'lv')
@@ -1010,7 +1052,7 @@
             </div>
         @endif -->
 
-        <div class="home-page-footer mt-auto flex-shrink-0 pt-10">
+        <div class="home-page-footer mt-auto flex-shrink-0 pt-4">
             @include('footer')
         </div>
     </div>

@@ -49,7 +49,7 @@
         <!-- /Top Navigation -->
     </div>
 
-    <div class="bg-white rounded-lg p-3 pt-0 shadow justify-between mb-12">
+    <div class="bg-white rounded-lg p-3 pt-0 shadow justify-between mb-6">
         <div x-show.transition="step != 'complete'">
 
             <!-- Step Content -->

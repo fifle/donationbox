@@ -1,5 +1,5 @@
 <!-- Language switcher -->
-<div class="relative items-center">
+<div class="relative inline-flex items-center">
     @php 
         $locale = session()->get('locale'); 
         // Get current URL to preserve all parameters
@@ -35,7 +35,7 @@
         @endswitch
         <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
 
-    <div id="dropdownSmall" class="text-left z-10 hidden bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
+    <div id="dropdownSmall" class="absolute right-0 top-full mt-1 min-w-[8rem] text-left z-50 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg border border-gray-200 dark:bg-gray-700 dark:divide-gray-600 dark:border-gray-600">
         <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSmallButton">
             <li>
                 <a href="{{ route('lang', ['locale' => 'en']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">English</a>

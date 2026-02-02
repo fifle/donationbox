@@ -8,13 +8,13 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-xl w-full space-y-2">
         <div class="items-center justify-center mt-8 mb-6">
-            <div class="grid grid-cols-2 items-center mb-2">
-                <div class="w-32">
-                    <a href="/">
-                        <img class="mx-auto" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png">
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-2">
+                <div class="flex-shrink-0">
+                    <a href="/" aria-label="@lang('Return to homepage')">
+                        <img class="h-6 w-auto sm:h-7" src="/img/db-logo-fl-{{ env('COUNTRY') }}.png" alt="@lang('DonationBox')">
                     </a>
                 </div>
-                <div class="">
+                <div class="flex items-center justify-end min-w-0">
                     @include('components.lang-switcher')
                 </div>
             </div>
