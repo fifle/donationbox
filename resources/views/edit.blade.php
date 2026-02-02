@@ -404,9 +404,9 @@
                                         </div>
                                         {{--Swedbank--}}
                                         <div class="col-span-12" x-data="{swt: {{ $swt ? 'true' : 'false' }}}">
-                                            <div class="grid grid-cols-2 gap-4 space-y-0">
-                                            <div>
-                                                <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-yellow-100 bg-yellow-500 uppercase">Swedbank</h2 >
+                                            <div class="grid grid-cols-2 gap-4 space-y-0 items-center">
+                                            <div class="flex justify-start">
+                                                <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase rounded-full text-yellow-100 bg-yellow-500 uppercase">Swedbank</h2 >
                                             </div>
                                             <div>
                                                 <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -432,9 +432,9 @@
                                         </div>
                                         {{--SEB--}}
                                         <div class="col-span-12" x-data="{sebt: {{ $hasSEB ? 'true' : 'false' }}}">
-                                            <div class="grid grid-cols-2 gap-4">
-                                            <div>
-                                                <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-green-100 bg-green-500 uppercase">SEB bank</h2>
+                                            <div class="grid grid-cols-2 gap-4 items-center">
+                                            <div class="flex justify-start">
+                                                <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase rounded-full text-green-100 bg-green-500 uppercase">SEB bank</h2>
                                             </div>
                                             <div>
                                                 <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -501,9 +501,9 @@
                                         @if(env('COUNTRY') == 'ee')
                                         {{--LHV--}}
                                         <div class="col-span-12" x-data="{lhvt: {{ $lhvt ? 'true' : 'false' }}}">
-                                            <div class="grid grid-cols-2 gap-4">
-                                                <div>
-                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-gray-200 bg-gray-700 uppercase">LHV bank</h2>
+                                            <div class="grid grid-cols-2 gap-4 items-center">
+                                                <div class="flex justify-start">
+                                                    <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase rounded-full text-gray-200 bg-gray-700 uppercase">LHV bank</h2>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -533,9 +533,9 @@
                                         @if(env('COUNTRY') == 'ee')
                                         {{--COOP--}}
                                         <div class="col-span-12" x-data="{coopt: {{ $coopt ? 'true' : 'false' }}}">
-                                            <div class="grid grid-cols-2 gap-4">
-                                                <div>
-                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-blue-100 bg-blue-600 uppercase">Coop bank</h2>
+                                            <div class="grid grid-cols-2 gap-4 items-center">
+                                                <div class="flex justify-start">
+                                                    <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase rounded-full text-blue-100 bg-blue-600 uppercase">Coop bank</h2>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -587,10 +587,10 @@
                                         {{--Stripe--}}
                                         <h3 class="text-sm text-gray-600 leading-3 col-span-12">@lang('For non-profits and businesses')</h3>
                                         <div class="col-span-12" x-data="{strptoggle: {{ $hasStripe ? 'true' : 'false' }}}">
-                                            <div class="grid grid-cols-4 gap-4">
-                                                <div class="flex flex-col col-span-3">
-                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-purple-500 uppercase">Stripe</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 mt-0.5">One-time payments only</p>
+                                            <div class="grid grid-cols-4 gap-4 items-center">
+                                                <div class="flex flex-col col-span-3 items-start">
+                                                    <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase rounded-full text-white bg-purple-500 uppercase">Stripe</h2>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-1">One-time payments only</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -638,10 +638,10 @@
                                         </div>
                                         {{--Paypal Business Account--}}
                                         <div class="col-span-12" x-data="{ppbusinesstoggle: {{ $hasPaypalBusiness ? 'true' : 'false' }}}">
-                                            <div class="grid grid-cols-4 gap-4">
-                                                <div class="flex flex-col col-span-3">
-                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-blue-700 bg-gray-200 uppercase">Paypal Business</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 mt-0.5">One-time payments only</p>
+                                            <div class="grid grid-cols-4 gap-4 items-center">
+                                                <div class="flex flex-col col-span-3 items-start">
+                                                    <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase rounded-full text-blue-700 bg-gray-200 uppercase">Paypal Business</h2>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-1">One-time payments only</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -689,11 +689,11 @@
                                         </div>
                                         {{--Donorbox--}}
                                         <div class="col-span-12" x-data="{dbtoggle: {{ $hasDonorbox ? 'true' : 'false' }}}">
-                                            <div class="grid grid-cols-4 gap-4">
-                                                <div class="flex flex-col col-span-3">
-                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase
+                                            <div class="grid grid-cols-4 gap-4 items-center">
+                                                <div class="flex flex-col col-span-3 items-start">
+                                                    <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase
                                                      rounded-full text-white bg-red-500 uppercase">Donorbox.org</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 mt-0.5">One-time and recurring</p>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-1">One-time and recurring</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -746,10 +746,10 @@
                                         <h3 class="text-sm text-gray-600 leading-3 col-span-12">@lang("For private individuals")</h3>
                                         {{--Paypal.me--}}
                                         <div class="col-span-12" x-data="{pptoggle: {{ $hasPaypalMe ? 'true' : 'false' }}}">
-                                            <div class="grid grid-cols-4 gap-4">
-                                                <div class="flex flex-col col-span-3">
-                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-blue-500 uppercase">Paypal.me</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 mt-0.5">One-time payments only</p>
+                                            <div class="grid grid-cols-4 gap-4 items-center">
+                                                <div class="flex flex-col col-span-3 items-start">
+                                                    <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase rounded-full text-white bg-blue-500 uppercase">Paypal.me</h2>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-1">One-time payments only</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -801,10 +801,10 @@
                                         </div>
                                         {{--Revolut.me--}}
                                         <div class="col-span-12" x-data="{revtoggle: {{ $hasRevolut ? 'true' : 'false' }}}">
-                                            <div class="grid grid-cols-4 gap-4">
-                                                <div class="flex flex-col col-span-3">
-                                                    <h2 class="text-sm font-semibold inline-block py-2 px-3 uppercase rounded-full text-white bg-black uppercase">Revolut.me</h2>
-                                                    <p class="text-xs text-gray-600 leading-3 mt-0.5">One-time payments only</p>
+                                            <div class="grid grid-cols-4 gap-4 items-center">
+                                                <div class="flex flex-col col-span-3 items-start">
+                                                    <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase rounded-full text-white bg-black uppercase">Revolut.me</h2>
+                                                    <p class="text-xs text-gray-600 leading-3 mt-1">One-time payments only</p>
                                                 </div>
                                                 <div>
                                                     <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
