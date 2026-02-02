@@ -1105,14 +1105,6 @@
 
         @include('secure')
 
-        @if(env('COUNTRY') == 'lv')
-            <div class="pt-10">
-                <a href="https://yf.donationbox.lv/?db" target="_blank" aria-label="@lang('Visit Youth Fund Latvia')">
-                    <img class="mx-auto rounded-xl hover:opacity-90" src="/img/yf-og-img-main-01.jpg" alt="@lang('Youth Fund Latvia promotional image')">
-                </a>
-            </div>
-        @endif
-
         <!-- @if(env('COUNTRY') == 'ee')
             <div class="pt-10">
                 <a href="https://2024.donationbox.ee/?db" target="_blank" aria-label="@lang('Visit DonationBox 2024')">
