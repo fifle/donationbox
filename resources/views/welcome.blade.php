@@ -597,8 +597,9 @@
                                         {{--SEB--}}
                                         <div class="col-span-12" x-data="{sebt: false}">
                                             <div class="grid grid-cols-2 gap-4 items-center">
-                                            <div class="flex justify-start">
+                                            <div class="flex justify-start flex-col items-start">
                                                 <h2 class="text-sm font-semibold w-fit py-2 px-3 uppercase rounded-full text-green-100 bg-green-500 uppercase">SEB bank</h2>
+                                                <span class="text-xs text-gray-500 mt-0.5">@lang("For non-profits and businesses only")</span>
                                             </div>
                                             <div>
                                                 <div class="float-right relative w-16 h-8 transition duration-200 ease-linear rounded-full"
@@ -621,6 +622,7 @@
                                             </div>
                                             <div x-show="sebt">
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
+                                                    <p class="font-bold text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mb-3 text-sm">@lang("SEB UID is available for non-profits and businesses only. Private individuals cannot obtain this token.")</p>
                                                     <label for="campaign_title" class="d-font font-semibold text-gray-700
                                                         block mb-2">@lang("SEB UID token")</label>
                                                     <div class="tracking-normal text-sm text-gray-500 mb-3
@@ -628,7 +630,7 @@
                                                         @lang("If you want to connect SEB bank as part of the payment methods, you need to get your own UID token from SEB.")
                                                         <a href="/about#sebUID" class="no-underline hover:underline
                                                     text-blue-800" target="_blank">
-                                                            @lang("Read more about how to obtain a special identifier for private individuals and companies >") </a>
+                                                            @lang("Read more about how to obtain UID for non-profits and businesses >") </a>
                                                     </div>
                                                         <div class="tracking-normal text-sm text-gray-500 mt-3 mb-2
                                                             leading-tight">

@@ -305,6 +305,7 @@ html {
                     @slot('cardTitle') @lang("Why is DonationBox free?") @endslot
                     @slot('cardContent')
                         <p>
+                        @lang("The feature of passing payment form parameters through URLs is provided by banks free of charge. DonationBox is the app that brings those banking methods together under one simple donation form, without the need for any coding. That's also the reason why this app is free.")<br><br>
                         @lang("Currently connecting solutions related to accepting donations is either quite difficult for a person who does not have technical skills, or has a monthly fee, which may be inappropriate in cases where the collection is organized by a private person or an NGO that does not have regular donors.")<br><br>
                         @lang("We believe it is important to make organizing fundraisers in :country a quick, convenient, and, most importantly, fee free method for fundraisers.", ['country' => $cc])
                         </p>
@@ -375,7 +376,8 @@ html {
                     @slot('cardTitle') @lang("What is SEB UID token? How do I get it?") @endslot
                     @slot('cardContent')
                         @lang("The UID token is necessary for initiating payments in SEB's online bank. This way SEB improves the security of pre-filled forms on the payment transfer pages.")<br><br>
-                        @lang("UID can be received by both individuals and legal entities. Please note that the person representing a legal entity must be a member of the board. To get the UID, you need to send a free-form application with a request for UID to the email:") <a href="mailto:eservice@@seb.ee" class="no-underline hover:underline text-blue-800" target="_blank">eservice@@seb.ee</a><br><br>
+                        <b>@lang("SEB UID is available for non-profits and businesses only. Private individuals cannot obtain this token.")</b><br><br>
+                        @lang("To get the UID, send a free-form application with a request for UID to the email:") <a href="mailto:eservice{{ '@' }}seb.ee" class="no-underline hover:underline text-blue-800" target="_blank">eservice{{ '@' }}seb.ee</a>. @lang("Please note that the person representing a legal entity must be a member of the board.")<br><br>
                         <i>@lang("Obtaining a UID does not require you to open an account or sign a contract with SEB.")</i>
                     @endslot
                 @endcomponent

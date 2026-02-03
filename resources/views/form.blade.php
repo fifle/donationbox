@@ -376,22 +376,25 @@
                                                             type="submit"
                                                             name="action"
                                                             value="swed"
-                                                            class="d-font transition duration-150 ease-in-out
+                                                            class="d-font transition duration-150 ease-in-out inline-flex shrink-0
                                                             bg-yellow-500 px-5 py-3 text-sm font-medium
-                                                            text-white rounded-xl shadow-md
+                                                            text-white rounded-full shadow-md whitespace-nowrap
                                                             hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                         </button>
                                                         @endif
                                                     @if($sebuid)
-                                                        <button
-                                                            form="sumforbank"
-                                                            type="submit"
-                                                            name="action"
-                                                            value="seb"
-                                                            class="d-font transition duration-150 ease-in-out bg-green-500 px-5 py-3
-                                                         text-sm font-medium text-white rounded-xl shadow-md
-                                                        hover:shadow-lg hover:bg-green-600">SEB
-                                                        </button>
+                                                        <div class="flex flex-col items-center shrink-0">
+                                                            <button
+                                                                form="sumforbank"
+                                                                type="submit"
+                                                                name="action"
+                                                                value="seb"
+                                                                class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-green-500 px-5 py-3
+                                                             text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
+                                                            hover:shadow-lg hover:bg-green-600">SEB
+                                                            </button>
+                                                            <span class="text-xs text-gray-500 mt-0.5">@lang("For non-profits and businesses only")</span>
+                                                        </div>
                                                     @endif
                                                         @if(env('COUNTRY') == 'ee' and !$lhvt)
                                                     <button
@@ -399,8 +402,8 @@
                                                         type="submit"
                                                         name="action"
                                                         value="lhv"
-                                                        class="d-font transition duration-150 ease-in-out bg-gray-700 px-5 py-3
-                                                        text-sm font-medium text-white rounded-xl shadow-md
+                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-gray-700 px-5 py-3
+                                                        text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
                                                         @endif
@@ -410,8 +413,8 @@
                                                         type="submit"
                                                         name="action"
                                                         value="coop"
-                                                        class="d-font transition duration-150 ease-in-out bg-blue-600 px-5 py-3
-                                                        text-sm font-medium text-white rounded-xl shadow-md
+                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-blue-600 px-5 py-3
+                                                        text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
                                                         @endif
@@ -514,21 +517,24 @@
                                                         type="submit"
                                                         name="action"
                                                         value="swed-standing"
-                                                        class="d-font transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
-                                                        text-sm font-medium text-white rounded-xl shadow-md
+                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-yellow-500 px-5 py-3
+                                                        text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                     </button>
                                                         @endif
                                                     @if($sebuid_st)
-                                                        <button
-                                                            form="sumforbank"
-                                                            type="submit"
-                                                            name="action"
-                                                            value="seb-standing"
-                                                            class="d-font transition duration-150 ease-in-out bg-green-500 px-5 py-3
-                                                         text-sm font-medium text-white rounded-xl shadow-md
-                                                        hover:shadow-lg hover:bg-green-600">SEB
-                                                        </button>
+                                                        <div class="flex flex-col items-center shrink-0">
+                                                            <button
+                                                                form="sumforbank"
+                                                                type="submit"
+                                                                name="action"
+                                                                value="seb-standing"
+                                                                class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-green-500 px-5 py-3
+                                                             text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
+                                                            hover:shadow-lg hover:bg-green-600">SEB
+                                                            </button>
+                                                            <span class="text-xs text-gray-500 mt-0.5">@lang("For non-profits and businesses only")</span>
+                                                        </div>
                                                     @endif
                                                         @if(env('COUNTRY') == 'ee' and !$lhvt)
                                                     <button
@@ -536,8 +542,8 @@
                                                         type="submit"
                                                         name="action"
                                                         value="lhv-standing"
-                                                        class="d-font transition duration-150 ease-in-out bg-gray-700 px-5 py-3
-                                                        text-sm font-medium text-white rounded-xl shadow-md
+                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-gray-700 px-5 py-3
+                                                        text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
                                                         @endif
@@ -547,8 +553,8 @@
                                                         type="submit"
                                                         name="action"
                                                         value="coop-standing"
-                                                        class="d-font transition duration-150 ease-in-out bg-blue-600 px-5 py-3
-                                                        text-sm font-medium text-white rounded-xl shadow-md
+                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-blue-600 px-5 py-3
+                                                        text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
                                                         @endif
