@@ -15,5 +15,8 @@
     "Currently the service works only with local IBAN accounts. In the near future the logic for European payments through :country_adj banks will be finalized.": "Currently the service works only with local IBAN accounts. In the near future the logic for European payments through :country_adj banks will be finalized.",
     "Yes, it is possible. Just leave the IBAN field blank and the selection with :country_adj banks will not appear on the donation form.": "Yes, it is possible. Just leave the IBAN field blank and the selection with :country_adj banks will not appear on the donation form.",
     "One-time payments only": "One-time payments only",
-    "One-time and recurring": "One-time and recurring"
+    "One-time and recurring": "One-time and recurring",
+    "No payment methods enabled": "No payment methods enabled",
+    "This donation box has no internet banks or other payment methods configured. Please edit the link to enable at least one payment method.": "This donation box has no internet banks or other payment methods configured. Please edit the link to enable at least one payment method.",
+    "Edit donation box to fix": "Edit donation box to fix"
 }
