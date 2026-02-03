@@ -49,6 +49,18 @@
     </div>
 
     <div class="donation-form-card glass-strong rounded-2xl p-4 justify-between mb-6">
+        @if(isset($hasPaymentMethods) && !$hasPaymentMethods)
+            <div class="py-8 px-4 text-center">
+                <div class="mb-4 p-4 rounded-xl bg-red-50 border border-red-200">
+                    <p class="text-red-800 font-medium">@lang("No payment methods enabled")</p>
+                    <p class="text-sm text-red-700 mt-2">@lang("This donation box has no internet banks or other payment methods configured. Please edit the link to enable at least one payment method.")</p>
+                </div>
+                <a href="{{ $editUrl ?? route('edit') }}"
+                   class="d-font inline-flex items-center justify-center px-6 py-3 rounded-xl font-medium text-white bg-pink-500 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition duration-150 ease-in-out">
+                    @lang("Edit donation box to fix")
+                </a>
+            </div>
+        @else
         <div x-show.transition="step != 'complete'">
 
             <!-- Step Content -->
@@ -59,7 +71,14 @@
                         <div class="rounded-md -space-y-px">
                             <div class="grid gap-6">
                                 <div class="col-span-12">
-                                    <div x-data="{ tab: 'onetime' }">
+                                    @php
+                                        $showRecurringBtn = isset($hasRecurringPayment) ? $hasRecurringPayment : $recurring;
+                                        $defaultTab = (!$onetime && $showRecurringBtn) ? 'standing' : 'onetime';
+                                        $showPaymentTypeStep = !$s0 && $onetime && $showRecurringBtn;
+                                        $stepForFirstPayment = $s0 ? 2 : (2 + ($showPaymentTypeStep ? 1 : 0));
+                                        $stepForSecondPayment = $stepForFirstPayment + 1;
+                                    @endphp
+                                    <div x-data="{ tab: '{{ $defaultTab }}' }">
                                         <div class="flex items-center justify-center mt-6 mb-2">
                                             <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-600 text-xs font-semibold">1</div>
@@ -253,7 +272,7 @@
 
                                         </div>
 
-                                        @if(!$s0)
+                                        @if($showPaymentTypeStep)
                                         <div class="flex items-center justify-center">
                                             <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-600 text-xs font-semibold">2</div>
@@ -274,7 +293,7 @@
                                                 @lang("One-time payment")
                                             </button>
                                             @endif
-                                            @if($recurring)
+                                            @if($showRecurringBtn)
                                             <button
                                                 class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2.5 px-5 rounded-xl text-center text-sm font-medium
@@ -343,17 +362,11 @@
 
                                         <div>
                                             <div x-show="tab === 'onetime'" class="mt-2 flex flex-col items-center gap-4" x-transition:enter.duration.500ms>
-                                                @if($onetime)
+                                                @if($onetime && $iban)
                                                     <div class="w-full">
                                                         <div class="flex items-center justify-center mb-2">
                                                             <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-600 text-xs font-semibold">
-                                                                @if($s0)
-                                                                    2
-                                                                @else
-                                                                    3
-                                                                @endif
-                                                            </div>
+                                    text-gray-600 text-xs font-semibold">{{ $stepForFirstPayment }}</div>
                                                             <div class="text-xs text-gray-500 text-center">@lang("Donate via internet-bank")</div>
                                                         </div>
                                                         <div class="flex flex-wrap justify-center gap-2">
@@ -363,22 +376,25 @@
                                                             type="submit"
                                                             name="action"
                                                             value="swed"
-                                                            class="d-font transition duration-150 ease-in-out
+                                                            class="d-font transition duration-150 ease-in-out inline-flex shrink-0
                                                             bg-yellow-500 px-5 py-3 text-sm font-medium
-                                                            text-white rounded-xl shadow-md
+                                                            text-white rounded-full shadow-md whitespace-nowrap
                                                             hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                         </button>
                                                         @endif
                                                     @if($sebuid)
-                                                        <button
-                                                            form="sumforbank"
-                                                            type="submit"
-                                                            name="action"
-                                                            value="seb"
-                                                            class="d-font transition duration-150 ease-in-out bg-green-500 px-5 py-3
-                                                         text-sm font-medium text-white rounded-xl shadow-md
-                                                        hover:shadow-lg hover:bg-green-600">SEB
-                                                        </button>
+                                                        <div class="flex flex-col items-center shrink-0">
+                                                            <button
+                                                                form="sumforbank"
+                                                                type="submit"
+                                                                name="action"
+                                                                value="seb"
+                                                                class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-green-500 px-5 py-3
+                                                             text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
+                                                            hover:shadow-lg hover:bg-green-600">SEB
+                                                            </button>
+                                                            <span class="text-xs text-gray-500 mt-0.5">@lang("For non-profits and businesses only")</span>
+                                                        </div>
                                                     @endif
                                                         @if(env('COUNTRY') == 'ee' and !$lhvt)
                                                     <button
@@ -386,8 +402,8 @@
                                                         type="submit"
                                                         name="action"
                                                         value="lhv"
-                                                        class="d-font transition duration-150 ease-in-out bg-gray-700 px-5 py-3
-                                                        text-sm font-medium text-white rounded-xl shadow-md
+                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-gray-700 px-5 py-3
+                                                        text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
                                                         @endif
@@ -397,8 +413,8 @@
                                                         type="submit"
                                                         name="action"
                                                         value="coop"
-                                                        class="d-font transition duration-150 ease-in-out bg-blue-600 px-5 py-3
-                                                        text-sm font-medium text-white rounded-xl shadow-md
+                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-blue-600 px-5 py-3
+                                                        text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
                                                         @endif
@@ -411,11 +427,11 @@
                                                     <div class="flex items-center justify-center mb-2">
                                                         @if(!$iban)
                                                         <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-600 text-xs font-semibold">3</div>
+                                    text-gray-600 text-xs font-semibold">{{ $stepForFirstPayment }}</div>
                                                         @endif
                                                             @if($iban)
                                                                 <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-600 text-xs font-semibold">4</div>
+                                    text-gray-600 text-xs font-semibold">{{ $stepForSecondPayment }}</div>
                                                             @endif
                                                         <div class="text-xs text-gray-500 text-center">@lang("Donate by credit card")</div>
                                                     </div>
@@ -487,11 +503,11 @@
                                                 @endif
                                             </div>
                                             <div x-show="tab === 'standing'" class="mt-2 flex flex-col items-center gap-4" x-transition:enter.duration.500ms>
-                                                @if($recurring)
+                                                @if($recurring && $iban)
                                                     <div class="w-full">
                                                         <div class="flex items-center justify-center mb-2">
                                                             <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-600 text-xs font-semibold">3</div>
+                                    text-gray-600 text-xs font-semibold">{{ $stepForFirstPayment }}</div>
                                                             <div class="text-xs text-gray-500 text-center">@lang("Donate via internet-bank")</div>
                                                         </div>
                                                         <div class="flex flex-wrap justify-center gap-2">
@@ -501,21 +517,24 @@
                                                         type="submit"
                                                         name="action"
                                                         value="swed-standing"
-                                                        class="d-font transition duration-150 ease-in-out bg-yellow-500 px-5 py-3
-                                                        text-sm font-medium text-white rounded-xl shadow-md
+                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-yellow-500 px-5 py-3
+                                                        text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                     </button>
                                                         @endif
                                                     @if($sebuid_st)
-                                                        <button
-                                                            form="sumforbank"
-                                                            type="submit"
-                                                            name="action"
-                                                            value="seb-standing"
-                                                            class="d-font transition duration-150 ease-in-out bg-green-500 px-5 py-3
-                                                         text-sm font-medium text-white rounded-xl shadow-md
-                                                        hover:shadow-lg hover:bg-green-600">SEB
-                                                        </button>
+                                                        <div class="flex flex-col items-center shrink-0">
+                                                            <button
+                                                                form="sumforbank"
+                                                                type="submit"
+                                                                name="action"
+                                                                value="seb-standing"
+                                                                class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-green-500 px-5 py-3
+                                                             text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
+                                                            hover:shadow-lg hover:bg-green-600">SEB
+                                                            </button>
+                                                            <span class="text-xs text-gray-500 mt-0.5">@lang("For non-profits and businesses only")</span>
+                                                        </div>
                                                     @endif
                                                         @if(env('COUNTRY') == 'ee' and !$lhvt)
                                                     <button
@@ -523,8 +542,8 @@
                                                         type="submit"
                                                         name="action"
                                                         value="lhv-standing"
-                                                        class="d-font transition duration-150 ease-in-out bg-gray-700 px-5 py-3
-                                                        text-sm font-medium text-white rounded-xl shadow-md
+                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-gray-700 px-5 py-3
+                                                        text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
                                                         @endif
@@ -534,8 +553,8 @@
                                                         type="submit"
                                                         name="action"
                                                         value="coop-standing"
-                                                        class="d-font transition duration-150 ease-in-out bg-blue-600 px-5 py-3
-                                                        text-sm font-medium text-white rounded-xl shadow-md
+                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-blue-600 px-5 py-3
+                                                        text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
                                                         @endif
@@ -547,7 +566,10 @@
                                                     <div class="flex items-center justify-center mb-2">
                                                         @if(!$iban)
                                                             <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-600 text-xs font-semibold">3</div>
+                                    text-gray-600 text-xs font-semibold">{{ $stepForFirstPayment }}</div>
+                                                        @else
+                                                            <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
+                                    text-gray-600 text-xs font-semibold">{{ $stepForSecondPayment }}</div>
                                                         @endif
                                                         <div class="text-xs text-gray-500 text-center">@lang("Donate by credit card")</div>
                                                     </div>
@@ -589,6 +611,7 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
 
 
@@ -597,10 +620,11 @@
 </div>
 
 {{-- Conditional loading of PayPal SDK --}}
-@if(isset($paypalClientId))
+@if(isset($paypalClientId) && (!isset($hasPaymentMethods) || $hasPaymentMethods))
     <script src="https://www.paypal.com/sdk/js?client-id={{ $paypalClientId }}&currency=EUR"></script>
 @endif
 
+@if(!isset($hasPaymentMethods) || $hasPaymentMethods)
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var donationInput = document.getElementById("donationsum");
@@ -716,6 +740,7 @@
         });
     });
 </script>
+@endif
 
 {{--Init of ClipboardJS--}}
 <script type="text/javascript">

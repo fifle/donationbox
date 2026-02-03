@@ -15,5 +15,14 @@
     "Currently the service works only with local IBAN accounts. In the near future the logic for European payments through :country_adj banks will be finalized.": "Currently the service works only with local IBAN accounts. In the near future the logic for European payments through :country_adj banks will be finalized.",
     "Yes, it is possible. Just leave the IBAN field blank and the selection with :country_adj banks will not appear on the donation form.": "Yes, it is possible. Just leave the IBAN field blank and the selection with :country_adj banks will not appear on the donation form.",
     "One-time payments only": "One-time payments only",
-    "One-time and recurring": "One-time and recurring"
+    "One-time and recurring": "One-time and recurring",
+    "No payment methods enabled": "No payment methods enabled",
+    "This donation box has no internet banks or other payment methods configured. Please edit the link to enable at least one payment method.": "This donation box has no internet banks or other payment methods configured. Please edit the link to enable at least one payment method.",
+    "Edit donation box to fix": "Edit donation box to fix",
+    "SEB UID is available for non-profits and businesses only. Private individuals cannot obtain this token.": "SEB UID is available for non-profits and businesses only. Private individuals cannot obtain this token.",
+    "To get the UID, send a free-form application with a request for UID to the email:": "To get the UID, send a free-form application with a request for UID to the email:",
+    "Please note that the person representing a legal entity must be a member of the board.": "Please note that the person representing a legal entity must be a member of the board.",
+    "Read more about how to obtain UID for non-profits and businesses >": "Read more about how to obtain UID for non-profits and businesses >",
+    "For non-profits and businesses only": "For non-profits and businesses only",
+    "The feature of passing payment form parameters through URLs is provided by banks free of charge. DonationBox is the app that brings those banking methods together under one simple donation form, without the need for any coding. That's also the reason why this app is free.": "The feature of passing payment form parameters through URLs is provided by banks free of charge. DonationBox is the app that brings those banking methods together under one simple donation form, without the need for any coding. That's also the reason why this app is free."
 }

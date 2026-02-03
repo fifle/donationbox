@@ -180,6 +180,31 @@ class DonationController extends Controller
                 $compactData['recurring'] = 'recurring';
             }
 
+            // Check if any payment method is available (no payment methods = show error + edit button)
+            $hasInternetBankOneTime = $onetime && $request->filled('iban') && (
+                !$request->boolean('swt') ||
+                $request->filled('sebuid') ||
+                (env('COUNTRY') == 'ee' && !$request->boolean('lhvt')) ||
+                (env('COUNTRY') == 'ee' && !$request->boolean('coopt'))
+            );
+            $hasInternetBankRecurring = $recurring && $request->filled('iban') && (
+                !$request->boolean('swt') ||
+                $request->filled('sebuid_st') ||
+                (env('COUNTRY') == 'ee' && !$request->boolean('lhvt')) ||
+                (env('COUNTRY') == 'ee' && !$request->boolean('coopt'))
+            );
+            $hasOtherMethods = $request->filled('rev') || $request->filled('pp') || $request->filled('pphb') ||
+                $request->filled('db') || $request->filled('paypalClientId') || $request->filled('strp');
+            $hasPaymentMethods = $hasInternetBankOneTime || $hasInternetBankRecurring || $hasOtherMethods;
+            $editUrl = route('edit') . '?url=' . rawurlencode(url()->full());
+
+            // Recurring payment option: only show if at least one enabled method supports it (internet banks + Donorbox)
+            $hasRecurringPayment = $hasInternetBankRecurring || $request->filled('db');
+
+            $compactData['hasPaymentMethods'] = 'hasPaymentMethods';
+            $compactData['editUrl'] = 'editUrl';
+            $compactData['hasRecurringPayment'] = 'hasRecurringPayment';
+
             return view("donation", compact($compactData));
         }
 
@@ -337,6 +362,31 @@ class DonationController extends Controller
             if (isset($recurring)) {
                 $compactData['recurring'] = 'recurring';
             }
+
+            // Check if any payment method is available (no payment methods = show error + edit button)
+            $hasInternetBankOneTime = $onetime && $request->filled('iban') && (
+                !$request->boolean('swt') ||
+                $request->filled('sebuid') ||
+                (env('COUNTRY') == 'ee' && !$request->boolean('lhvt')) ||
+                (env('COUNTRY') == 'ee' && !$request->boolean('coopt'))
+            );
+            $hasInternetBankRecurring = $recurring && $request->filled('iban') && (
+                !$request->boolean('swt') ||
+                $request->filled('sebuid_st') ||
+                (env('COUNTRY') == 'ee' && !$request->boolean('lhvt')) ||
+                (env('COUNTRY') == 'ee' && !$request->boolean('coopt'))
+            );
+            $hasOtherMethods = $request->filled('rev') || $request->filled('pp') || $request->filled('pphb') ||
+                $request->filled('db') || $request->filled('paypalClientId') || $request->filled('strp');
+            $hasPaymentMethods = $hasInternetBankOneTime || $hasInternetBankRecurring || $hasOtherMethods;
+            $editUrl = route('edit') . '?url=' . rawurlencode(url()->full());
+
+            // Recurring payment option: only show if at least one enabled method supports it (internet banks + Donorbox)
+            $hasRecurringPayment = $hasInternetBankRecurring || $request->filled('db');
+
+            $compactData['hasPaymentMethods'] = 'hasPaymentMethods';
+            $compactData['editUrl'] = 'editUrl';
+            $compactData['hasRecurringPayment'] = 'hasRecurringPayment';
 
             return view("embed", compact($compactData));
         }
