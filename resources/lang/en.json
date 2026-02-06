@@ -24,5 +24,15 @@
     "Please note that the person representing a legal entity must be a member of the board.": "Please note that the person representing a legal entity must be a member of the board.",
     "Read more about how to obtain UID for non-profits and businesses >": "Read more about how to obtain UID for non-profits and businesses >",
     "For non-profits and businesses only": "For non-profits and businesses only",
-    "The feature of passing payment form parameters through URLs is provided by banks free of charge. DonationBox is the app that brings those banking methods together under one simple donation form, without the need for any coding. That's also the reason why this app is free.": "The feature of passing payment form parameters through URLs is provided by banks free of charge. DonationBox is the app that brings those banking methods together under one simple donation form, without the need for any coding. That's also the reason why this app is free."
+    "The feature of passing payment form parameters through URLs is provided by banks free of charge. DonationBox is the app that brings those banking methods together under one simple donation form, without the need for any coding. That's also the reason why this app is free.": "The feature of passing payment form parameters through URLs is provided by banks free of charge. DonationBox is the app that brings those banking methods together under one simple donation form, without the need for any coding. That's also the reason why this app is free.",
+    "Cashier mode": "Cashier mode",
+    "Accept donations in person": "Accept donations in person",
+    "Cashier mode for :campaign": "Cashier mode for :campaign",
+    "Payment link for :campaign": "Payment link for :campaign",
+    "Cashier mode helps you accept donations in person with a QR code and payment link.": "Cashier mode helps you accept donations in person with a QR code and payment link.",
+    "Enter the donation amount together with the donor.": "Enter the donation amount together with the donor.",
+    "We generate a payment link and QR code for this donation.": "We generate a payment link and QR code for this donation.",
+    "The donor completes the payment on their own phone or bank app.": "The donor completes the payment on their own phone or bank app.",
+    "Continue to cashier mode": "Continue to cashier mode",
+    "Copied!": "Copied!"
 }

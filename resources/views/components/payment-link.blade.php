@@ -39,7 +39,7 @@
     </div>
 
         <!-- QR CODE & COPY LINK -->
-        <div class="bg-white rounded-lg p-8 mt-4 shadow justify-between">
+        <div class="glass-strong rounded-2xl p-6 md:p-8 mt-4 justify-between">
             <div class="content-center">
                 <h3 class="mb-4 text-center text-1xl font-bold text-gray-600">
                     @lang("Scan this QR-code for payment")

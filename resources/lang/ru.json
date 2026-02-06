@@ -222,5 +222,15 @@
     "Currently, the only method to connect anonymous payments is to use the Donorbox.org service that you can also connect to DonationBox. You can read more about anonymous donations at Donorbox.org FAQ page:": "В настоящее время единственный способ подключить анонимные платежи - это использовать сервис Donorbox.org, который вы также можете подключить к DonationBox. Подробнее об анонимных пожертвованиях вы можете прочитать на странице FAQ Donorbox.org:",
     "I need help creating my DonationBox. Who can I contact?": "Мне нужна помощь в создании моего DonationBox. С кем я могу связаться?",
     "Please write us to": "Пожалуйста, напишите нам на",
-    "We will be happy to help you set up all the integrations with payment systems, design your page at donationbox.ee, and add our widget to your website.": "Мы будем рады помочь вам настроить все интеграции с платежными системами, разработать вашу страницу на donationbox.ee и добавить наш виджет на ваш сайт."
+    "We will be happy to help you set up all the integrations with payment systems, design your page at donationbox.ee, and add our widget to your website.": "Мы будем рады помочь вам настроить все интеграции с платежными системами, разработать вашу страницу на donationbox.ee и добавить наш виджет на ваш сайт.",
+    "Cashier mode": "Кассовый режим",
+    "Accept donations in person": "Принимайте пожертвования лично",
+    "Cashier mode for :campaign": "Кассовый режим: :campaign",
+    "Payment link for :campaign": "Платежная ссылка: :campaign",
+    "Cashier mode helps you accept donations in person with a QR code and payment link.": "Кассовый режим помогает принимать пожертвования лично с помощью QR-кода и платежной ссылки.",
+    "Enter the donation amount together with the donor.": "Введите сумму пожертвования вместе с донором.",
+    "We generate a payment link and QR code for this donation.": "Мы создаем платежную ссылку и QR-код для этого пожертвования.",
+    "The donor completes the payment on their own phone or bank app.": "Донор завершает платеж в своем телефоне или банковском приложении.",
+    "Continue to cashier mode": "Перейти в кассовый режим",
+    "Copied!": "Скопировано!"
 }

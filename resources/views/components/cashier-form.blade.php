@@ -1,8 +1,8 @@
-<div>
-    <h2 class="mt-0 ml-3 mr-3 text-center text-2xl font-semibold text-gray-700">
+<div class="glass rounded-2xl p-4 mb-4">
+    <h2 class="mt-0 text-center text-2xl font-semibold text-gray-700">
         {!! urldecode($campaign_title) !!}
     </h2>
-    <div class="mt-2 mb-4 ml-3 mr-3 text-center text-sm text-gray-500 align-middle">
+    <div class="mt-2 mb-2 text-center text-sm text-gray-500 align-middle">
         {!! urldecode($payee) !!}
         @if($iban)
             / {!! urldecode($iban) !!}
@@ -21,7 +21,7 @@
             .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>@lang("Copy"))</div>
         </button>
         <div id="tooltip-click" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
-            Copied!
+            @lang("Copied!")
             <div class="tooltip-arrow" data-popper-arrow></div>
         </div><br>
     </div>
@@ -38,7 +38,7 @@
         <!-- /Top Navigation -->
     </div>
 
-    <div class="bg-white rounded-lg p-5 pt-0 shadow justify-between mb-4">
+    <div class="glass-strong rounded-2xl p-6 pt-4 justify-between mb-4">
         <div x-show.transition="step != 'complete'">
 
             <!-- Step Content -->

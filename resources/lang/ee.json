@@ -222,5 +222,15 @@
     "Currently, the only method to connect anonymous payments is to use the Donorbox.org service that you can also connect to DonationBox. You can read more about anonymous donations at Donorbox.org FAQ page:": "Praegu on ainus viis anonüümsete maksete ühendamiseks kasutada Donorbox.org teenust, mida saate ühendada ka DonationBox'iga. Lugege rohkem anonüümsete annetuste kohta Donorbox.org KKK lehel:",
     "I need help creating my DonationBox. Who can I contact?": "Mul on vaja abi oma DonationBox'i loomisel. Kellega ma saan ühendust võtta?",
     "Please write us to": "Palun kirjutage meile aadressile",
-    "We will be happy to help you set up all the integrations with payment systems, design your page at donationbox.ee, and add our widget to your website.": "Oleme rõõmsalt valmis aitama teil seadistada kõik integratsioonid maksesüsteemidega, kujundada teie lehe donationbox.ee-s ja lisada meie vidina teie veebisaidile."
+    "We will be happy to help you set up all the integrations with payment systems, design your page at donationbox.ee, and add our widget to your website.": "Oleme rõõmsalt valmis aitama teil seadistada kõik integratsioonid maksesüsteemidega, kujundada teie lehe donationbox.ee-s ja lisada meie vidina teie veebisaidile.",
+    "Cashier mode": "Kassarežiim",
+    "Accept donations in person": "Võta annetusi kohapeal vastu",
+    "Cashier mode for :campaign": "Kassarežiim: :campaign",
+    "Payment link for :campaign": "Makse link: :campaign",
+    "Cashier mode helps you accept donations in person with a QR code and payment link.": "Kassarežiim aitab võtta annetusi kohapeal vastu QR-koodi ja makselingi abil.",
+    "Enter the donation amount together with the donor.": "Sisesta annetuse summa koos annetajaga.",
+    "We generate a payment link and QR code for this donation.": "Loome selle annetuse jaoks makselingi ja QR-koodi.",
+    "The donor completes the payment on their own phone or bank app.": "Annetaja lõpetab makse oma telefonis või pangarakenduses.",
+    "Continue to cashier mode": "Jätka kassarežiimi",
+    "Copied!": "Kopeeritud!"
 }

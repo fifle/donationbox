@@ -254,11 +254,18 @@
                 <div class="glass rounded-2xl p-6 mb-2">
                     <div class="grid grid-cols-1 gap-3">
                         <button
-                            @click="step = 1"
+                            @click="flow = 'donation'; step = 1"
                             class="d-font w-full focus:outline-none py-4 px-6 rounded-xl text-center font-medium transition duration-200 ease-out bg-pink-500 hover:bg-pink-600 text-white shadow-lg shadow-pink-500/25 hover:shadow-pink-500/30 hover:-translate-y-0.5">
                             <span class="text-xl" aria-hidden="true">✨</span>
                             <div class="font-semibold mt-1">@lang("Create New Donationbox")</div>
                             <div class="text-sm opacity-90 mt-0.5">@lang("Start from scratch")</div>
+                        </button>
+                        <button
+                            @click="flow = 'cashier'; step = 1"
+                            class="d-font w-full focus:outline-none py-4 px-6 rounded-xl text-center font-medium transition duration-200 ease-out glass hover:bg-white/90 border border-pink-200/70 text-gray-700">
+                            <span class="text-xl" aria-hidden="true">💳</span>
+                            <div class="font-semibold mt-1">@lang("Cashier mode")</div>
+                            <div class="text-sm text-gray-500 mt-0.5">@lang("Accept donations in person")</div>
                         </button>
                         <button
                             @click="step = 'edit'"
@@ -347,6 +354,7 @@
 
                                 <div class="mb-5">
                                     <form class="space-y-4" action="{{ route('donation') }}" method="get"
+                                          :action="flow === 'cashier' ? '{{ route('cashier') }}' : '{{ route('donation') }}'"
                                           id="generator"></form>
                                     <div class="rounded-md -space-y-px">
                                         <div class="grid gap-6">
@@ -1127,6 +1135,7 @@
     function app() {
         return {
             step: 0, // Start with action selection
+            flow: 'donation',
         }
     }
 </script>

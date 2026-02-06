@@ -222,5 +222,15 @@
     "Currently, the only method to connect anonymous payments is to use the Donorbox.org service that you can also connect to DonationBox. You can read more about anonymous donations at Donorbox.org FAQ page:": "Šiuo metu vienintelis anoniminių mokėjimų prijungimo būdas yra naudoti Donorbox.org paslaugą, kurią taip pat galite prijungti prie DonationBox. Daugiau apie anoniminius aukas galite perskaityti Donorbox.org DUK puslapyje:",
     "I need help creating my DonationBox. Who can I contact?": "Man reikia pagalbos kuriant savo DonationBox. Su kuo galiu susisiekti?",
     "Please write us to": "Prašome parašyti mums",
-    "We will be happy to help you set up all the integrations with payment systems, design your page at donationbox.ee, and add our widget to your website.": "Mielai padėsime jums nustatyti visas integracijas su mokėjimo sistemomis, suprojektuoti jūsų puslapį donationbox.ee ir pridėti mūsų valdiklį į jūsų svetainę."
+    "We will be happy to help you set up all the integrations with payment systems, design your page at donationbox.ee, and add our widget to your website.": "Mielai padėsime jums nustatyti visas integracijas su mokėjimo sistemomis, suprojektuoti jūsų puslapį donationbox.ee ir pridėti mūsų valdiklį į jūsų svetainę.",
+    "Cashier mode": "Kasos režimas",
+    "Accept donations in person": "Priimkite aukas gyvai",
+    "Cashier mode for :campaign": "Kasos režimas: :campaign",
+    "Payment link for :campaign": "Mokėjimo nuoroda: :campaign",
+    "Cashier mode helps you accept donations in person with a QR code and payment link.": "Kasos režimas padeda priimti aukas gyvai naudojant QR kodą ir mokėjimo nuorodą.",
+    "Enter the donation amount together with the donor.": "Kartu su aukotoju įveskite aukos sumą.",
+    "We generate a payment link and QR code for this donation.": "Sugeneruojame mokėjimo nuorodą ir QR kodą šiai aukai.",
+    "The donor completes the payment on their own phone or bank app.": "Aukotojas užbaigia mokėjimą savo telefone arba banko programėlėje.",
+    "Continue to cashier mode": "Tęsti kasos režimą",
+    "Copied!": "Nukopijuota!"
 }

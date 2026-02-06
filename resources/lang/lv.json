@@ -222,5 +222,15 @@
     "Currently, the only method to connect anonymous payments is to use the Donorbox.org service that you can also connect to DonationBox. You can read more about anonymous donations at Donorbox.org FAQ page:": "Pašlaik vienīgais veids, kā pievienot anonīmus maksājumus, ir izmantot Donorbox.org pakalpojumu, ko varat arī pievienot DonationBox. Vairāk par anonīmiem ziedojumiem varat lasīt Donorbox.org BUJ lapā:",
     "I need help creating my DonationBox. Who can I contact?": "Man nepieciešama palīdzība, izveidojot savu DonationBox. Ar ko es varu sazināties?",
     "Please write us to": "Lūdzu, rakstiet mums uz",
-    "We will be happy to help you set up all the integrations with payment systems, design your page at donationbox.ee, and add our widget to your website.": "Mēs ar prieku palīdzēsim jums iestatīt visas integrācijas ar maksājumu sistēmām, izstrādāt jūsu lapu donationbox.ee un pievienot mūsu logrīku jūsu tīmekļa vietnē."
+    "We will be happy to help you set up all the integrations with payment systems, design your page at donationbox.ee, and add our widget to your website.": "Mēs ar prieku palīdzēsim jums iestatīt visas integrācijas ar maksājumu sistēmām, izstrādāt jūsu lapu donationbox.ee un pievienot mūsu logrīku jūsu tīmekļa vietnē.",
+    "Cashier mode": "Kasiera režīms",
+    "Accept donations in person": "Pieņem ziedojumus klātienē",
+    "Cashier mode for :campaign": "Kasiera režīms: :campaign",
+    "Payment link for :campaign": "Maksājuma saite: :campaign",
+    "Cashier mode helps you accept donations in person with a QR code and payment link.": "Kasiera režīms palīdz pieņemt ziedojumus klātienē, izmantojot QR kodu un maksājuma saiti.",
+    "Enter the donation amount together with the donor.": "Ievadiet ziedojuma summu kopā ar ziedotāju.",
+    "We generate a payment link and QR code for this donation.": "Mēs ģenerējam maksājuma saiti un QR kodu šim ziedojumam.",
+    "The donor completes the payment on their own phone or bank app.": "Ziedotājs pabeidz maksājumu savā telefonā vai bankas lietotnē.",
+    "Continue to cashier mode": "Turpināt uz kasiera režīmu",
+    "Copied!": "Nokopēts!"
 }
