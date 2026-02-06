@@ -58,7 +58,7 @@
     }
 </style>
 
-<div class="home-page flex flex-col min-h-screen py-12 px-4 sm:px-6 lg:px-8" x-data="{ showIntro: true }" @keydown.escape.window="showIntro = false">
+<div class="home-page flex flex-col min-h-screen py-12 px-4 sm:px-6 lg:px-8" x-data="{ showIntro: false }" @keydown.escape.window="showIntro = false">
     <div class="home-page-bg" aria-hidden="true"></div>
 
     <div class="max-w-lg w-full mx-auto flex-1 flex flex-col space-y-4 relative z-10 min-h-[calc(100vh-6rem)]">
@@ -76,7 +76,7 @@
                 @lang("Cashier mode")
             </h1>
             <div class="mt-2 text-sm text-gray-500">
-                @lang("Enter the amount of your donation")
+                @lang("Set amount and generate payment link")
             </div>
         </div>
 
@@ -103,22 +103,48 @@
                 </button>
             </div>
             <p id="cashier-intro-description" class="mt-3 text-sm text-gray-600">
-                @lang("Cashier mode helps you accept donations in person with a QR code and payment link.")
+                @lang("Cashier mode allows you to accept payments by setting a specified amount. Once set and confirmed, you'll get a generated QR code and URL that can be passed to the customer or donor.")
             </p>
-            <ul class="mt-4 space-y-3 text-sm text-gray-600">
-                <li class="flex gap-2">
-                    <span class="mt-2 h-1.5 w-1.5 rounded-full bg-pink-500"></span>
-                    <span>@lang("Enter the donation amount together with the donor.")</span>
-                </li>
-                <li class="flex gap-2">
-                    <span class="mt-2 h-1.5 w-1.5 rounded-full bg-pink-500"></span>
-                    <span>@lang("We generate a payment link and QR code for this donation.")</span>
-                </li>
-                <li class="flex gap-2">
-                    <span class="mt-2 h-1.5 w-1.5 rounded-full bg-pink-500"></span>
-                    <span>@lang("The donor completes the payment on their own phone or bank app.")</span>
-                </li>
-            </ul>
+            <div class="mt-6 space-y-4">
+                <div class="flex items-start gap-3">
+                    <div class="flex-shrink-0 mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-sm font-semibold text-gray-700">@lang("Set the amount")</h3>
+                        <p class="mt-1 text-sm text-gray-600">@lang("Enter the payment amount together with the customer. This amount will be preset for the payment.")</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="flex-shrink-0 mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-sm font-semibold text-gray-700">@lang("Get QR code & link")</h3>
+                        <p class="mt-1 text-sm text-gray-600">@lang("We generate a unique QR code and payment link for this specific amount. Share it with the customer via screen, print, or message.")</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="flex-shrink-0 mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-sm font-semibold text-gray-700">@lang("Customer pays")</h3>
+                        <p class="mt-1 text-sm text-gray-600">@lang("Customer scans the QR code or opens the link. The amount is already set, so they just select their payment method and complete the payment.")</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 p-4 bg-pink-50 rounded-lg border border-pink-100">
+                <p class="text-sm text-gray-700">
+                    <strong>@lang("Perfect for:")</strong> @lang("Free card terminal alternative, virtual money requests, and payment request automations through URL parameters.")
+                </p>
+            </div>
             <div class="mt-6 flex justify-end">
                 <button type="button" @click="showIntro = false" class="d-font inline-flex items-center justify-center rounded-lg bg-pink-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-1">
                     @lang("Continue to cashier mode")

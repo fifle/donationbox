@@ -301,6 +301,27 @@ html {
                 @endcomponent
 
                 @component('components.faq-card')
+                    @slot('cardName') cashierMode @endslot
+                    @slot('cardTitle') @lang("What is Cashier mode? How does it work?") @endslot
+                    @slot('cardContent')
+                        <p>@lang("Cashier mode allows you to accept payments by setting a specified amount. Once set and confirmed, you'll get a generated QR code and URL that can be passed to the customer or donor.")</p><br>
+                        <p><strong>@lang("How it works:")</strong></p>
+                        <ol class="list-decimal ml-6 space-y-2">
+                            <li>@lang("Set the payment amount together with the customer. This amount will be preset for the payment.")</li>
+                            <li>@lang("Generate a unique QR code and payment link for this specific amount. Share it with the customer via screen, print, or message.")</li>
+                            <li>@lang("Customer scans the QR code or opens the link. The amount is already set, so they just select their payment method (internet-bank or credit card) and complete the payment.")</li>
+                        </ol><br>
+                        <p><strong>@lang("Perfect for:")</strong></p>
+                        <ul class="list-disc ml-6 space-y-1">
+                            <li>@lang("Free card terminal alternative - accept payments in person without expensive hardware")</li>
+                            <li>@lang("Virtual money requests - send payment requests with preset amounts via message or email")</li>
+                            <li>@lang("Payment request automations - append required donation value and updated payment description on the fly through URL parameters")</li>
+                        </ul><br>
+                        <p>@lang("Cashier mode is similar to 'money request' features provided by major banks like Swedbank, SEB, and others, but works across all supported payment methods in one unified interface. It's perfect for businesses, non-profits, and individuals who need a quick and free way to accept payments with preset amounts.")</p>
+                    @endslot
+                @endcomponent
+
+                @component('components.faq-card')
                     @slot('cardName') free @endslot
                     @slot('cardTitle') @lang("Why is DonationBox free?") @endslot
                     @slot('cardContent')

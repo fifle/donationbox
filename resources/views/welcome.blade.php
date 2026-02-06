@@ -130,7 +130,7 @@
 <div class="home-page flex flex-col min-h-screen py-12 px-4 sm:px-6 lg:px-8">
     <div class="home-page-bg" aria-hidden="true"></div>
 
-    <div class="max-w-lg w-full mx-auto flex-1 flex flex-col space-y-4 relative z-10 min-h-[calc(100vh-6rem)]">
+    <div class="max-w-lg w-full mx-auto flex-1 flex flex-col space-y-4 relative z-10 min-h-0">
         <header role="banner" class="fixed top-4 right-4 sm:top-6 sm:right-6 left-auto">
             <div class="glass rounded-xl px-3 py-2">
                 @include('components.lang-switcher')
@@ -250,29 +250,149 @@
             </div>
 
             <!-- Action Selection Step -->
-            <div x-show="step === 0" x-transition:enter.duration.500ms>
+            <div x-show="step === 0 && flow !== 'donation' && flow !== 'cashier' && step !== 'edit-intro'" x-transition:enter.duration.500ms>
                 <div class="glass rounded-2xl p-6 mb-2">
                     <div class="grid grid-cols-1 gap-3">
                         <button
-                            @click="flow = 'donation'; step = 1"
+                            @click="flow = 'donation'; step = 0"
                             class="d-font w-full focus:outline-none py-4 px-6 rounded-xl text-center font-medium transition duration-200 ease-out bg-pink-500 hover:bg-pink-600 text-white shadow-lg shadow-pink-500/25 hover:shadow-pink-500/30 hover:-translate-y-0.5">
                             <span class="text-xl" aria-hidden="true">✨</span>
                             <div class="font-semibold mt-1">@lang("Create New Donationbox")</div>
-                            <div class="text-sm opacity-90 mt-0.5">@lang("Start from scratch")</div>
+                            <div class="text-sm opacity-90 mt-0.5">@lang("Create your donation page in seconds.")</div>
                         </button>
                         <button
-                            @click="flow = 'cashier'; step = 1"
+                            @click="flow = 'cashier'; step = 0"
                             class="d-font w-full focus:outline-none py-4 px-6 rounded-xl text-center font-medium transition duration-200 ease-out glass hover:bg-white/90 border border-pink-200/70 text-gray-700">
                             <span class="text-xl" aria-hidden="true">💳</span>
                             <div class="font-semibold mt-1">@lang("Cashier mode")</div>
-                            <div class="text-sm text-gray-500 mt-0.5">@lang("Accept donations in person")</div>
+                            <div class="text-sm text-gray-500 mt-0.5">@lang("Accept fixed-amount payments in seconds using a QR code or link.")</div>
                         </button>
                         <button
-                            @click="step = 'edit'"
+                            @click="step = 'edit-intro'"
                             class="d-font w-full focus:outline-none py-4 px-6 rounded-xl text-center font-medium transition duration-200 ease-out glass hover:bg-white/90 border border-gray-200/60 text-gray-700">
                             <span class="text-xl" aria-hidden="true">✏️</span>
                             <div class="font-semibold mt-1">@lang("Modify Existing Donationbox")</div>
-                            <div class="text-sm text-gray-500 mt-0.5">@lang("Edit an existing link")</div>
+                            <div class="text-sm text-gray-500 mt-0.5">@lang("Update settings and get a new link.")</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donationbox Creation Step 0 - Intro -->
+            <div class="main-form-card glass-strong rounded-2xl p-6" x-show="flow === 'donation' && step === 0" x-transition:enter.duration.500ms>
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">
+                        <span class="text-xl mr-2" aria-hidden="true">✨</span>@lang("Create New Donationbox")
+                    </h2>
+                    <p class="text-sm text-gray-600 mb-6">
+                        @lang("Launch a personal donation page in minutes, then share a link or QR code so people can donate using their preferred payment method.")
+                    </p>
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0 mt-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-sm font-semibold text-gray-700">@lang("Set up your campaign")</h3>
+                                <p class="mt-1 text-sm text-gray-600">@lang("Add the campaign name, payment note, and recipient details, then choose which payment methods to accept.")</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0 mt-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C7.163 13.342 5.75 12.425 4.5 11a2.5 2.5 0 010-3.5c1.25-1.425 2.663-2.342 4.184-2.342m7.632 0C17.837 5.158 19.25 6.075 20.5 7.5a2.5 2.5 0 010 3.5c-1.25 1.425-2.663 2.342-4.184 2.342m-7.632 0c-1.521 0-2.934-.917-4.184-2.342M15.316 13.342c1.521 0 2.934.917 4.184 2.342M8.684 13.342l7.632 0M15.316 5.158l-7.632 0" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-sm font-semibold text-gray-700">@lang("Get your donation link")</h3>
+                                <p class="mt-1 text-sm text-gray-600">@lang("We generate a unique URL and QR code for your donation page. Share it on social media, embed it on your site, or print it for offline events.")</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0 mt-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-sm font-semibold text-gray-700">@lang("Start receiving donations")</h3>
+                                <p class="mt-1 text-sm text-gray-600">@lang("Donors open your link, choose an amount, pick a payment method, and complete the payment. Funds go directly to your bank account or payment provider.")</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-6 p-4 bg-pink-50 rounded-lg border border-pink-100">
+                        <p class="text-sm text-gray-700">
+                            <strong>@lang("Why DonationBox?")</strong> @lang("Free, simple, and secure. No coding required. Works with local banks and international payment methods, and it's ideal for fundraisers, non-profits, and personal causes.")
+                        </p>
+                    </div>
+                    <div class="flex justify-between">
+                        <button type="button" @click="flow = ''; step = 0" class="d-font min-w-32 inline-flex items-center justify-center py-2 px-5 mr-2 rounded-lg shadow-sm text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out">
+                            @lang("Back")
+                        </button>
+                        <button type="button" @click="step = 1" class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg font-medium rounded-md text-white bg-pink-500 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 transition duration-150 ease-in-out">
+                            @lang("Continue")
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Existing Link Intro Step -->
+            <div class="main-form-card glass-strong rounded-2xl p-6" x-show="step === 'edit-intro'" x-transition:enter.duration.500ms>
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">
+                        <span class="text-xl mr-2" aria-hidden="true">✏️</span>@lang("Modify Existing Donationbox")
+                    </h2>
+                    <p class="text-sm text-gray-600 mb-6">
+                        @lang("Update your donation page in minutes. Paste your Donationbox URL to load current settings, then edit what you need.")
+                    </p>
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0 mt-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-sm font-semibold text-gray-700">@lang("Paste your Donationbox URL")</h3>
+                                <p class="mt-1 text-sm text-gray-600">@lang("Enter the full link to your existing Donationbox. We'll load your current setup automatically.")</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0 mt-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-sm font-semibold text-gray-700">@lang("Make your changes")</h3>
+                                <p class="mt-1 text-sm text-gray-600">@lang("Edit the campaign name, payment note, recipient details, and payment methods. Everything is prefilled from your current settings.")</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0 mt-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-sm font-semibold text-gray-700">@lang("Get your updated link")</h3>
+                                <p class="mt-1 text-sm text-gray-600">@lang("After you save, you'll get a new URL. Replace any shared links or embedded widgets with the new address.")</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-sm text-yellow-800">
+                            <strong>@lang("Important")</strong> @lang("Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.")
+                        </p>
+                    </div>
+                    <div class="flex justify-between">
+                        <button type="button" @click="step = 0" class="d-font min-w-32 inline-flex items-center justify-center py-2 px-5 mr-2 rounded-lg shadow-sm text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out">
+                            @lang("Back")
+                        </button>
+                        <button type="button" @click="step = 'edit'" class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg font-medium rounded-md text-white bg-pink-500 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 transition duration-150 ease-in-out">
+                            @lang("Continue")
                         </button>
                     </div>
                 </div>
@@ -283,20 +403,6 @@
                 <div class="glass-strong rounded-2xl p-6 mb-6">
                     <div class="mb-4">
                         <h3 class="text-lg font-semibold text-gray-700 mb-2">@lang("Modify Existing Donationbox")</h3>
-                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
-                            <div class="flex">
-                                <div class="flex-shrink-0">
-                                    <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                                <div class="ml-3">
-                                    <p class="text-sm text-yellow-700">
-                                        <strong>@lang("Important:")</strong> @lang("Modifying the values will create a new URL. The original URL will remain unchanged. If you've already shared the link or embedded it as a widget on your website, you'll need to update it with the new URL.")
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
                         <form action="{{ route('edit') }}" method="get" id="edit-form">
                             <div class="mb-4">
                                 <label for="edit_url" class="d-font font-semibold text-gray-700 block mb-1">
@@ -335,9 +441,85 @@
                 </div>
             </div>
 
-            <div class="main-form-card glass-strong rounded-2xl p-6" x-show="step !== 0 && step !== 'edit'">
+            <!-- Cashier Mode Step 0 - Intro -->
+            <div class="main-form-card glass-strong rounded-2xl p-6" x-show="flow === 'cashier' && step === 0" x-transition:enter.duration.500ms>
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">
+                        <span class="text-xl mr-2" aria-hidden="true">💳</span>@lang("Cashier mode")
+                    </h2>
+                    <p class="text-sm text-gray-600 mb-6">
+                        @lang("Accept payments instantly by setting a fixed amount and sharing a QR code or link.")
+                    </p>
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0 mt-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-sm font-semibold text-gray-700">@lang("Set the amount")</h3>
+                                <p class="mt-1 text-sm text-gray-600">@lang("Enter the payment sum that your client or donor should pay.")</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0 mt-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-sm font-semibold text-gray-700">@lang("Get QR code & link")</h3>
+                                <p class="mt-1 text-sm text-gray-600">@lang("We generate a unique QR code and payment link for this exact amount. Share it on screen, print, or message.")</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0 mt-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-sm font-semibold text-gray-700">@lang("Customer pays")</h3>
+                                <p class="mt-1 text-sm text-gray-600">@lang("The customer scans the QR code or opens the link, chooses a payment method, and confirms the payment.")</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-6 p-4 bg-pink-50 rounded-lg border border-pink-100">
+                        <p class="text-sm text-gray-700">
+                            <strong>@lang("Perfect for")</strong> @lang("A free alternative to card terminals, quick money requests, and automated payment links.")
+                        </p>
+                    </div>
+                    <div class="flex justify-between">
+                        <button type="button" @click="flow = ''; step = 0" class="d-font min-w-32 inline-flex items-center justify-center py-2 px-5 mr-2 rounded-lg shadow-sm text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out">
+                            @lang("Back")
+                        </button>
+                        <button type="button" @click="step = 1" class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg font-medium rounded-md text-white bg-pink-500 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 transition duration-150 ease-in-out">
+                            @lang("Continue")
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-form-card glass-strong rounded-2xl p-6" x-show="step !== 0 && step !== 'edit' && step !== 'edit-intro'">
                 <div class="">
                     <div x-show.transition="step != 'complete'">
+                        <!-- Progress bar (at top) -->
+                        <div class="mb-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                                    <div class="text-xs font-medium text-gray-500 uppercase tracking-wide"
+                                         x-text="`@lang("Step:") ${step} @lang("of") 5`"></div>
+                                    <div class="flex items-center gap-3 flex-1 min-w-0 sm:max-w-xs w-full">
+                                        <div class="flex-1 min-w-[4rem] min-h-[6px] h-1.5 rounded-full overflow-hidden bg-gray-300">
+                                            <div class="h-full min-h-[6px] rounded-full transition-all duration-300"
+                                                 style="background-color: #ec4899; min-width: 2%;"
+                                                 :style="{ width: (step / 5 * 100) + '%' }"></div>
+                                        </div>
+                                        <span class="text-xs text-gray-500 tabular-nums shrink-0" x-text="(step / 5 * 100).toFixed(0) +'%'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Step Content -->
                         <div class="py-1">
@@ -429,12 +611,80 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Step 2 -->
+                        <!-- Step 2 - Preset donation amounts -->
                         <div x-show="step === 2"
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-semibold">2
+                                </div>
+                                <div class="ml-2 text-gray-500">@lang("Preset donation amounts (optional)")</div>
+                            </div>
+                            <div class="mb-5">
+                                <form class="space-y-4" action="{{ route('donation') }}" method="get"
+                                      :action="flow === 'cashier' ? '{{ route('cashier') }}' : '{{ route('donation') }}'"
+                                      id="generator"></form>
+                                <div class="rounded-md -space-y-px">
+                                    <div class="grid gap-6">
+                                        <div class="col-span-12">
+                                            <label class="d-font font-semibold text-gray-700 block mb-1">
+                                                @lang("Preset donation amounts (optional)")
+                                            </label>
+                                            <div class="tracking-normal text-sm text-gray-500 mb-3 leading-tight">
+                                                @lang("These amounts will appear as quick-select buttons on the donation page.")
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4">
+                                                <div>
+                                                    <label for="s1" class="text-xs text-gray-600 mb-1 block">@lang("Amount 1")</label>
+                                                    <input
+                                                        form="generator"
+                                                        type="number"
+                                                        name="s1"
+                                                        id="s1"
+                                                        value="{{ request('s1') }}"
+                                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-sm transition duration-150 ease-in-out"
+                                                        placeholder="25"
+                                                        step="0.01"
+                                                        min="0">
+                                                </div>
+                                                <div>
+                                                    <label for="s2" class="text-xs text-gray-600 mb-1 block">@lang("Amount 2")</label>
+                                                    <input
+                                                        form="generator"
+                                                        type="number"
+                                                        name="s2"
+                                                        id="s2"
+                                                        value="{{ request('s2') }}"
+                                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-sm transition duration-150 ease-in-out"
+                                                        placeholder="50"
+                                                        step="0.01"
+                                                        min="0">
+                                                </div>
+                                                <div>
+                                                    <label for="s3" class="text-xs text-gray-600 mb-1 block">@lang("Amount 3")</label>
+                                                    <input
+                                                        form="generator"
+                                                        type="number"
+                                                        name="s3"
+                                                        id="s3"
+                                                        value="{{ request('s3') }}"
+                                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-sm transition duration-150 ease-in-out"
+                                                        placeholder="100"
+                                                        step="0.01"
+                                                        min="0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div x-show="step === 3"
+                             x-transition:enter.duration.500ms>
+                            <div class="mb-4 flex items-center">
+                                <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-semibold">3
                                 </div>
                                 <div class="ml-2 text-gray-500">@lang("Your personal data")</div>
                             </div>
@@ -517,12 +767,12 @@
                             </div>
                             @endif
                         </div>
-                        <!-- Step 3 -->
-                        <div x-show="step === 3"
+                        <!-- Step 4 -->
+                        <div x-show="step === 4"
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-semibold">3
+                                    text-gray-500 text-xs font-semibold">4
                                 </div>
                                 <div class="ml-2 text-gray-500">@lang("Details for")
                                     @if(env('COUNTRY') == 'ee')
@@ -741,12 +991,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Step 4 -->
-                        <div x-show="step === 4"
+                        <!-- Step 5 -->
+                        <div x-show="step === 5"
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-semibold">4
+                                    text-gray-500 text-xs font-semibold">5
                                 </div>
                                 <div class="ml-2 text-gray-500">@lang("Credit cards")</div>
                             </div>
@@ -1042,76 +1292,62 @@
                         </div>
                     </div>
                     <!-- / Step Content -->
-                </div>
-            </div>
+                    
+                    <!-- Navigation buttons (at bottom) -->
+                    <div class="mt-6" x-show="step !== 'complete'">
+                        <div class="flex justify-between">
+                                <div class="w-1/2 flex justify-start">
+                                    <button
+                                        x-show="step === 1"
+                                        type="button"
+                                        class="d-font min-w-32 inline-flex items-center justify-center py-2 px-5 mr-2 rounded-lg shadow-sm
+                                            text-gray-600 bg-white hover:bg-gray-100 font-medium border transition
+                                            duration-150 ease-in-out cursor-not-allowed opacity-50"
+                                        disabled
+                                    >@lang("Previous")
+                                    </button>
+                                    <button
+                                        x-show="step > 1"
+                                        type="button"
+                                        @click="step--"
+                                        class="d-font min-w-32 inline-flex items-center justify-center py-2 px-5 mr-2 rounded-lg shadow-sm
+                                            text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out"
+                                    >@lang("Previous")
+                                    </button>
+                                </div>
 
-            <!-- Navigation with progress bar (static, right after form) -->
-            <div class="mt-4" x-show="step !== 0 && step !== 'edit' && step !== 'complete'">
-                <div class="glass rounded-2xl px-6 py-5 shadow-lg space-y-4">
-                    <!-- Navigation buttons -->
-                    <div class="flex justify-between">
-                        <div class="w-1/2 flex justify-start">
-                            <button
-                                x-show="step === 1"
-                                type="button"
-                                class="d-font min-w-32 inline-flex items-center justify-center py-2 px-5 mr-2 rounded-lg shadow-sm
-                                    text-gray-600 bg-white hover:bg-gray-100 font-medium border transition
-                                    duration-150 ease-in-out cursor-not-allowed opacity-50"
-                                disabled
-                            >@lang("Previous")
-                            </button>
-                            <button
-                                x-show="step > 1"
-                                type="button"
-                                @click="step--"
-                                class="d-font min-w-32 inline-flex items-center justify-center py-2 px-5 mr-2 rounded-lg shadow-sm
-                                    text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out"
-                            >@lang("Previous")
-                            </button>
-                        </div>
+                                <div class="w-1/2 flex justify-end">
+                                    <button
+                                        x-show="step < 5"
+                                        type="button"
+                                        @click="step++"
+                                        class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg
+                                            font-medium rounded-md text-white bg-pink-500
+                                            hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                            focus:ring-pink-700 transition duration-150 ease-in-out">
+                                        @lang("Next")
+                                    </button>
 
-                        <div class="w-1/2 flex justify-end">
-                            <button
-                                x-show="step < 4"
-                                type="button"
-                                @click="step++"
-                                class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg
-                                    font-medium rounded-md text-white bg-pink-500
-                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
-                                    focus:ring-pink-700 transition duration-150 ease-in-out">
-                                @lang("Next")
-                            </button>
-
-                            <button
-                                type="submit"
-                                form="generator"
-                                value="submit"
-                                x-show="step === 4"
-                                class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg
-                                    font-medium rounded-md text-white bg-pink-500
-                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
-                                    focus:ring-pink-700 transition duration-150 ease-in-out">
-                                @lang("Complete")
-                            </button>
-                        </div>
-                    </div>
-                    <!-- Progress bar -->
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-4 border-t border-gray-200/40">
-                        <div class="text-xs font-medium text-gray-500 uppercase tracking-wide"
-                             x-text="`@lang("Step:") ${step} @lang("of") 4`"></div>
-                        <div class="flex items-center gap-3 flex-1 min-w-0 sm:max-w-xs w-full">
-                            <div class="flex-1 min-w-[4rem] min-h-[6px] h-1.5 rounded-full overflow-hidden bg-gray-300">
-                                <div class="h-full min-h-[6px] rounded-full transition-all duration-300"
-                                     style="background-color: #ec4899; min-width: 2%;"
-                                     :style="{ width: (step / 4 * 100) + '%' }"></div>
+                                    <button
+                                        type="submit"
+                                        form="generator"
+                                        value="submit"
+                                        x-show="step === 5"
+                                        class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg
+                                            font-medium rounded-md text-white bg-pink-500
+                                            hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                            focus:ring-pink-700 transition duration-150 ease-in-out">
+                                        @lang("Complete")
+                                    </button>
+                                </div>
                             </div>
-                            <span class="text-xs text-gray-500 tabular-nums shrink-0" x-text="(step / 4 * 100).toFixed(0) +'%'"></span>
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
+
         </main>
 
         @include('secure')
@@ -1124,7 +1360,10 @@
             </div>
         @endif -->
 
-        <div class="home-page-footer mt-auto flex-shrink-0 pt-4">
+    </div>
+
+    <div class="max-w-lg w-full mx-auto flex-shrink-0">
+        <div class="home-page-footer pt-4 pb-8">
             @include('footer')
         </div>
     </div>
@@ -1135,7 +1374,7 @@
     function app() {
         return {
             step: 0, // Start with action selection
-            flow: 'donation',
+            flow: '',
         }
     }
 </script>

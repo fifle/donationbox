@@ -75,9 +75,6 @@
             <h1 class="mt-6 text-lg sm:text-xl font-medium text-gray-600 tracking-tight">
                 @lang("Cashier mode")
             </h1>
-            <div class="mt-2 text-sm text-gray-500">
-                @lang("Scan this QR-code for payment")
-            </div>
         </div>
 
         <main id="main-content" role="main" class="space-y-4">

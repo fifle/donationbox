@@ -112,6 +112,22 @@
             <div class="main-form-card glass-strong rounded-2xl p-6 justify-between">
                 <div class="">
                     <div x-show.transition="step != 'complete'">
+                        <!-- Progress bar (at top) -->
+                        <div class="mb-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                                    <div class="text-xs font-medium text-gray-500 uppercase tracking-wide"
+                                         x-text="`@lang("Step:") ${step} @lang("of") 5`"></div>
+                                    <div class="flex items-center gap-3 flex-1 min-w-0 sm:max-w-xs w-full">
+                                        <div class="flex-1 min-w-[4rem] min-h-[6px] h-1.5 rounded-full overflow-hidden bg-gray-300">
+                                            <div class="h-full min-h-[6px] rounded-full transition-all duration-300"
+                                                 style="background-color: #ec4899; min-width: 2%;"
+                                                 :style="{ width: (step / 5 * 100) + '%' }"></div>
+                                        </div>
+                                        <span class="text-xs text-gray-500 tabular-nums shrink-0" x-text="(step / 5 * 100).toFixed(0) +'%'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Step Content -->
                         <div class="py-1">
@@ -186,58 +202,6 @@
                                                     required/>
                                             </div>
                                             
-                                            @if($s1 || $s2 || $s3)
-                                            <div class="col-span-12">
-                                                <label class="d-font font-semibold text-gray-700 block mb-1">
-                                                    @lang("Preset donation amounts (optional)")
-                                                </label>
-                                                <div class="tracking-normal text-sm text-gray-500 mb-3 leading-tight">
-                                                    @lang("These amounts will appear as quick-select buttons on the donation page.")
-                                                </div>
-                                                <div class="grid grid-cols-3 gap-4">
-                                                    <div>
-                                                        <label for="s1" class="text-xs text-gray-600 mb-1 block">@lang("Amount 1")</label>
-                                                        <input
-                                                            form="generator"
-                                                            type="number"
-                                                            name="s1"
-                                                            id="s1"
-                                                            value="{{ $s1 }}"
-                                                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-sm transition duration-150 ease-in-out"
-                                                            placeholder="25"
-                                                            step="0.01"
-                                                            min="0">
-                                                    </div>
-                                                    <div>
-                                                        <label for="s2" class="text-xs text-gray-600 mb-1 block">@lang("Amount 2")</label>
-                                                        <input
-                                                            form="generator"
-                                                            type="number"
-                                                            name="s2"
-                                                            id="s2"
-                                                            value="{{ $s2 }}"
-                                                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-sm transition duration-150 ease-in-out"
-                                                            placeholder="50"
-                                                            step="0.01"
-                                                            min="0">
-                                                    </div>
-                                                    <div>
-                                                        <label for="s3" class="text-xs text-gray-600 mb-1 block">@lang("Amount 3")</label>
-                                                        <input
-                                                            form="generator"
-                                                            type="number"
-                                                            name="s3"
-                                                            id="s3"
-                                                            value="{{ $s3 }}"
-                                                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-sm transition duration-150 ease-in-out"
-                                                            placeholder="100"
-                                                            step="0.01"
-                                                            min="0">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @endif
-                                            
                                             @if($s0)
                                             <div class="col-span-12">
                                                 <label for="s0" class="d-font font-semibold text-gray-700 block mb-1">
@@ -263,12 +227,79 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Step 2 -->
+                        <!-- Step 2 - Preset donation amounts -->
                         <div x-show="step === 2"
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
                                     text-gray-500 text-xs font-semibold">2
+                                </div>
+                                <div class="ml-2 text-gray-500">@lang("Preset donation amounts (optional)")</div>
+                            </div>
+                            <div class="mb-5">
+                                <form class="space-y-4" action="{{ route('donation') }}" method="get"
+                                      id="generator"></form>
+                                <div class="rounded-md -space-y-px">
+                                    <div class="grid gap-6">
+                                        <div class="col-span-12">
+                                            <label class="d-font font-semibold text-gray-700 block mb-1">
+                                                @lang("Preset donation amounts (optional)")
+                                            </label>
+                                            <div class="tracking-normal text-sm text-gray-500 mb-3 leading-tight">
+                                                @lang("These amounts will appear as quick-select buttons on the donation page.")
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4">
+                                                <div>
+                                                    <label for="s1" class="text-xs text-gray-600 mb-1 block">@lang("Amount 1")</label>
+                                                    <input
+                                                        form="generator"
+                                                        type="number"
+                                                        name="s1"
+                                                        id="s1"
+                                                        value="{{ $s1 }}"
+                                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-sm transition duration-150 ease-in-out"
+                                                        placeholder="25"
+                                                        step="0.01"
+                                                        min="0">
+                                                </div>
+                                                <div>
+                                                    <label for="s2" class="text-xs text-gray-600 mb-1 block">@lang("Amount 2")</label>
+                                                    <input
+                                                        form="generator"
+                                                        type="number"
+                                                        name="s2"
+                                                        id="s2"
+                                                        value="{{ $s2 }}"
+                                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-sm transition duration-150 ease-in-out"
+                                                        placeholder="50"
+                                                        step="0.01"
+                                                        min="0">
+                                                </div>
+                                                <div>
+                                                    <label for="s3" class="text-xs text-gray-600 mb-1 block">@lang("Amount 3")</label>
+                                                    <input
+                                                        form="generator"
+                                                        type="number"
+                                                        name="s3"
+                                                        id="s3"
+                                                        value="{{ $s3 }}"
+                                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-sm transition duration-150 ease-in-out"
+                                                        placeholder="100"
+                                                        step="0.01"
+                                                        min="0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div x-show="step === 3"
+                             x-transition:enter.duration.500ms>
+                            <div class="mb-4 flex items-center">
+                                <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-semibold">3
                                 </div>
                                 <div class="ml-2 text-gray-500">@lang("Your personal data")</div>
                             </div>
@@ -347,12 +378,12 @@
                             </div>
                             @endif
                         </div>
-                        <!-- Step 3 -->
-                        <div x-show="step === 3"
+                        <!-- Step 4 -->
+                        <div x-show="step === 4"
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-semibold">3
+                                    text-gray-500 text-xs font-semibold">4
                                 </div>
                                 <div class="ml-2 text-gray-500">@lang("Details for")
                                     @if(env('COUNTRY') == 'ee')
@@ -568,12 +599,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Step 4 -->
-                        <div x-show="step === 4"
+                        <!-- Step 5 -->
+                        <div x-show="step === 5"
                              x-transition:enter.duration.500ms>
                             <div class="mb-4 flex items-center">
                                 <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-semibold">4
+                                    text-gray-500 text-xs font-semibold">5
                                 </div>
                                 <div class="ml-2 text-gray-500">@lang("Credit cards")</div>
                             </div>
@@ -864,70 +895,160 @@
                         </div>
                     </div>
                     <!-- / Step Content -->
-                </div>
-            </div>
-
-            <!-- Navigation with progress bar (static, right after form) -->
-            <div class="mt-4" x-show="step !== 'complete'">
-                <div class="glass rounded-2xl px-6 py-5 shadow-lg space-y-4">
-                    <!-- Navigation buttons -->
-                    <div class="flex justify-between">
-                        <div class="w-1/2 flex justify-start">
-                            <button
-                                x-show="step == 1"
-                                type="button"
-                                class="d-font min-w-32 inline-flex items-center justify-center py-2 px-5 mr-2 rounded-lg shadow-sm
-                                    text-gray-600 bg-white hover:bg-gray-100 font-medium border transition
-                                    duration-150 ease-in-out cursor-not-allowed opacity-50"
-                                disabled
-                            >@lang("Previous")
-                            </button>
-                            <button
-                                x-show="step > 1"
-                                type="button"
-                                @click="step--"
-                                class="d-font min-w-32 inline-flex items-center justify-center py-2 px-5 mr-2 rounded-lg shadow-sm
-                                    text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out"
-                            >@lang("Previous")
-                            </button>
-                        </div>
-
-                        <div class="w-1/2 flex justify-end">
-                            <button
-                                x-show="step < 4"
-                                type="button"
-                                @click="step++"
-                                class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg
-                                    font-medium rounded-md text-white bg-pink-500
-                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
-                                    focus:ring-pink-700 transition duration-150 ease-in-out">
-                                @lang("Next")
-                            </button>
-
-                            <button
-                                type="submit"
-                                form="generator"
-                                value="submit"
-                                x-show="step === 4"
-                                class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg
-                                    font-medium rounded-md text-white bg-pink-500
-                                    hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
-                                    focus:ring-pink-700 transition duration-150 ease-in-out">
-                                @lang("Complete")
-                            </button>
+                    
+                    <!-- Convert to Cashier Mode -->
+                    <div class="mt-6 mb-6" x-show="step === 5">
+                        <div class="border-t border-gray-200 pt-6">
+                            <div class="mb-4">
+                                <h3 class="text-lg font-semibold text-gray-700 mb-2">@lang("Convert to Cashier Mode")</h3>
+                                <p class="text-sm text-gray-600 mb-4">
+                                    @lang("Set a fixed amount to convert this donationbox into cashier mode. This will generate a QR code and payment link for the specified amount.")
+                                </p>
+                                <div class="mb-4">
+                                    <label for="s0_cashier" class="d-font font-semibold text-gray-700 block mb-1">
+                                        @lang("Fixed donation amount")
+                                        <span class="font-normal text-red-500"><sup>*</sup></span>
+                                    </label>
+                                    <div class="tracking-normal text-sm text-gray-500 mb-3 leading-tight">
+                                        @lang("Enter the amount that will be preset for all payments in cashier mode.")
+                                    </div>
+                                    <div class="relative max-w-xs">
+                                        <div class="absolute inset-y-0 right-0 w-7 flex items-center justify-center pointer-events-none">
+                                            <span class="text-gray-500 text-lg">€</span>
+                                        </div>
+                                        <input
+                                            type="number"
+                                            name="s0"
+                                            id="s0_cashier"
+                                            value="{{ $s0 }}"
+                                            class="appearance-none rounded-none relative block w-full px-3 py-2 pr-7 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-lg transition duration-150 ease-in-out"
+                                            placeholder="0.00"
+                                            step="0.01"
+                                            min="0"
+                                            form="cashier-generator">
+                                    </div>
+                                </div>
+                                <form action="{{ route('plink') }}" method="get" id="cashier-generator">
+                                    <input type="hidden" name="action" value="cashier">
+                                    <input type="hidden" name="campaign_title" value="{{ $campaign_title }}">
+                                    <input type="hidden" name="payee" value="{{ $payee }}">
+                                    <input type="hidden" name="detail" value="{{ $detail }}">
+                                    @if($iban)
+                                        <input type="hidden" name="iban" value="{{ $iban }}">
+                                    @endif
+                                    @if($pp)
+                                        <input type="hidden" name="pp" value="{{ $pp }}">
+                                    @endif
+                                    @if($pphb)
+                                        <input type="hidden" name="pphb" value="{{ $pphb }}">
+                                    @endif
+                                    @if($db)
+                                        <input type="hidden" name="db" value="{{ $db }}">
+                                    @endif
+                                    @if($sebuid_st)
+                                        <input type="hidden" name="sebuid_st" value="{{ $sebuid_st }}">
+                                    @endif
+                                    @if($sebuid)
+                                        <input type="hidden" name="sebuid" value="{{ $sebuid }}">
+                                    @endif
+                                    @if($rev)
+                                        <input type="hidden" name="rev" value="{{ $rev }}">
+                                    @endif
+                                    @if($strp)
+                                        <input type="hidden" name="strp" value="{{ $strp }}">
+                                    @endif
+                                    @if($paypalClientId)
+                                        <input type="hidden" name="paypalClientId" value="{{ $paypalClientId }}">
+                                    @endif
+                                    @if($s1)
+                                        <input type="hidden" name="s1" value="{{ $s1 }}">
+                                    @endif
+                                    @if($s2)
+                                        <input type="hidden" name="s2" value="{{ $s2 }}">
+                                    @endif
+                                    @if($s3)
+                                        <input type="hidden" name="s3" value="{{ $s3 }}">
+                                    @endif
+                                    @if($tax)
+                                        <input type="hidden" name="tax" value="1">
+                                    @endif
+                                    @if($swt)
+                                        <input type="hidden" name="swt" value="1">
+                                    @endif
+                                    @if($lhvt)
+                                        <input type="hidden" name="lhvt" value="1">
+                                    @endif
+                                    @if($coopt)
+                                        <input type="hidden" name="coopt" value="1">
+                                    @endif
+                                    @if(request()->has('locale'))
+                                        <input type="hidden" name="locale" value="{{ request()->input('locale') }}">
+                                    @endif
+                                </form>
+                                <button
+                                    type="submit"
+                                    form="cashier-generator"
+                                    class="d-font inline-flex items-center justify-center border border-transparent py-2 px-4 rounded-lg
+                                        font-medium rounded-md text-white bg-pink-500
+                                        hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                        focus:ring-pink-700 transition duration-150 ease-in-out">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                                    </svg>
+                                    @lang("Convert to Cashier Mode")
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <!-- Progress bar -->
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-4 border-t border-gray-200/40">
-                        <div class="text-xs font-medium text-gray-500 uppercase tracking-wide"
-                             x-text="`@lang("Step:") ${step} @lang("of") 4`"></div>
-                        <div class="flex items-center gap-3 flex-1 min-w-0 sm:max-w-xs w-full">
-                            <div class="flex-1 min-w-[4rem] min-h-[6px] h-1.5 rounded-full overflow-hidden bg-gray-300">
-                                <div class="h-full min-h-[6px] rounded-full transition-all duration-300"
-                                     style="background-color: #ec4899; min-width: 2%;"
-                                     :style="{ width: (step / 4 * 100) + '%' }"></div>
+                    
+                    <!-- Navigation buttons (at bottom) -->
+                    <div class="mt-6" x-show="step !== 'complete'">
+                        <div class="flex justify-between">
+                                <div class="w-1/2 flex justify-start">
+                                    <button
+                                        x-show="step == 1"
+                                        type="button"
+                                        class="d-font min-w-32 inline-flex items-center justify-center py-2 px-5 mr-2 rounded-lg shadow-sm
+                                            text-gray-600 bg-white hover:bg-gray-100 font-medium border transition
+                                            duration-150 ease-in-out cursor-not-allowed opacity-50"
+                                        disabled
+                                    >@lang("Previous")
+                                    </button>
+                                    <button
+                                        x-show="step > 1"
+                                        type="button"
+                                        @click="step--"
+                                        class="d-font min-w-32 inline-flex items-center justify-center py-2 px-5 mr-2 rounded-lg shadow-sm
+                                            text-gray-600 bg-white hover:bg-gray-100 font-medium border transition duration-150 ease-in-out"
+                                    >@lang("Previous")
+                                    </button>
+                                </div>
+
+                                <div class="w-1/2 flex justify-end">
+                                    <button
+                                        x-show="step < 5"
+                                        type="button"
+                                        @click="step++"
+                                        class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg
+                                            font-medium rounded-md text-white bg-pink-500
+                                            hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                            focus:ring-pink-700 transition duration-150 ease-in-out">
+                                        @lang("Next")
+                                    </button>
+
+                                    <button
+                                        type="submit"
+                                        form="generator"
+                                        value="submit"
+                                        x-show="step === 5"
+                                        class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg
+                                            font-medium rounded-md text-white bg-pink-500
+                                            hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                            focus:ring-pink-700 transition duration-150 ease-in-out">
+                                        @lang("Complete")
+                                    </button>
+                                </div>
                             </div>
-                            <span class="text-xs text-gray-500 tabular-nums shrink-0" x-text="(step / 4 * 100).toFixed(0) +'%'"></span>
                         </div>
                     </div>
                 </div>
