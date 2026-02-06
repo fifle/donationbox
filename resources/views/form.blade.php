@@ -393,7 +393,6 @@
                                                              text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                             hover:shadow-lg hover:bg-green-600">SEB
                                                             </button>
-                                                            <span class="text-xs text-gray-500 mt-0.5">@lang("For non-profits and businesses only")</span>
                                                         </div>
                                                     @endif
                                                         @if(env('COUNTRY') == 'ee' and !$lhvt)
@@ -533,7 +532,6 @@
                                                              text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                             hover:shadow-lg hover:bg-green-600">SEB
                                                             </button>
-                                                            <span class="text-xs text-gray-500 mt-0.5">@lang("For non-profits and businesses only")</span>
                                                         </div>
                                                     @endif
                                                         @if(env('COUNTRY') == 'ee' and !$lhvt)
