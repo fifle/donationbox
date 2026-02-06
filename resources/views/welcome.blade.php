@@ -130,7 +130,7 @@
 <div class="home-page flex flex-col min-h-screen py-12 px-4 sm:px-6 lg:px-8">
     <div class="home-page-bg" aria-hidden="true"></div>
 
-    <div class="max-w-lg w-full mx-auto flex-1 flex flex-col space-y-4 relative z-10 min-h-0">
+    <div class="max-w-lg w-full mx-auto flex-1 flex flex-col space-y-4 relative z-10">
         <header role="banner" class="fixed top-4 right-4 sm:top-6 sm:right-6 left-auto">
             <div class="glass rounded-xl px-3 py-2">
                 @include('components.lang-switcher')
@@ -1360,12 +1360,10 @@
             </div>
         @endif -->
 
-    </div>
-
-    <div class="max-w-lg w-full mx-auto flex-shrink-0">
         <div class="home-page-footer mt-auto flex-shrink-0 pt-4 pb-8">
             @include('footer')
         </div>
+
     </div>
 
 </div>
