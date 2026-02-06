@@ -1363,7 +1363,7 @@
     </div>
 
     <div class="max-w-lg w-full mx-auto flex-shrink-0">
-        <div class="home-page-footer pt-4 pb-8">
+        <div class="home-page-footer mt-auto flex-shrink-0 pt-4 pb-8">
             @include('footer')
         </div>
     </div>
