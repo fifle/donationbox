@@ -1,7 +1,8 @@
 <!-- Language switcher -->
 <div class="relative inline-flex items-center">
     @php 
-        $locale = session()->get('locale'); 
+        // Use app locale so switcher matches actual content (middleware sets app locale from param, session, or country default)
+        $locale = app()->getLocale();
         // Get current URL to preserve all parameters
         $currentUrl = url()->current();
         $queryParams = request()->query();

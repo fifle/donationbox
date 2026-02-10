@@ -12,10 +12,14 @@
         @endif
     @include('head')
 </head>
-<body class="antialiased">
+<body class="antialiased home-page-body">
 <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:p-2 focus:bg-white focus:text-gray-900 focus:underline">@lang("Skip to main content")</a>
 
 <style>
+/* Force scroll on homepage even if JS toggles overflow-hidden */
+body.home-page-body {
+    overflow-y: auto !important;
+}
 /* Homepage: pink and yellow gradient mesh */
 .home-page {
     position: relative;
@@ -53,21 +57,25 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 /* Ensure footer is always visible and above fixed bottom nav when they overlap */
-.home-page .home-page-footer {
+.home-page .home-page-footer,
+.home-page-footer {
     position: relative;
     z-index: 60;
     isolation: isolate;
     color: #4b5563;
     transform: translateZ(0); /* force own layer so backdrop-filter above doesn’t hide it */
 }
-.home-page .home-page-footer footer {
+.home-page .home-page-footer footer,
+.home-page-footer footer {
     color: inherit;
 }
-.home-page .home-page-footer a {
+.home-page .home-page-footer a,
+.home-page-footer a {
     color: #1e40af; /* blue-800 for links */
 }
 /* Security block: own layer so it isn’t obscured by glass elements above */
-.home-page .secure-block {
+.home-page .secure-block,
+.secure-block {
     position: relative;
     z-index: 15;
     isolation: isolate;
@@ -127,10 +135,10 @@
 }
 </style>
 
-<div class="home-page flex flex-col min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+<div class="home-page flex flex-col py-12 px-4 sm:px-6 lg:px-8">
     <div class="home-page-bg" aria-hidden="true"></div>
 
-    <div class="max-w-lg w-full mx-auto flex-1 flex flex-col space-y-4 relative z-10">
+    <div class="max-w-lg w-full mx-auto flex flex-col space-y-4 relative z-10">
         <header role="banner" class="fixed top-4 right-4 sm:top-6 sm:right-6 left-auto">
             <div class="glass rounded-xl px-3 py-2">
                 @include('components.lang-switcher')
@@ -243,7 +251,7 @@
             </div>
         </div>
 
-        <main id="main-content" role="main" x-data="app()" x-cloak>
+        <main id="main-content" role="main" class="mt-4" x-data="app()" x-cloak>
             <div x-show.transition="step != 'complete'">
                 <!-- Top Navigation -->
                 <!-- /Top Navigation -->
@@ -1350,22 +1358,17 @@
 
         </main>
 
-        @include('secure')
-
-        <!-- @if(env('COUNTRY') == 'ee')
-            <div class="pt-10">
-                <a href="https://2024.donationbox.ee/?db" target="_blank" aria-label="@lang('Visit DonationBox 2024')">
-                    <img class="mx-auto rounded-xl hover:opacity-90" src="/img/df-2024-fb-cover-01.jpg" alt="@lang('DonationBox 2024 promotional image')">
-                </a>
-            </div>
-        @endif -->
-
-        <div class="home-page-footer mt-auto flex-shrink-0 pt-4 pb-8">
-            @include('footer')
-        </div>
 
     </div>
 
+</div>
+
+{{-- Secure block and footer outside .home-page so they are never clipped or hidden --}}
+<div class="w-full max-w-lg mx-auto px-4 sm:px-6 lg:px-8 pt-1 pb-0" style="position: relative; z-index: 50; display: block !important; visibility: visible !important;">
+    @include('secure')
+</div>
+<div class="home-page-footer w-full max-w-lg mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-8" style="position: relative; z-index: 60; display: block !important; visibility: visible !important;">
+    @include('footer')
 </div>
 
 <script>
@@ -1375,6 +1378,12 @@
             flow: '',
         }
     }
+</script>
+<script>
+    // Ensure homepage can scroll even if a modal toggled overflow-hidden.
+    document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.remove('overflow-hidden');
+    });
 </script>
 </body>
 </html>
