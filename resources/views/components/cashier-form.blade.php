@@ -1,8 +1,8 @@
-<div>
-    <h2 class="mt-0 ml-3 mr-3 text-center text-2xl font-semibold text-gray-700">
+<div class="glass-strong rounded-2xl p-6 md:p-8 justify-between mb-4" x-data="app()" x-cloak>
+    <h2 class="mt-0 text-center text-lg sm:text-xl font-medium text-gray-600 tracking-tight">
         {!! urldecode($campaign_title) !!}
     </h2>
-    <div class="mt-2 mb-4 ml-3 mr-3 text-center text-sm text-gray-500 align-middle">
+    <div class="mt-2 mb-2 text-center text-sm text-gray-500 align-middle">
         {!! urldecode($payee) !!}
         @if($iban)
             / {!! urldecode($iban) !!}
@@ -21,13 +21,11 @@
             .org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>@lang("Copy"))</div>
         </button>
         <div id="tooltip-click" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
-            Copied!
+            @lang("Copied!")
             <div class="tooltip-arrow" data-popper-arrow></div>
         </div><br>
     </div>
 
-</div>
-<div x-data="app()" x-cloak>
     <!-- / Bottom Navigation -->
     <div x-show.transition="step != 'complete'">
         <!-- Top Navigation -->
@@ -38,7 +36,7 @@
         <!-- /Top Navigation -->
     </div>
 
-    <div class="bg-white rounded-lg p-5 pt-0 shadow justify-between mb-4">
+    <div class="border-t border-gray-200">
         <div x-show.transition="step != 'complete'">
 
             <!-- Step Content -->
@@ -50,10 +48,9 @@
                             <div class="grid gap-6">
                                 <div class="col-span-12">
                                     <div x-data="{ tab: 'onetime' }">
-                                        <div class="flex items-center justify-center mt-8 mb-2">
-                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100
-                                    text-gray-500 text-xs font-bold">1</div>
-                                            <div class="text-xs text-gray-500 text-center">
+                                        <div class="flex items-center justify-center mt-2 mb-4">
+                                            <div class="rounded-full h-6 w-6 mr-2 flex items-center justify-center bg-yellow-100 text-gray-500 text-xs font-bold">1</div>
+                                            <div class="text-xs text-gray-500">
                                                 @if($s0)
                                                     @lang("The amount of your payment")
                                                 @else
@@ -65,7 +62,7 @@
                                             <div class="w-60 max-w-xs mr-auto ml-auto">
                                                 <div class="relative">
                                                     <div
-                                                        class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                        class="absolute inset-y-0 right-0 w-7 flex items-center justify-center pointer-events-none">
                                                           <span class="text-gray-500 text-lg">
                                                             €
                                                           </span>
@@ -94,6 +91,48 @@
                                                         placeholder="0.00" min="0" step="any" maxlength="4"
                                                         x-model="preamount"
                                                         required>
+                                                    
+                                                    @php
+                                                        $hasPresets = false;
+                                                        if (isset($s1) && !empty($s1) && urldecode($s1) != '') $hasPresets = true;
+                                                        if (isset($s2) && !empty($s2) && urldecode($s2) != '') $hasPresets = true;
+                                                        if (isset($s3) && !empty($s3) && urldecode($s3) != '') $hasPresets = true;
+                                                    @endphp
+                                                    @if($hasPresets)
+                                                    <div class="flex flex-wrap justify-center gap-2 mt-3 mb-4">
+                                                        @if(isset($s1) && !empty($s1) && urldecode($s1) != '')
+                                                        <button type="button" class="d-font transition duration-150 ease-in-out
+                                                                focus:outline-none py-2.5 px-5 rounded-xl
+                                                                text-center text-gray-600 font-medium
+                                                                focus:ring-2 focus:ring-offset-0 focus:ring-pink-500 w-auto
+                                                                border border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm"
+                                                                @click="preamount = '{{ urldecode($s1) }}'">
+                                                            {{ urldecode($s1) }}€
+                                                        </button>
+                                                        @endif
+                                                        @if(isset($s2) && !empty($s2) && urldecode($s2) != '')
+                                                        <button type="button" class="d-font transition duration-150 ease-in-out
+                                                                focus:outline-none py-2.5 px-5 rounded-xl
+                                                                text-center text-gray-600 font-medium
+                                                                focus:ring-2 focus:ring-offset-0 focus:ring-pink-500 w-auto
+                                                                border border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm"
+                                                                @click="preamount = '{{ urldecode($s2) }}'">
+                                                            {{ urldecode($s2) }}€
+                                                        </button>
+                                                        @endif
+                                                        @if(isset($s3) && !empty($s3) && urldecode($s3) != '')
+                                                        <button type="button" class="d-font transition duration-150 ease-in-out
+                                                                focus:outline-none py-2.5 px-5 rounded-xl
+                                                                text-center text-gray-600 font-medium
+                                                                focus:ring-2 focus:ring-offset-0 focus:ring-pink-500 w-auto
+                                                                border border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm"
+                                                                @click="preamount = '{{ urldecode($s3) }}'">
+                                                            {{ urldecode($s3) }}€
+                                                        </button>
+                                                        @endif
+                                                    </div>
+                                                    @endif
+                                                    
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
@@ -174,6 +213,33 @@
                                                             name="rev"
                                                             id="rev"
                                                             value="{{ $rev }}"
+                                                        >
+                                                    @endif
+                                                    @if(isset($s1) && $s1)
+                                                        <input
+                                                            form="sumforbank"
+                                                            type="hidden"
+                                                            name="s1"
+                                                            id="s1"
+                                                            value="{{ $s1 }}"
+                                                        >
+                                                    @endif
+                                                    @if(isset($s2) && $s2)
+                                                        <input
+                                                            form="sumforbank"
+                                                            type="hidden"
+                                                            name="s2"
+                                                            id="s2"
+                                                            value="{{ $s2 }}"
+                                                        >
+                                                    @endif
+                                                    @if(isset($s3) && $s3)
+                                                        <input
+                                                            form="sumforbank"
+                                                            type="hidden"
+                                                            name="s3"
+                                                            id="s3"
+                                                            value="{{ $s3 }}"
                                                         >
                                                     @endif
 {{--                                                    @if($s0)--}}
@@ -267,6 +333,18 @@
 
         </div>
     </div>
+</div>
+
+<div class="mt-6 flex flex-col items-center">
+    <div class="text-center">
+        <a href="/about#cashierMode" class="text-xs text-pink-600 hover:text-pink-700 hover:underline inline-flex items-center">
+            @lang("How cashier mode works?")
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+        </a>
+    </div>
+</div>
 
 {{--    <!-- QR CODE & COPY LINK -->--}}
 {{--    <div class="bg-white rounded-lg p-8 mt-4 shadow justify-between">--}}

@@ -12,6 +12,7 @@ class AboutController extends Controller
      */
     protected const FAQ_TITLE_KEYS = [
         'whatIsDonationBox' => 'What is a DonationBox?',
+        'cashierMode' => 'What is Cashier mode? How does it work?',
         'free' => 'Why is DonationBox free?',
         'security' => "Is this website secure? Isn't it phishing?",
         'checkYourBank' => "How do you check that you really got to your bank's website and not some fake page asking for banking information?",

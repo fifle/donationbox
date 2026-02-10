@@ -39,7 +39,7 @@
     </div>
 
         <!-- QR CODE & COPY LINK -->
-        <div class="bg-white rounded-lg p-8 mt-4 shadow justify-between">
+        <div class="glass-strong rounded-2xl p-6 md:p-8 justify-between mb-4">
             <div class="content-center">
                 <h3 class="mb-4 text-center text-1xl font-bold text-gray-600">
                     @lang("Scan this QR-code for payment")
@@ -92,6 +92,17 @@
             </div>
         </div>
 
+</div>
+
+<div class="mt-6 flex flex-col items-center">
+    <div class="text-center">
+        <a href="/about#cashierMode" class="text-xs text-pink-600 hover:text-pink-700 hover:underline inline-flex items-center">
+            @lang("How cashier mode works?")
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+        </a>
+    </div>
 </div>
 
 {{--Init of ClipboardJS--}}
