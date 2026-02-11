@@ -4,7 +4,7 @@
 # the PHP version from the user (wherever `flyctl launch` is run)
 # Valid version values are PHP 7.4+
 ARG PHP_VERSION=8.0
-ARG NODE_VERSION=14
+ARG NODE_VERSION=18
 FROM serversideup/php:${PHP_VERSION}-fpm-nginx-v1.5.0 as base
 
 # PHP_VERSION needs to be repeated here
