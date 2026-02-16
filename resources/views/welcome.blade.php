@@ -779,7 +779,7 @@ body.home-page-body {
                                 <div class="rounded-md -space-y-px">
                                     <div class="grid gap-6">
                                         <div class="col-span-12">
-                                            <label for="recurring_default" class="d-font font-semibold text-gray-700
+                                            <label for="rec" class="d-font font-semibold text-gray-700
                                                         block mb-2">@lang("Default payment type")
                                             </label>
                                             <div class="tracking-normal text-sm text-gray-500 mb-3
@@ -791,15 +791,15 @@ body.home-page-body {
                                                     <input
                                                         form="generator"
                                                         type="checkbox"
-                                                        id="recurring_default"
-                                                        name="recurring_default"
+                                                        id="rec"
+                                                        name="rec"
                                                         value="1"
                                                         aria-label="@lang("Set recurring payment as the default option")"
                                                         class="w-5 h-5
                                                        bg-red-100 border-red-300 text-red-500 focus:ring-red-200"/>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="recurring_default" class="d-font text-gray-900
+                                                    <label for="rec" class="d-font text-gray-900
                                                     dark:text-gray-300">
                                                         @lang("Set recurring payment as the default option")
                                                     </label>

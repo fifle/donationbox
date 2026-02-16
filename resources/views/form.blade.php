@@ -73,7 +73,7 @@
                                 <div class="col-span-12">
                                     @php
                                         $showRecurringBtn = isset($hasRecurringPayment) ? $hasRecurringPayment : $recurring;
-                                        $recurringDefault = isset($recurring_default) ? $recurring_default : false;
+                                        $recurringDefault = isset($rec) ? $rec : false;
                                         $defaultTab = ((!$onetime && $showRecurringBtn) || ($recurringDefault && $showRecurringBtn)) ? 'standing' : 'onetime';
                                         $showPaymentTypeStep = !$s0 && $onetime && $showRecurringBtn;
                                         $stepForFirstPayment = $s0 ? 2 : (2 + ($showPaymentTypeStep ? 1 : 0));

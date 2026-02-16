@@ -49,7 +49,7 @@ class DonationController extends Controller
             // Use directly without rawurlencode for internal logic
             $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
             $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
-            $recurring_default = $request->has('recurring_default') ? filter_var($request->input('recurring_default'), FILTER_VALIDATE_BOOLEAN) : false;
+            $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : false;
 
             // Custom sums setup (default: 10, 25, 50)
             $defsum = 10;
@@ -183,8 +183,8 @@ class DonationController extends Controller
                 $compactData['recurring'] = 'recurring';
             }
 
-            if (isset($recurring_default)) {
-                $compactData['recurring_default'] = 'recurring_default';
+            if (isset($rec)) {
+                $compactData['rec'] = 'rec';
             }
 
             // Check if any payment method is available (no payment methods = show error + edit button)
@@ -254,7 +254,7 @@ class DonationController extends Controller
         // Use directly without rawurlencode for internal logic
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
         $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
-        $recurring_default = $request->has('recurring_default') ? filter_var($request->input('recurring_default'), FILTER_VALIDATE_BOOLEAN) : false;
+        $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : false;
 
             // custom sums (default: 10, 25, 50)
             $defsum = 10;
@@ -372,8 +372,8 @@ class DonationController extends Controller
                 $compactData['recurring'] = 'recurring';
             }
 
-            if (isset($recurring_default)) {
-                $compactData['recurring_default'] = 'recurring_default';
+            if (isset($rec)) {
+                $compactData['rec'] = 'rec';
             }
 
             // Check if any payment method is available (no payment methods = show error + edit button)
@@ -444,7 +444,7 @@ class DonationController extends Controller
         // Use directly without rawurlencode for internal logic
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
         $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
-        $recurring_default = $request->has('recurring_default') ? filter_var($request->input('recurring_default'), FILTER_VALIDATE_BOOLEAN) : false;
+        $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : false;
 
         // custom sums (default: 10, 25, 50)
         $defsum = 10;
@@ -554,8 +554,8 @@ class DonationController extends Controller
             $compactData['recurring'] = 'recurring';
         }
 
-        if (isset($recurring_default)) {
-            $compactData['recurring_default'] = 'recurring_default';
+        if (isset($rec)) {
+            $compactData['rec'] = 'rec';
         }
 
         return view("cashier", compact($compactData));
@@ -599,7 +599,7 @@ class DonationController extends Controller
         // Use directly without rawurlencode for internal logic
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
         $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
-        $recurring_default = $request->has('recurring_default') ? filter_var($request->input('recurring_default'), FILTER_VALIDATE_BOOLEAN) : false;
+        $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : false;
 
         if ($request->input('action') == 'cashier') {
             $fullLink = url()->full();
@@ -627,7 +627,7 @@ class DonationController extends Controller
             'paypalClientId',
             'onetime',
             'recurring',
-            'recurring_default',
+            'rec',
 
             'qrcode',
             'link',
@@ -649,7 +649,7 @@ class DonationController extends Controller
             'paypalClientId' => $paypalClientId,
             'onetime' => $onetime,
             'recurring' => $recurring,
-            'recurring_default' => $recurring_default,
+            'rec' => $rec,
             'strp' => $strp,
 
             'qrcode' => $qrcode,
@@ -726,7 +726,7 @@ class DonationController extends Controller
         $swt = isset($params['swt']) && filter_var($params['swt'], FILTER_VALIDATE_BOOLEAN);
         $lhvt = isset($params['lhvt']) && filter_var($params['lhvt'], FILTER_VALIDATE_BOOLEAN);
         $coopt = isset($params['coopt']) && filter_var($params['coopt'], FILTER_VALIDATE_BOOLEAN);
-        $recurring_default = isset($params['recurring_default']) && filter_var($params['recurring_default'], FILTER_VALIDATE_BOOLEAN);
+        $rec = isset($params['rec']) && filter_var($params['rec'], FILTER_VALIDATE_BOOLEAN);
         
         // Determine which payment methods are enabled based on parameters
         $hasSwedbank = !$swt;
@@ -747,7 +747,7 @@ class DonationController extends Controller
             'campaign_title', 'detail', 'payee', 'iban', 'pp', 'db',
             'sebuid', 'sebuid_st', 'rev', 'strp', 'paypalClientId', 'pphb',
             's1', 's2', 's3', 's0', 'tax', 'swt', 'lhvt', 'coopt',
-            'recurring_default',
+            'rec',
             'hasSwedbank', 'hasSEB', 'hasLHV', 'hasCoop', 'hasStripe',
             'hasPaypalBusiness', 'hasDonorbox', 'hasPaypalMe', 'hasRevolut',
             'hasPaypalHostedButton', 'originalUrl'
