@@ -279,5 +279,8 @@
     "Get your updated link": "Saa uuendatud link",
     "After you save, you'll get a new URL. Replace any shared links or embedded widgets with the new address.": "Pärast salvestamist saad uue URL-i. Uuenda kõik jagatud lingid ja veebilehele lisatud vidinad uue aadressiga.",
     "Important": "Oluline",
-    "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.": "Muutmine loob uue URL-i. Vana link töötab edasi, aga ei näita muudatusi, seega uuenda kindlasti lingid ja veebividinad."
+    "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.": "Muutmine loob uue URL-i. Vana link töötab edasi, aga ei näita muudatusi, seega uuenda kindlasti lingid ja veebividinad.",
+    "Default payment type": "Vaikimisi makse tüüp",
+    "By default, one-time payment is pre-selected. Enable this option to make recurring (monthly) payment the default choice for donors. Donors can still switch to one-time payment.": "Vaikimisi on valitud ühekordne makse. Luba see valik, et püsiannetus (igakuine makse) oleks annetajatele vaikimisi eelvalitud. Annetajad saavad endiselt valida ka ühekordse annetuse.",
+    "Set recurring payment as the default option": "Määra püsiannetus vaikimisi valikuks"
 }

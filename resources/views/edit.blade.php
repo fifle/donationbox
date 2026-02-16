@@ -377,6 +377,41 @@
                                 </div>
                             </div>
                             @endif
+
+                            <div class="mb-5">
+                                <div class="rounded-md -space-y-px">
+                                    <div class="grid gap-6">
+                                        <div class="col-span-12">
+                                            <label for="rec" class="d-font font-semibold text-gray-700
+                                                        block mb-2">@lang("Default payment type")
+                                            </label>
+                                            <div class="tracking-normal text-sm text-gray-500 mb-3
+                                                        leading-tight">
+                                                @lang("By default, one-time payment is pre-selected. Enable this option to make recurring (monthly) payment the default choice for donors. Donors can still switch to one-time payment.")
+                                            </div>
+                                            <div class="flex items-start mb-2">
+                                                <div class="flex items-center h-5">
+                                                    <input
+                                                        form="generator"
+                                                        type="checkbox"
+                                                        id="rec"
+                                                        name="rec"
+                                                        value="1"
+                                                        {{ $rec ? 'checked' : '' }}
+                                                        class="w-5 h-5
+                                                       bg-red-100 border-red-300 text-red-500 focus:ring-red-200"/>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="rec" class="d-font text-gray-900
+                                                    dark:text-gray-300">
+                                                        @lang("Set recurring payment as the default option")
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- Step 4 -->
                         <div x-show="step === 4"
@@ -980,6 +1015,9 @@
                                     @endif
                                     @if($coopt)
                                         <input type="hidden" name="coopt" value="1">
+                                    @endif
+                                    @if($rec)
+                                        <input type="hidden" name="rec" value="1">
                                     @endif
                                     @if(request()->has('locale'))
                                         <input type="hidden" name="locale" value="{{ request()->input('locale') }}">

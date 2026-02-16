@@ -279,5 +279,8 @@
     "Get your updated link": "Gaukite atnaujintą nuorodą",
     "After you save, you'll get a new URL. Replace any shared links or embedded widgets with the new address.": "Išsaugoję gausite naują URL. Pakeiskite visas pasidalintas nuorodas ir svetainėje įterptus valdiklius nauju adresu.",
     "Important": "Svarbu",
-    "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.": "Redagavimas sukuria naują URL. Senoji nuoroda veiks ir toliau, bet joje neatsispindės pakeitimai, todėl būtinai atnaujinkite nuorodas ir svetainės valdiklius."
+    "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.": "Redagavimas sukuria naują URL. Senoji nuoroda veiks ir toliau, bet joje neatsispindės pakeitimai, todėl būtinai atnaujinkite nuorodas ir svetainės valdiklius.",
+    "Default payment type": "Numatytasis mokėjimo tipas",
+    "By default, one-time payment is pre-selected. Enable this option to make recurring (monthly) payment the default choice for donors. Donors can still switch to one-time payment.": "Pagal numatytuosius nustatymus pasirinktas vienkartinis mokėjimas. Įjunkite šią parinktį, kad pasikartojantis (mėnesinis) mokėjimas būtų numatytasis pasirinkimas aukotojams. Auka vis tiek galės perjungti į vienkartinį mokėjimą.",
+    "Set recurring payment as the default option": "Nustatyti pasikartojantį mokėjimą kaip numatytąją parinktį"
 }

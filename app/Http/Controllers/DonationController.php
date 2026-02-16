@@ -49,6 +49,7 @@ class DonationController extends Controller
             // Use directly without rawurlencode for internal logic
             $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
             $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
+            $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : false;
 
             // Custom sums setup (default: 10, 25, 50)
             $defsum = 10;
@@ -182,6 +183,10 @@ class DonationController extends Controller
                 $compactData['recurring'] = 'recurring';
             }
 
+            if (isset($rec)) {
+                $compactData['rec'] = 'rec';
+            }
+
             // Check if any payment method is available (no payment methods = show error + edit button)
             $hasInternetBankOneTime = $onetime && $request->filled('iban') && (
                 !$request->boolean('swt') ||
@@ -249,6 +254,7 @@ class DonationController extends Controller
         // Use directly without rawurlencode for internal logic
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
         $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
+        $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : false;
 
             // custom sums (default: 10, 25, 50)
             $defsum = 10;
@@ -366,6 +372,10 @@ class DonationController extends Controller
                 $compactData['recurring'] = 'recurring';
             }
 
+            if (isset($rec)) {
+                $compactData['rec'] = 'rec';
+            }
+
             // Check if any payment method is available (no payment methods = show error + edit button)
             $hasInternetBankOneTime = $onetime && $request->filled('iban') && (
                 !$request->boolean('swt') ||
@@ -434,6 +444,7 @@ class DonationController extends Controller
         // Use directly without rawurlencode for internal logic
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
         $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
+        $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : false;
 
         // custom sums (default: 10, 25, 50)
         $defsum = 10;
@@ -543,6 +554,10 @@ class DonationController extends Controller
             $compactData['recurring'] = 'recurring';
         }
 
+        if (isset($rec)) {
+            $compactData['rec'] = 'rec';
+        }
+
         return view("cashier", compact($compactData));
     }
 
@@ -584,6 +599,7 @@ class DonationController extends Controller
         // Use directly without rawurlencode for internal logic
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
         $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
+        $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : false;
 
         if ($request->input('action') == 'cashier') {
             $fullLink = url()->full();
@@ -611,6 +627,7 @@ class DonationController extends Controller
             'paypalClientId',
             'onetime',
             'recurring',
+            'rec',
 
             'qrcode',
             'link',
@@ -632,6 +649,7 @@ class DonationController extends Controller
             'paypalClientId' => $paypalClientId,
             'onetime' => $onetime,
             'recurring' => $recurring,
+            'rec' => $rec,
             'strp' => $strp,
 
             'qrcode' => $qrcode,
@@ -708,6 +726,7 @@ class DonationController extends Controller
         $swt = isset($params['swt']) && filter_var($params['swt'], FILTER_VALIDATE_BOOLEAN);
         $lhvt = isset($params['lhvt']) && filter_var($params['lhvt'], FILTER_VALIDATE_BOOLEAN);
         $coopt = isset($params['coopt']) && filter_var($params['coopt'], FILTER_VALIDATE_BOOLEAN);
+        $rec = isset($params['rec']) && filter_var($params['rec'], FILTER_VALIDATE_BOOLEAN);
         
         // Determine which payment methods are enabled based on parameters
         $hasSwedbank = !$swt;
@@ -725,9 +744,10 @@ class DonationController extends Controller
         $originalUrl = $url;
 
         return view('edit', compact(
-            'campaign_title', 'detail', 'payee', 'iban', 'pp', 'db', 
+            'campaign_title', 'detail', 'payee', 'iban', 'pp', 'db',
             'sebuid', 'sebuid_st', 'rev', 'strp', 'paypalClientId', 'pphb',
             's1', 's2', 's3', 's0', 'tax', 'swt', 'lhvt', 'coopt',
+            'rec',
             'hasSwedbank', 'hasSEB', 'hasLHV', 'hasCoop', 'hasStripe',
             'hasPaypalBusiness', 'hasDonorbox', 'hasPaypalMe', 'hasRevolut',
             'hasPaypalHostedButton', 'originalUrl'

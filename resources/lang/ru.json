@@ -284,5 +284,8 @@
     "Get your updated link": "Получите обновлённую ссылку",
     "After you save, you'll get a new URL. Replace any shared links or embedded widgets with the new address.": "После сохранения вы получите новый URL. Обновите все ранее опубликованные ссылки и встроенные виджеты.",
     "Important": "Важно",
-    "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.": "При редактировании создаётся новый URL. Старая ссылка продолжит работать, но не будет показывать изменения, поэтому замените ссылки и виджеты на сайте."
+    "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.": "При редактировании создаётся новый URL. Старая ссылка продолжит работать, но не будет показывать изменения, поэтому замените ссылки и виджеты на сайте.",
+    "Default payment type": "Тип платежа по умолчанию",
+    "By default, one-time payment is pre-selected. Enable this option to make recurring (monthly) payment the default choice for donors. Donors can still switch to one-time payment.": "По умолчанию выбран разовый платёж. Включите эту опцию, чтобы регулярный (ежемесячный) платёж был выбран по умолчанию. Доноры по-прежнему смогут переключиться на разовый платёж.",
+    "Set recurring payment as the default option": "Сделать регулярный платёж выбором по умолчанию"
 }

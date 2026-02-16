@@ -81,5 +81,8 @@
     "Get your updated link": "Get your updated link",
     "After you save, you'll get a new URL. Replace any shared links or embedded widgets with the new address.": "After you save, you'll get a new URL. Replace any shared links or embedded widgets with the new address.",
     "Important": "Important",
-    "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.": "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets."
+    "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.": "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.",
+    "Default payment type": "Default payment type",
+    "By default, one-time payment is pre-selected. Enable this option to make recurring (monthly) payment the default choice for donors. Donors can still switch to one-time payment.": "By default, one-time payment is pre-selected. Enable this option to make recurring (monthly) payment the default choice for donors. Donors can still switch to one-time payment.",
+    "Set recurring payment as the default option": "Set recurring payment as the default option"
 }
