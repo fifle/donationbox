@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PaymentUrlExtractor;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -29,19 +30,20 @@ class DonationController extends Controller
             $detail = rawurlencode($request->input('detail'));
             $payee = rawurlencode($request->input('payee'));
             $iban = rawurlencode($request->input('iban'));
-            $pp = rawurlencode($request->input('pp'));
-            $db = rawurlencode($request->input('db'));
-            $sebuid = rawurlencode($request->input('sebuid')); // UID for One-time payments for SEB
-            $sebuid_st = rawurlencode($request->input('sebuid_st')); // UID for Standing orders for SEB
-            $rev = rawurlencode($request->input('rev'));
+            // Extract identifiers from full URLs that users may have pasted
+            $pp = rawurlencode(PaymentUrlExtractor::extractPaypalMe($request->input('pp')));
+            $db = rawurlencode(PaymentUrlExtractor::extractDonorbox($request->input('db')));
+            $sebuid = rawurlencode(PaymentUrlExtractor::extractSebUid($request->input('sebuid'))); // UID for One-time payments for SEB
+            $sebuid_st = rawurlencode(PaymentUrlExtractor::extractSebUid($request->input('sebuid_st'))); // UID for Standing orders for SEB
+            $rev = rawurlencode(PaymentUrlExtractor::extractRevolut($request->input('rev')));
             $tax = rawurlencode($request->boolean('tax'));
             $swt = rawurlencode($request->boolean('swt'));
             $lhvt = rawurlencode($request->boolean('lhvt'));
             $coopt = rawurlencode($request->boolean('coopt'));
             // PayPal hosted button
-            $pphb = rawurlencode($request->input('pphb'));
+            $pphb = rawurlencode(PaymentUrlExtractor::extractPaypalHostedButton($request->input('pphb')));
             // Stripe payment link id
-            $strp = rawurlencode($request->input('strp'));
+            $strp = rawurlencode(PaymentUrlExtractor::extractStripe($request->input('strp')));
             $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
             // Use directly without rawurlencode for internal logic
@@ -230,17 +232,18 @@ class DonationController extends Controller
             $detail = rawurlencode($request->input('detail'));
             $payee = rawurlencode($request->input('payee'));
             $iban = rawurlencode($request->input('iban'));
-            $pp = rawurlencode($request->input('pp'));
-            $db = rawurlencode($request->input('db'));
-            $sebuid = rawurlencode($request->input('sebuid'));
-            $sebuid_st = rawurlencode($request->input('sebuid_st')); // SEB standing orders
-            $rev = rawurlencode($request->input('rev'));
+            // Extract identifiers from full URLs that users may have pasted
+            $pp = rawurlencode(PaymentUrlExtractor::extractPaypalMe($request->input('pp')));
+            $db = rawurlencode(PaymentUrlExtractor::extractDonorbox($request->input('db')));
+            $sebuid = rawurlencode(PaymentUrlExtractor::extractSebUid($request->input('sebuid')));
+            $sebuid_st = rawurlencode(PaymentUrlExtractor::extractSebUid($request->input('sebuid_st'))); // SEB standing orders
+            $rev = rawurlencode(PaymentUrlExtractor::extractRevolut($request->input('rev')));
             $tax = rawurlencode($request->boolean('tax'));
             $swt = rawurlencode($request->boolean('swt')); // Swed turn off
             $lhvt = rawurlencode($request->boolean('lhvt')); // LHV turn off
             $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
-            $pphb = rawurlencode($request->input('pphb')); // Paypal Hosted Button
-            $strp = rawurlencode($request->input('strp')); // Stripe
+            $pphb = rawurlencode(PaymentUrlExtractor::extractPaypalHostedButton($request->input('pphb'))); // Paypal Hosted Button
+            $strp = rawurlencode(PaymentUrlExtractor::extractStripe($request->input('strp'))); // Stripe
             $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
         // Use directly without rawurlencode for internal logic
@@ -413,18 +416,19 @@ class DonationController extends Controller
         $detail = $request->input('detail');
         $payee = $request->input('payee');
         $iban = rawurlencode($request->input('iban'));
-        $pp = rawurlencode($request->input('pp'));
-        $db = rawurlencode($request->input('db'));
-        $sebuid = rawurlencode($request->input('sebuid'));
-        $sebuid_st = rawurlencode($request->input('sebuid_st')); // SEB standing orders
-        $rev = rawurlencode($request->input('rev'));
+        // Extract identifiers from full URLs that users may have pasted
+        $pp = rawurlencode(PaymentUrlExtractor::extractPaypalMe($request->input('pp')));
+        $db = rawurlencode(PaymentUrlExtractor::extractDonorbox($request->input('db')));
+        $sebuid = rawurlencode(PaymentUrlExtractor::extractSebUid($request->input('sebuid')));
+        $sebuid_st = rawurlencode(PaymentUrlExtractor::extractSebUid($request->input('sebuid_st'))); // SEB standing orders
+        $rev = rawurlencode(PaymentUrlExtractor::extractRevolut($request->input('rev')));
         $tax = rawurlencode($request->boolean('tax'));
         $swt = rawurlencode($request->boolean('swt')); // Swed turn off
         $lhvt = rawurlencode($request->boolean('lhvt')); // LHV turn off
         $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
-        $pphb = rawurlencode($request->input('pphb')); // Paypal Hosted Button
+        $pphb = rawurlencode(PaymentUrlExtractor::extractPaypalHostedButton($request->input('pphb'))); // Paypal Hosted Button
         // Stripe payment link id
-        $strp = rawurlencode($request->input('strp'));
+        $strp = rawurlencode(PaymentUrlExtractor::extractStripe($request->input('strp')));
         $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
         // Use directly without rawurlencode for internal logic
@@ -563,17 +567,18 @@ class DonationController extends Controller
         $detail = rawurlencode($request->input('detail'));
         $payee = rawurlencode($request->input('payee'));
         $iban = rawurlencode($request->input('iban'));
-        $pp = rawurlencode($request->input('pp'));
-        $db = rawurlencode($request->input('db'));
-        $sebuid = rawurlencode($request->input('sebuid'));
-        $sebuid_st = rawurlencode($request->input('sebuid_st'));
-        $rev = rawurlencode($request->input('rev'));
+        // Extract identifiers from full URLs that users may have pasted
+        $pp = rawurlencode(PaymentUrlExtractor::extractPaypalMe($request->input('pp')));
+        $db = rawurlencode(PaymentUrlExtractor::extractDonorbox($request->input('db')));
+        $sebuid = rawurlencode(PaymentUrlExtractor::extractSebUid($request->input('sebuid')));
+        $sebuid_st = rawurlencode(PaymentUrlExtractor::extractSebUid($request->input('sebuid_st')));
+        $rev = rawurlencode(PaymentUrlExtractor::extractRevolut($request->input('rev')));
         $amount = rawurlencode($request->input('s0'));
         $ik = " " . rawurlencode($request->input('taxik'));
         // paypal hosted button
-        $pphb = rawurlencode($request->input('pphb'));
+        $pphb = rawurlencode(PaymentUrlExtractor::extractPaypalHostedButton($request->input('pphb')));
         // Stripe payment link id
-        $strp = rawurlencode($request->input('strp'));
+        $strp = rawurlencode(PaymentUrlExtractor::extractStripe($request->input('strp')));
         $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
 
         // Use directly without rawurlencode for internal logic
@@ -684,6 +689,15 @@ class DonationController extends Controller
         $strp = isset($params['strp']) ? urldecode($params['strp']) : '';
         $paypalClientId = isset($params['paypalClientId']) ? urldecode($params['paypalClientId']) : '';
         $pphb = isset($params['pphb']) ? urldecode($params['pphb']) : '';
+
+        // Extract identifiers from full URLs that users may have pasted into existing donationboxes
+        $pp = PaymentUrlExtractor::extractPaypalMe($pp);
+        $db = PaymentUrlExtractor::extractDonorbox($db);
+        $sebuid = PaymentUrlExtractor::extractSebUid($sebuid);
+        $sebuid_st = PaymentUrlExtractor::extractSebUid($sebuid_st);
+        $rev = PaymentUrlExtractor::extractRevolut($rev);
+        $strp = PaymentUrlExtractor::extractStripe($strp);
+        $pphb = PaymentUrlExtractor::extractPaypalHostedButton($pphb);
         $s1 = isset($params['s1']) ? urldecode($params['s1']) : '';
         $s2 = isset($params['s2']) ? urldecode($params['s2']) : '';
         $s3 = isset($params['s3']) ? urldecode($params['s3']) : '';

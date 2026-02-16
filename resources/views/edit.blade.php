@@ -1072,6 +1072,137 @@
             step: 1,
         }
     }
+
+    /**
+     * Payment URL extraction: detects when users paste full URLs into payment provider
+     * fields and auto-extracts the needed identifier/slug/username.
+     */
+    (function() {
+        var extractionRules = {
+            'db': {
+                pattern: /(?:https?:\/\/)?(?:www\.)?donorbox\.org\/([^\/?&#]+)/i,
+                label: 'Donorbox',
+                prefix: 'donorbox.org/'
+            },
+            'pp': {
+                pattern: /(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?&#]+)/i,
+                label: 'PayPal.me',
+                prefix: 'paypal.me/'
+            },
+            'strp': {
+                pattern: /(?:https?:\/\/)?(?:buy|donate)\.stripe\.com\/([^\/?&#]+)/i,
+                label: 'Stripe',
+                prefix: ''
+            },
+            'rev': {
+                pattern: /(?:https?:\/\/)?(?:www\.)?revolut\.me\/([^\/?&#]+)/i,
+                label: 'Revolut.me',
+                prefix: 'revolut.me/'
+            },
+            'pphb': {
+                pattern: /(?:https?:\/\/)?(?:www\.)?paypal\.com\/donate\/?.*[?&]hosted_button_id=([^&#]+)/i,
+                label: 'PayPal Hosted Button',
+                prefix: ''
+            },
+            'sebuid': {
+                pattern: /([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i,
+                label: 'SEB UID',
+                prefix: '',
+                onlyIfUrl: true
+            },
+            'sebuid_st': {
+                pattern: /([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i,
+                label: 'SEB UID',
+                prefix: '',
+                onlyIfUrl: true
+            }
+        };
+
+        function looksLikeUrl(value) {
+            return /^https?:\/\//i.test(value.trim()) || /^[a-z]+\.[a-z]+\//i.test(value.trim());
+        }
+
+        function tryExtract(inputName, value) {
+            var rule = extractionRules[inputName];
+            if (!rule) return null;
+
+            value = value.trim();
+            if (!value) return null;
+
+            // For SEB UIDs, only extract if the value looks like a URL
+            if (rule.onlyIfUrl && !looksLikeUrl(value)) return null;
+
+            // If it doesn't look like a URL at all, no extraction needed
+            if (!looksLikeUrl(value) && !value.match(rule.pattern)) return null;
+            if (!looksLikeUrl(value)) return null;
+
+            var match = value.match(rule.pattern);
+            if (match && match[1]) {
+                return match[1];
+            }
+            return null;
+        }
+
+        function showExtractNotice(input, extracted, label) {
+            // Remove any existing notice
+            var existingNotice = input.parentElement.querySelector('.url-extract-notice');
+            if (existingNotice) existingNotice.remove();
+
+            if (!extracted) return;
+
+            var notice = document.createElement('div');
+            notice.className = 'url-extract-notice text-xs mt-1 p-2 rounded-md bg-blue-50 border border-blue-200 text-blue-700';
+            notice.innerHTML = '<strong>@lang("Auto-corrected:")' +
+                '</strong> @lang("Full URL detected. Extracted identifier:") <code class="font-mono bg-blue-100 px-1 rounded">' +
+                extracted + '</code>';
+            input.parentElement.appendChild(notice);
+        }
+
+        function attachExtractor(inputName) {
+            var inputs = document.querySelectorAll('input[name="' + inputName + '"]');
+            inputs.forEach(function(input) {
+                // Check on page load (for existing values from edit URL)
+                if (input.value) {
+                    var extracted = tryExtract(inputName, input.value);
+                    if (extracted) {
+                        input.value = extracted;
+                        showExtractNotice(input, extracted, extractionRules[inputName].label);
+                    }
+                }
+
+                // Check on paste and input events
+                input.addEventListener('paste', function(e) {
+                    var self = this;
+                    // Delay to allow paste to complete
+                    setTimeout(function() {
+                        var extracted = tryExtract(inputName, self.value);
+                        if (extracted) {
+                            self.value = extracted;
+                            showExtractNotice(self, extracted, extractionRules[inputName].label);
+                        }
+                    }, 50);
+                });
+
+                input.addEventListener('change', function() {
+                    var extracted = tryExtract(inputName, this.value);
+                    if (extracted) {
+                        this.value = extracted;
+                        showExtractNotice(this, extracted, extractionRules[inputName].label);
+                    } else {
+                        var existingNotice = this.parentElement.querySelector('.url-extract-notice');
+                        if (existingNotice) existingNotice.remove();
+                    }
+                });
+            });
+        }
+
+        // Attach extractors to all payment provider input fields
+        document.addEventListener('DOMContentLoaded', function() {
+            Object.keys(extractionRules).forEach(function(inputName) {
+                attachExtractor(inputName);
+            });
+        });
+    })();
 </script>
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PaymentUrlExtractor;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -20,22 +21,23 @@ class RedirectController extends Controller
         $payee = rawurldecode($request->input('payee'));
         // IBAN number of the payee's bank account
         $iban = rawurldecode($request->input('iban'));
+        // Extract identifiers from full URLs (safety net for existing donationboxes with pasted URLs)
         // PayPal.me ID
-        $pp = rawurldecode($request->input('pp'));
+        $pp = PaymentUrlExtractor::extractPaypalMe(rawurldecode($request->input('pp')));
         // Donorbox campaign ID
-        $db = rawurldecode($request->input('db'));
+        $db = PaymentUrlExtractor::extractDonorbox(rawurldecode($request->input('db')));
         // SEB UID for one-time payments
-        $sebuid = rawurldecode($request->input('sebuid'));
+        $sebuid = PaymentUrlExtractor::extractSebUid(rawurldecode($request->input('sebuid')));
         // SEB UID for standing payments
-        $sebuid_st = rawurldecode($request->input('sebuid_st'));
+        $sebuid_st = PaymentUrlExtractor::extractSebUid(rawurldecode($request->input('sebuid_st')));
         // Revolut id
-        $rev = rawurldecode($request->input('rev'));
+        $rev = PaymentUrlExtractor::extractRevolut(rawurldecode($request->input('rev')));
         // Donor's personal code
         $ik = " " . rawurldecode($request->input('taxik'));
         // PayPal hosted button
-        $pphb = rawurldecode($request->input('pphb'));
+        $pphb = PaymentUrlExtractor::extractPaypalHostedButton(rawurldecode($request->input('pphb')));
         // Stripe payment link id
-        $strp = rawurldecode($request->input("strp"));
+        $strp = PaymentUrlExtractor::extractStripe(rawurldecode($request->input("strp")));
 
         // Current logic for presetting the starting donation amount
         $s0 = rawurldecode($request->input('s0'));
