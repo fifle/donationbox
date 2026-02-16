@@ -279,5 +279,8 @@
     "Get your updated link": "Saņemiet atjauninātu saiti",
     "After you save, you'll get a new URL. Replace any shared links or embedded widgets with the new address.": "Pēc saglabāšanas jūs saņemsiet jaunu URL. Atjauniniet visas kopīgotās saites un vietnē iebūvētos logrīkus ar jauno adresi.",
     "Important": "Svarīgi",
-    "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.": "Rediģēšana izveido jaunu URL. Vecā saite turpinās darboties, bet tajā nebūs redzamas izmaiņas, tāpēc atjauniniet saites un vietnes logrīkus."
+    "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.": "Rediģēšana izveido jaunu URL. Vecā saite turpinās darboties, bet tajā nebūs redzamas izmaiņas, tāpēc atjauniniet saites un vietnes logrīkus.",
+    "Default payment type": "Noklusējuma maksājuma veids",
+    "By default, one-time payment is pre-selected. Enable this option to make recurring (monthly) payment the default choice for donors. Donors can still switch to one-time payment.": "Pēc noklusējuma ir izvēlēts vienreizējs maksājums. Iespējojiet šo opciju, lai atkārtots (ikmēneša) maksājums būtu ziedotājiem noklusējuma izvēle. Ziedotāji joprojām varēs pārslēgties uz vienreizēju maksājumu.",
+    "Set recurring payment as the default option": "Iestatīt atkārtotu maksājumu kā noklusējuma opciju"
 }
