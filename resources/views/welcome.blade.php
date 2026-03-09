@@ -1429,42 +1429,43 @@ body.home-page-body {
         var extractionRules = {
             'db': {
                 pattern: /(?:https?:\/\/)?(?:www\.)?donorbox\.org\/([^\/?&#]+)/i,
-                label: 'Donorbox',
-                prefix: 'donorbox.org/'
+                label: 'Donorbox'
             },
             'pp': {
                 pattern: /(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?&#]+)/i,
-                label: 'PayPal.me',
-                prefix: 'paypal.me/'
+                label: 'PayPal.me'
             },
             'strp': {
                 pattern: /(?:https?:\/\/)?(?:buy|donate)\.stripe\.com\/([^\/?&#]+)/i,
-                label: 'Stripe',
-                prefix: ''
+                label: 'Stripe'
             },
             'rev': {
                 pattern: /(?:https?:\/\/)?(?:www\.)?revolut\.me\/([^\/?&#]+)/i,
-                label: 'Revolut.me',
-                prefix: 'revolut.me/'
+                label: 'Revolut.me'
             },
             'pphb': {
                 pattern: /(?:https?:\/\/)?(?:www\.)?paypal\.com\/donate\/?.*[?&]hosted_button_id=([^&#]+)/i,
-                label: 'PayPal Hosted Button',
-                prefix: ''
+                label: 'PayPal Hosted Button'
             },
             'sebuid': {
                 pattern: /([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i,
                 label: 'SEB UID',
-                prefix: '',
                 onlyIfUrl: true
             },
             'sebuid_st': {
                 pattern: /([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i,
                 label: 'SEB UID',
-                prefix: '',
                 onlyIfUrl: true
             }
         };
+
+        var crossFieldProviders = [
+            { pattern: /(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?&#]+)/i, targetField: 'pp', label: 'PayPal.me' },
+            { pattern: /(?:https?:\/\/)?(?:www\.)?paypal\.com\/donate\/?.*[?&]hosted_button_id=([^&#]+)/i, targetField: 'pphb', label: 'PayPal Hosted Button' },
+            { pattern: /(?:https?:\/\/)?(?:www\.)?donorbox\.org\/([^\/?&#]+)/i, targetField: 'db', label: 'Donorbox' },
+            { pattern: /(?:https?:\/\/)?(?:buy|donate)\.stripe\.com\/([^\/?&#]+)/i, targetField: 'strp', label: 'Stripe' },
+            { pattern: /(?:https?:\/\/)?(?:www\.)?revolut\.me\/([^\/?&#]+)/i, targetField: 'rev', label: 'Revolut.me' }
+        ];
 
         function looksLikeUrl(value) {
             return /^https?:\/\//i.test(value.trim()) || /^[a-z]+\.[a-z]+\//i.test(value.trim());
@@ -1487,6 +1488,17 @@ body.home-page-body {
             return null;
         }
 
+        function detectProvider(value) {
+            if (!value || !looksLikeUrl(value)) return null;
+            for (var i = 0; i < crossFieldProviders.length; i++) {
+                var match = value.match(crossFieldProviders[i].pattern);
+                if (match && match[1]) {
+                    return { targetField: crossFieldProviders[i].targetField, value: match[1], label: crossFieldProviders[i].label };
+                }
+            }
+            return null;
+        }
+
         function showExtractNotice(input, extracted, label) {
             var existingNotice = input.parentElement.querySelector('.url-extract-notice');
             if (existingNotice) existingNotice.remove();
@@ -1498,6 +1510,18 @@ body.home-page-body {
             notice.innerHTML = '<strong>@lang("Auto-corrected:")' +
                 '</strong> @lang("Full URL detected. Extracted identifier:") <code class="font-mono bg-blue-100 px-1 rounded">' +
                 extracted + '</code>';
+            input.parentElement.appendChild(notice);
+        }
+
+        function showRerouteNotice(input, extracted, targetLabel) {
+            var existingNotice = input.parentElement.querySelector('.url-extract-notice');
+            if (existingNotice) existingNotice.remove();
+
+            var notice = document.createElement('div');
+            notice.className = 'url-extract-notice text-xs mt-1 p-2 rounded-md bg-amber-50 border border-amber-200 text-amber-700';
+            notice.innerHTML = '<strong>@lang("Auto-corrected:")</strong> ' +
+                '@lang("This looks like a") ' + targetLabel + ' @lang("link. The value") <code class="font-mono bg-amber-100 px-1 rounded">' +
+                extracted + '</code> @lang("has been moved to the correct field.")';
             input.parentElement.appendChild(notice);
         }
 
@@ -1528,10 +1552,47 @@ body.home-page-body {
             });
         }
 
+        function attachCrossFieldDetector(inputName) {
+            var inputs = document.querySelectorAll('input[name="' + inputName + '"]');
+            inputs.forEach(function(input) {
+                function handleCrossField(value) {
+                    var detected = detectProvider(value);
+                    if (!detected) return false;
+
+                    var targetInputs = document.querySelectorAll('input[name="' + detected.targetField + '"]');
+                    targetInputs.forEach(function(targetInput) {
+                        if (!targetInput.value) {
+                            targetInput.value = detected.value;
+                            showExtractNotice(targetInput, detected.value, detected.label);
+                        }
+                    });
+
+                    input.value = '';
+                    showRerouteNotice(input, detected.value, detected.label);
+                    return true;
+                }
+
+                input.addEventListener('paste', function(e) {
+                    var self = this;
+                    setTimeout(function() {
+                        handleCrossField(self.value);
+                    }, 50);
+                });
+
+                input.addEventListener('change', function() {
+                    if (!handleCrossField(this.value)) {
+                        var existingNotice = this.parentElement.querySelector('.url-extract-notice');
+                        if (existingNotice) existingNotice.remove();
+                    }
+                });
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             Object.keys(extractionRules).forEach(function(inputName) {
                 attachExtractor(inputName);
             });
+            attachCrossFieldDetector('paypalClientId');
         });
     })();
 </script>

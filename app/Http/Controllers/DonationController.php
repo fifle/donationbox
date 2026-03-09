@@ -44,7 +44,22 @@ class DonationController extends Controller
             $pphb = rawurlencode(PaymentUrlExtractor::extractPaypalHostedButton($request->input('pphb')));
             // Stripe payment link id
             $strp = rawurlencode(PaymentUrlExtractor::extractStripe($request->input('strp')));
-            $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
+            $paypalClientId = $request->input('paypalClientId');
+            // Detect if paypalClientId contains a payment URL pasted in the wrong field
+            $paypalClientIdDetected = PaymentUrlExtractor::extractPaypalClientId($paypalClientId);
+            if ($paypalClientIdDetected !== null) {
+                $targetField = $paypalClientIdDetected['provider'];
+                $targetValue = rawurlencode($paypalClientIdDetected['value']);
+                // Reroute to correct field if that field is empty
+                if ($targetField === 'pp' && empty(rawurldecode($pp))) { $pp = $targetValue; }
+                elseif ($targetField === 'pphb' && empty(rawurldecode($pphb))) { $pphb = $targetValue; }
+                elseif ($targetField === 'db' && empty(rawurldecode($db))) { $db = $targetValue; }
+                elseif ($targetField === 'strp' && empty(rawurldecode($strp))) { $strp = $targetValue; }
+                elseif ($targetField === 'rev' && empty(rawurldecode($rev))) { $rev = $targetValue; }
+                $paypalClientId = rawurlencode('');
+            } else {
+                $paypalClientId = rawurlencode($paypalClientId);
+            }
 
             // Use directly without rawurlencode for internal logic
             $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
@@ -249,7 +264,21 @@ class DonationController extends Controller
             $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
             $pphb = rawurlencode(PaymentUrlExtractor::extractPaypalHostedButton($request->input('pphb'))); // Paypal Hosted Button
             $strp = rawurlencode(PaymentUrlExtractor::extractStripe($request->input('strp'))); // Stripe
-            $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
+            $paypalClientId = $request->input('paypalClientId');
+            // Detect if paypalClientId contains a payment URL pasted in the wrong field
+            $paypalClientIdDetected = PaymentUrlExtractor::extractPaypalClientId($paypalClientId);
+            if ($paypalClientIdDetected !== null) {
+                $targetField = $paypalClientIdDetected['provider'];
+                $targetValue = rawurlencode($paypalClientIdDetected['value']);
+                if ($targetField === 'pp' && empty(rawurldecode($pp))) { $pp = $targetValue; }
+                elseif ($targetField === 'pphb' && empty(rawurldecode($pphb))) { $pphb = $targetValue; }
+                elseif ($targetField === 'db' && empty(rawurldecode($db))) { $db = $targetValue; }
+                elseif ($targetField === 'strp' && empty(rawurldecode($strp))) { $strp = $targetValue; }
+                elseif ($targetField === 'rev' && empty(rawurldecode($rev))) { $rev = $targetValue; }
+                $paypalClientId = rawurlencode('');
+            } else {
+                $paypalClientId = rawurlencode($paypalClientId);
+            }
 
         // Use directly without rawurlencode for internal logic
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
@@ -439,7 +468,21 @@ class DonationController extends Controller
         $pphb = rawurlencode(PaymentUrlExtractor::extractPaypalHostedButton($request->input('pphb'))); // Paypal Hosted Button
         // Stripe payment link id
         $strp = rawurlencode(PaymentUrlExtractor::extractStripe($request->input('strp')));
-        $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
+        $paypalClientId = $request->input('paypalClientId');
+        // Detect if paypalClientId contains a payment URL pasted in the wrong field
+        $paypalClientIdDetected = PaymentUrlExtractor::extractPaypalClientId($paypalClientId);
+        if ($paypalClientIdDetected !== null) {
+            $targetField = $paypalClientIdDetected['provider'];
+            $targetValue = rawurlencode($paypalClientIdDetected['value']);
+            if ($targetField === 'pp' && empty(rawurldecode($pp))) { $pp = $targetValue; }
+            elseif ($targetField === 'pphb' && empty(rawurldecode($pphb))) { $pphb = $targetValue; }
+            elseif ($targetField === 'db' && empty(rawurldecode($db))) { $db = $targetValue; }
+            elseif ($targetField === 'strp' && empty(rawurldecode($strp))) { $strp = $targetValue; }
+            elseif ($targetField === 'rev' && empty(rawurldecode($rev))) { $rev = $targetValue; }
+            $paypalClientId = rawurlencode('');
+        } else {
+            $paypalClientId = rawurlencode($paypalClientId);
+        }
 
         // Use directly without rawurlencode for internal logic
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
@@ -594,7 +637,21 @@ class DonationController extends Controller
         $pphb = rawurlencode(PaymentUrlExtractor::extractPaypalHostedButton($request->input('pphb')));
         // Stripe payment link id
         $strp = rawurlencode(PaymentUrlExtractor::extractStripe($request->input('strp')));
-        $paypalClientId = rawurlencode($request->input('paypalClientId')); // Paypal Hosted Button
+        $paypalClientId = $request->input('paypalClientId');
+        // Detect if paypalClientId contains a payment URL pasted in the wrong field
+        $paypalClientIdDetected = PaymentUrlExtractor::extractPaypalClientId($paypalClientId);
+        if ($paypalClientIdDetected !== null) {
+            $targetField = $paypalClientIdDetected['provider'];
+            $targetValue = rawurlencode($paypalClientIdDetected['value']);
+            if ($targetField === 'pp' && empty(rawurldecode($pp))) { $pp = $targetValue; }
+            elseif ($targetField === 'pphb' && empty(rawurldecode($pphb))) { $pphb = $targetValue; }
+            elseif ($targetField === 'db' && empty(rawurldecode($db))) { $db = $targetValue; }
+            elseif ($targetField === 'strp' && empty(rawurldecode($strp))) { $strp = $targetValue; }
+            elseif ($targetField === 'rev' && empty(rawurldecode($rev))) { $rev = $targetValue; }
+            $paypalClientId = rawurlencode('');
+        } else {
+            $paypalClientId = rawurlencode($paypalClientId);
+        }
 
         // Use directly without rawurlencode for internal logic
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
@@ -716,6 +773,18 @@ class DonationController extends Controller
         $rev = PaymentUrlExtractor::extractRevolut($rev);
         $strp = PaymentUrlExtractor::extractStripe($strp);
         $pphb = PaymentUrlExtractor::extractPaypalHostedButton($pphb);
+
+        // Detect if paypalClientId contains a payment URL pasted in the wrong field
+        $paypalClientIdDetected = PaymentUrlExtractor::extractPaypalClientId($paypalClientId);
+        if ($paypalClientIdDetected !== null) {
+            $targetField = $paypalClientIdDetected['provider'];
+            if ($targetField === 'pp' && empty($pp)) { $pp = $paypalClientIdDetected['value']; }
+            elseif ($targetField === 'pphb' && empty($pphb)) { $pphb = $paypalClientIdDetected['value']; }
+            elseif ($targetField === 'db' && empty($db)) { $db = $paypalClientIdDetected['value']; }
+            elseif ($targetField === 'strp' && empty($strp)) { $strp = $paypalClientIdDetected['value']; }
+            elseif ($targetField === 'rev' && empty($rev)) { $rev = $paypalClientIdDetected['value']; }
+            $paypalClientId = '';
+        }
         $s1 = isset($params['s1']) ? urldecode($params['s1']) : '';
         $s2 = isset($params['s2']) ? urldecode($params['s2']) : '';
         $s3 = isset($params['s3']) ? urldecode($params['s3']) : '';
