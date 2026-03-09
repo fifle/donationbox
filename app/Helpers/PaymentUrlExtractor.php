@@ -168,14 +168,109 @@ class PaymentUrlExtractor
     }
 
     /**
+     * Detect which payment provider a URL belongs to and extract its identifier.
+     * Used for cross-field detection (e.g., PayPal.me URL pasted into paypalClientId field).
+     *
+     * @param string|null $value
+     * @return array|null ['provider' => string, 'value' => string] or null if not a known URL
+     */
+    public static function detectProvider(?string $value): ?array
+    {
+        if (empty($value)) {
+            return null;
+        }
+
+        $value = trim($value);
+
+        // Only check values that look like URLs
+        if (!preg_match('~^https?://~i', $value) && !preg_match('~^[a-z]+\.[a-z]+/~i', $value)) {
+            return null;
+        }
+
+        // PayPal.me
+        if (preg_match('~(?:https?://)?(?:www\.)?paypal\.me/([^/?&#]+)~i', $value, $matches)) {
+            return ['provider' => 'pp', 'value' => $matches[1]];
+        }
+
+        // PayPal Hosted Button
+        if (preg_match('~(?:https?://)?(?:www\.)?paypal\.com/donate/?.*[?&]hosted_button_id=([^&#]+)~i', $value, $matches)) {
+            return ['provider' => 'pphb', 'value' => $matches[1]];
+        }
+
+        // Donorbox
+        if (preg_match('~(?:https?://)?(?:www\.)?donorbox\.org/([^/?&#]+)~i', $value, $matches)) {
+            return ['provider' => 'db', 'value' => $matches[1]];
+        }
+
+        // Stripe
+        if (preg_match('~(?:https?://)?(?:buy|donate)\.stripe\.com/([^/?&#]+)~i', $value, $matches)) {
+            return ['provider' => 'strp', 'value' => $matches[1]];
+        }
+
+        // Revolut
+        if (preg_match('~(?:https?://)?(?:www\.)?revolut\.me/([^/?&#]+)~i', $value, $matches)) {
+            return ['provider' => 'rev', 'value' => $matches[1]];
+        }
+
+        return null;
+    }
+
+    /**
+     * Check if a paypalClientId value contains a known payment URL instead of a real Client ID.
+     * If so, extract the provider and value so it can be rerouted to the correct field.
+     *
+     * @param string|null $value The raw paypalClientId value
+     * @return array|null ['provider' => 'pp'|'pphb'|..., 'value' => 'extracted_id'] or null
+     */
+    public static function extractPaypalClientId(?string $value): ?array
+    {
+        if (empty($value)) {
+            return null;
+        }
+
+        return self::detectProvider($value);
+    }
+
+    /**
      * Apply all extraction rules to a set of payment parameters.
      * This is the main entry point for sanitizing user input.
      *
-     * @param array $params Associative array with keys: pp, db, strp, rev, pphb, sebuid, sebuid_st
-     * @return array The same array with URL values extracted to their needed identifiers
+     * Handles two types of issues:
+     * 1. Full URLs pasted into the correct field (e.g., donorbox.org/slug in db field)
+     * 2. URLs pasted into the WRONG field (e.g., paypal.me/user in paypalClientId field)
+     *
+     * @param array $params Associative array with keys: pp, db, strp, rev, pphb, sebuid, sebuid_st, paypalClientId
+     * @return array The same array with URL values extracted and rerouted to correct fields
      */
     public static function extractAll(array $params): array
     {
+        // First, detect cross-field misplacements for paypalClientId
+        // Users commonly paste PayPal.me or other URLs into this field
+        if (!empty($params['paypalClientId'])) {
+            $detected = self::detectProvider($params['paypalClientId']);
+            if ($detected !== null) {
+                // The value is a recognized payment URL — move it to the correct field
+                // only if the correct field is empty (don't overwrite existing values)
+                if (empty($params[$detected['provider']])) {
+                    $params[$detected['provider']] = $detected['value'];
+                }
+                // Clear the paypalClientId since it contained a URL, not a Client ID
+                $params['paypalClientId'] = '';
+            }
+        }
+
+        // Also check pphb for PayPal.me URLs (users confuse the PayPal fields)
+        if (!empty($params['pphb'])) {
+            $detected = self::detectProvider($params['pphb']);
+            if ($detected !== null && $detected['provider'] !== 'pphb') {
+                if (empty($params[$detected['provider']])) {
+                    $params[$detected['provider']] = $detected['value'];
+                }
+                $params['pphb'] = '';
+            }
+        }
+
+        // Now apply same-field URL extraction for each provider field
         if (isset($params['pp'])) {
             $params['pp'] = self::extractPaypalMe($params['pp']);
         }
