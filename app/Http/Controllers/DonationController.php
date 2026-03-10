@@ -74,6 +74,7 @@ class DonationController extends Controller
             // Use directly without rawurlencode for internal logic
             $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
             $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
+            $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : false;
 
             // Custom sums setup (default: 10, 25, 50)
             $defsum = 10;
@@ -305,6 +306,7 @@ class DonationController extends Controller
         // Use directly without rawurlencode for internal logic
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
         $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
+        $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : false;
 
             // custom sums (default: 10, 25, 50)
             $defsum = 10;
@@ -427,199 +429,6 @@ class DonationController extends Controller
 
             $localOnly = $request->boolean('local_only');
             $compactData['localOnly'] = 'localOnly';
-
-            // Check if any payment method is available (no payment methods = show error + edit button)
-            // LHV and Coop are now available cross-country (EU IBAN support), not just ee
-            $hasInternetBankOneTime = $onetime && $request->filled('iban') && (
-                !$request->boolean('swt') ||
-                $request->filled('sebuid') ||
-                !$request->boolean('lhvt') ||
-                !$request->boolean('coopt')
-            );
-            $hasInternetBankRecurring = $recurring && $request->filled('iban') && (
-                !$request->boolean('swt') ||
-                $request->filled('sebuid_st') ||
-                !$request->boolean('lhvt') ||
-                !$request->boolean('coopt')
-            );
-            $hasOtherMethods = $request->filled('rev') || $request->filled('pp') || $request->filled('pphb') ||
-                $request->filled('db') || $request->filled('paypalClientId') || $request->filled('strp');
-            $hasPaymentMethods = $hasInternetBankOneTime || $hasInternetBankRecurring || $hasOtherMethods;
-            $editUrl = route('edit') . '?url=' . rawurlencode(url()->full());
-
-            // Recurring payment option: only show if at least one enabled method supports it (internet banks + Donorbox)
-            $hasRecurringPayment = $hasInternetBankRecurring || $request->filled('db');
-
-            $compactData['hasPaymentMethods'] = 'hasPaymentMethods';
-            $compactData['editUrl'] = 'editUrl';
-            $compactData['hasRecurringPayment'] = 'hasRecurringPayment';
-
-            return view("embed", compact($compactData));
-        }
-
-    public function cashier(Request $request)
-    {
-        $request->validate([
-//            'campaign_title' => 'required|string|max:250',
-            'detail' => 'required|string|max:250',
-            'payee' => 'required|string|max:250',
-        ]);
-
-        // Handle locale parameter
-        $locale = $request->input('locale');
-        if ($locale) {
-            $validLocales = ['en', 'ru', 'ee', 'lv', 'lt'];
-            if (in_array($locale, $validLocales)) {
-                app()->setLocale($locale);
-                session()->put('locale', $locale);
-            }
-        }
-
-        $campaign_title = $request->input('campaign_title');
-        $detail = $request->input('detail');
-        $payee = $request->input('payee');
-        $iban = rawurlencode($request->input('iban'));
-        // Extract identifiers from full URLs that users may have pasted
-        $pp = rawurlencode(PaymentUrlExtractor::extractPaypalMe($request->input('pp')));
-        $db = rawurlencode(PaymentUrlExtractor::extractDonorbox($request->input('db')));
-        $sebuid = rawurlencode(PaymentUrlExtractor::extractSebUid($request->input('sebuid')));
-        $sebuid_st = rawurlencode(PaymentUrlExtractor::extractSebUid($request->input('sebuid_st'))); // SEB standing orders
-        $rev = rawurlencode(PaymentUrlExtractor::extractRevolut($request->input('rev')));
-        $tax = rawurlencode($request->boolean('tax'));
-        $swt = rawurlencode($request->boolean('swt')); // Swed turn off
-        $lhvt = rawurlencode($request->boolean('lhvt')); // LHV turn off
-        $coopt = rawurlencode($request->boolean('coopt')); // Coop turn off
-        $pphb = rawurlencode(PaymentUrlExtractor::extractPaypalHostedButton($request->input('pphb'))); // Paypal Hosted Button
-        // Stripe payment link id
-        $strp = rawurlencode(PaymentUrlExtractor::extractStripe($request->input('strp')));
-        $paypalClientId = $request->input('paypalClientId');
-        // Detect if paypalClientId contains a payment URL pasted in the wrong field
-        $paypalClientIdDetected = PaymentUrlExtractor::extractPaypalClientId($paypalClientId);
-        if ($paypalClientIdDetected !== null) {
-            $targetField = $paypalClientIdDetected['provider'];
-            $targetValue = rawurlencode($paypalClientIdDetected['value']);
-            if ($targetField === 'pp' && empty(rawurldecode($pp))) { $pp = $targetValue; }
-            elseif ($targetField === 'pphb' && empty(rawurldecode($pphb))) { $pphb = $targetValue; }
-            elseif ($targetField === 'db' && empty(rawurldecode($db))) { $db = $targetValue; }
-            elseif ($targetField === 'strp' && empty(rawurldecode($strp))) { $strp = $targetValue; }
-            elseif ($targetField === 'rev' && empty(rawurldecode($rev))) { $rev = $targetValue; }
-            $paypalClientId = rawurlencode('');
-        } else {
-            $paypalClientId = rawurlencode($paypalClientId);
-        }
-
-        // Use directly without rawurlencode for internal logic
-        $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
-        $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
-
-        // custom sums (default: 10, 25, 50)
-        $defsum = 10;
-        $s1 = $request->filled('s1') ? rawurlencode($request->input('s1')) : '10';
-        $s2 = $request->filled('s2') ? rawurlencode($request->input('s2')) : '25';
-        $s3 = $request->filled('s3') ? rawurlencode($request->input('s3')) : '50';
-
-        // a fixed amount expected from the donor
-        // then all preamounts are disabled
-        $s0 = rawurlencode($request->input('s0'));
-
-        // links
-        $link = url()->full();
-        $embedlink = str_replace("/donation", "/embed", $link);
-
-        $amount = null;
-        $ik = null;
-
-        $compactData = array(
-            'campaign_title',
-            'detail',
-            'payee',
-            'amount',
-            'ik',
-            'embedlink',
-            'link',
-            'defsum'
-        );
-
-        if (isset($iban)) {
-            $compactData['iban'] = 'iban';
-        }
-
-        if (isset($pp)) {
-            $compactData['pp'] = 'pp';
-        }
-
-        if (isset($db)) {
-            $compactData['db'] = 'db';
-        }
-
-        if (isset($sebuid)) {
-            $compactData['sebuid'] = 'sebuid';
-        }
-
-        if (isset($sebuid_st)) {
-            $compactData['sebuid_st'] = 'sebuid_st';
-        }
-
-        if (isset($rev)) {
-            $compactData['rev'] = 'rev';
-        }
-
-        if (isset($tax)) {
-            $compactData['tax'] = 'tax';
-        }
-
-        if (isset($swt)) {
-            $compactData['swt'] = 'swt';
-        }
-
-        if (isset($lhvt)) {
-            $compactData['lhvt'] = 'lhvt';
-        }
-
-        if (isset($coopt)) {
-            $compactData['coopt'] = 'coopt';
-        }
-
-        if (isset($pphb)) {
-            $compactData['pphb'] = 'pphb';
-        }
-
-        if (isset($strp)) {
-            $compactData['strp'] = 'strp';
-        }
-
-        if (isset($paypalClientId)) {
-            $compactData['paypalClientId'] = 'paypalClientId';
-        }
-
-        if (isset($paypalClientId)) {
-            $compactData['paypalClientId'] = 'paypalClientId';
-        }
-
-        if (isset($s1)) {
-            $compactData['s1'] = 's1';
-        }
-
-        if (isset($s2)) {
-            $compactData['s2'] = 's2';
-        }
-
-        if (isset($s3)) {
-            $compactData['s3'] = 's3';
-        }
-
-        if (isset($s0)) {
-            $compactData['s0'] = 's0';
-        }
-
-        if (isset($onetime)) {
-            $compactData['onetime'] = 'onetime';
-        }
-
-        if (isset($recurring)) {
-            $compactData['recurring'] = 'recurring';
-        }
-
         $localOnly = $request->boolean('local_only');
         $compactData['localOnly'] = 'localOnly';
 
@@ -678,6 +487,7 @@ class DonationController extends Controller
         // Use directly without rawurlencode for internal logic
         $onetime = $request->has('onetime') ? filter_var($request->input('onetime'), FILTER_VALIDATE_BOOLEAN) : true;
         $recurring = $request->has('recurring') ? filter_var($request->input('recurring'), FILTER_VALIDATE_BOOLEAN) : true;
+        $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : false;
 
         if ($request->input('action') == 'cashier') {
             $fullLink = url()->full();
@@ -705,6 +515,7 @@ class DonationController extends Controller
             'paypalClientId',
             'onetime',
             'recurring',
+            'rec',
 
             'qrcode',
             'link',
@@ -726,6 +537,7 @@ class DonationController extends Controller
             'paypalClientId' => $paypalClientId,
             'onetime' => $onetime,
             'recurring' => $recurring,
+            'rec' => $rec,
             'strp' => $strp,
 
             'qrcode' => $qrcode,
