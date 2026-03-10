@@ -432,7 +432,7 @@ class DonationController extends Controller
         $localOnly = $request->boolean('local_only');
         $compactData['localOnly'] = 'localOnly';
 
-        return view("cashier", compact($compactData));
+        return view("embed", compact($compactData));
     }
 
     public function getCashierQR(Request $request) {
