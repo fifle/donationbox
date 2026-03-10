@@ -542,7 +542,7 @@ body.home-page-body {
                                     <div class="ml-2 text-gray-500">@lang("Your campaign page details")</div>
                                 </div>
 
-                                <div class="mb-5">
+                                <div class="mb-0">
                                     <form class="space-y-4" action="{{ route('donation') }}" method="get"
                                           :action="flow === 'cashier' ? '{{ route('cashier') }}' : '{{ route('donation') }}'"
                                           id="generator"></form>
@@ -995,6 +995,14 @@ body.home-page-body {
                                             </div>
                                         </div>
                                         @endif
+                                        {{-- Restrict to current country only (no country dropdown on donation form) --}}
+                                        <div class="col-span-12 mt-4 pt-4 border-t border-gray-200">
+                                            <div class="flex items-center gap-3">
+                                                <input form="generator" type="checkbox" name="local_only" id="local_only_welcome" value="1" {{ request('local_only') ? 'checked' : '' }} class="rounded border-gray-300 text-pink-500 focus:ring-pink-500">
+                                                <label for="local_only_welcome" class="d-font text-sm font-medium text-gray-700">@lang("Only allow payments from this country")</label>
+                                            </div>
+                                            <p class="mt-1 text-xs text-gray-500">@lang("When enabled, donors cannot choose another country; only this country's banks are shown.")</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

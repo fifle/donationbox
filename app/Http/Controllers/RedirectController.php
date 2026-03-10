@@ -94,7 +94,7 @@ class RedirectController extends Controller
             case 'swed-standing':
                 $bankname = "Swedbank";
                 $domain = $swedbankDomains[$bankCountry] ?? $swedbankDomains[env('COUNTRY')];
-                $url = sprintf("https://%s/private/d2d/payments2/standing_order/new?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s%s&standingOrder.amount=%s&language=%s", $domain, $iban, $payee, $detail, $ik, $amount, $currentLang);
+                $url = sprintf("https://%s/private/d2d/payments2/standing_order/new_foreign?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s%s&standingOrder.amount=%s&language=%s", $domain, $iban, $payee, $detail, $ik, $amount, $currentLang);
                 return Redirect::to($url);
 
             // SEB one-time payment — always uses the server's country (UID is country-specific)

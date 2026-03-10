@@ -30,6 +30,16 @@ class DonationController extends Controller
             $detail = rawurlencode($request->input('detail'));
             $payee = rawurlencode($request->input('payee'));
             $iban = rawurlencode($request->input('iban'));
+
+            // SEB is country-specific: only show when selected country matches IBAN country (from link)
+            $ibanCountry = env('COUNTRY');
+            if ($request->filled('iban')) {
+                $ibanCountry = strtolower(substr(trim($request->input('iban')), 0, 2));
+                if (!in_array($ibanCountry, ['ee', 'lv', 'lt'])) {
+                    $ibanCountry = env('COUNTRY');
+                }
+            }
+
             // Extract identifiers from full URLs that users may have pasted
             $pp = rawurlencode(PaymentUrlExtractor::extractPaypalMe($request->input('pp')));
             $db = rawurlencode(PaymentUrlExtractor::extractDonorbox($request->input('db')));
@@ -84,14 +94,15 @@ class DonationController extends Controller
             $amount = null;
             $ik = null;
 
-            // services for background checking
-            if (env('COUNTRY') == 'ee'){
+            // services for background checking: use IBAN country when present and Baltic, else app COUNTRY
+            $bg_check = null;
+            if ($ibanCountry == 'ee') {
                 $bg_check = sprintf("https://www.teatmik.ee/en/search/%s", $payee);
             }
-            if (env('COUNTRY') == 'lv'){
+            if ($ibanCountry == 'lv') {
                 $bg_check = sprintf("https://www.lursoft.lv/meklet?q=%s", $payee);
             }
-            if (env('COUNTRY') == 'lt'){
+            if ($ibanCountry == 'lt') {
                 $bg_check = null; // TODO: missing lithuanian link for bg check service
             }
 
@@ -197,6 +208,11 @@ class DonationController extends Controller
                 $compactData['recurring'] = 'recurring';
             }
 
+            $compactData['ibanCountry'] = 'ibanCountry';
+
+            $localOnly = $request->boolean('local_only');
+            $compactData['localOnly'] = 'localOnly';
+
             // Check if any payment method is available (no payment methods = show error + edit button)
             // LHV and Coop are now available cross-country (EU IBAN support), not just ee
             $hasInternetBankOneTime = $onetime && $request->filled('iban') && (
@@ -248,6 +264,16 @@ class DonationController extends Controller
             $detail = rawurlencode($request->input('detail'));
             $payee = rawurlencode($request->input('payee'));
             $iban = rawurlencode($request->input('iban'));
+
+            // SEB is country-specific: only show when selected country matches IBAN country (from link)
+            $ibanCountry = env('COUNTRY');
+            if ($request->filled('iban')) {
+                $ibanCountry = strtolower(substr(trim($request->input('iban')), 0, 2));
+                if (!in_array($ibanCountry, ['ee', 'lv', 'lt'])) {
+                    $ibanCountry = env('COUNTRY');
+                }
+            }
+
             // Extract identifiers from full URLs that users may have pasted
             $pp = rawurlencode(PaymentUrlExtractor::extractPaypalMe($request->input('pp')));
             $db = rawurlencode(PaymentUrlExtractor::extractDonorbox($request->input('db')));
@@ -297,14 +323,15 @@ class DonationController extends Controller
             $amount = null;
             $ik = null;
 
-            // services for background checking
-            if (env('COUNTRY') == 'ee'){
+            // services for background checking: use IBAN country when present and Baltic, else app COUNTRY
+            $bg_check = null;
+            if ($ibanCountry == 'ee') {
                 $bg_check = sprintf("https://www.teatmik.ee/en/search/%s", $payee);
             }
-            if (env('COUNTRY') == 'lv'){
+            if ($ibanCountry == 'lv') {
                 $bg_check = sprintf("https://www.lursoft.lv/meklet?q=%s", $payee);
             }
-            if (env('COUNTRY') == 'lt'){
+            if ($ibanCountry == 'lt') {
                 $bg_check = null; // TODO: missing lithuanian link for bg check service
             }
 
@@ -395,6 +422,11 @@ class DonationController extends Controller
             if (isset($recurring)) {
                 $compactData['recurring'] = 'recurring';
             }
+
+            $compactData['ibanCountry'] = 'ibanCountry';
+
+            $localOnly = $request->boolean('local_only');
+            $compactData['localOnly'] = 'localOnly';
 
             // Check if any payment method is available (no payment methods = show error + edit button)
             // LHV and Coop are now available cross-country (EU IBAN support), not just ee
@@ -588,6 +620,9 @@ class DonationController extends Controller
             $compactData['recurring'] = 'recurring';
         }
 
+        $localOnly = $request->boolean('local_only');
+        $compactData['localOnly'] = 'localOnly';
+
         return view("cashier", compact($compactData));
     }
 
@@ -779,7 +814,8 @@ class DonationController extends Controller
         $swt = isset($params['swt']) && filter_var($params['swt'], FILTER_VALIDATE_BOOLEAN);
         $lhvt = isset($params['lhvt']) && filter_var($params['lhvt'], FILTER_VALIDATE_BOOLEAN);
         $coopt = isset($params['coopt']) && filter_var($params['coopt'], FILTER_VALIDATE_BOOLEAN);
-        
+        $local_only = isset($params['local_only']) && filter_var($params['local_only'], FILTER_VALIDATE_BOOLEAN);
+
         // Determine which payment methods are enabled based on parameters
         $hasSwedbank = !$swt;
         $hasSEB = !empty($sebuid) || !empty($sebuid_st);
@@ -796,9 +832,9 @@ class DonationController extends Controller
         $originalUrl = $url;
 
         return view('edit', compact(
-            'campaign_title', 'detail', 'payee', 'iban', 'pp', 'db', 
+            'campaign_title', 'detail', 'payee', 'iban', 'pp', 'db',
             'sebuid', 'sebuid_st', 'rev', 'strp', 'paypalClientId', 'pphb',
-            's1', 's2', 's3', 's0', 'tax', 'swt', 'lhvt', 'coopt',
+            's1', 's2', 's3', 's0', 'tax', 'swt', 'lhvt', 'coopt', 'local_only',
             'hasSwedbank', 'hasSEB', 'hasLHV', 'hasCoop', 'hasStripe',
             'hasPaypalBusiness', 'hasDonorbox', 'hasPaypalMe', 'hasRevolut',
             'hasPaypalHostedButton', 'originalUrl'

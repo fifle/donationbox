@@ -595,6 +595,14 @@
                                             </div>
                                         </div>
                                         @endif
+                                        {{-- Restrict to current country only (no country dropdown on donation form) --}}
+                                        <div class="col-span-12 mt-4 pt-4 border-t border-gray-200">
+                                            <div class="flex items-center gap-3">
+                                                <input form="generator" type="checkbox" name="local_only" id="local_only" value="1" {{ $local_only ? 'checked' : '' }} class="rounded border-gray-300 text-pink-500 focus:ring-pink-500">
+                                                <label for="local_only" class="d-font text-sm font-medium text-gray-700">@lang("Only allow payments from this country")</label>
+                                            </div>
+                                            <p class="mt-1 text-xs text-gray-500">@lang("When enabled, donors cannot choose another country; only this country's banks are shown.")</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -983,6 +991,9 @@
                                     @endif
                                     @if(request()->has('locale'))
                                         <input type="hidden" name="locale" value="{{ request()->input('locale') }}">
+                                    @endif
+                                    @if($local_only)
+                                        <input type="hidden" name="local_only" value="1">
                                     @endif
                                 </form>
                                 <button

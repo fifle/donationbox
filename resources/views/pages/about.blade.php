@@ -483,7 +483,7 @@ html {
                     @slot('cardName') foreignIBAN @endslot
                     @slot('cardTitle') @lang("Can payee use a foreign IBAN account number?") @endslot
                     @slot('cardContent')
-                        @lang("Currently the service works only with local IBAN accounts. In the near future the logic for European payments through :country_adj banks will be finalized.", ['country_adj' => $countryAdjective])
+                        @lang("Yes. The service supports Estonian, Latvian, and Lithuanian IBAN accounts. Donors select their country under \"Donate via internet-bank\" and can pay via Swedbank (all three countries), SEB when the link is set up for that country, and in Estonia also LHV and Coop.")
                     @endslot
                 @endcomponent
 
