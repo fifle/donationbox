@@ -547,10 +547,21 @@
                                             <div x-show="tab === 'standing'" class="mt-2 flex flex-col items-center gap-4" x-transition:enter.duration.500ms>
                                                 @if($recurring && $iban)
                                                     <div class="w-full">
-                                                        {{-- Standing orders: no country selection (domestic only for now) --}}
+                                                        {{-- Standing orders: country dropdown shown but disabled (domestic only) --}}
                                                         <div class="flex flex-wrap items-center justify-center gap-2 mb-3">
                                                             <div class="rounded-full h-7 w-7 flex items-center justify-center bg-yellow-100 text-gray-600 text-xs font-semibold shrink-0">{{ $stepForFirstPayment }}</div>
-                                                            <span class="text-xs text-gray-500">@lang("Donate via internet-bank")</span>
+                                                            <div class="flex flex-wrap items-center justify-center gap-2 relative">
+                                                                <span class="text-xs text-gray-500">@lang("Donate via internet-bank")</span>
+                                                                @if(!$localOnly)
+                                                                <div class="relative">
+                                                                    <button type="button" disabled
+                                                                        class="d-font inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 bg-gray-100 text-gray-400 text-sm font-medium shadow-sm cursor-not-allowed min-h-[2.25rem]">
+                                                                        <span x-text="(countryOptions.find(function(c){return c.value===bankCountry;}) || {}).label || bankCountry"></span>
+                                                                        <svg class="w-4 h-4 text-gray-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                                                    </button>
+                                                                </div>
+                                                                @endif
+                                                            </div>
                                                         </div>
 
                                                         <div class="flex flex-wrap justify-center gap-2">
