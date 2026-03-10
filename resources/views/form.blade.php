@@ -360,7 +360,9 @@
                                     </div>
                                         @endif
 
-                                        <div>
+                                        <div x-data="{ bankCountry: '{{ env('COUNTRY') }}' }">
+                                            <input form="sumforbank" type="hidden" name="bank_country" :value="bankCountry">
+
                                             <div x-show="tab === 'onetime'" class="mt-2 flex flex-col items-center gap-4" x-transition:enter.duration.500ms>
                                                 @if($onetime && $iban)
                                                     <div class="w-full">
@@ -369,7 +371,28 @@
                                     text-gray-600 text-xs font-semibold">{{ $stepForFirstPayment }}</div>
                                                             <div class="text-xs text-gray-500 text-center">@lang("Donate via internet-bank")</div>
                                                         </div>
+
+                                                        {{-- Country selector for cross-country EU IBAN transfers --}}
+                                                        <div class="flex justify-center gap-1 mb-3">
+                                                            <button type="button" @click="bankCountry = 'ee'"
+                                                                class="d-font text-xs px-3 py-1.5 rounded-full border transition duration-150 ease-in-out"
+                                                                :class="bankCountry === 'ee' ? 'bg-pink-100/80 text-pink-800 border-pink-200/80 shadow-sm font-medium' : 'text-gray-500 border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md'">
+                                                                🇪🇪 Estonia
+                                                            </button>
+                                                            <button type="button" @click="bankCountry = 'lv'"
+                                                                class="d-font text-xs px-3 py-1.5 rounded-full border transition duration-150 ease-in-out"
+                                                                :class="bankCountry === 'lv' ? 'bg-pink-100/80 text-pink-800 border-pink-200/80 shadow-sm font-medium' : 'text-gray-500 border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md'">
+                                                                🇱🇻 Latvia
+                                                            </button>
+                                                            <button type="button" @click="bankCountry = 'lt'"
+                                                                class="d-font text-xs px-3 py-1.5 rounded-full border transition duration-150 ease-in-out"
+                                                                :class="bankCountry === 'lt' ? 'bg-pink-100/80 text-pink-800 border-pink-200/80 shadow-sm font-medium' : 'text-gray-500 border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md'">
+                                                                🇱🇹 Lithuania
+                                                            </button>
+                                                        </div>
+
                                                         <div class="flex flex-wrap justify-center gap-2">
+                                                        {{-- Swedbank: available in all 3 countries --}}
                                                         @if(!$swt)
                                                         <button
                                                             form="sumforbank"
@@ -382,8 +405,9 @@
                                                             hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                         </button>
                                                         @endif
+                                                    {{-- SEB: only when donor's selected country matches server country (UID is country-specific) --}}
                                                     @if($sebuid)
-                                                        <div class="flex flex-col items-center shrink-0">
+                                                        <div class="flex flex-col items-center shrink-0" x-show="bankCountry === '{{ env('COUNTRY') }}'">
                                                             <button
                                                                 form="sumforbank"
                                                                 type="submit"
@@ -395,23 +419,27 @@
                                                             </button>
                                                         </div>
                                                     @endif
-                                                        @if(env('COUNTRY') == 'ee' and !$lhvt)
+                                                        {{-- LHV: EE only bank --}}
+                                                        @if(!$lhvt)
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
                                                         name="action"
                                                         value="lhv"
+                                                        x-show="bankCountry === 'ee'"
                                                         class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-gray-700 px-5 py-3
                                                         text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
                                                         @endif
-                                                        @if(env('COUNTRY') == 'ee' and !$coopt)
+                                                        {{-- Coop: EE only bank --}}
+                                                        @if(!$coopt)
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
                                                         name="action"
                                                         value="coop"
+                                                        x-show="bankCountry === 'ee'"
                                                         class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-blue-600 px-5 py-3
                                                         text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-blue-700">Coop
@@ -509,7 +537,28 @@
                                     text-gray-600 text-xs font-semibold">{{ $stepForFirstPayment }}</div>
                                                             <div class="text-xs text-gray-500 text-center">@lang("Donate via internet-bank")</div>
                                                         </div>
+
+                                                        {{-- Country selector for recurring payments --}}
+                                                        <div class="flex justify-center gap-1 mb-3">
+                                                            <button type="button" @click="bankCountry = 'ee'"
+                                                                class="d-font text-xs px-3 py-1.5 rounded-full border transition duration-150 ease-in-out"
+                                                                :class="bankCountry === 'ee' ? 'bg-pink-100/80 text-pink-800 border-pink-200/80 shadow-sm font-medium' : 'text-gray-500 border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md'">
+                                                                🇪🇪 Estonia
+                                                            </button>
+                                                            <button type="button" @click="bankCountry = 'lv'"
+                                                                class="d-font text-xs px-3 py-1.5 rounded-full border transition duration-150 ease-in-out"
+                                                                :class="bankCountry === 'lv' ? 'bg-pink-100/80 text-pink-800 border-pink-200/80 shadow-sm font-medium' : 'text-gray-500 border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md'">
+                                                                🇱🇻 Latvia
+                                                            </button>
+                                                            <button type="button" @click="bankCountry = 'lt'"
+                                                                class="d-font text-xs px-3 py-1.5 rounded-full border transition duration-150 ease-in-out"
+                                                                :class="bankCountry === 'lt' ? 'bg-pink-100/80 text-pink-800 border-pink-200/80 shadow-sm font-medium' : 'text-gray-500 border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md'">
+                                                                🇱🇹 Lithuania
+                                                            </button>
+                                                        </div>
+
                                                         <div class="flex flex-wrap justify-center gap-2">
+                                                        {{-- Swedbank: available in all 3 countries --}}
                                                         @if(!$swt)
                                                     <button
                                                         form="sumforbank"
@@ -521,8 +570,9 @@
                                                         hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                     </button>
                                                         @endif
+                                                    {{-- SEB: only when donor's selected country matches server country --}}
                                                     @if($sebuid_st)
-                                                        <div class="flex flex-col items-center shrink-0">
+                                                        <div class="flex flex-col items-center shrink-0" x-show="bankCountry === '{{ env('COUNTRY') }}'">
                                                             <button
                                                                 form="sumforbank"
                                                                 type="submit"
@@ -534,23 +584,27 @@
                                                             </button>
                                                         </div>
                                                     @endif
-                                                        @if(env('COUNTRY') == 'ee' and !$lhvt)
+                                                        {{-- LHV: EE only bank --}}
+                                                        @if(!$lhvt)
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
                                                         name="action"
                                                         value="lhv-standing"
+                                                        x-show="bankCountry === 'ee'"
                                                         class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-gray-700 px-5 py-3
                                                         text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
                                                         @endif
-                                                        @if(env('COUNTRY') == 'ee' and !$coopt)
+                                                        {{-- Coop: EE only bank --}}
+                                                        @if(!$coopt)
                                                     <button
                                                         form="sumforbank"
                                                         type="submit"
                                                         name="action"
                                                         value="coop-standing"
+                                                        x-show="bankCountry === 'ee'"
                                                         class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-blue-600 px-5 py-3
                                                         text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-blue-700">Coop

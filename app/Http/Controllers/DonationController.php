@@ -198,17 +198,18 @@ class DonationController extends Controller
             }
 
             // Check if any payment method is available (no payment methods = show error + edit button)
+            // LHV and Coop are now available cross-country (EU IBAN support), not just ee
             $hasInternetBankOneTime = $onetime && $request->filled('iban') && (
                 !$request->boolean('swt') ||
                 $request->filled('sebuid') ||
-                (env('COUNTRY') == 'ee' && !$request->boolean('lhvt')) ||
-                (env('COUNTRY') == 'ee' && !$request->boolean('coopt'))
+                !$request->boolean('lhvt') ||
+                !$request->boolean('coopt')
             );
             $hasInternetBankRecurring = $recurring && $request->filled('iban') && (
                 !$request->boolean('swt') ||
                 $request->filled('sebuid_st') ||
-                (env('COUNTRY') == 'ee' && !$request->boolean('lhvt')) ||
-                (env('COUNTRY') == 'ee' && !$request->boolean('coopt'))
+                !$request->boolean('lhvt') ||
+                !$request->boolean('coopt')
             );
             $hasOtherMethods = $request->filled('rev') || $request->filled('pp') || $request->filled('pphb') ||
                 $request->filled('db') || $request->filled('paypalClientId') || $request->filled('strp');
@@ -396,17 +397,18 @@ class DonationController extends Controller
             }
 
             // Check if any payment method is available (no payment methods = show error + edit button)
+            // LHV and Coop are now available cross-country (EU IBAN support), not just ee
             $hasInternetBankOneTime = $onetime && $request->filled('iban') && (
                 !$request->boolean('swt') ||
                 $request->filled('sebuid') ||
-                (env('COUNTRY') == 'ee' && !$request->boolean('lhvt')) ||
-                (env('COUNTRY') == 'ee' && !$request->boolean('coopt'))
+                !$request->boolean('lhvt') ||
+                !$request->boolean('coopt')
             );
             $hasInternetBankRecurring = $recurring && $request->filled('iban') && (
                 !$request->boolean('swt') ||
                 $request->filled('sebuid_st') ||
-                (env('COUNTRY') == 'ee' && !$request->boolean('lhvt')) ||
-                (env('COUNTRY') == 'ee' && !$request->boolean('coopt'))
+                !$request->boolean('lhvt') ||
+                !$request->boolean('coopt')
             );
             $hasOtherMethods = $request->filled('rev') || $request->filled('pp') || $request->filled('pphb') ||
                 $request->filled('db') || $request->filled('paypalClientId') || $request->filled('strp');
@@ -781,8 +783,8 @@ class DonationController extends Controller
         // Determine which payment methods are enabled based on parameters
         $hasSwedbank = !$swt;
         $hasSEB = !empty($sebuid) || !empty($sebuid_st);
-        $hasLHV = !$lhvt && env('COUNTRY') == 'ee';
-        $hasCoop = !$coopt && env('COUNTRY') == 'ee';
+        $hasLHV = !$lhvt;
+        $hasCoop = !$coopt;
         $hasStripe = !empty($strp);
         $hasPaypalBusiness = !empty($paypalClientId);
         $hasDonorbox = !empty($db);
