@@ -242,6 +242,9 @@
                                                             value="{{ $s3 }}"
                                                         >
                                                     @endif
+                                                    @if(!empty($localOnly))
+                                                        <input form="sumforbank" type="hidden" name="local_only" value="1">
+                                                    @endif
 {{--                                                    @if($s0)--}}
 {{--                                                        <input--}}
 {{--                                                            form="sumforbank"--}}

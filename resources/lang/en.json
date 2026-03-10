@@ -13,6 +13,7 @@
     "Under your own name you will see blue text indicating your Revolut username (@username).": "Under your own name you will see blue text indicating your Revolut username (@username).",
     "Under your own name you will see blue text indicating your Revolut username (@@username).": "Under your own name you will see blue text indicating your Revolut username (@username).",
     "Currently the service works only with local IBAN accounts. In the near future the logic for European payments through :country_adj banks will be finalized.": "Currently the service works only with local IBAN accounts. In the near future the logic for European payments through :country_adj banks will be finalized.",
+    "Yes. The service supports Estonian, Latvian, and Lithuanian IBAN accounts. Donors select their country under \"Donate via internet-bank\" and can pay via Swedbank (all three countries), SEB when the link is set up for that country, and in Estonia also LHV and Coop.": "Yes. The service supports Estonian, Latvian, and Lithuanian IBAN accounts. Donors select their country under \"Donate via internet-bank\" and can pay via Swedbank (all three countries), SEB when the link is set up for that country, and in Estonia also LHV and Coop.",
     "Yes, it is possible. Just leave the IBAN field blank and the selection with :country_adj banks will not appear on the donation form.": "Yes, it is possible. Just leave the IBAN field blank and the selection with :country_adj banks will not appear on the donation form.",
     "One-time payments only": "One-time payments only",
     "One-time and recurring": "One-time and recurring",
@@ -82,7 +83,15 @@
     "After you save, you'll get a new URL. Replace any shared links or embedded widgets with the new address.": "After you save, you'll get a new URL. Replace any shared links or embedded widgets with the new address.",
     "Important": "Important",
     "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.": "Editing creates a new URL. The old link will still work, but it won't show your updates, so update links and website widgets.",
-    "Default payment type": "Default payment type",
-    "By default, one-time payment is pre-selected. Enable this option to make recurring (monthly) payment the default choice for donors. Donors can still switch to one-time payment.": "By default, one-time payment is pre-selected. Enable this option to make recurring (monthly) payment the default choice for donors. Donors can still switch to one-time payment.",
-    "Set recurring payment as the default option": "Set recurring payment as the default option"
+    "Estonia": "🇪🇪 Estonia",
+    "Latvia": "🇱🇻 Latvia",
+    "Lithuania": "🇱🇹 Lithuania",
+    "Country": "Country",
+    "Search countries...": "Search countries...",
+    "Confirm": "Confirm",
+    "Only allow payments from this country": "Only allow payments from this country",
+    "Only allow payments from :country": "Only allow payments from :country",
+    "When enabled, donors cannot choose another country; only this country's banks are shown.": "When enabled, donors cannot choose another country; only this country's banks are shown.",
+    "If this option is disabled, donors from Estonia, Latvia and Lithuania can use their internet banks to donate. For more details, see the :link.": "If this option is disabled, donors from Estonia, Latvia and Lithuania can use their internet banks to donate. For more details, see the :link.",
+    "FAQ": "FAQ"
 }

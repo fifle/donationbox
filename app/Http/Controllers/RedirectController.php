@@ -47,6 +47,14 @@ class RedirectController extends Controller
             $amount = rawurldecode($request->input('donationsum'));
         }
 
+        // Donor-selected bank country for cross-country EU IBAN transfers
+        // Defaults to the server's country if not specified
+        $bankCountry = $request->input('bank_country', env('COUNTRY'));
+        $validCountries = ['ee', 'lv', 'lt'];
+        if (!in_array($bankCountry, $validCountries)) {
+            $bankCountry = env('COUNTRY');
+        }
+
         // Setting current language code and its conversion from ISO_639_1 to ISO_639_2 for ibanks
         $currentLang = $request->session()->get('locale');
         switch ($currentLang) {
@@ -68,222 +76,100 @@ class RedirectController extends Controller
                 break;
         }
 
-        // List for Estonian users
-        if (env('COUNTRY') == 'ee') {
-            switch ($request->input('action')) {
-                // Swedbank one-time payment
-                case 'swed':
-                    $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.ee/private/d2d/payments2/smartNew?payment.beneficiaryAccountNumber=%s&payment.beneficiaryName=%s&payment.details=%s%s&payment.amount=%s&language=%s", $iban, $payee, $detail, $ik, $amount, $currentLang);
-                    return Redirect::to($url);
+        // Bank domain mappings by country
+        $swedbankDomains = ['ee' => 'www.swedbank.ee', 'lv' => 'www.swedbank.lv', 'lt' => 'www.swedbank.lt'];
+        $sebDomains = ['ee' => 'e.seb.ee', 'lv' => 'ibanka.seb.lv', 'lt' => 'e.seb.lt'];
 
-                // Swedbank standing payment
-                case 'swed-standing':
-                    $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.ee/private/d2d/payments2/standing_order/new?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s%s&standingOrder.amount=%s&language=%s", $iban, $payee, $detail, $ik, $amount, $currentLang);
-                    return Redirect::to($url);
+        $action = $request->input('action');
 
-                // SEB one-time payment
-                case 'seb':
-                    $bankname = "SEB";
-                    $url = sprintf("https://e.seb.ee/ib/login?UID=%s&act=SMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s%s&value11=12345&field5=amount&value5=%s&paymtype=REMSEBEE&field6=currency&value6=EUR", $sebuid, $currentLang, $payee, $iban, $detail, $ik, $amount);
-                    return Redirect::to($url);
+        switch ($action) {
+            // Swedbank one-time payment — uses donor-selected bank country
+            case 'swed':
+                $bankname = "Swedbank";
+                $domain = $swedbankDomains[$bankCountry] ?? $swedbankDomains[env('COUNTRY')];
+                $url = sprintf("https://%s/private/d2d/payments2/smartNew?payment.beneficiaryAccountNumber=%s&payment.beneficiaryName=%s&payment.details=%s%s&payment.amount=%s&language=%s", $domain, $iban, $payee, $detail, $ik, $amount, $currentLang);
+                return Redirect::to($url);
 
-                // SEB standing payment
-                case 'seb-standing':
-                    $bankname = "SEB";
-                    $url = sprintf("https://e.seb.ee/ib/login?UID=%s&act=ADDSOSMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $sebuid_st, $currentLang, $payee, $iban, $detail, $ik, $amount);
-                    return Redirect::to($url);
+            // Swedbank standing payment — domestic only (server country), old form until new_foreign supports superlinks
+            case 'swed-standing':
+                $bankname = "Swedbank";
+                $domain = $swedbankDomains[env('COUNTRY')];
+                $url = sprintf("https://%s/private/d2d/payments2/standing_order/new?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s%s&standingOrder.amount=%s&language=%s", $domain, $iban, $payee, $detail, $ik, $amount, $currentLang);
+                return Redirect::to($url);
 
-                // LHV one-time payment
-                case 'lhv':
-                    $bankname = "LHV";
-                    $url = sprintf("https://www.lhv.ee/ibank/payments?creditorName=%s&creditorAccountNo=%s&description=%s%s&amount=%s", $payee, $iban, $detail, $ik, $amount);
-                    error_log($url);
-                    return Redirect::to($url);
+            // SEB one-time payment — always uses the server's country (UID is country-specific)
+            case 'seb':
+                $bankname = "SEB";
+                $domain = $sebDomains[env('COUNTRY')] ?? $sebDomains['ee'];
+                $url = sprintf("https://%s/ib/login?UID=%s&act=SMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s%s&value11=12345&field5=amount&value5=%s&paymtype=REMSEBEE&field6=currency&value6=EUR", $domain, $sebuid, $currentLang, $payee, $iban, $detail, $ik, $amount);
+                return Redirect::to($url);
 
-                // LHV standing payment
-                case 'lhv-standing':
-                    $bankname = "LHV";
-                    $url = sprintf("https://www.lhv.ee/portfolio/payment_standing_add.cfm?i_receiver_name=%s&i_receiver_account_no=%s&i_payment_desc=%s%s&i_amount=%s", $payee, $iban, $detail, $ik, $amount);
-                    error_log($url);
-                    return Redirect::to($url);
+            // SEB standing payment — always uses the server's country (UID is country-specific)
+            case 'seb-standing':
+                $bankname = "SEB";
+                $domain = $sebDomains[env('COUNTRY')] ?? $sebDomains['ee'];
+                $url = sprintf("https://%s/ib/login?UID=%s&act=ADDSOSMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $domain, $sebuid_st, $currentLang, $payee, $iban, $detail, $ik, $amount);
+                return Redirect::to($url);
 
-                // Coop one-time payment
-                case 'coop':
-                    $bankname = "Coop Pank";
-                    $url = sprintf("https://i.cooppank.ee/newpmt?SaajaNimi=%s&SaajaKonto=%s&MaksePohjus=%s%s&MuutMakseSumma=%s", $payee, $iban, $detail, $ik, $amount);
-                    return Redirect::to($url);
+            // LHV one-time payment — EE only bank, uses donor-selected country (always ee)
+            case 'lhv':
+                $bankname = "LHV";
+                $url = sprintf("https://www.lhv.ee/ibank/payments?creditorName=%s&creditorAccountNo=%s&description=%s%s&amount=%s", $payee, $iban, $detail, $ik, $amount);
+                return Redirect::to($url);
 
-                // Coop standing payment
-                case 'coop-standing':
-                    $bankname = "Coop Pank";
-                    $url = sprintf("https://i.cooppank.ee/permpmtnew?SaajaNimi=%s&SaajaKonto=%s&MaksePohjus=%s%s&MakseSumma=%s", $payee, $iban, $detail, $ik, $amount);
-                    return Redirect::to($url);
+            // LHV standing payment — EE only bank
+            case 'lhv-standing':
+                $bankname = "LHV";
+                $url = sprintf("https://www.lhv.ee/portfolio/payment_standing_add.cfm?i_receiver_name=%s&i_receiver_account_no=%s&i_payment_desc=%s%s&i_amount=%s", $payee, $iban, $detail, $ik, $amount);
+                return Redirect::to($url);
 
-                // PayPal.me payment link (personal and business accounts)
-                case 'paypal':
-                    $bankname = "Paypal";
-                    $url = sprintf("https://paypal.me/%s/%sEUR", $pp, $amount);
-                    return Redirect::to($url);
+            // Coop one-time payment — EE only bank
+            case 'coop':
+                $bankname = "Coop Pank";
+                $url = sprintf("https://i.cooppank.ee/newpmt?SaajaNimi=%s&SaajaKonto=%s&MaksePohjus=%s%s&MuutMakseSumma=%s", $payee, $iban, $detail, $ik, $amount);
+                return Redirect::to($url);
 
-                // PayPal hosted button / donation payment link (for business accounts only)
-                case 'pphb':
-                    $bankname = "Paypal Hosted button";
-                    $url = sprintf("https://www.paypal.com/donate/?hosted_button_id=%s", $pphb);
-                    return Redirect::to($url);
+            // Coop standing payment — EE only bank
+            case 'coop-standing':
+                $bankname = "Coop Pank";
+                $url = sprintf("https://i.cooppank.ee/permpmtnew?SaajaNimi=%s&SaajaKonto=%s&MaksePohjus=%s%s&MakseSumma=%s", $payee, $iban, $detail, $ik, $amount);
+                return Redirect::to($url);
 
-                // Donationbox campaign link for one-time payments
-                case 'donorbox':
-                    $bankname = "Donorbox";
-                    $url = sprintf("https://donorbox.org/%s?&amount=%s&default_interval=&currency=eur", $db, $amount);
-                    return Redirect::to($url);
+            // PayPal.me payment link (personal and business accounts)
+            case 'paypal':
+                $bankname = "Paypal";
+                $url = sprintf("https://paypal.me/%s/%sEUR", $pp, $amount);
+                return Redirect::to($url);
 
-                // Donationbox campaign link for standing payments
-                case 'donorbox-standing':
-                    $bankname = "Donorbox";
-                    $url = sprintf("https://donorbox.org/%s?&amount=%s&default_interval=m&currency=eur", $db, $amount);
-                    return Redirect::to($url);
+            // PayPal hosted button / donation payment link (for business accounts only)
+            case 'pphb':
+                $bankname = "Paypal Hosted button";
+                $url = sprintf("https://www.paypal.com/donate/?hosted_button_id=%s", $pphb);
+                return Redirect::to($url);
 
-                // Revolut payment link for one-time payments (personal accounts only)
-                case 'rev':
-                    $bankname = "Revolut";
-                    $url = sprintf("https://revolut.me/%s/eur%s/%s%s", $rev, $amount, $detail, $ik);
-                    return Redirect::to($url);
+            // Donationbox campaign link for one-time payments
+            case 'donorbox':
+                $bankname = "Donorbox";
+                $url = sprintf("https://donorbox.org/%s?&amount=%s&default_interval=&currency=eur", $db, $amount);
+                return Redirect::to($url);
 
-                // Stripe payment link for one-time payments (business accounts only)
-                case 'strp':
-                    $bankname = "Stripe";
-                    $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s%s&client_reference_id=%s", $strp, $amount, '00', $ik);
-                    return Redirect::to($url);
-            }
+            // Donationbox campaign link for standing payments
+            case 'donorbox-standing':
+                $bankname = "Donorbox";
+                $url = sprintf("https://donorbox.org/%s?&amount=%s&default_interval=m&currency=eur", $db, $amount);
+                return Redirect::to($url);
 
-        }
-        // List for Latvian users
-        else if (env('COUNTRY') == 'lv') {
-            switch ($request->input('action')) {
-                case 'swed':
-                    $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.lv/private/d2d/payments2/smartNew?payment.beneficiaryAccountNumber=%s&payment.beneficiaryName=%s&payment.details=%s%s&payment.amount=%s&language=%s", $iban, $payee, $detail, $ik, $amount, $currentLang);
-                    error_log($url);
-                    return Redirect::to($url);
+            // Revolut payment link for one-time payments (personal accounts only)
+            case 'rev':
+                $bankname = "Revolut";
+                $url = sprintf("https://revolut.me/%s/eur%s/%s%s", $rev, $amount, $detail, $ik);
+                return Redirect::to($url);
 
-                case 'swed-standing':
-                    $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.lv/private/d2d/payments2/standing_order/new?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s%s&standingOrder.amount=%s&language=%s", $iban, $payee, $detail, $ik, $amount, $currentLang);
-                    error_log($url);
-                    return Redirect::to($url);
-
-                case 'seb':
-                    $bankname = "SEB";
-                    $url = sprintf("https://ibanka.seb.lv/ib/login?UID=%s&act=SMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s%s&value11=12345&field5=amount&value5=%s&paymtype=REMSEBEE&field6=currency&value6=EUR", $sebuid, $currentLang, $payee, $iban, $detail, $ik, $amount);
-                    error_log($url);
-                    return Redirect::to($url);
-
-                case 'seb-standing':
-                    $bankname = "SEB";
-                    $url = sprintf("https://ibanka.seb.lv/ib/login?UID=%s&act=ADDSOSMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $sebuid_st, $currentLang, $payee, $iban, $detail, $ik, $amount);
-                    error_log($url);
-                    return Redirect::to($url);
-
-                // PayPal.me payment link (personal and business accounts)
-                case 'paypal':
-                    $bankname = "Paypal";
-                    $url = sprintf("https://paypal.me/%s/%sEUR", $pp, $amount);
-                    return Redirect::to($url);
-
-                // PayPal hosted button / donation payment link (for business accounts only)
-                case 'pphb':
-                    $bankname = "Paypal Hosted button";
-                    $url = sprintf("https://www.paypal.com/donate/?hosted_button_id=%s", $pphb);
-                    return Redirect::to($url);
-
-                case 'donorbox':
-                    $bankname = "Donorbox";
-                    $url = sprintf("https://donorbox.org/%s?&amount=%s&default_interval=&currency=eur", $db, $amount);
-                    return Redirect::to($url);
-
-                case 'donorbox-standing':
-                    $bankname = "Donorbox";
-                    $url = sprintf("https://donorbox.org/%s?&amount=%s&default_interval=m&currency=eur", $db, $amount);
-                    return Redirect::to($url);
-
-                case 'rev':
-                    $bankname = "Revolut";
-                    $url = sprintf("https://revolut.me/%s/eur%s/%s%s", $rev, $amount, $detail, $ik);
-                    return Redirect::to($url);
-
-                case 'strp':
-                    $bankname = "Stripe";
-                    $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s%s", $strp, $amount, '00');
-                    return Redirect::to($url);
-
-                case 'pphb':
-                    $bankname = "Paypal Hosted button";
-                    $url = sprintf("https://www.paypal.com/donate/?hosted_button_id=%s", $pphb);
-                    return Redirect::to($url);
-            }
-        }
-        // List for Lithuanian users
-        else if (env('COUNTRY') == 'lt') {
-            switch ($request->input('action')) {
-                case 'swed':
-                    $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.lt/private/d2d/payments2/smartNew?payment.beneficiaryAccountNumber=%s&payment.beneficiaryName=%s&payment.details=%s&payment.amount=%s&language=%s", $iban, $payee, $detail, $amount, $currentLang);
-                    return Redirect::to($url);
-
-                case 'swed-standing':
-                    $bankname = "Swedbank";
-                    $url = sprintf("https://www.swedbank.lt/private/d2d/payments2/standing_order/new?standingOrder.beneficiaryAccountNumber=%s&standingOrder.beneficiaryName=%s&standingOrder.details=%s&standingOrder.amount=%s&language=%s", $iban, $payee, $detail, $amount, $currentLang);
-                    return Redirect::to($url);
-
-                case 'seb':
-                    $bankname = "SEB";
-                    $url = sprintf("https://e.seb.lt/ib/login?UID=%s&act=SMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&value11=12345&field5=amount&value5=%s&paymtype=REMSEBEE&field6=currency&value6=EUR", $sebuid, $currentLang, $payee, $iban, $detail, $amount);
-                    return Redirect::to($url);
-
-                case 'seb-standing':
-                    $bankname = "SEB";
-                    $url = sprintf("https://e.seb.lt/ib/login?UID=%s&act=ADDSOSMARTPAYM&lang=%s&field1=benname&value1=%s&field3=benacc&value3=%s&field10=desc&value10=%s&field11=refid&value11=&field5=amount&value5=%s&sofield1=frequency&sovalue1=3&paymtype=REMSEBEE&field6=currency&value6=EUR&sofield2=startdt&sofield3=enddt", $sebuid_st, $currentLang, $payee, $iban, $detail, $amount);
-                    return Redirect::to($url);
-
-                // PayPal.me payment link (personal and business accounts)
-                case 'paypal':
-                    $bankname = "Paypal";
-                    $url = sprintf("https://paypal.me/%s/%sEUR", $pp, $amount);
-                    return Redirect::to($url);
-
-                // PayPal hosted button / donation payment link (for business accounts only)
-                case 'pphb':
-                    $bankname = "Paypal Hosted button";
-                    $url = sprintf("https://www.paypal.com/donate/?hosted_button_id=%s", $pphb);
-                    return Redirect::to($url);
-
-                case 'donorbox':
-                    $bankname = "Donorbox";
-                    $url = sprintf("https://donorbox.org/%s?&amount=%s&default_interval=&currency=eur", $db, $amount);
-                    return Redirect::to($url);
-
-                case 'donorbox-standing':
-                    $bankname = "Donorbox";
-                    $url = sprintf("https://donorbox.org/%s?&amount=%s&default_interval=m&currency=eur", $db, $amount);
-                    return Redirect::to($url);
-
-                case 'rev':
-                    $bankname = "Revolut";
-                    $url = sprintf("https://revolut.me/%s/eur%s/%s%s", $rev, $amount, $detail, $ik);
-                    return Redirect::to($url);
-
-                case 'strp':
-                    $bankname = "Stripe";
-                    $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s%s", $strp, $amount, '00');
-                    return Redirect::to($url);
-
-                case 'pphb':
-                    $bankname = "Paypal Hosted button";
-                    $url = sprintf("https://www.paypal.com/donate/?hosted_button_id=%s", $pphb);
-                    return Redirect::to($url);
-            }
+            // Stripe payment link for one-time payments (business accounts only)
+            case 'strp':
+                $bankname = "Stripe";
+                $url = sprintf("https://donate.stripe.com/%s?__prefilled_amount=%s%s&client_reference_id=%s", $strp, $amount, '00', $ik);
+                return Redirect::to($url);
         }
 
         $compactData = array(
