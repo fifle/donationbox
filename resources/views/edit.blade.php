@@ -116,14 +116,14 @@
                         <div class="mb-4">
                             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                                     <div class="text-xs font-medium text-gray-500 uppercase tracking-wide"
-                                         x-text="`@lang("Step:") ${step} @lang("of") 5`"></div>
+                                         x-text="`@lang("Step:") ${step} @lang("of") 6`"></div>
                                     <div class="flex items-center gap-3 flex-1 min-w-0 sm:max-w-xs w-full">
                                         <div class="flex-1 min-w-[4rem] min-h-[6px] h-1.5 rounded-full overflow-hidden bg-gray-300">
                                             <div class="h-full min-h-[6px] rounded-full transition-all duration-300"
                                                  style="background-color: #ec4899; min-width: 2%;"
-                                                 :style="{ width: (step / 5 * 100) + '%' }"></div>
+                                                 :style="{ width: (step / 6 * 100) + '%' }"></div>
                                         </div>
-                                        <span class="text-xs text-gray-500 tabular-nums shrink-0" x-text="(step / 5 * 100).toFixed(0) +'%'"></span>
+                                        <span class="text-xs text-gray-500 tabular-nums shrink-0" x-text="(step / 6 * 100).toFixed(0) +'%'"></span>
                                     </div>
                                 </div>
                             </div>
@@ -596,12 +596,16 @@
                                         </div>
                                         @endif
                                         {{-- Restrict to current country only (no country dropdown on donation form) --}}
+                                        @php
+                                            $countryNames = ['ee' => __('Estonia'), 'lv' => __('Latvia'), 'lt' => __('Lithuania')];
+                                            $currentCountryName = $countryNames[env('COUNTRY')] ?? env('COUNTRY');
+                                        @endphp
                                         <div class="col-span-12 mt-4 pt-4 border-t border-gray-200">
                                             <div class="flex items-center gap-3">
                                                 <input form="generator" type="checkbox" name="local_only" id="local_only" value="1" {{ $local_only ? 'checked' : '' }} class="rounded border-gray-300 text-pink-500 focus:ring-pink-500">
-                                                <label for="local_only" class="d-font text-sm font-medium text-gray-700">@lang("Only allow payments from this country")</label>
+                                                <label for="local_only" class="d-font text-sm font-medium text-gray-700">@lang("Only allow payments from :country", ['country' => $currentCountryName])</label>
                                             </div>
-                                            <p class="mt-1 text-xs text-gray-500">@lang("When enabled, donors cannot choose another country; only this country's banks are shown.")</p>
+                                            <p class="mt-1 text-xs text-gray-500">{!! __('If this option is disabled, donors from Estonia, Latvia and Lithuania can use their internet banks to donate. For more details, see the :link.', ['link' => '<a href="/about#foreignIBAN" class="text-pink-600 hover:text-pink-700 hover:underline">' . __('FAQ') . '</a>']) !!}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -902,13 +906,16 @@
                             </div>
                         </div>
                     </div>
-                    <!-- / Step Content -->
-                    
-                    <!-- Convert to Cashier Mode -->
-                    <div class="mt-6 mb-6" x-show="step === 5">
-                        <div class="border-t border-gray-200 pt-6">
-                            <div class="mb-4">
-                                <h3 class="text-lg font-semibold text-gray-700 mb-2">@lang("Convert to Cashier Mode")</h3>
+                        <!-- Step 6 - Convert to Cashier Mode -->
+                        <div x-show="step === 6"
+                             x-transition:enter.duration.500ms>
+                            <div class="mb-4 flex items-center">
+                                <div class="rounded-full h-6 w-6 flex items-center justify-center bg-yellow-100
+                                    text-gray-500 text-xs font-semibold">6
+                                </div>
+                                <div class="ml-2 text-gray-500">@lang("Convert to Cashier Mode")</div>
+                            </div>
+                            <div class="mb-5">
                                 <p class="text-sm text-gray-600 mb-4">
                                     @lang("Set a fixed amount to convert this donationbox into cashier mode. This will generate a QR code and payment link for the specified amount.")
                                 </p>
@@ -1011,6 +1018,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- / Step Content -->
                     
                     <!-- Navigation buttons (at bottom) -->
                     <div class="mt-6" x-show="step !== 'complete'">
@@ -1037,7 +1045,7 @@
 
                                 <div class="w-1/2 flex justify-end">
                                     <button
-                                        x-show="step < 5"
+                                        x-show="step < 6"
                                         type="button"
                                         @click="step++"
                                         class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg
@@ -1051,7 +1059,7 @@
                                         type="submit"
                                         form="generator"
                                         value="submit"
-                                        x-show="step === 5"
+                                        x-show="step === 6"
                                         class="d-font min-w-32 inline-flex items-center justify-center border border-transparent py-2 px-5 ml-2 rounded-lg
                                             font-medium rounded-md text-white bg-pink-500
                                             hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2

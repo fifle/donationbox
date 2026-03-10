@@ -90,5 +90,8 @@
     "Search countries...": "Search countries...",
     "Confirm": "Confirm",
     "Only allow payments from this country": "Only allow payments from this country",
-    "When enabled, donors cannot choose another country; only this country's banks are shown.": "When enabled, donors cannot choose another country; only this country's banks are shown."
+    "Only allow payments from :country": "Only allow payments from :country",
+    "When enabled, donors cannot choose another country; only this country's banks are shown.": "When enabled, donors cannot choose another country; only this country's banks are shown.",
+    "If this option is disabled, donors from Estonia, Latvia and Lithuania can use their internet banks to donate. For more details, see the :link.": "If this option is disabled, donors from Estonia, Latvia and Lithuania can use their internet banks to donate. For more details, see the :link.",
+    "FAQ": "FAQ"
 }

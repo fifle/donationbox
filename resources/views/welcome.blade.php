@@ -996,12 +996,16 @@ body.home-page-body {
                                         </div>
                                         @endif
                                         {{-- Restrict to current country only (no country dropdown on donation form) --}}
+                                        @php
+                                            $countryNames = ['ee' => __('Estonia'), 'lv' => __('Latvia'), 'lt' => __('Lithuania')];
+                                            $currentCountryName = $countryNames[env('COUNTRY')] ?? env('COUNTRY');
+                                        @endphp
                                         <div class="col-span-12 mt-4 pt-4 border-t border-gray-200">
                                             <div class="flex items-center gap-3">
                                                 <input form="generator" type="checkbox" name="local_only" id="local_only_welcome" value="1" {{ request('local_only') ? 'checked' : '' }} class="rounded border-gray-300 text-pink-500 focus:ring-pink-500">
-                                                <label for="local_only_welcome" class="d-font text-sm font-medium text-gray-700">@lang("Only allow payments from this country")</label>
+                                                <label for="local_only_welcome" class="d-font text-sm font-medium text-gray-700">@lang("Only allow payments from :country", ['country' => $currentCountryName])</label>
                                             </div>
-                                            <p class="mt-1 text-xs text-gray-500">@lang("When enabled, donors cannot choose another country; only this country's banks are shown.")</p>
+                                            <p class="mt-1 text-xs text-gray-500">{!! __('If this option is disabled, donors from Estonia, Latvia and Lithuania can use their internet banks to donate. For more details, see the :link.', ['link' => '<a href="/about#foreignIBAN" class="text-pink-600 hover:text-pink-700 hover:underline">' . __('FAQ') . '</a>']) !!}</p>
                                         </div>
                                     </div>
                                 </div>
