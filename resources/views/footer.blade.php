@@ -75,13 +75,8 @@
     </a>
     @lang("and inspired by Sheila")
     <br>
-        @if (env('COUNTRY') == 'ee')
-            <a href="/donation?campaign_title=Support+Donationbox.ee&detail=Annetus+donationbox.ee&payee=Pavel+Flei%C5%A1er&iban=EE614204278622417401&pp=pfleiser&rev=pavelvtd" class="no-underline
+        <a href="https://donationbox.{{ env('COUNTRY', 'ee') }}/donation?campaign_title=Support+Donationbox.ee&detail=Annetus+donationbox.ee&payee=Pavel+Flei%C5%A1er&iban=EE614204278622417401&pp=pfleiser&rev=pavelvtd" class="no-underline
                  hover:underline text-xs text-blue-800 mt-4" target="_blank">
-        @else
-            <a href="/donation?campaign_title=Support+Donationbox.ee&detail=Donation+donationbox.ee&payee=Pavel+Flei%C5%A1er&pp=pfleiser&rev=pavelvtd" class="no-underline
-                 hover:underline text-xs text-blue-800 mt-4" target="_blank">
-        @endif
 
 
         <div class="inline-flex items-center mt-2">
