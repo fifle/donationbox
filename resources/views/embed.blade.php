@@ -9,7 +9,7 @@
 <body class="antialiased relative embed-page">
 <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:p-2 focus:bg-white focus:text-gray-900 focus:underline">@lang("Skip to main content")</a>
 <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-2">
+    <div class="max-w-md sm:max-w-lg w-full space-y-2">
         <main id="main-content" role="main">
             @include('form')
         </main>
