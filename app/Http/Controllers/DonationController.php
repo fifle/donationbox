@@ -435,6 +435,71 @@ class DonationController extends Controller
         return view("embed", compact($compactData));
     }
 
+    public function cashier(Request $request)
+    {
+        $request->validate([
+            'detail' => 'required|string|max:250',
+            'payee' => 'required|string|max:250',
+        ]);
+
+        // Handle locale parameter
+        $locale = $request->input('locale');
+        if ($locale) {
+            $validLocales = ['en', 'ru', 'ee', 'lv', 'lt'];
+            if (in_array($locale, $validLocales)) {
+                app()->setLocale($locale);
+                session()->put('locale', $locale);
+            }
+        }
+
+        $campaign_title = rawurlencode($request->input('campaign_title'));
+        $detail = rawurlencode($request->input('detail'));
+        $payee = rawurlencode($request->input('payee'));
+        $iban = rawurlencode($request->input('iban'));
+
+        // Extract identifiers from full URLs that users may have pasted
+        $pp = rawurlencode(PaymentUrlExtractor::extractPaypalMe($request->input('pp')));
+        $db = rawurlencode(PaymentUrlExtractor::extractDonorbox($request->input('db')));
+        $sebuid = rawurlencode(PaymentUrlExtractor::extractSebUid($request->input('sebuid')));
+        $sebuid_st = rawurlencode(PaymentUrlExtractor::extractSebUid($request->input('sebuid_st')));
+        $rev = rawurlencode(PaymentUrlExtractor::extractRevolut($request->input('rev')));
+        $pphb = rawurlencode(PaymentUrlExtractor::extractPaypalHostedButton($request->input('pphb')));
+        $strp = rawurlencode(PaymentUrlExtractor::extractStripe($request->input('strp')));
+        $paypalClientId = $request->input('paypalClientId');
+        // Detect if paypalClientId contains a payment URL pasted in the wrong field
+        $paypalClientIdDetected = PaymentUrlExtractor::extractPaypalClientId($paypalClientId);
+        if ($paypalClientIdDetected !== null) {
+            $targetField = $paypalClientIdDetected['provider'];
+            $targetValue = rawurlencode($paypalClientIdDetected['value']);
+            if ($targetField === 'pp' && empty(rawurldecode($pp))) { $pp = $targetValue; }
+            elseif ($targetField === 'pphb' && empty(rawurldecode($pphb))) { $pphb = $targetValue; }
+            elseif ($targetField === 'db' && empty(rawurldecode($db))) { $db = $targetValue; }
+            elseif ($targetField === 'strp' && empty(rawurldecode($strp))) { $strp = $targetValue; }
+            elseif ($targetField === 'rev' && empty(rawurldecode($rev))) { $rev = $targetValue; }
+            $paypalClientId = rawurlencode('');
+        } else {
+            $paypalClientId = rawurlencode($paypalClientId);
+        }
+
+        // Custom sums setup (default: 10, 25, 50)
+        $s1 = $request->filled('s1') ? rawurlencode($request->input('s1')) : '10';
+        $s2 = $request->filled('s2') ? rawurlencode($request->input('s2')) : '25';
+        $s3 = $request->filled('s3') ? rawurlencode($request->input('s3')) : '50';
+
+        // Fixed amount expected from the donor
+        $s0 = rawurlencode($request->input('s0'));
+
+        $amount = null;
+
+        $localOnly = $request->boolean('local_only');
+
+        return view("cashier", compact(
+            'campaign_title', 'detail', 'payee', 'iban',
+            'pp', 'db', 'sebuid', 'sebuid_st', 'rev', 'pphb', 'strp', 'paypalClientId',
+            's1', 's2', 's3', 's0', 'amount', 'localOnly'
+        ));
+    }
+
     public function getCashierQR(Request $request) {
         $request->validate([
 //            'campaign_title' => 'required|string|max:250',
@@ -620,9 +685,10 @@ class DonationController extends Controller
         $s2 = isset($params['s2']) ? urldecode($params['s2']) : '';
         $s3 = isset($params['s3']) ? urldecode($params['s3']) : '';
         $s0 = isset($params['s0']) ? urldecode($params['s0']) : '';
-        
+
         // Boolean values
         $tax = isset($params['tax']) && filter_var($params['tax'], FILTER_VALIDATE_BOOLEAN);
+        $rec = isset($params['rec']) && filter_var($params['rec'], FILTER_VALIDATE_BOOLEAN);
         $swt = isset($params['swt']) && filter_var($params['swt'], FILTER_VALIDATE_BOOLEAN);
         $lhvt = isset($params['lhvt']) && filter_var($params['lhvt'], FILTER_VALIDATE_BOOLEAN);
         $coopt = isset($params['coopt']) && filter_var($params['coopt'], FILTER_VALIDATE_BOOLEAN);
@@ -646,7 +712,7 @@ class DonationController extends Controller
         return view('edit', compact(
             'campaign_title', 'detail', 'payee', 'iban', 'pp', 'db',
             'sebuid', 'sebuid_st', 'rev', 'strp', 'paypalClientId', 'pphb',
-            's1', 's2', 's3', 's0', 'tax', 'swt', 'lhvt', 'coopt', 'local_only',
+            's1', 's2', 's3', 's0', 'tax', 'rec', 'swt', 'lhvt', 'coopt', 'local_only',
             'hasSwedbank', 'hasSEB', 'hasLHV', 'hasCoop', 'hasStripe',
             'hasPaypalBusiness', 'hasDonorbox', 'hasPaypalMe', 'hasRevolut',
             'hasPaypalHostedButton', 'originalUrl'
