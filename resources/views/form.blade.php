@@ -50,7 +50,7 @@
         <!-- /Top Navigation -->
     </div>
 
-    <div class="donation-form-card glass-strong rounded-2xl p-4 justify-between mb-6">
+    <div class="donation-form-card glass-strong rounded-2xl p-4 sm:p-6 lg:p-8 justify-between mb-6">
         @if(isset($hasPaymentMethods) && !$hasPaymentMethods)
             <div class="py-8 px-4 text-center">
                 <div class="mb-4 p-4 rounded-xl bg-red-50 border border-red-200">
@@ -98,7 +98,7 @@
                                                 <div class="relative">
                                                     <div
                                                         class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                          <span class="text-gray-500 text-lg">
+                                                          <span class="text-gray-500 text-2xl">
                                                             €
                                                           </span>
                                                     </div>
@@ -225,50 +225,28 @@
 
                                             <div class="flex flex-wrap justify-center gap-2 mt-3 mb-4">
                                                 @if(!$s0)
-                                                <button id="preamount1" class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2.5 px-5 rounded-xl
-                                                        text-center text-gray-600 font-medium
-                                                        focus:ring-2 focus:ring-offset-0 focus:ring-pink-500 w-auto
-                                                        border border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm"
-                                                        @if($s1)
-                                                        @click="preamount = '{{ $s1 }}'">
-                                                    {{ $s1 }}€
-                                                    @else
-                                                        @click="preamount = '{{ $defsum }}'">
-                                                        {{ $defsum }}€
-                                                    @endif
+                                                @php
+                                                    $preVal1 = $s1 ?: $defsum;
+                                                    $preVal2 = $s2 ?: ($s1 ? $s1 * 2 : $defsum * 2);
+                                                    $preVal3 = $s3 ?: ($s1 ? $s1 * 3 : $defsum * 3);
+                                                @endphp
+                                                <button id="preamount1"
+                                                        class="d-font transition duration-150 ease-in-out focus:outline-none py-2.5 px-5 rounded-xl text-center font-medium focus:ring-2 focus:ring-offset-0 focus:ring-pink-500 w-auto border"
+                                                        :class="preamount === '{{ $preVal1 }}' ? 'bg-pink-100/80 text-pink-800 border-pink-200/80 shadow-sm' : 'text-gray-600 border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm'"
+                                                        @click="preamount = '{{ $preVal1 }}'">
+                                                    {{ $preVal1 }}€
                                                 </button>
-                                                <button id="preamount2" class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2.5 px-5 rounded-xl
-                                                        text-center text-gray-600 font-medium
-                                                        focus:ring-2 focus:ring-offset-0 focus:ring-pink-500 w-auto
-                                                        border border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm"
-                                                    @if($s2)
-                                                        @click="preamount = '{{ $s2 }}'">
-                                                        {{ $s2 }}€
-                                                    @elseif($s1)
-                                                        @click="preamount = '{{ $s1 * 2 }}'">
-                                                        {{ $s1 * 2 }}€
-                                                    @else
-                                                        @click="preamount = '{{ $defsum * 2 }}'">
-                                                        {{ $defsum * 2 }}€
-                                                    @endif
+                                                <button id="preamount2"
+                                                        class="d-font transition duration-150 ease-in-out focus:outline-none py-2.5 px-5 rounded-xl text-center font-medium focus:ring-2 focus:ring-offset-0 focus:ring-pink-500 w-auto border"
+                                                        :class="preamount === '{{ $preVal2 }}' ? 'bg-pink-100/80 text-pink-800 border-pink-200/80 shadow-sm' : 'text-gray-600 border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm'"
+                                                        @click="preamount = '{{ $preVal2 }}'">
+                                                    {{ $preVal2 }}€
                                                 </button>
-                                                <button id="preamount3" class="d-font transition duration-150 ease-in-out
-                                                        focus:outline-none py-2.5 px-5 rounded-xl
-                                                        text-center text-gray-600 font-medium
-                                                        focus:ring-2 focus:ring-offset-0 focus:ring-pink-500 w-auto
-                                                        border border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm"
-                                                        @if($s3)
-                                                        @click="preamount = '{{ $s3 }}'">
-                                                    {{ $s3 }}€
-                                                    @elseif($s1)
-                                                        @click="preamount = '{{ $s1 * 3 }}'">
-                                                        {{ $s1 * 3 }}€
-                                                    @else
-                                                        @click="preamount = '{{ $defsum * 3 }}'">
-                                                        {{ $defsum * 3 }}€
-                                                    @endif
+                                                <button id="preamount3"
+                                                        class="d-font transition duration-150 ease-in-out focus:outline-none py-2.5 px-5 rounded-xl text-center font-medium focus:ring-2 focus:ring-offset-0 focus:ring-pink-500 w-auto border"
+                                                        :class="preamount === '{{ $preVal3 }}' ? 'bg-pink-100/80 text-pink-800 border-pink-200/80 shadow-sm' : 'text-gray-600 border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm'"
+                                                        @click="preamount = '{{ $preVal3 }}'">
+                                                    {{ $preVal3 }}€
                                                 </button>
                                                 @endif
                                             </div>
@@ -284,12 +262,13 @@
                                             </div>
                                         </div>
 
-                                        <div class="flex flex-wrap justify-center gap-2 mt-2 mb-4">
+                                        <div class="flex flex-wrap justify-center gap-2 mt-2 mb-4" role="tablist" aria-label="@lang('Payment type')">
                                             @if($onetime)
                                             <button
                                                 class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2.5 px-5 rounded-xl text-center text-sm font-medium
                                                         focus:ring-2 focus:ring-offset-0 focus:ring-pink-500"
+                                                role="tab" :aria-selected="tab === 'onetime'" aria-controls="tabpanel-onetime"
                                                 @click="tab = 'onetime'"
                                                 :class="tab === 'onetime' ? 'bg-pink-100/80 text-pink-800 border border-pink-200/80 shadow-sm' : 'text-gray-600 border border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm'"
                                             >
@@ -301,6 +280,7 @@
                                                 class="d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2.5 px-5 rounded-xl text-center text-sm font-medium
                                                         focus:ring-2 focus:ring-offset-0 focus:ring-pink-500"
+                                                role="tab" :aria-selected="tab === 'standing'" aria-controls="tabpanel-standing"
                                                 @click="tab = 'standing'"
                                                 :class="tab === 'standing' ? 'bg-pink-100/80 text-pink-800 border border-pink-200/80 shadow-sm' : 'text-gray-600 border border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm'"
                                             >
@@ -319,8 +299,7 @@
 
                                         <div x-data="{ show: false }">
                                         <div class="flex items-center justify-center mt-2 mb-2 pl-2">
-                                            <div class="flex items-start mb-2">
-                                                <div class="flex items-center h-5">
+                                            <label for="ikcheckbox" class="flex items-center gap-3 py-2 px-1 cursor-pointer">
                                                     <input
                                                         form="generator"
                                                         type="checkbox"
@@ -329,15 +308,11 @@
                                                         value="true"
                                                         x-model="show"
                                                         aria-label="@lang("I'd like to have a tax return")"
-                                                        class="w-4 h-4
-                                                     bg-red-100 border-red-300 text-red-500 focus:ring-red-200 "
+                                                        class="w-5 h-5 shrink-0
+                                                     bg-red-100 border-red-300 text-red-500 focus:ring-red-200 rounded"
                                                         >
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="ikcheckbox" class="font-medium text-gray-600
-                                                    dark:text-gray-300">@lang("I'd like to have a tax return")</label>
-                                                </div>
-                                            </div>
+                                                <span class="text-sm font-medium text-gray-600">@lang("I'd like to have a tax return")</span>
+                                            </label>
                                         </div>
                                             <div x-show="show" x-transition:enter.duration.500ms>
                                                 <div class="mb-1 text-xs text-gray-500 text-center">
@@ -374,10 +349,10 @@
                                         @if(!$localOnly)
                                         <script>window.__countryOptions = @json($countryOptions);</script>
                                         @endif
-                                        <div x-data="{ bankCountry: '{{ env('COUNTRY') }}', dropdownOpen: false, get countryOptions() { return window.__countryOptions || []; } }" @click.outside="dropdownOpen = false">
+                                        <div x-data="{ bankCountry: '{{ env('COUNTRY') }}', dropdownOpen: false, get countryOptions() { return window.__countryOptions || []; } }" @click.outside="dropdownOpen = false" @keydown.escape.window="dropdownOpen = false">
                                             <input form="sumforbank" type="hidden" name="bank_country" :value="bankCountry">
 
-                                            <div x-show="tab === 'onetime'" class="mt-2 flex flex-col items-center gap-4" x-transition:enter.duration.500ms>
+                                            <div x-show="tab === 'onetime'" id="tabpanel-onetime" role="tabpanel" class="mt-2 flex flex-col items-center gap-4" x-transition:enter.duration.500ms>
                                                 @if($onetime && $iban)
                                                     <div class="w-full">
                                                         {{-- Label and (optional) country dropdown on same line --}}
@@ -388,14 +363,19 @@
                                                                 @if(!$localOnly)
                                                                 <div class="relative">
                                                                     <button type="button" @click="dropdownOpen = !dropdownOpen"
+                                                                        aria-haspopup="listbox" :aria-expanded="dropdownOpen"
+                                                                        aria-label="@lang('Select country')"
                                                                         class="d-font inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 text-sm font-medium shadow-sm hover:bg-gray-50 hover:border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-pink-400 focus:outline-none transition min-h-[2.25rem]">
                                                                         <span x-text="(countryOptions.find(function(c){return c.value===bankCountry;}) || {}).label || bankCountry"></span>
-                                                                        <svg class="w-4 h-4 text-gray-400 shrink-0 transition-transform" :class="dropdownOpen && 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                                                        <svg class="w-4 h-4 text-gray-400 shrink-0 transition-transform" :class="dropdownOpen && 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                                                                     </button>
                                                                     <div x-show="dropdownOpen" x-cloak x-transition
+                                                                        role="listbox" :aria-activedescendant="'country-opt-' + bankCountry"
                                                                         class="absolute left-0 z-20 mt-1 w-full min-w-[10rem] rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
                                                                         <template x-for="opt in countryOptions" :key="opt.value">
                                                                             <button type="button" @click="bankCountry = opt.value; dropdownOpen = false"
+                                                                                role="option" :id="'country-opt-' + opt.value"
+                                                                                :aria-selected="bankCountry === opt.value"
                                                                                 class="d-font w-full px-3 py-2 text-left text-sm hover:bg-gray-50 focus:bg-gray-50 focus:outline-none"
                                                                                 :class="bankCountry === opt.value ? 'bg-pink-50 text-pink-800 font-medium' : 'text-gray-700'"
                                                                                 x-text="opt.label"></button>
@@ -406,7 +386,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="flex flex-wrap justify-center gap-2">
+                                                        <div class="flex flex-wrap justify-center gap-3">
                                                         {{-- Swedbank: available in all 3 countries --}}
                                                         @if(!$swt)
                                                         <button
@@ -414,7 +394,7 @@
                                                             type="submit"
                                                             name="action"
                                                             value="swed"
-                                                            class="d-font transition duration-150 ease-in-out inline-flex shrink-0
+                                                            class="d-font transition duration-150 ease-in-out inline-flex items-center justify-center shrink-0 min-w-[5.5rem]
                                                             bg-yellow-500 px-5 py-3 text-sm font-medium
                                                             text-white rounded-full shadow-md whitespace-nowrap
                                                             hover:shadow-lg hover:bg-yellow-600">Swedbank
@@ -428,7 +408,7 @@
                                                                 type="submit"
                                                                 name="action"
                                                                 value="seb"
-                                                                class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-green-500 px-5 py-3
+                                                                class="d-font transition duration-150 ease-in-out inline-flex items-center justify-center shrink-0 min-w-[5.5rem] bg-green-500 px-5 py-3
                                                              text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                             hover:shadow-lg hover:bg-green-600">SEB
                                                             </button>
@@ -442,7 +422,7 @@
                                                         name="action"
                                                         value="lhv"
                                                         x-show="bankCountry === 'ee'"
-                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-gray-700 px-5 py-3
+                                                        class="d-font transition duration-150 ease-in-out inline-flex items-center justify-center shrink-0 min-w-[5.5rem] bg-gray-700 px-5 py-3
                                                         text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
@@ -455,7 +435,7 @@
                                                         name="action"
                                                         value="coop"
                                                         x-show="bankCountry === 'ee'"
-                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-blue-600 px-5 py-3
+                                                        class="d-font transition duration-150 ease-in-out inline-flex items-center justify-center shrink-0 min-w-[5.5rem] bg-blue-600 px-5 py-3
                                                         text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
@@ -477,7 +457,7 @@
                                                             @endif
                                                         <div class="text-xs text-gray-500 text-center">@lang("Donate by credit card")</div>
                                                     </div>
-                                                    <div class="flex flex-wrap justify-center gap-2">
+                                                    <div class="flex flex-wrap justify-center gap-3">
                                                     @if($rev)
                                                         <button
                                                             form="sumforbank"
@@ -485,7 +465,7 @@
                                                             name="action"
                                                             value="rev"
                                                             class="d-font transition duration-150 ease-in-out bg-white px-5 py-3
-                                                        text-sm font-medium border border-gray-200 text-blue-600 rounded-xl shadow-md
+                                                        text-sm font-medium border border-gray-200 text-blue-600 rounded-full shadow-md
                                                         hover:shadow-lg hover:bg-gray-50 mb-2">
                                                             Revolut <span class="text-xs tracking-tight">(Visa/MC)</span>
                                                         </button>
@@ -497,7 +477,7 @@
                                                         name="action"
                                                         value="paypal"
                                                         class="d-font transition duration-150 ease-in-out bg-blue-800 px-5 py-3
-                                                text-sm font-medium text-white rounded-xl shadow-md
+                                                text-sm font-medium text-white rounded-full shadow-md
                                                 hover:shadow-lg hover:bg-blue-900 mb-2">Paypal
                                                     </button>
                                                 @endif
@@ -508,7 +488,7 @@
                                                             name="action"
                                                             value="pphb"
                                                             class="d-font transition duration-150 ease-in-out bg-blue-800 px-5 py-3
-                                                text-sm font-medium text-white rounded-xl shadow-md
+                                                text-sm font-medium text-white rounded-full shadow-md
                                                 hover:shadow-lg hover:bg-blue-900 mb-2">
                                                             Paypal <span class="text-xs tracking-tight">(Visa/MC)</span>
                                                         </button>
@@ -520,7 +500,7 @@
                                                         name="action"
                                                         value="donorbox"
                                                         class="d-font transition duration-150 ease-in-out bg-red-600 px-5 py-3
-                                                text-sm font-medium text-white rounded-xl shadow-md
+                                                text-sm font-medium text-white rounded-full shadow-md
                                                 hover:shadow-lg hover:bg-red-700 inline-flex items-center mb-2">
                                                         Donorbox <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                     </button>
@@ -532,7 +512,7 @@
                                                             name="action"
                                                             value="strp"
                                                             class="d-font transition duration-150 ease-in-out bg-blue-600 px-5 py-3
-                                                text-sm font-medium text-white rounded-xl shadow-md
+                                                text-sm font-medium text-white rounded-full shadow-md
                                                 hover:shadow-lg hover:bg-blue-700 inline-flex items-center mb-2">
                                                             Stripe <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                         </button>
@@ -544,7 +524,7 @@
                                                 </div>
                                                 @endif
                                             </div>
-                                            <div x-show="tab === 'standing'" class="mt-2 flex flex-col items-center gap-4" x-transition:enter.duration.500ms>
+                                            <div x-show="tab === 'standing'" id="tabpanel-standing" role="tabpanel" class="mt-2 flex flex-col items-center gap-4" x-transition:enter.duration.500ms>
                                                 @if($recurring && $iban)
                                                     <div class="w-full">
                                                         {{-- Standing orders: country dropdown shown but disabled (domestic only) --}}
@@ -555,16 +535,17 @@
                                                                 @if(!$localOnly)
                                                                 <div class="relative">
                                                                     <button type="button" disabled
-                                                                        class="d-font inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 bg-gray-100 text-gray-400 text-sm font-medium shadow-sm cursor-not-allowed min-h-[2.25rem]">
+                                                                        title="@lang('Only available for the current country')"
+                                                                        class="d-font inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-500 text-sm font-medium shadow-sm cursor-not-allowed min-h-[2.25rem]">
                                                                         <span x-text="(countryOptions.find(function(c){return c.value===bankCountry;}) || {}).label || bankCountry"></span>
-                                                                        <svg class="w-4 h-4 text-gray-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                                                        <svg class="w-4 h-4 text-gray-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                                                                     </button>
                                                                 </div>
                                                                 @endif
                                                             </div>
                                                         </div>
 
-                                                        <div class="flex flex-wrap justify-center gap-2">
+                                                        <div class="flex flex-wrap justify-center gap-3">
                                                         {{-- Standing: server country only (no country selector). Swedbank: EE/LV/LT --}}
                                                         @if(!$swt && in_array(env('COUNTRY'), ['ee', 'lv', 'lt']))
                                                     <button
@@ -572,7 +553,7 @@
                                                         type="submit"
                                                         name="action"
                                                         value="swed-standing"
-                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-yellow-500 px-5 py-3
+                                                        class="d-font transition duration-150 ease-in-out inline-flex items-center justify-center shrink-0 min-w-[5.5rem] bg-yellow-500 px-5 py-3
                                                         text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-yellow-600">Swedbank
                                                     </button>
@@ -584,7 +565,7 @@
                                                                 type="submit"
                                                                 name="action"
                                                                 value="seb-standing"
-                                                                class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-green-500 px-5 py-3
+                                                                class="d-font transition duration-150 ease-in-out inline-flex items-center justify-center shrink-0 min-w-[5.5rem] bg-green-500 px-5 py-3
                                                              text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                             hover:shadow-lg hover:bg-green-600">SEB
                                                             </button>
@@ -596,7 +577,7 @@
                                                         type="submit"
                                                         name="action"
                                                         value="lhv-standing"
-                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-gray-700 px-5 py-3
+                                                        class="d-font transition duration-150 ease-in-out inline-flex items-center justify-center shrink-0 min-w-[5.5rem] bg-gray-700 px-5 py-3
                                                         text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-gray-800">LHV
                                                     </button>
@@ -608,7 +589,7 @@
                                                         type="submit"
                                                         name="action"
                                                         value="coop-standing"
-                                                        class="d-font transition duration-150 ease-in-out inline-flex shrink-0 bg-blue-600 px-5 py-3
+                                                        class="d-font transition duration-150 ease-in-out inline-flex items-center justify-center shrink-0 min-w-[5.5rem] bg-blue-600 px-5 py-3
                                                         text-sm font-medium text-white rounded-full shadow-md whitespace-nowrap
                                                         hover:shadow-lg hover:bg-blue-700">Coop
                                                     </button>
@@ -628,7 +609,7 @@
                                                         @endif
                                                         <div class="text-xs text-gray-500 text-center">@lang("Donate by credit card")</div>
                                                     </div>
-                                                    <div class="flex flex-wrap justify-center gap-2">
+                                                    <div class="flex flex-wrap justify-center gap-3">
                                                 @if($db)
                                                     <button
                                                         form="sumforbank"
@@ -636,7 +617,7 @@
                                                         name="action"
                                                         value="donorbox-standing"
                                                         class="d-font transition duration-150 ease-in-out bg-red-600 px-5 py-3
-                                                text-sm font-medium text-white rounded-xl shadow-md
+                                                text-sm font-medium text-white rounded-full shadow-md
                                                 hover:shadow-lg hover:bg-red-700 inline-flex items-center">
                                                         Donorbox <span class="text-xs tracking-tight ml-1">(Visa/MC)</span>
                                                         </button>
@@ -648,7 +629,7 @@
                                                                 name="action"
                                                                 value="pphb"
                                                                 class="d-font transition duration-150 ease-in-out bg-blue-800 px-5 py-3
-                                                text-sm font-medium text-white rounded-xl shadow-md
+                                                text-sm font-medium text-white rounded-full shadow-md
                                                 hover:shadow-lg hover:bg-blue-900 mb-2">
                                                             Paypal <span class="text-xs tracking-tight">(Visa/MC)</span>
                                                             </button>
