@@ -82,7 +82,7 @@
                                         $stepForSecondPayment = $stepForFirstPayment + 1;
                                     @endphp
                                     <div x-data="{ tab: '{{ $defaultTab }}' }">
-                                        <div class="flex items-center justify-center mt-6 mb-2">
+                                        <div class="flex items-center justify-center mb-2">
                                             <div class="rounded-full h-7 w-7 mr-2 flex items-center justify-center bg-yellow-100
                                     text-gray-600 text-xs font-semibold">1</div>
                                             <div class="text-xs text-gray-500 text-center">
