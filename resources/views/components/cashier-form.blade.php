@@ -138,21 +138,21 @@
                                                         type="hidden"
                                                         name="campaign_title"
                                                         id="campaign_title"
-                                                        value="{{ $campaign_title }}"
+                                                        value="{{ urldecode($campaign_title) }}"
                                                     >
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
                                                         name="payee"
                                                         id="payee"
-                                                        value="{{ $payee }}"
+                                                        value="{{ urldecode($payee) }}"
                                                     >
                                                     <input
                                                         form="sumforbank"
                                                         type="hidden"
                                                         name="detail"
                                                         id="detail"
-                                                        value="{{ $detail }}"
+                                                        value="{{ urldecode($detail) }}"
                                                     >
                                                     <input
                                                         form="sumforbank"
@@ -292,14 +292,14 @@
                                                         type="text"
                                                         name="detail"
                                                         id="detail"
-                                                        value="{{ $detail }}"
+                                                        value="{{ urldecode($detail) }}"
                                                         class="appearance-none rounded-none relative block
                                                                 px-3 py-1 border border-gray-300
                                                                text-gray-900 rounded-md
                                                                focus:outline-none focus:ring-indigo-500
                                                                focus:border-indigo-500 focus:z-10 text-normal
                                                                transition duration-150 ease-in-out text-center"
-                                                        placeholder="{{ $detail }}">
+                                                        placeholder="{{ urldecode($detail) }}">
                                                 </div>
                                             </div>
                                         </div>
