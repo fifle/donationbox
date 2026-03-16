@@ -90,8 +90,13 @@
     "Search countries...": "Search countries...",
     "Confirm": "Confirm",
     "Only allow payments from this country": "Only allow payments from this country",
-    "Only allow payments from :country": "Only allow payments from :country",
+    "Only allow payments from :country": "Only allow payments :country",
+    "from Estonia": "from Estonia",
+    "from Latvia": "from Latvia",
+    "from Lithuania": "from Lithuania",
     "When enabled, donors cannot choose another country; only this country's banks are shown.": "When enabled, donors cannot choose another country; only this country's banks are shown.",
     "If this option is disabled, donors from Estonia, Latvia and Lithuania can use their internet banks to donate. For more details, see the :link.": "If this option is disabled, donors from Estonia, Latvia and Lithuania can use their internet banks to donate. For more details, see the :link.",
+    "Please type your identity code": "Please type your identity code (isikukood)",
+    "eg. 38001085718": "eg. 38001085718",
     "FAQ": "FAQ"
 }

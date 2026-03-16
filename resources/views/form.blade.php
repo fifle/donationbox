@@ -298,20 +298,20 @@
                                         </div>
 
                                         <div x-data="{ show: false }">
-                                        <div class="flex items-center justify-center mt-2 mb-2 pl-2">
-                                            <label for="ikcheckbox" class="flex items-center gap-3 py-2 px-1 cursor-pointer">
-                                                    <input
-                                                        form="generator"
-                                                        type="checkbox"
-                                                        id="ikcheckbox"
-                                                        name="ikcheckbox"
-                                                        value="true"
-                                                        x-model="show"
-                                                        aria-label="@lang("I'd like to have a tax return")"
-                                                        class="w-5 h-5 shrink-0
-                                                     bg-red-100 border-red-300 text-red-500 focus:ring-red-200 rounded"
-                                                        >
-                                                <span class="text-sm font-medium text-gray-600">@lang("I'd like to have a tax return")</span>
+                                        <div class="flex items-center justify-center mt-2 mb-2">
+                                            <label for="ikcheckbox"
+                                                   class="d-font cursor-pointer transition duration-150 ease-in-out focus-within:outline-none py-2.5 px-5 rounded-xl text-center text-sm font-medium focus-within:ring-2 focus-within:ring-offset-0 focus-within:ring-pink-500 border"
+                                                   :class="show ? 'bg-pink-100/80 text-pink-800 border-pink-200/80 shadow-sm' : 'text-gray-600 border-gray-200/80 bg-white/70 hover:bg-white hover:shadow-md backdrop-blur-sm'">
+                                                <input
+                                                    form="generator"
+                                                    type="checkbox"
+                                                    id="ikcheckbox"
+                                                    name="ikcheckbox"
+                                                    value="true"
+                                                    x-model="show"
+                                                    class="sr-only"
+                                                >
+                                                @lang("I'd like to have a tax return")
                                             </label>
                                         </div>
                                             <div x-show="show" x-transition:enter.duration.500ms>
@@ -331,7 +331,7 @@
                                                                focus:outline-none focus:ring-2 focus:ring-pink-500
                                                                focus:border-pink-400 focus:z-10 text-normal
                                                                transition duration-150 ease-in-out text-center"
-                                                        placeholder="eg. 38001085718"
+                                                        placeholder="@lang('eg. 38001085718')"
                                                     >
                                                 </div>
                                             </div>

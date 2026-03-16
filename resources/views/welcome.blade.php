@@ -1032,8 +1032,8 @@ body.home-page-body {
                                         @endif
                                         {{-- Restrict to current country only (no country dropdown on donation form) --}}
                                         @php
-                                            $countryNames = ['ee' => __('Estonia'), 'lv' => __('Latvia'), 'lt' => __('Lithuania')];
-                                            $currentCountryName = $countryNames[env('COUNTRY')] ?? env('COUNTRY');
+                                            $countryFromNames = ['ee' => __('from Estonia'), 'lv' => __('from Latvia'), 'lt' => __('from Lithuania')];
+                                            $currentCountryName = $countryFromNames[env('COUNTRY')] ?? env('COUNTRY');
                                         @endphp
                                         <div class="col-span-12 mt-4 pt-4 border-t border-gray-200">
                                             <div class="flex items-center gap-3">
