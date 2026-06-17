@@ -7,7 +7,7 @@ processes = []
 
 [build]
   [build.args]
-    NODE_VERSION = "14"
+    NODE_VERSION = "20"
     PHP_VERSION = "8.0"
 
 [env]
