@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DonationUrlBuilder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -42,11 +43,11 @@ class LocalizationController extends Controller
     {
         $parsedUrl = parse_url($url);
         $query = isset($parsedUrl['query']) ? $parsedUrl['query'] : '';
-        
+
         parse_str($query, $queryParams);
         $queryParams['locale'] = $locale;
-        
-        $newQuery = http_build_query($queryParams);
+
+        $newQuery = DonationUrlBuilder::buildQueryString($queryParams);
         
         $scheme = isset($parsedUrl['scheme']) ? $parsedUrl['scheme'] . '://' : '';
         $host = isset($parsedUrl['host']) ? $parsedUrl['host'] : '';

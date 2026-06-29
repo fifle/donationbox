@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DonationUrlBuilder;
 use App\Helpers\PaymentUrlExtractor;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -87,9 +88,8 @@ class DonationController extends Controller
             $s0 = rawurlencode($request->input('s0'));
 
             // links
-            $link = url()->full();
-            $changeHttpPrefix = str_replace("http://", "https://", $link);
-            $embedlink = str_replace("/donation?", "/embed?", $changeHttpPrefix);
+            $link = str_replace('http://', 'https://', DonationUrlBuilder::fromRequest($request));
+            $embedlink = str_replace('http://', 'https://', DonationUrlBuilder::buildFromRequest($request, 'embed'));
 
             // amount
             $amount = null;
@@ -117,7 +117,7 @@ class DonationController extends Controller
                 $qrcode = QrCode::format('svg')
 //                ->merge('img/db-logo-qr.png', .3, true)
                     ->size(250)
-                    ->generate(url()->full());
+                    ->generate($link);
 //            }
 
             $compactData = array(
@@ -231,7 +231,7 @@ class DonationController extends Controller
             $hasOtherMethods = $request->filled('rev') || $request->filled('pp') || $request->filled('pphb') ||
                 $request->filled('db') || $request->filled('paypalClientId') || $request->filled('strp');
             $hasPaymentMethods = $hasInternetBankOneTime || $hasInternetBankRecurring || $hasOtherMethods;
-            $editUrl = route('edit') . '?url=' . rawurlencode(url()->full());
+            $editUrl = route('edit') . '?url=' . rawurlencode($link);
 
             // Recurring payment option: only show if at least one enabled method supports it (internet banks + Donorbox)
             $hasRecurringPayment = $hasInternetBankRecurring || $request->filled('db');
@@ -319,8 +319,8 @@ class DonationController extends Controller
             $s0 = rawurlencode($request->input('s0'));
 
             // links
-            $link = url()->full();
-            $embedlink = str_replace("/donation", "/embed", $link);
+            $link = DonationUrlBuilder::fromRequest($request);
+            $embedlink = DonationUrlBuilder::buildFromRequest($request, 'embed');
 
             $amount = null;
             $ik = null;
@@ -555,9 +555,8 @@ class DonationController extends Controller
         $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : false;
 
         if ($request->input('action') == 'cashier') {
-            $fullLink = url()->full();
-            $link = str_replace("/plink?", "/donation?", $fullLink);
-            $cashierLink = str_replace("/plink?", "/cashier?", $fullLink);
+            $link = DonationUrlBuilder::buildFromRequest($request, 'donation');
+            $cashierLink = DonationUrlBuilder::buildFromRequest($request, 'cashier');
 
             $qrcode = QrCode::format('svg')
                 ->size(250)
