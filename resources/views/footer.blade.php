@@ -2,7 +2,7 @@
 
     @if(Route::currentRouteName() === 'donation')
     <a href="mailto:donationbox.ee@@gmail.com?subject=Report%20Alert%20from%20Donationbox.ee&body=Your%20name%3A%0D%0AYour%20email%3A%0D%0AReason%20for%20reporting%3A%0D%0AReported%20URL%3A%20{{
-    urlencode(url()->full()) }}"
+    urlencode(\App\Helpers\CurrentUrl::full()) }}"
        target="_blank"
        class="d-font transition duration-150 ease-in-out bg-white px-5
                                                 py-3 mb-4 text-sm shadow-sm font-medium

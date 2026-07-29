@@ -128,7 +128,7 @@
                     @lang("Share this donation box with your friends!")
                 </h3>
                 <div class="mt-2 flex items-center justify-center">
-                {!! Share::page(urlencode(url()->full()), urldecode($campaign_title))->facebook()->twitter()
+                {!! Share::page(urlencode(\App\Helpers\CurrentUrl::full()), urldecode($campaign_title))->facebook()->twitter()
                 ->linkedin()
                 ->whatsapp() !!}
                 <!-- Trigger -->

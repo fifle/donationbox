@@ -23,12 +23,20 @@ class LocalizationController extends Controller
         
         App::setLocale($locale);
         session()->put('locale', $locale);
-        
-        // Get the previous URL
+
+        // The previous URL comes from the Referer header, which is attacker/third-party
+        // controlled. Only follow it when it stays on this host, otherwise send visitors
+        // (e.g. arriving from a search result) to the homepage instead of back off-site.
         $previousUrl = URL::previous();
+        if (parse_url($previousUrl, PHP_URL_HOST) !== $request->getHost()) {
+            $previousUrl = url('/');
+        }
+
         $redirectUrl = $this->updateUrlWithLocale($previousUrl, $locale);
-        
-        return redirect($redirectUrl);
+
+        // This route only exists for links published before the switcher moved to ?locale=
+        // URLs; it must never appear in search results as a page in its own right.
+        return redirect($redirectUrl)->header('X-Robots-Tag', 'noindex');
     }
     
     /**

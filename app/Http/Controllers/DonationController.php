@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CurrentUrl;
 use App\Helpers\PaymentUrlExtractor;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -87,7 +88,7 @@ class DonationController extends Controller
             $s0 = rawurlencode($request->input('s0'));
 
             // links
-            $link = url()->full();
+            $link = CurrentUrl::full();
             $changeHttpPrefix = str_replace("http://", "https://", $link);
             $embedlink = str_replace("/donation?", "/embed?", $changeHttpPrefix);
 
@@ -117,7 +118,7 @@ class DonationController extends Controller
                 $qrcode = QrCode::format('svg')
 //                ->merge('img/db-logo-qr.png', .3, true)
                     ->size(250)
-                    ->generate(url()->full());
+                    ->generate(CurrentUrl::full());
 //            }
 
             $compactData = array(
@@ -231,7 +232,7 @@ class DonationController extends Controller
             $hasOtherMethods = $request->filled('rev') || $request->filled('pp') || $request->filled('pphb') ||
                 $request->filled('db') || $request->filled('paypalClientId') || $request->filled('strp');
             $hasPaymentMethods = $hasInternetBankOneTime || $hasInternetBankRecurring || $hasOtherMethods;
-            $editUrl = route('edit') . '?url=' . rawurlencode(url()->full());
+            $editUrl = route('edit') . '?url=' . rawurlencode(CurrentUrl::full());
 
             // Recurring payment option: only show if at least one enabled method supports it (internet banks + Donorbox)
             $hasRecurringPayment = $hasInternetBankRecurring || $request->filled('db');
@@ -319,7 +320,7 @@ class DonationController extends Controller
             $s0 = rawurlencode($request->input('s0'));
 
             // links
-            $link = url()->full();
+            $link = CurrentUrl::full();
             $embedlink = str_replace("/donation", "/embed", $link);
 
             $amount = null;
@@ -555,7 +556,7 @@ class DonationController extends Controller
         $rec = $request->has('rec') ? filter_var($request->input('rec'), FILTER_VALIDATE_BOOLEAN) : false;
 
         if ($request->input('action') == 'cashier') {
-            $fullLink = url()->full();
+            $fullLink = CurrentUrl::full();
             $link = str_replace("/plink?", "/donation?", $fullLink);
             $cashierLink = str_replace("/plink?", "/cashier?", $fullLink);
 

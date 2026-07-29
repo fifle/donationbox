@@ -3,9 +3,16 @@
     @php 
         // Use app locale so switcher matches actual content (middleware sets app locale from param, session, or country default)
         $locale = app()->getLocale();
-        // Get current URL to preserve all parameters
-        $currentUrl = url()->current();
-        $queryParams = request()->query();
+        // Link to the current page with a locale param instead of a redirect endpoint, so the
+        // target never depends on the Referer header and stays on this site.
+        $localeNames = ['en' => 'English'];
+        $countryLocales = ['ee' => 'Eesti', 'lv' => 'Latviešu', 'lt' => 'Lietuvių'];
+        if (isset($countryLocales[env('COUNTRY')])) {
+            $localeNames[env('COUNTRY')] = $countryLocales[env('COUNTRY')];
+        }
+        $localeNames['ru'] = 'Русский';
+
+        $localeUrl = fn ($code) => \App\Helpers\CurrentUrl::with(['locale' => $code]);
     @endphp
     <button id="dropdownSmallButton" data-dropdown-toggle="dropdownSmall" class="inline-flex items-center text-sm font-medium text-center d-font transition duration-150 ease-in-out
                                                         focus:outline-none py-2 mr-2 rounded-lg
@@ -38,27 +45,13 @@
 
     <div id="dropdownSmall" class="absolute right-0 top-full mt-1 min-w-[8rem] text-left z-50 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg border border-gray-200 dark:bg-gray-700 dark:divide-gray-600 dark:border-gray-600">
         <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSmallButton">
-            <li>
-                <a href="{{ route('lang', ['locale' => 'en']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">English</a>
-            </li>
-            @if(env('COUNTRY') == 'ee')
+            @foreach($localeNames as $code => $name)
                 <li>
-                    <a href="{{ route('lang', ['locale' => 'ee']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Eesti</a>
+                    <a href="{{ $localeUrl($code) }}"
+                       @if($code === $locale) aria-current="true" @endif
+                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $name }}</a>
                 </li>
-            @endif
-            @if(env('COUNTRY') == 'lv')
-                <li>
-                    <a href="{{ route('lang', ['locale' => 'lv']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Latviešu</a>
-                </li>
-            @endif
-            @if(env('COUNTRY') == 'lt')
-                <li>
-                    <a href="{{ route('lang', ['locale' => 'lt']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lietuvių</a>
-                </li>
-            @endif
-            <li>
-                <a href="{{ route('lang', ['locale' => 'ru']) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Русский</a>
-            </li>
+            @endforeach
         </ul>
     </div>
 </div>

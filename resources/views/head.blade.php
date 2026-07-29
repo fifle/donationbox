@@ -7,7 +7,7 @@
 <meta name="application-name" content="@yield('title', config('app.name'))">
 <!--Facebook Tags-->
 <meta property="og:type" content="website"/>
-<meta property="og:url" content="{{ request()->fullUrl() }}"/>
+<meta property="og:url" content="{{ \App\Helpers\CurrentUrl::full() }}"/>
 <meta property="og:description" content="@yield('description', config('app.description'))"/>
 @if(env('COUNTRY') == 'ee')
     <meta name="image" property="og:image" content="/img/db-social.jpg"/>
@@ -27,6 +27,9 @@
 <meta name="twitter:site" content="{{ '@' . config('app.name') }}"/>
 <meta name="twitter:title" content="@yield('title', config('app.name'))"/>
 <meta name="twitter:description" content="@yield('description', config('app.description'))"/>
+
+{{-- Locale variants are the same page in a different language, so point crawlers at one URL. --}}
+<link rel="canonical" href="{{ \App\Helpers\CurrentUrl::with([], ['locale']) }}"/>
 
 <title>DonationBox</title>
 

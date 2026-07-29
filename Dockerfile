@@ -31,6 +31,7 @@ RUN composer install --optimize-autoloader --no-dev --ignore-platform-reqs \
     && echo "MAILTO=\"\"\n* * * * * webuser /usr/bin/php /var/www/html/artisan schedule:run" > /etc/cron.d/laravel \
     && rm -rf /etc/cont-init.d/* \
     && cp .fly/nginx-websockets.conf /etc/nginx/conf.d/websockets.conf \
+    && cp .fly/nginx-probe-shield.conf /etc/nginx/conf.d/probe-shield.conf \
     && cp .fly/entrypoint.sh /entrypoint \
     && chmod +x /entrypoint
 
