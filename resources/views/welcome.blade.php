@@ -921,9 +921,20 @@ body.home-page-body {
                                                 </div>
                                             </div>
                                             </div>
-                                            <div x-show="sebt">
+                                            <div x-show="sebt" x-data="{ sebUnlocked: {{ (request('sebuid') || request('sebuid_st')) ? 'true' : 'false' }} }">
                                                 <div class="col-span-12 mt-3 ml-1 mr-1">
                                                     <p class="font-bold text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mb-3 text-sm">@lang("SEB UID is available for non-profits and businesses only. Private individuals cannot obtain this token.")</p>
+                                                    <div class="text-blue-800 bg-blue-50 border border-blue-200 rounded-lg px-3 py-3 mb-3 text-sm">
+                                                        <p class="font-semibold">@lang("SEB has stopped issuing new UID tokens since July 2026.")</p>
+                                                        <p class="mt-1 font-normal">@lang("This is outside of our control, and we are actively looking into options to restore this option for SEB clients.")</p>
+                                                        <p class="mt-1 font-normal">@lang("UID tokens issued before July 2026 continue to work as before. If you already have one, unlock the field below to use it.")</p>
+                                                        <template x-if="!sebUnlocked">
+                                                            <button type="button" @click="sebUnlocked = true"
+                                                                class="mt-2 inline-flex items-center px-3 py-1.5 rounded-md border border-blue-300 bg-white text-blue-800 text-xs font-semibold hover:bg-blue-100">
+                                                                @lang("I have a UID issued before July 2026 — unlock field")
+                                                            </button>
+                                                        </template>
+                                                    </div>
                                                     <label for="campaign_title" class="d-font font-semibold text-gray-700
                                                         block mb-2">@lang("SEB UID token")</label>
                                                     <div class="tracking-normal text-sm text-gray-500 mb-3
@@ -941,6 +952,8 @@ body.home-page-body {
                                                         type="text"
                                                         name="sebuid"
                                                         value="{{ request('sebuid') }}"
+                                                        :readonly="!sebUnlocked"
+                                                        :class="{ 'bg-gray-100 text-gray-400 cursor-not-allowed': !sebUnlocked }"
                                                         class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
                                                                text-gray-900 rounded-md
@@ -956,6 +969,8 @@ body.home-page-body {
                                                             type="text"
                                                             name="sebuid_st"
                                                             value="{{ request('sebuid_st') }}"
+                                                            :readonly="!sebUnlocked"
+                                                            :class="{ 'bg-gray-100 text-gray-400 cursor-not-allowed': !sebUnlocked }"
                                                             class="appearance-none rounded-none relative block
                                                                w-full px-3 py-2 border border-gray-300
                                                                text-gray-900 rounded-md

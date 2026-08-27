@@ -398,8 +398,9 @@ html {
                     @slot('cardContent')
                         @lang("The UID token is necessary for initiating payments in SEB's online bank. This way SEB improves the security of pre-filled forms on the payment transfer pages.")<br><br>
                         <b>@lang("SEB UID is available for non-profits and businesses only. Private individuals cannot obtain this token.")</b><br><br>
-                        @lang("To get the UID, send a free-form application with a request for UID to the email:") <a href="mailto:eservice{{ '@' }}seb.ee" class="no-underline hover:underline text-blue-800" target="_blank">eservice{{ '@' }}seb.ee</a>. @lang("Please note that the person representing a legal entity must be a member of the board.")<br><br>
-                        <i>@lang("Obtaining a UID does not require you to open an account or sign a contract with SEB.")</i>
+                        <b>@lang("Since July 2026, SEB has stopped issuing new UID tokens. This is outside of our control, and we are actively looking into options to restore this option for SEB clients.")</b><br><br>
+                        @lang("UID tokens issued before July 2026 continue to work as before, and DonationBox still lets you use one if you already have it.")<br><br>
+                        <i>@lang("Obtaining a UID did not require you to open an account or sign a contract with SEB.")</i>
                     @endslot
                 @endcomponent
 
