@@ -1,70 +1,55 @@
 # syntax = docker/dockerfile:experimental
 
-# Default to PHP 8.1, but we attempt to match
-# the PHP version from the user (wherever `flyctl launch` is run)
-# Valid version values are PHP 7.4+
-ARG PHP_VERSION=8.0
+# Pin a patched PHP patch release (CVE-2026-109618 / CVE-2026-109619).
+# Fixed lines: 8.2.35, 8.3.36, 8.4.27, 8.5.12. Laravel 8 targets 8.2.x.
+ARG PHP_VERSION=8.2.35
 ARG NODE_VERSION=20
-FROM serversideup/php:${PHP_VERSION}-fpm-nginx-v1.5.0 as base
+FROM serversideup/php:${PHP_VERSION}-fpm-nginx-v5.0.2 AS base
 
-# PHP_VERSION needs to be repeated here
-# See https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
+USER root
+
 ARG PHP_VERSION
 
 LABEL fly_launch_runtime="laravel"
 
-RUN apt-get update && apt-get install -y \
+# TLS is terminated at the Fly edge; NGINX serves HTTP on 8080.
+ENV SSL_MODE=off
+ENV AUTORUN_ENABLED=false
+ENV PHP_OPCACHE_ENABLE=1
+ENV TRUSTED_PROXY=fly
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
     git curl zip unzip rsync ca-certificates vim htop cron \
-    && (apt-get install -y php${PHP_VERSION}-pgsql php${PHP_VERSION}-bcmath php${PHP_VERSION}-xml php${PHP_VERSION}-mbstring 2>/dev/null || echo "Some PHP extensions may already be installed") \
+    && install-php-extensions bcmath gd imagick \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
-# copy application code, skipping files based on .dockerignore
-COPY . /var/www/html
 
-RUN composer install --optimize-autoloader --no-dev --ignore-platform-reqs \
-    && mkdir -p storage/logs \
-    && php artisan optimize:clear \
-    && chown -R webuser:webgroup /var/www/html \
-    && sed -i 's/protected \$proxies/protected \$proxies = "*"/g' app/Http/Middleware/TrustProxies.php \
-    && echo "MAILTO=\"\"\n* * * * * webuser /usr/bin/php /var/www/html/artisan schedule:run" > /etc/cron.d/laravel \
-    && rm -rf /etc/cont-init.d/* \
+COPY --chown=www-data:www-data . /var/www/html
+
+RUN composer install --optimize-autoloader --no-dev \
+    && mkdir -p storage/logs bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html \
+    && su -s /bin/sh www-data -c "php artisan optimize:clear" \
+    && sed -i 's/protected \$proxies;/protected \$proxies = "*";/g' app/Http/Middleware/TrustProxies.php \
+    && echo "MAILTO=\"\"\n* * * * * www-data /usr/bin/php /var/www/html/artisan schedule:run" > /etc/cron.d/laravel \
+    && chmod 0644 /etc/cron.d/laravel \
     && cp .fly/nginx-websockets.conf /etc/nginx/conf.d/websockets.conf \
     && cp .fly/nginx-probe-shield.conf /etc/nginx/conf.d/probe-shield.conf \
+    && cp .fly/nginx-http.conf.template /etc/nginx/site-opts.d/http.conf.template \
+    && cp .fly/nginx-trusted-proxy-fly.conf /etc/nginx/trusted-proxy/fly.conf \
+    && sed -i '/X-Frame-Options/d' /etc/nginx/server-opts.d/security.conf \
     && cp .fly/entrypoint.sh /entrypoint \
     && chmod +x /entrypoint
 
-# If we're using Octane...
-RUN if grep -Fq "laravel/octane" /var/www/html/composer.json; then \
-        rm -rf /etc/services.d/php-fpm; \
-        if grep -Fq "spiral/roadrunner" /var/www/html/composer.json; then \
-            mv .fly/octane-rr /etc/services.d/octane; \
-            if [ -f ./vendor/bin/rr ]; then ./vendor/bin/rr get-binary; fi; \
-            rm -f .rr.yaml; \
-        else \
-            mv .fly/octane-swoole /etc/services.d/octane; \
-        fi; \
-        cp .fly/nginx-default-swoole /etc/nginx/sites-available/default; \
-    else \
-        cp .fly/nginx-default /etc/nginx/sites-available/default; \
-    fi
-
 # Multi-stage build: Build static assets
-# This allows us to not include Node within the final container
-FROM node:${NODE_VERSION} as node_modules_go_brrr
+FROM node:${NODE_VERSION} AS node_modules_go_brrr
 
-RUN mkdir /app
-
-RUN mkdir -p  /app
 WORKDIR /app
 COPY . .
 COPY --from=base /var/www/html/vendor /app/vendor
 
-# Use yarn or npm depending on what type of
-# lock file we might find. Defaults to
-# NPM if no lock file is found.
-# Note: We run "production" for Mix and "build" for Vite
 RUN if [ -f "vite.config.js" ]; then \
         ASSET_CMD="build"; \
     else \
@@ -81,21 +66,18 @@ RUN if [ -f "vite.config.js" ]; then \
         npm run $ASSET_CMD; \
     fi;
 
-# From our base container created above, we
-# create our final image, adding in static
-# assets that we generated above
 FROM base
 
-# Packages like Laravel Nova may have added assets to the public directory
-# or maybe some custom assets were added manually! Either way, we merge
-# in the assets we generated above rather than overwrite them
+USER root
+
 COPY --from=node_modules_go_brrr /app/public /var/www/html/public-npm
 RUN if [ -d /var/www/html/public-npm ]; then \
         cp -r /var/www/html/public-npm/. /var/www/html/public/ 2>/dev/null || true; \
     fi \
     && rm -rf /var/www/html/public-npm \
-    && chown -R webuser:webgroup /var/www/html/public
+    && chown -R www-data:www-data /var/www/html/public
 
 EXPOSE 8080
 
 ENTRYPOINT ["/entrypoint"]
+CMD ["/init"]

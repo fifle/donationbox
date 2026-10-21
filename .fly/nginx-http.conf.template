@@ -1,0 +1,65 @@
+listen ${NGINX_HTTP_PORT} default_server;
+listen [::]:${NGINX_HTTP_PORT} default_server;
+
+root $NGINX_WEBROOT;
+
+index index.html index.htm index.php;
+
+server_name _;
+
+charset utf-8;
+
+absolute_redirect off;
+
+# Soft per-IP throttle (zones defined in conf.d/probe-shield.conf)
+limit_req zone=db_perip burst=40 nodelay;
+limit_conn db_perip_conn 20;
+limit_req_status 429;
+limit_conn_status 429;
+
+# Healthcheck
+location /healthcheck {
+    access_log off;
+    fastcgi_read_timeout 5s;
+    include        fastcgi_params;
+    fastcgi_param  SCRIPT_NAME     /healthcheck;
+    fastcgi_param  SCRIPT_FILENAME /healthcheck;
+    fastcgi_pass   127.0.0.1:9000;
+}
+
+# Drop common scanner paths before they hit Laravel
+location ~* ^/(?:wp-admin|wp-content|wp-includes|wp-login\.php|xmlrpc\.php|phpmyadmin|vendor/phpunit|cgi-bin|actuator)(?:/|$) {
+    access_log off;
+    log_not_found off;
+    return 404;
+}
+
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+
+# Block PHP execution in storage
+location ~* ^/storage/.*\.php(?:/|$) {
+    deny all;
+}
+
+# Only Laravel front controller may run PHP
+location = /index.php {
+    fastcgi_pass   127.0.0.1:9000;
+    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+    fastcgi_param  HTTP_X_FORWARDED_FOR $http_fly_client_ip;
+    include        fastcgi_params;
+    fastcgi_buffers $NGINX_FASTCGI_BUFFERS;
+    fastcgi_buffer_size $NGINX_FASTCGI_BUFFER_SIZE;
+    fastcgi_read_timeout $PHP_MAX_EXECUTION_TIME;
+}
+
+# Drop webshell / random *.php probes
+location ~* \.php(?:$|/) {
+    access_log off;
+    log_not_found off;
+    return 404;
+}
+
+include /etc/nginx/trusted-proxy/${TRUSTED_PROXY}.conf;
+include /etc/nginx/server-opts.d/*.conf;

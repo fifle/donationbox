@@ -7,11 +7,10 @@ for f in /var/www/html/.fly/scripts/*.sh; do
 done
 
 # Ownership was set at build time; only fix writable runtime dirs.
-chown -R webuser:webgroup /var/www/html/storage /var/www/html/bootstrap/cache 2>/dev/null || true
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache 2>/dev/null || true
 
 if [ $# -gt 0 ]; then
-    # If we passed a command, run it as root
-    exec "$@"
+    exec docker-php-serversideup-entrypoint "$@"
 else
-    exec /init
+    exec docker-php-serversideup-entrypoint /init
 fi
