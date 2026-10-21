@@ -33,7 +33,8 @@ RUN composer install --optimize-autoloader --no-dev \
     && chown -R www-data:www-data /var/www/html \
     && su -s /bin/sh www-data -c "php artisan optimize:clear" \
     && sed -i 's/protected \$proxies;/protected \$proxies = "*";/g' app/Http/Middleware/TrustProxies.php \
-    && echo "MAILTO=\"\"\n* * * * * www-data /usr/bin/php /var/www/html/artisan schedule:run" > /etc/cron.d/laravel \
+    && ln -sf /usr/local/bin/php /usr/bin/php \
+    && echo "MAILTO=\"\"\n* * * * * www-data /usr/local/bin/php /var/www/html/artisan schedule:run" > /etc/cron.d/laravel \
     && chmod 0644 /etc/cron.d/laravel \
     && cp .fly/nginx-websockets.conf /etc/nginx/conf.d/websockets.conf \
     && cp .fly/nginx-probe-shield.conf /etc/nginx/conf.d/probe-shield.conf \
