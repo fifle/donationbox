@@ -124,9 +124,20 @@ class RedirectController extends Controller
                 return Redirect::to($url);
 
             // Coop one-time payment — EE only bank
+            // New internet bank URL format (old /newpmt link stopped working after Coop's ibank upgrade):
+            // bname = payee name, bacc = payee account, amt = amount, cur = currency, desc = description, lang = ibank language
             case 'coop':
                 $bankname = "Coop Pank";
-                $url = sprintf("https://i.cooppank.ee/newpmt?SaajaNimi=%s&SaajaKonto=%s&MaksePohjus=%s%s&MuutMakseSumma=%s", $payee, $iban, $detail, $ik, $amount);
+                $coopLangs = ['ee' => 'ee', 'en' => 'en', 'ru' => 'ru'];
+                $coopLang = $coopLangs[$request->session()->get('locale')] ?? 'ee';
+                $url = sprintf(
+                    "https://i.cooppank.ee/i/payments/new?bname=%s&bacc=%s&amt=%s&cur=EUR&desc=%s&lang=%s",
+                    rawurlencode($payee),
+                    rawurlencode($iban),
+                    rawurlencode($amount),
+                    rawurlencode(rtrim($detail . $ik)),
+                    $coopLang
+                );
                 return Redirect::to($url);
 
             // Coop standing payment — EE only bank
